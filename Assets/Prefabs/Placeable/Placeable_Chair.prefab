@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8607944281932643591
+--- !u!1 &6687055942871566689
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1778503834011940512}
-  - component: {fileID: 3648060962982894664}
-  - component: {fileID: 8488208502072721926}
-  - component: {fileID: 4019522331673599534}
-  - component: {fileID: 2899710936797965666}
+  - component: {fileID: 8987057357527107057}
+  - component: {fileID: 3314981126063924261}
+  - component: {fileID: 8585272889707667052}
+  - component: {fileID: 9050388032364705644}
+  - component: {fileID: 1539234630903234798}
   m_Layer: 0
-  m_Name: Table
+  m_Name: Placeable_Chair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1778503834011940512
+--- !u!4 &8987057357527107057
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8607944281932643591}
+  m_GameObject: {fileID: 6687055942871566689}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.18, y: 0.933, z: -3.61}
+  m_LocalPosition: {x: 1.18, y: -0.459, z: -3.6099997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3648060962982894664
+--- !u!33 &3314981126063924261
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8607944281932643591}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &8488208502072721926
+  m_GameObject: {fileID: 6687055942871566689}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &8585272889707667052
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8607944281932643591}
+  m_GameObject: {fileID: 6687055942871566689}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -85,13 +85,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4019522331673599534
-BoxCollider:
+--- !u!136 &9050388032364705644
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8607944281932643591}
+  m_GameObject: {fileID: 6687055942871566689}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -103,21 +103,21 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2899710936797965666
+  serializedVersion: 2
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &1539234630903234798
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8607944281932643591}
+  m_GameObject: {fileID: 6687055942871566689}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3c5fadcea8e46942896e2a160835e68, type: 3}
+  m_Script: {fileID: 11500000, guid: 304f65a922a1c7e419427ba953ffe214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootableSO: {fileID: 11400000, guid: 505f44f28ec30be44828ef4f711ffd60, type: 2}
-  placeablePrefab: {fileID: 2350306671234011157, guid: 2f4b06969d53f434aa6b152cc4776240, type: 3}
-  deadMaterial: {fileID: 2100000, guid: bf4f432e7bb0ac6408dcc8589b23cf3b, type: 2}
+  placeableSO: {fileID: 11400000, guid: 41b976bac237e8945a8910c406a257ad, type: 2}
