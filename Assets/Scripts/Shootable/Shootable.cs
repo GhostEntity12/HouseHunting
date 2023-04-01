@@ -30,6 +30,13 @@ public abstract class Shootable : MonoBehaviour
             Die();
     }
 
+    private void RotateRandomDirection()
+    {
+        int randomAngle = Random.Range(45, 135);
+        int randomDirection = Random.Range(0, 2);
+        transform.Rotate(0, randomDirection == 0 ? randomAngle : -randomAngle, 0);
+    }
+
     private void Die()
     {
         isDead = true;

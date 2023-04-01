@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 8488208502072721926}
   - component: {fileID: 4019522331673599534}
   - component: {fileID: 2899710936797965666}
+  - component: {fileID: 1171529578584424129}
+  - component: {fileID: 736955873112452282}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -121,3 +123,39 @@ MonoBehaviour:
   shootableSO: {fileID: 11400000, guid: 505f44f28ec30be44828ef4f711ffd60, type: 2}
   placeablePrefab: {fileID: 2350306671234011157, guid: 2f4b06969d53f434aa6b152cc4776240, type: 3}
   deadMaterial: {fileID: 2100000, guid: bf4f432e7bb0ac6408dcc8589b23cf3b, type: 2}
+--- !u!114 &1171529578584424129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8607944281932643591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07fbf68acf72d3d4385926a6f0451aa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wanderRadius: 5
+  wanderTimer: 5
+--- !u!195 &736955873112452282
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8607944281932643591}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
