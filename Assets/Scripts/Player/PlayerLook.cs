@@ -3,8 +3,8 @@ using UnityEngine;
 public class PlayerLook : MonoBehaviour
 {
     [SerializeField] private new Camera camera;
-    [SerializeField] private float xSensitivity = 30f;
-    [SerializeField] private float ySensitivity = 30f;
+    [SerializeField] private float xSensitivity = 20f;
+    [SerializeField] private float ySensitivity = 20f;
     private float xRotation = 0f;
 
     public void Look(Vector2 input)
