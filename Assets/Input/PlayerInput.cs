@@ -24,7 +24,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     ""name"": ""PlayerInput"",
     ""maps"": [
         {
-            ""name"": ""Player"",
+            ""name"": ""Forest"",
             ""id"": ""88fbae35-2339-47e1-bf2e-670c5074a3d0"",
             ""actions"": [
                 {
@@ -154,16 +154,133 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""House"",
+            ""id"": ""e2eb5588-af7f-430e-a97a-0efb99db963e"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""bbac8a3a-7485-46d2-8269-1c1ae3328873"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""4acd3443-5c22-41f4-b310-457c0f2f7bc5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""1b52ccde-94dc-4f4c-bfcd-951059b9f6fc"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""23c829c8-ea79-4625-8a71-32aafcc69673"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""01d590b5-3dfb-454f-a378-fe342e31a1b8"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""cecfc51d-a5a7-4dd6-a6df-7127505060ff"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""b773c027-bec8-43d8-9bb2-532daa1343fd"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""95a1acac-6f66-4f95-bceb-5dd270c2b026"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40d42b41-163b-4085-a326-8937fb016af3"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""22b841ec-5fa7-4698-b4cc-a16c48ac7c86"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // Player
-        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
-        m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
-        m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
-        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        // Forest
+        m_Forest = asset.FindActionMap("Forest", throwIfNotFound: true);
+        m_Forest_Movement = m_Forest.FindAction("Movement", throwIfNotFound: true);
+        m_Forest_Look = m_Forest.FindAction("Look", throwIfNotFound: true);
+        m_Forest_Shoot = m_Forest.FindAction("Shoot", throwIfNotFound: true);
+        m_Forest_Interact = m_Forest.FindAction("Interact", throwIfNotFound: true);
+        // House
+        m_House = asset.FindActionMap("House", throwIfNotFound: true);
+        m_House_Movement = m_House.FindAction("Movement", throwIfNotFound: true);
+        m_House_Interact = m_House.FindAction("Interact", throwIfNotFound: true);
+        m_House_Look = m_House.FindAction("Look", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -220,44 +337,44 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Player
-    private readonly InputActionMap m_Player;
-    private IPlayerActions m_PlayerActionsCallbackInterface;
-    private readonly InputAction m_Player_Movement;
-    private readonly InputAction m_Player_Look;
-    private readonly InputAction m_Player_Shoot;
-    private readonly InputAction m_Player_Interact;
-    public struct PlayerActions
+    // Forest
+    private readonly InputActionMap m_Forest;
+    private IForestActions m_ForestActionsCallbackInterface;
+    private readonly InputAction m_Forest_Movement;
+    private readonly InputAction m_Forest_Look;
+    private readonly InputAction m_Forest_Shoot;
+    private readonly InputAction m_Forest_Interact;
+    public struct ForestActions
     {
         private @PlayerInput m_Wrapper;
-        public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_Player_Movement;
-        public InputAction @Look => m_Wrapper.m_Player_Look;
-        public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
-        public InputAction @Interact => m_Wrapper.m_Player_Interact;
-        public InputActionMap Get() { return m_Wrapper.m_Player; }
+        public ForestActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_Forest_Movement;
+        public InputAction @Look => m_Wrapper.m_Forest_Look;
+        public InputAction @Shoot => m_Wrapper.m_Forest_Shoot;
+        public InputAction @Interact => m_Wrapper.m_Forest_Interact;
+        public InputActionMap Get() { return m_Wrapper.m_Forest; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
-        public void SetCallbacks(IPlayerActions instance)
+        public static implicit operator InputActionMap(ForestActions set) { return set.Get(); }
+        public void SetCallbacks(IForestActions instance)
         {
-            if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
+            if (m_Wrapper.m_ForestActionsCallbackInterface != null)
             {
-                @Movement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
-                @Movement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
-                @Movement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
-                @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
-                @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
-                @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
-                @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
-                @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
-                @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Movement.started -= m_Wrapper.m_ForestActionsCallbackInterface.OnMovement;
+                @Movement.performed -= m_Wrapper.m_ForestActionsCallbackInterface.OnMovement;
+                @Movement.canceled -= m_Wrapper.m_ForestActionsCallbackInterface.OnMovement;
+                @Look.started -= m_Wrapper.m_ForestActionsCallbackInterface.OnLook;
+                @Look.performed -= m_Wrapper.m_ForestActionsCallbackInterface.OnLook;
+                @Look.canceled -= m_Wrapper.m_ForestActionsCallbackInterface.OnLook;
+                @Shoot.started -= m_Wrapper.m_ForestActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_ForestActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_ForestActionsCallbackInterface.OnShoot;
+                @Interact.started -= m_Wrapper.m_ForestActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_ForestActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_ForestActionsCallbackInterface.OnInteract;
             }
-            m_Wrapper.m_PlayerActionsCallbackInterface = instance;
+            m_Wrapper.m_ForestActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Movement.started += instance.OnMovement;
@@ -275,12 +392,67 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
             }
         }
     }
-    public PlayerActions @Player => new PlayerActions(this);
-    public interface IPlayerActions
+    public ForestActions @Forest => new ForestActions(this);
+
+    // House
+    private readonly InputActionMap m_House;
+    private IHouseActions m_HouseActionsCallbackInterface;
+    private readonly InputAction m_House_Movement;
+    private readonly InputAction m_House_Interact;
+    private readonly InputAction m_House_Look;
+    public struct HouseActions
+    {
+        private @PlayerInput m_Wrapper;
+        public HouseActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_House_Movement;
+        public InputAction @Interact => m_Wrapper.m_House_Interact;
+        public InputAction @Look => m_Wrapper.m_House_Look;
+        public InputActionMap Get() { return m_Wrapper.m_House; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(HouseActions set) { return set.Get(); }
+        public void SetCallbacks(IHouseActions instance)
+        {
+            if (m_Wrapper.m_HouseActionsCallbackInterface != null)
+            {
+                @Movement.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnMovement;
+                @Movement.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnMovement;
+                @Movement.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnMovement;
+                @Interact.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnInteract;
+                @Look.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnLook;
+                @Look.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnLook;
+                @Look.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnLook;
+            }
+            m_Wrapper.m_HouseActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
+                @Movement.canceled += instance.OnMovement;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+                @Look.started += instance.OnLook;
+                @Look.performed += instance.OnLook;
+                @Look.canceled += instance.OnLook;
+            }
+        }
+    }
+    public HouseActions @House => new HouseActions(this);
+    public interface IForestActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+    }
+    public interface IHouseActions
+    {
+        void OnMovement(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
     }
 }

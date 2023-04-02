@@ -7,6 +7,8 @@ public class Game : MonoBehaviour
 
     public static Game Instance { get; private set; }
 
+    public Inventory Inventory { get => inventory; }
+
     private Game()
     {
 
@@ -23,10 +25,10 @@ public class Game : MonoBehaviour
         Cursor.visible = false;
         inventory = new Inventory();
 
+        //https://stackoverflow.com/questions/32306704/how-to-pass-data-and-references-between-scenes-in-unity
         DontDestroyOnLoad(gameObject);
     }
 
-    //https://stackoverflow.com/questions/32306704/how-to-pass-data-and-references-between-scenes-in-unity
     public void AddItemToInventory(Placeable furniture)
     {
         inventory.AddItem(furniture);
