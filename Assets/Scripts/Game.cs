@@ -21,8 +21,7 @@ public class Game : MonoBehaviour
         else
             Instance = this;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        HideCursor();
         inventory = new Inventory();
 
         //https://stackoverflow.com/questions/32306704/how-to-pass-data-and-references-between-scenes-in-unity
@@ -33,5 +32,17 @@ public class Game : MonoBehaviour
     {
         inventory.AddItem(furniture);
         Debug.Log(inventory);
+    }
+
+    public void HideCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void ShowCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

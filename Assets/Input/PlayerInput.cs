@@ -185,6 +185,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Decorate"",
+                    ""type"": ""Button"",
+                    ""id"": ""7e9746d0-f0cf-4e6c-9be9-4b73937d77a3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -264,6 +273,45 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""139e4998-57d7-4c49-9cfb-119bff9f3499"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Decorate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Decorate"",
+            ""id"": ""31ef6493-b5d7-4519-a93e-3d786b0e6a9b"",
+            ""actions"": [
+                {
+                    ""name"": ""ExitToHouse"",
+                    ""type"": ""Button"",
+                    ""id"": ""81912909-1cc6-4ea0-a8ad-c9c82b2b9649"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8851e204-249b-478f-8f9f-c73f4784d1d6"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ExitToHouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -281,6 +329,10 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_House_Movement = m_House.FindAction("Movement", throwIfNotFound: true);
         m_House_Interact = m_House.FindAction("Interact", throwIfNotFound: true);
         m_House_Look = m_House.FindAction("Look", throwIfNotFound: true);
+        m_House_Decorate = m_House.FindAction("Decorate", throwIfNotFound: true);
+        // Decorate
+        m_Decorate = asset.FindActionMap("Decorate", throwIfNotFound: true);
+        m_Decorate_ExitToHouse = m_Decorate.FindAction("ExitToHouse", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -400,6 +452,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_House_Movement;
     private readonly InputAction m_House_Interact;
     private readonly InputAction m_House_Look;
+    private readonly InputAction m_House_Decorate;
     public struct HouseActions
     {
         private @PlayerInput m_Wrapper;
@@ -407,6 +460,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_House_Movement;
         public InputAction @Interact => m_Wrapper.m_House_Interact;
         public InputAction @Look => m_Wrapper.m_House_Look;
+        public InputAction @Decorate => m_Wrapper.m_House_Decorate;
         public InputActionMap Get() { return m_Wrapper.m_House; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -425,6 +479,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Look.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnLook;
+                @Decorate.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnDecorate;
+                @Decorate.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnDecorate;
+                @Decorate.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnDecorate;
             }
             m_Wrapper.m_HouseActionsCallbackInterface = instance;
             if (instance != null)
@@ -438,10 +495,46 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
+                @Decorate.started += instance.OnDecorate;
+                @Decorate.performed += instance.OnDecorate;
+                @Decorate.canceled += instance.OnDecorate;
             }
         }
     }
     public HouseActions @House => new HouseActions(this);
+
+    // Decorate
+    private readonly InputActionMap m_Decorate;
+    private IDecorateActions m_DecorateActionsCallbackInterface;
+    private readonly InputAction m_Decorate_ExitToHouse;
+    public struct DecorateActions
+    {
+        private @PlayerInput m_Wrapper;
+        public DecorateActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ExitToHouse => m_Wrapper.m_Decorate_ExitToHouse;
+        public InputActionMap Get() { return m_Wrapper.m_Decorate; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DecorateActions set) { return set.Get(); }
+        public void SetCallbacks(IDecorateActions instance)
+        {
+            if (m_Wrapper.m_DecorateActionsCallbackInterface != null)
+            {
+                @ExitToHouse.started -= m_Wrapper.m_DecorateActionsCallbackInterface.OnExitToHouse;
+                @ExitToHouse.performed -= m_Wrapper.m_DecorateActionsCallbackInterface.OnExitToHouse;
+                @ExitToHouse.canceled -= m_Wrapper.m_DecorateActionsCallbackInterface.OnExitToHouse;
+            }
+            m_Wrapper.m_DecorateActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ExitToHouse.started += instance.OnExitToHouse;
+                @ExitToHouse.performed += instance.OnExitToHouse;
+                @ExitToHouse.canceled += instance.OnExitToHouse;
+            }
+        }
+    }
+    public DecorateActions @Decorate => new DecorateActions(this);
     public interface IForestActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -454,5 +547,10 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnDecorate(InputAction.CallbackContext context);
+    }
+    public interface IDecorateActions
+    {
+        void OnExitToHouse(InputAction.CallbackContext context);
     }
 }

@@ -19,6 +19,7 @@ public class HouseInputManager : MonoBehaviour
         camera = GetComponentInChildren<Camera>();
 
         playerInput.House.Interact.performed += ctx => Interact();
+        playerInput.House.Decorate.performed += ctx => SceneManager.LoadScene("Decorate");
 
         //forest and house will have access to the same inventory
         Debug.Log(Game.Instance.Inventory);

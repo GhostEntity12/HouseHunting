@@ -163,6 +163,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Decorate",
+                    "type": "Button",
+                    "id": "7e9746d0-f0cf-4e6c-9be9-4b73937d77a3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -240,6 +249,45 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "139e4998-57d7-4c49-9cfb-119bff9f3499",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Decorate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Decorate",
+            "id": "31ef6493-b5d7-4519-a93e-3d786b0e6a9b",
+            "actions": [
+                {
+                    "name": "ExitToHouse",
+                    "type": "Button",
+                    "id": "81912909-1cc6-4ea0-a8ad-c9c82b2b9649",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8851e204-249b-478f-8f9f-c73f4784d1d6",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ExitToHouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -16,7 +16,5 @@ public class PlayerMovement : MonoBehaviour
         moveDirection.x = input.x;
         moveDirection.z = input.y;
         controller.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime);
-        if (!controller.isGrounded)
-            controller.Move(Vector3.down * 5 * Time.deltaTime);
     }
 }
