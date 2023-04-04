@@ -7,11 +7,14 @@ public class DecorateInputManager : MonoBehaviour
 
     void Awake()
     {
-        Game.Instance.ShowCursor();
-
         playerInput = new PlayerInput();
 
         playerInput.Decorate.ExitToHouse.performed += ctx => SceneManager.LoadScene("House");
+    }
+
+    void Start()
+    {
+        Game.Instance.ShowCursor();
     }
 
     private void OnEnable()

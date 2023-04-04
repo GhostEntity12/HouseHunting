@@ -4,6 +4,8 @@ public class Inventory
 {
     private List<(Placeable furniture, int quantity)> items;
 
+    public List<(Placeable furniture, int quantity)> Items => items;
+
     public Inventory()
     {
         items = new List<(Placeable furniture, int quantity)>();
