@@ -26,6 +26,24 @@ public class Inventory
         }
     }
 
+    public void RemoveItem(Placeable furniture)
+    {
+        Placeable item = items.Find(x => x.furniture == furniture).furniture;
+
+        if (item != null)
+        {
+            int index = items.FindIndex(x => x.furniture == furniture);
+            if (items[index].quantity > 1)
+            {
+                items[index] = (item, items[index].quantity - 1);
+            }
+            else
+            {
+                items.RemoveAt(index);
+            }
+        }
+    }
+
     public override string ToString()
     {
         string result = "";

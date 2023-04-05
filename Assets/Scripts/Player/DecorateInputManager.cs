@@ -14,7 +14,7 @@ public class DecorateInputManager : MonoBehaviour
 
     void Start()
     {
-        Game.Instance.ShowCursor();
+        GameManager.Instance.ShowCursor();
     }
 
     private void OnEnable()
@@ -29,6 +29,6 @@ public class DecorateInputManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        Game.Instance.HideCursor();
+        GameManager.Instance.HideCursor();
     }
 }

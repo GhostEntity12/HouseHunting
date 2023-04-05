@@ -19,10 +19,10 @@ public class InventoryUIManager : MonoBehaviour
 
     void Start()
     {
-        foreach (var item in Game.Instance.Inventory.Items)
+        foreach (var item in GameManager.Instance.Inventory.Items)
         {
             InventoryItemsUI inventoryItem = Instantiate(inventoryItemsUIPrefab, transform);
-            inventoryItem.SetPlaceable(item.furniture.PlaceableSO, item.quantity);
+            inventoryItem.SetPlaceablePrefab(item.furniture, item.quantity);
         }
     }
 

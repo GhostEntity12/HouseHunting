@@ -22,7 +22,7 @@ public class HouseInputManager : MonoBehaviour
         playerInput.House.Decorate.performed += ctx => SceneManager.LoadScene("Decorate");
 
         //forest and house will have access to the same inventory
-        Debug.Log(Game.Instance.Inventory);
+        Debug.Log(GameManager.Instance.Inventory);
     }
 
     // Update is called once per frame

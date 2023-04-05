@@ -24,7 +24,7 @@ public class ForestInputManager : MonoBehaviour
         playerInput.Forest.Interact.performed += ctx => Interact();
 
         //forest and house will have access to the same inventory
-        Debug.Log(Game.Instance.Inventory);
+        Debug.Log(GameManager.Instance.Inventory);
     }
 
     // Update is called once per frame
@@ -58,7 +58,7 @@ public class ForestInputManager : MonoBehaviour
             {
                 if (shootable.IsDead)
                 {
-                    Game.Instance.AddItemToInventory(shootable.Placeable);
+                    GameManager.Instance.Inventory.AddItem(shootable.Placeable);
                     Destroy(shootable.gameObject);
                 }
             }
