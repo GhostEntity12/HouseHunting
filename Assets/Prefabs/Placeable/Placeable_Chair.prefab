@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6314065542107406760}
   - component: {fileID: 5605430149568423139}
   - component: {fileID: 8769644628658434604}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8987057357527107057}
   - component: {fileID: 1539234630903234798}
-  m_Layer: 0
+  - component: {fileID: 187715261468328272}
+  m_Layer: 6
   m_Name: Placeable_Chair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,3 +154,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placeableSO: {fileID: 11400000, guid: 41b976bac237e8945a8910c406a257ad, type: 2}
+--- !u!136 &187715261468328272
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6687055942871566689}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.50316393
+  m_Height: 2.211717
+  m_Direction: 1
+  m_Center: {x: -0.0031638145, y: 1.1521913, z: 0}

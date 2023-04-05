@@ -299,6 +299,24 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""68631c52-b9ad-4bc0-8217-da1ad3ade2ed"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseMove"",
+                    ""type"": ""Value"",
+                    ""id"": ""d1f17d3b-3d07-4fc5-9693-9babf1d39fd7"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -310,6 +328,28 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ExitToHouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d90880f-051e-4f93-ab82-74055d02211c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e8b35563-b439-40b8-894d-5b34997c7b3a"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -333,6 +373,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         // Decorate
         m_Decorate = asset.FindActionMap("Decorate", throwIfNotFound: true);
         m_Decorate_ExitToHouse = m_Decorate.FindAction("ExitToHouse", throwIfNotFound: true);
+        m_Decorate_MouseDown = m_Decorate.FindAction("MouseDown", throwIfNotFound: true);
+        m_Decorate_MouseMove = m_Decorate.FindAction("MouseMove", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -507,11 +549,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Decorate;
     private IDecorateActions m_DecorateActionsCallbackInterface;
     private readonly InputAction m_Decorate_ExitToHouse;
+    private readonly InputAction m_Decorate_MouseDown;
+    private readonly InputAction m_Decorate_MouseMove;
     public struct DecorateActions
     {
         private @PlayerInput m_Wrapper;
         public DecorateActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @ExitToHouse => m_Wrapper.m_Decorate_ExitToHouse;
+        public InputAction @MouseDown => m_Wrapper.m_Decorate_MouseDown;
+        public InputAction @MouseMove => m_Wrapper.m_Decorate_MouseMove;
         public InputActionMap Get() { return m_Wrapper.m_Decorate; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -524,6 +570,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @ExitToHouse.started -= m_Wrapper.m_DecorateActionsCallbackInterface.OnExitToHouse;
                 @ExitToHouse.performed -= m_Wrapper.m_DecorateActionsCallbackInterface.OnExitToHouse;
                 @ExitToHouse.canceled -= m_Wrapper.m_DecorateActionsCallbackInterface.OnExitToHouse;
+                @MouseDown.started -= m_Wrapper.m_DecorateActionsCallbackInterface.OnMouseDown;
+                @MouseDown.performed -= m_Wrapper.m_DecorateActionsCallbackInterface.OnMouseDown;
+                @MouseDown.canceled -= m_Wrapper.m_DecorateActionsCallbackInterface.OnMouseDown;
+                @MouseMove.started -= m_Wrapper.m_DecorateActionsCallbackInterface.OnMouseMove;
+                @MouseMove.performed -= m_Wrapper.m_DecorateActionsCallbackInterface.OnMouseMove;
+                @MouseMove.canceled -= m_Wrapper.m_DecorateActionsCallbackInterface.OnMouseMove;
             }
             m_Wrapper.m_DecorateActionsCallbackInterface = instance;
             if (instance != null)
@@ -531,6 +583,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @ExitToHouse.started += instance.OnExitToHouse;
                 @ExitToHouse.performed += instance.OnExitToHouse;
                 @ExitToHouse.canceled += instance.OnExitToHouse;
+                @MouseDown.started += instance.OnMouseDown;
+                @MouseDown.performed += instance.OnMouseDown;
+                @MouseDown.canceled += instance.OnMouseDown;
+                @MouseMove.started += instance.OnMouseMove;
+                @MouseMove.performed += instance.OnMouseMove;
+                @MouseMove.canceled += instance.OnMouseMove;
             }
         }
     }
@@ -552,5 +610,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     public interface IDecorateActions
     {
         void OnExitToHouse(InputAction.CallbackContext context);
+        void OnMouseDown(InputAction.CallbackContext context);
+        void OnMouseMove(InputAction.CallbackContext context);
     }
 }
