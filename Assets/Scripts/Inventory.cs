@@ -1,19 +1,21 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Inventory
 {
-    private List<(Placeable furniture, int quantity)> items;
+    private List<(PlaceableSO furniture, int quantity)> items;
 
-    public List<(Placeable furniture, int quantity)> Items => items;
+    public List<(PlaceableSO furniture, int quantity)> Items => items;
 
     public Inventory()
     {
-        items = new List<(Placeable furniture, int quantity)>();
+        items = new List<(PlaceableSO furniture, int quantity)>();
     }
 
-    public void AddItem(Placeable furniture)
+    public void AddItem(PlaceableSO furniture)
     {
-        Placeable item = items.Find(x => x.furniture == furniture).furniture;
+        Debug.Log($"Adding {furniture.name} to inventory");
+        PlaceableSO item = items.Find(x => x.furniture == furniture).furniture;
 
         if (item != null)
         {
@@ -26,9 +28,10 @@ public class Inventory
         }
     }
 
-    public void RemoveItem(Placeable furniture)
+    public void RemoveItem(PlaceableSO furniture)
     {
-        Placeable item = items.Find(x => x.furniture == furniture).furniture;
+        Debug.Log($"Removing {furniture.name} from inventory");
+        PlaceableSO item = items.Find(x => x.furniture == furniture).furniture;
 
         if (item != null)
         {

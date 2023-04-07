@@ -5,4 +5,5 @@ public class PlaceableSO : ScriptableObject
 {
     public new string name;
     public Sprite thumbnail;
+    public Placeable placeablePrefab;
 }

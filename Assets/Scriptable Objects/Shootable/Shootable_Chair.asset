@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
-  m_Name: Placeable_Chair
+  m_Name: Shootable_Chair
   m_EditorClassIdentifier: 
   name: Chair
   maxHealth: 50

@@ -120,8 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fbf68acf72d3d4385926a6f0451aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderRadius: 5
-  wanderTimer: 5
+  agent: {fileID: 0}
+  range: 15
 --- !u!114 &196274095699371804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootableSO: {fileID: 11400000, guid: 390014d96b7a124489f5476ed23af37c, type: 2}
-  placeablePrefab: {fileID: 1539234630903234798, guid: 3a32fa9bd96e69a45a45bce94bf15c16, type: 3}
+  placeableSO: {fileID: 11400000, guid: 41b976bac237e8945a8910c406a257ad, type: 2}
   deadMaterial: {fileID: 2100000, guid: bf4f432e7bb0ac6408dcc8589b23cf3b, type: 2}
 --- !u!195 &6779599493470380603
 NavMeshAgent:

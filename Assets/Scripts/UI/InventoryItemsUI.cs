@@ -7,12 +7,12 @@ public class InventoryItemsUI : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private TextMeshProUGUI quantityText;
 
-    private Placeable placeablePrefab;
+    private PlaceableSO placeableSO;
 
-    public void SetPlaceablePrefab(Placeable placeablePrefab, int quantity)
+    public void SetPlaceablePrefab(PlaceableSO placebleSO, int quantity)
     {
-        this.placeablePrefab = placeablePrefab;
-        image.sprite = placeablePrefab.PlaceableSO.thumbnail;
+        this.placeableSO = placebleSO;
+        image.sprite = placebleSO.thumbnail;
         quantityText.text = quantity.ToString();
     }
 
@@ -23,8 +23,8 @@ public class InventoryItemsUI : MonoBehaviour
 
     public void SpawnPlaceable()
     {
-        Placeable spawned = Instantiate(placeablePrefab);
-        GameManager.Instance.Inventory.RemoveItem(placeablePrefab);
+        Placeable spawned = Instantiate(placeableSO.placeablePrefab);
+        GameManager.Instance.Inventory.RemoveItem(placeableSO);
         if (int.Parse(quantityText.text) > 1)
             ChangeQuantity(int.Parse(quantityText.text) - 1);
         else

@@ -6,12 +6,21 @@ public class DecorateInputManager : MonoBehaviour
 {
     [SerializeField] private new Camera camera;
 
+    private static DecorateInputManager instance;
     private PlayerInput playerInput;
     private bool mouseDown = false;
     private Placeable selectedPlaceable = null;
 
+    public static DecorateInputManager Instance => instance;
+    public Placeable SelectedPlaceable => selectedPlaceable;
+
     void Awake()
     {
+        if (instance != null && instance != this)
+            Destroy(this);
+        else
+            instance = this;
+
         playerInput = new PlayerInput();
 
         playerInput.Decorate.ExitToHouse.performed += ctx => SceneManager.LoadScene("House");
@@ -64,29 +73,43 @@ public class DecorateInputManager : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                // If the object we hit is a placeable, ignore collisions with it
+                // If the object we hit is a placeable, ignore collisions with it, we want the ray to go through it and hit the ground
                 if (hit.transform.GetComponent<Placeable>() != null)
                 {
                     Physics.IgnoreCollision(selectedPlaceable.GetComponent<Collider>(), hit.transform.GetComponent<Collider>());
                 }
                 else
+                {
                     selectedPlaceable.transform.position = new Vector3(hit.point.x, selectedPlaceable.transform.position.y, hit.point.z);
+                    selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = selectedPlaceable.IsValidPosition ? Color.green : Color.red;
+                }
             }
         }
     }
 
-    private void SelectPlacable(Placeable placeable)
+    private void SelectPlacable(Placeable toBeSelected)
     {
-        if (placeable != null)
+        if (toBeSelected != null)
         {
             if (selectedPlaceable != null)
                 selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
-            selectedPlaceable = placeable;
-            selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
+            selectedPlaceable = toBeSelected;
+            selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
         }
-        else
+        else //If raycast didn't hit a placeable, we want to deselect the current one
         {
-            selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
+            //Check if there is already a placeable selected
+            if (selectedPlaceable == null) return;
+
+            //If position of placeable is not valid, put it back in the inventory
+            if (!selectedPlaceable.IsValidPosition)
+            {
+                GameManager.Instance.Inventory.AddItem(selectedPlaceable.PlaceableSO);
+                InventoryUIManager.Instance.RepaintInventory();
+                Destroy(selectedPlaceable.gameObject);
+            }
+            else
+                selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
             selectedPlaceable = null;
         }
     }

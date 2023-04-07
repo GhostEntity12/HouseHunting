@@ -58,7 +58,7 @@ public class ForestInputManager : MonoBehaviour
             {
                 if (shootable.IsDead)
                 {
-                    GameManager.Instance.Inventory.AddItem(shootable.Placeable);
+                    GameManager.Instance.Inventory.AddItem(shootable.PlaceableSO);
                     Destroy(shootable.gameObject);
                 }
             }

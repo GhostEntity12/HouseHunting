@@ -26,9 +26,17 @@ public class InventoryUIManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RepaintInventory()
     {
-        
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (var item in GameManager.Instance.Inventory.Items)
+        {
+            InventoryItemsUI inventoryItem = Instantiate(inventoryItemsUIPrefab, transform);
+            inventoryItem.SetPlaceablePrefab(item.furniture, item.quantity);
+        }
     }
 }
