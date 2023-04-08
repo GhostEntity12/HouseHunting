@@ -69,20 +69,13 @@ public class DecorateInputManager : MonoBehaviour
     {
         if (mouseDown && selectedPlaceable != null)
         {
-            Ray ray = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            RaycastHit hit = CastRay();
+            if (hit.transform != null)
             {
-                // If the object we hit is a placeable, ignore collisions with it, we want the ray to go through it and hit the ground
-                if (hit.transform.GetComponent<Placeable>() != null)
-                {
-                    Physics.IgnoreCollision(selectedPlaceable.GetComponent<Collider>(), hit.transform.GetComponent<Collider>());
-                }
-                else
-                {
-                    selectedPlaceable.transform.position = new Vector3(hit.point.x, selectedPlaceable.transform.position.y, hit.point.z);
-                    selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = selectedPlaceable.IsValidPosition ? Color.green : Color.red;
-                }
+                Vector3 position = new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), camera.WorldToScreenPoint(selectedPlaceable.transform.position).z);
+                Vector3 worldPosition = camera.ScreenToWorldPoint(position);
+                selectedPlaceable.transform.position = new Vector3(worldPosition.x, 0, worldPosition.z);
+                selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = selectedPlaceable.IsValidPosition ? Color.green : Color.red;
             }
         }
     }
@@ -95,6 +88,7 @@ public class DecorateInputManager : MonoBehaviour
                 selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
             selectedPlaceable = toBeSelected;
             selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+            selectedPlaceable.GetComponentInChildren<Canvas>().enabled = true;
         }
         else //If raycast didn't hit a placeable, we want to deselect the current one
         {
@@ -109,8 +103,24 @@ public class DecorateInputManager : MonoBehaviour
                 Destroy(selectedPlaceable.gameObject);
             }
             else
+            {
                 selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
+                selectedPlaceable.GetComponentInChildren<Canvas>().enabled = false;
+            }
             selectedPlaceable = null;
         }
+    }
+
+    private RaycastHit CastRay()
+    {
+        Vector3 screenMousePosFar = new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), camera.farClipPlane);
+        Vector3 screenMousePosNear = new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), camera.nearClipPlane);
+        Vector3 worldMousePosFar = camera.ScreenToWorldPoint(screenMousePosFar);
+        Vector3 worldMousePosNear = camera.ScreenToWorldPoint(screenMousePosNear);
+
+        RaycastHit hit;
+        Physics.Raycast(worldMousePosNear, worldMousePosFar - worldMousePosNear, out hit, int.MaxValue, 1 << LayerMask.NameToLayer("Floor"));
+
+        return hit;
     }
 }
