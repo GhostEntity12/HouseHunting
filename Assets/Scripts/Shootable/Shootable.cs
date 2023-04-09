@@ -24,15 +24,13 @@ public abstract class Shootable : MonoBehaviour
         if (isDead) return;
 
         currentHealth -= damage;
-        Debug.Log($"{shootableSO.name} took {damage} damage. Current health: {currentHealth}");
 
-        if (currentHealth <= 0)
-            Die();
+        if (currentHealth <= 0) Die();
     }
 
     private void Die()
     {
         isDead = true;
-        meshRenderer.material = deadMaterial;
+        meshRenderer.material = deadMaterial; // Here we just change the material to the dead material for testing purposes, this can be changed to whatever logic to handle death
     }
 }

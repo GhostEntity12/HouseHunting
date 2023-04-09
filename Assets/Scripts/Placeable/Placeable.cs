@@ -11,9 +11,13 @@ public class Placeable : MonoBehaviour
     {
         IsValidPosition = true;
     }
-    
     private void OnTriggerStay(Collider other) {
         if (other.gameObject.GetComponent<Placeable>() != null && DecorateInputManager.Instance.SelectedPlaceable == this)
             IsValidPosition = false;
+    }
+
+    public void RotateToAngle(float angle)
+    {
+        transform.GetComponentInChildren<MeshRenderer>().transform.rotation = Quaternion.Euler(0, angle, 0);
     }
 }

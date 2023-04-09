@@ -9,11 +9,6 @@ public class GameManager : MonoBehaviour
 
     public Inventory Inventory { get => inventory; }
 
-    private GameManager()
-    {
-
-    }
-
     void Awake()
     {
         if (Instance != null && Instance != this)

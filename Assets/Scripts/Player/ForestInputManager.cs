@@ -9,7 +9,6 @@ public class ForestInputManager : MonoBehaviour
     private PlayerLook look;
     private Gun gun;
 
-    // Start is called before the first frame update
     void Awake()
     {
         playerInput = new PlayerInput();
@@ -22,12 +21,8 @@ public class ForestInputManager : MonoBehaviour
 
         playerInput.Forest.Shoot.performed += ctx => gun.Shoot();
         playerInput.Forest.Interact.performed += ctx => Interact();
-
-        //forest and house will have access to the same inventory
-        Debug.Log(GameManager.Instance.Inventory);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         movement.Move(playerInput.Forest.Movement.ReadValue<Vector2>());
@@ -62,10 +57,9 @@ public class ForestInputManager : MonoBehaviour
                     Destroy(shootable.gameObject);
                 }
             }
+            //if we are interacting with a door, load the house scene
             if (hit.transform.CompareTag("Door"))
-            {
                 SceneManager.LoadScene("House");
-            }
         }
     }
 }

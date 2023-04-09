@@ -5,7 +5,7 @@ public class RotationWheel : MonoBehaviour
 {
 
     private float radius = 0f;
-    private Transform parent;
+    private Transform parentPlaceableTransform;
 
 
     private void OnEnable()
@@ -24,7 +24,8 @@ public class RotationWheel : MonoBehaviour
         trigger.triggers.Add(dragEntry);
         trigger.triggers.Add(dragEndEntry);
 
-        parent = transform.GetComponentInParent<Placeable>().transform;
+        parentPlaceableTransform = transform.GetComponentInParent<Placeable>().transform;
+
         //get distance from transform to parent to determine the radius of the wheel
         radius = Vector2.Distance(new Vector2(transform.localPosition.x, transform.localPosition.z), new Vector2());
     }
@@ -37,9 +38,19 @@ public class RotationWheel : MonoBehaviour
 
         Vector3 mousePos = new Vector3(rayPoint.x, 0.1f, rayPoint.z);
 
-        float angle = GetAngle(mousePos - parent.position);
-        Vector3 normalized = Vector3.Normalize(mousePos - parent.position);
+        //calculate the angle between the fixed point and the mouse position
+        float angle = GetAngle(mousePos - parentPlaceableTransform.position);
+
+        //normalize the vector between mouse position and parent placeable to get a fixed radius of one unit for the wheel
+        Vector3 normalized = Vector3.Normalize(mousePos - parentPlaceableTransform.position);
+
+        //fix the anchor point to be on the circumference of the wheel with the specified radius
         transform.localPosition = new Vector3(normalized.x * radius, 0.1f, normalized.z * radius);
+
+        //convert the angle to between -180 and 180
+        angle = angle > 180 ? angle - 360 : angle;
+        //pass the angle as a negative value to the placeable so that it rotates in the correct direction
+        parentPlaceableTransform.GetComponent<Placeable>().RotateToAngle(-angle);
     }
 
     public void OnDragEnd()
@@ -47,6 +58,11 @@ public class RotationWheel : MonoBehaviour
         transform.localPosition = GetOriginalFixedPoint();
     }
 
+    /// <summary>
+    ///  Gets the angle between the fixed point and the mouse position
+    /// </summary>
+    /// <param name="to">A point on the floor</param>
+    /// <returns>A float that represents the angle ranging from 0 - 360</returns>
     private float GetAngle(Vector3 to)
     {
         float fixedX = GetOriginalFixedPoint().x;
@@ -65,6 +81,10 @@ public class RotationWheel : MonoBehaviour
         return angleDegrees;
     }
 
+    /// <summary>
+    /// Gets the fixed point of the anchor, i.e., the point that is x units in front of the placeable, where x is the radius of the wheel
+    /// </summary>
+    /// <returns>A Vector3 that contains the point of the anchor</returns>
     private Vector3 GetOriginalFixedPoint()
     {
         return new Vector3(0f, 0.1f, -radius);

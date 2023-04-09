@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryUIManager : MonoBehaviour
@@ -28,11 +26,13 @@ public class InventoryUIManager : MonoBehaviour
 
     public void RepaintInventory()
     {
+        //remove all items UI from the inventory
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
 
+        //add all items UI from the inventory
         foreach (var item in GameManager.Instance.Inventory.Items)
         {
             InventoryItemsUI inventoryItem = Instantiate(inventoryItemsUIPrefab, transform);

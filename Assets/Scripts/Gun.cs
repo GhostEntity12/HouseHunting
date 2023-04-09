@@ -3,6 +3,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     [SerializeField] private Transform gunPoint;
+    [SerializeField] private int damage = 10;
 
     public void Shoot()
     {
@@ -10,7 +11,7 @@ public class Gun : MonoBehaviour
         {
             Shootable shootableTarget = hit.transform.GetComponent<Shootable>();
             if (shootableTarget != null)
-                shootableTarget.TakeDamage(10);
+                shootableTarget.TakeDamage(damage);
         }
     }
 }

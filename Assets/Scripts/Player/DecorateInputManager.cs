@@ -1,16 +1,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DecorateInputManager : MonoBehaviour
 {
     [SerializeField] private new Camera camera;
+    [SerializeField] private ScrollRect inventoryScrollView;
 
     private static DecorateInputManager instance;
     private PlayerInput playerInput;
     private Placeable selectedPlaceable = null;
     private bool isDragging = false;
-    private Vector3 placeableInitialPosition = Vector3.zero;
+    private (Vector3 position, float angle) placeableInitialState = (Vector3.zero, 0f);
 
     public static DecorateInputManager Instance => instance;
     public Placeable SelectedPlaceable => selectedPlaceable;
@@ -85,44 +87,61 @@ public class DecorateInputManager : MonoBehaviour
     {
         if (isDragging)
         {
-            RaycastHit hitFloor = CastRayFromMouse();
+            RaycastHit hitFloor = CastRayFromMouseToFloor();
             if (hitFloor.transform != null && selectedPlaceable != null)
             {
                 Vector3 position = new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), camera.WorldToScreenPoint(selectedPlaceable.transform.position).z);
                 Vector3 worldPosition = camera.ScreenToWorldPoint(position);
                 selectedPlaceable.transform.position = new Vector3(worldPosition.x, 0, worldPosition.z);
-                if (selectedPlaceable.IsValidPosition)
-                {
-                    selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
-                    DecorateButtonGroupUIManager.Instance.ShowOkButton();
-                }
-                else
-                {
-                    selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
-                    DecorateButtonGroupUIManager.Instance.HideOkButton();
-                }
+            }
+        }
+        if (selectedPlaceable != null)
+        {
+            if (selectedPlaceable.IsValidPosition)
+            {
+                DecorateButtonGroupUIManager.Instance.ShowOkButton();
+                selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+            }
+            else
+            {
+                DecorateButtonGroupUIManager.Instance.HideOkButton();
+                selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
             }
         }
     }
 
-    private void SelectPlacable(Placeable toBeSelected)
+    public void SelectPlacable(Placeable toBeSelected)
     {
-        if (selectedPlaceable != null)
-            selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
+        //deselct previous placeable
+        DeselectPlaceable();
+
+        //set new placeable to green
         selectedPlaceable = toBeSelected;
         selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+
+        //enable button group
         DecorateButtonGroupUIManager.Instance.ShowButtonGroup();
-        placeableInitialPosition = selectedPlaceable.transform.position;
+        
+        //save initial state
+        placeableInitialState.position = selectedPlaceable.transform.position;
+        placeableInitialState.angle = selectedPlaceable.transform.rotation.y;
+
+        //enable rotation wheel
         selectedPlaceable.GetComponentInChildren<Canvas>().enabled = true;
+
+        //hide inventory scroll view
+        inventoryScrollView.gameObject.SetActive(false);
     }
 
     public void DeselectPlaceable(bool savePosition = true)
     {
         if (selectedPlaceable == null) return;
 
+        //if do not save position, put it back to initial state
         if (!savePosition)
         {
-            selectedPlaceable.transform.position = placeableInitialPosition;
+            selectedPlaceable.transform.position = placeableInitialState.position;
+            selectedPlaceable.RotateToAngle(placeableInitialState.angle);
             selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
         }
         else
@@ -139,12 +158,15 @@ public class DecorateInputManager : MonoBehaviour
                 selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
             }
         }
+        
+        //disable rotation wheel
         selectedPlaceable.GetComponentInChildren<Canvas>().enabled = false;
         selectedPlaceable = null;
-        // placeableInitialPosition = Vector3.zero;
+
+        inventoryScrollView.gameObject.SetActive(true);
     }
 
-    private RaycastHit CastRayFromMouse()
+    private RaycastHit CastRayFromMouseToFloor()
     {
         Vector3 screenMousePosFar = new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), camera.farClipPlane);
         Vector3 screenMousePosNear = new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), camera.nearClipPlane);

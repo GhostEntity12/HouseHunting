@@ -8,8 +8,6 @@ public class WanderAI : MonoBehaviour
 
     private Shootable shootable;
 
-    //instead of centrePoint you can set it as the transform of the agent if you don't care about a specific area
-
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();

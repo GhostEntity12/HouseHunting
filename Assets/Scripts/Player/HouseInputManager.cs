@@ -20,9 +20,6 @@ public class HouseInputManager : MonoBehaviour
 
         playerInput.House.Interact.performed += ctx => Interact();
         playerInput.House.Decorate.performed += ctx => SceneManager.LoadScene("Decorate");
-
-        //forest and house will have access to the same inventory
-        Debug.Log(GameManager.Instance.Inventory);
     }
 
     // Update is called once per frame
@@ -51,10 +48,9 @@ public class HouseInputManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, 3f))
         {
+            //if we are interacting with a door, load the forest scene
             if (hit.transform.CompareTag("Door"))
-            {
                 SceneManager.LoadScene("Forest");
-            }
         }
     }
 }
