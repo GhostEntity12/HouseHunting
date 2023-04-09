@@ -7,15 +7,13 @@ public class Placeable : MonoBehaviour
     public bool IsValidPosition { get; private set; } = true;
     public PlaceableSO PlaceableSO => placeableSO;
 
-    private void OnTriggerEnter(Collider other) 
-    {
-        if (other.gameObject.GetComponent<Placeable>() != null && DecorateInputManager.Instance.SelectedPlaceable == this)
-            IsValidPosition = false;
-    }
-
     private void OnTriggerExit(Collider other) 
     {
+        IsValidPosition = true;
+    }
+    
+    private void OnTriggerStay(Collider other) {
         if (other.gameObject.GetComponent<Placeable>() != null && DecorateInputManager.Instance.SelectedPlaceable == this)
-            IsValidPosition = true;
+            IsValidPosition = false;
     }
 }

@@ -8,8 +8,9 @@ public class DecorateInputManager : MonoBehaviour
 
     private static DecorateInputManager instance;
     private PlayerInput playerInput;
-    private bool mouseDown = false;
     private Placeable selectedPlaceable = null;
+    private bool isDragging = false;
+    private Vector3 placeableInitialPosition = Vector3.zero;
 
     public static DecorateInputManager Instance => instance;
     public Placeable SelectedPlaceable => selectedPlaceable;
@@ -24,8 +25,11 @@ public class DecorateInputManager : MonoBehaviour
         playerInput = new PlayerInput();
 
         playerInput.Decorate.ExitToHouse.performed += ctx => SceneManager.LoadScene("House");
-        playerInput.Decorate.MouseDown.started += ctx => MousePressed();
-        playerInput.Decorate.MouseDown.canceled += ctx => MouseUp();
+
+        playerInput.Decorate.MouseDown.started += ctx => MouseDownStarted();
+        playerInput.Decorate.MouseDown.canceled += ctx => MouseDownCanceled();
+
+        playerInput.Decorate.MouseDown.performed += ctx => MouseDownPerformed();
     }
 
     void Start()
@@ -48,53 +52,81 @@ public class DecorateInputManager : MonoBehaviour
         GameManager.Instance.HideCursor();
     }
 
-    private void MousePressed()
+    private void MouseDownStarted()
     {
-        mouseDown = true;
+        RaycastHit hit;
+        Physics.Raycast(camera.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit);
+        if (hit.transform != null && hit.transform.GetComponent<Placeable>() == selectedPlaceable)
+        {
+            isDragging = true;
+        }
+    }
+
+    private void MouseDownCanceled()
+    {
+        isDragging = false;
+    }
+
+    private void MouseDownPerformed()
+    {
+        if (selectedPlaceable != null) return;
+
         Ray ray = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
             Placeable placeable = hit.transform.GetComponent<Placeable>();
-            SelectPlacable(placeable);
+            if (placeable != null)
+                SelectPlacable(placeable);
         }
-    }
-
-    private void MouseUp()
-    {
-        mouseDown = false;
     }
 
     private void Update()
     {
-        if (mouseDown && selectedPlaceable != null)
+        if (isDragging)
         {
-            RaycastHit hit = CastRay();
-            if (hit.transform != null)
+            RaycastHit hitFloor = CastRayFromMouse();
+            if (hitFloor.transform != null && selectedPlaceable != null)
             {
                 Vector3 position = new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), camera.WorldToScreenPoint(selectedPlaceable.transform.position).z);
                 Vector3 worldPosition = camera.ScreenToWorldPoint(position);
                 selectedPlaceable.transform.position = new Vector3(worldPosition.x, 0, worldPosition.z);
-                selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = selectedPlaceable.IsValidPosition ? Color.green : Color.red;
+                if (selectedPlaceable.IsValidPosition)
+                {
+                    selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+                    DecorateButtonGroupUIManager.Instance.ShowOkButton();
+                }
+                else
+                {
+                    selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
+                    DecorateButtonGroupUIManager.Instance.HideOkButton();
+                }
             }
         }
     }
 
     private void SelectPlacable(Placeable toBeSelected)
     {
-        if (toBeSelected != null)
-        {
-            if (selectedPlaceable != null)
-                selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
-            selectedPlaceable = toBeSelected;
-            selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
-            selectedPlaceable.GetComponentInChildren<Canvas>().enabled = true;
-        }
-        else //If raycast didn't hit a placeable, we want to deselect the current one
-        {
-            //Check if there is already a placeable selected
-            if (selectedPlaceable == null) return;
+        if (selectedPlaceable != null)
+            selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
+        selectedPlaceable = toBeSelected;
+        selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+        DecorateButtonGroupUIManager.Instance.ShowButtonGroup();
+        placeableInitialPosition = selectedPlaceable.transform.position;
+        selectedPlaceable.GetComponentInChildren<Canvas>().enabled = true;
+    }
 
+    public void DeselectPlaceable(bool savePosition = true)
+    {
+        if (selectedPlaceable == null) return;
+
+        if (!savePosition)
+        {
+            selectedPlaceable.transform.position = placeableInitialPosition;
+            selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
+        }
+        else
+        {
             //If position of placeable is not valid, put it back in the inventory
             if (!selectedPlaceable.IsValidPosition)
             {
@@ -105,13 +137,14 @@ public class DecorateInputManager : MonoBehaviour
             else
             {
                 selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.white;
-                selectedPlaceable.GetComponentInChildren<Canvas>().enabled = false;
             }
-            selectedPlaceable = null;
         }
+        selectedPlaceable.GetComponentInChildren<Canvas>().enabled = false;
+        selectedPlaceable = null;
+        // placeableInitialPosition = Vector3.zero;
     }
 
-    private RaycastHit CastRay()
+    private RaycastHit CastRayFromMouse()
     {
         Vector3 screenMousePosFar = new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), camera.farClipPlane);
         Vector3 screenMousePosNear = new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), camera.nearClipPlane);
