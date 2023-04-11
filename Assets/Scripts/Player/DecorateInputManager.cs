@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,8 +13,10 @@ public class DecorateInputManager : MonoBehaviour
     private PlayerInput playerInput;
     private Placeable selectedPlaceable = null;
     private bool isDraggingPlaceable = false;
-    private bool mouseDown = false;
+    private bool isDraggingCamera = false;
+    private bool isSelectingPlaceable = false;
     private (Vector3 position, float angle) placeableInitialState = (Vector3.zero, 0f);
+    private float cameraYRotation = 0f;
 
     public static DecorateInputManager Instance => instance;
     public Placeable SelectedPlaceable => selectedPlaceable;
@@ -57,19 +60,18 @@ public class DecorateInputManager : MonoBehaviour
 
     private void MouseDownStarted()
     {
-        mouseDown = true;
+        isDraggingPlaceable = false;
         RaycastHit hit;
-        Physics.Raycast(camera.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit);
+        Physics.Raycast(camera.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, int.MaxValue, ~LayerMask.GetMask("Floor"));
         if (hit.transform != null && hit.transform.GetComponent<Placeable>() == selectedPlaceable)
-        {
             isDraggingPlaceable = true;
-        }
     }
 
     private void MouseDownCanceled()
     {
-        mouseDown = false;
+        isDraggingCamera = false;
         isDraggingPlaceable = false;
+        isSelectingPlaceable = false;
     }
 
     private void MouseDownPerformed()
@@ -111,10 +113,20 @@ public class DecorateInputManager : MonoBehaviour
                 selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
             }
         }
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+            isDraggingCamera = !EventSystem.current.IsPointerOverGameObject(PointerInputModule.kMouseLeftId) && !isDraggingPlaceable && !isSelectingPlaceable;
+        if (isDraggingCamera)
+        {
+            if (selectedPlaceable != null)
+                if (selectedPlaceable.GetComponentInChildren<RotationWheel>().IsRotating) return;
+            RotateCamera(playerInput.Decorate.MouseMove.ReadValue<Vector2>());
+        }
     }
 
     public void SelectPlacable(Placeable toBeSelected)
     {
+        isSelectingPlaceable = true;
+
         //deselct previous placeable
         DeselectPlaceable();
 
@@ -179,6 +191,13 @@ public class DecorateInputManager : MonoBehaviour
         Physics.Raycast(worldMousePosNear, worldMousePosFar - worldMousePosNear, out hit, int.MaxValue, 1 << LayerMask.NameToLayer("Floor"));
 
         return hit;
+    }
+
+    private void RotateCamera(Vector2 mouseDelta)
+    {
+        cameraYRotation -= mouseDelta.x * Time.deltaTime * 30;
+
+        camera.transform.localRotation = Quaternion.Euler(camera.transform.localRotation.eulerAngles.x, cameraYRotation, 0);
     }
 
     public void RemoveSelectedPlaceable()

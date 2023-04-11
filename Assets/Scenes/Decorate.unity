@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8937904}
   - component: {fileID: 8937903}
+  - component: {fileID: 8937905}
   m_Layer: 0
   m_Name: DecorateInputManager
   m_TagString: Untagged
@@ -169,6 +170,21 @@ Transform:
   m_Father: {fileID: 1985837288}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8937905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8937902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdaae8ed31e34b242b0ac34ef11cedb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 1026169476}
+  xSensitivity: 20
+  ySensitivity: 20
 --- !u!1 &27288852
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,7 +449,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 762116523}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 957.31995, y: 497.81015, z: -4.3491197}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -751,14 +767,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1026169474}
-  m_LocalRotation: {x: 0.3365082, y: -0, z: -0, w: 0.94168055}
+  m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
   m_LocalPosition: {x: 0, y: 9.79, z: -15.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 39.329, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
 --- !u!1 &1121890187
 GameObject:
   m_ObjectHideFlags: 0

@@ -52,6 +52,7 @@ public class RotationWheel : MonoBehaviour
 
         //convert the angle to between -180 and 180
         angle = angle > 180 ? angle - 360 : angle;
+
         //pass the angle as a negative value to the placeable so that it rotates in the correct direction
         parentPlaceableTransform.GetComponent<Placeable>().RotateToAngle(-angle);
     }
