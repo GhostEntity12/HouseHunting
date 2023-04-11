@@ -11,7 +11,8 @@ public class DecorateInputManager : MonoBehaviour
     private static DecorateInputManager instance;
     private PlayerInput playerInput;
     private Placeable selectedPlaceable = null;
-    private bool isDragging = false;
+    private bool isDraggingPlaceable = false;
+    private bool mouseDown = false;
     private (Vector3 position, float angle) placeableInitialState = (Vector3.zero, 0f);
 
     public static DecorateInputManager Instance => instance;
@@ -56,17 +57,19 @@ public class DecorateInputManager : MonoBehaviour
 
     private void MouseDownStarted()
     {
+        mouseDown = true;
         RaycastHit hit;
         Physics.Raycast(camera.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit);
         if (hit.transform != null && hit.transform.GetComponent<Placeable>() == selectedPlaceable)
         {
-            isDragging = true;
+            isDraggingPlaceable = true;
         }
     }
 
     private void MouseDownCanceled()
     {
-        isDragging = false;
+        mouseDown = false;
+        isDraggingPlaceable = false;
     }
 
     private void MouseDownPerformed()
@@ -85,7 +88,7 @@ public class DecorateInputManager : MonoBehaviour
 
     private void Update()
     {
-        if (isDragging)
+        if (isDraggingPlaceable)
         {
             RaycastHit hitFloor = CastRayFromMouseToFloor();
             if (hitFloor.transform != null && selectedPlaceable != null)
@@ -129,7 +132,7 @@ public class DecorateInputManager : MonoBehaviour
         //enable rotation wheel
         selectedPlaceable.GetComponentInChildren<Canvas>().enabled = true;
 
-        //hide inventory scroll view
+        //hide inventory
         inventoryScrollView.gameObject.SetActive(false);
     }
 
@@ -149,9 +152,8 @@ public class DecorateInputManager : MonoBehaviour
             //If position of placeable is not valid, put it back in the inventory
             if (!selectedPlaceable.IsValidPosition)
             {
-                GameManager.Instance.Inventory.AddItem(selectedPlaceable.PlaceableSO);
-                InventoryUIManager.Instance.RepaintInventory();
-                Destroy(selectedPlaceable.gameObject);
+                RemoveSelectedPlaceable();
+                return;
             }
             else
             {
@@ -177,5 +179,16 @@ public class DecorateInputManager : MonoBehaviour
         Physics.Raycast(worldMousePosNear, worldMousePosFar - worldMousePosNear, out hit, int.MaxValue, 1 << LayerMask.NameToLayer("Floor"));
 
         return hit;
+    }
+
+    public void RemoveSelectedPlaceable()
+    {
+        if (selectedPlaceable == null) return;
+
+        GameManager.Instance.Inventory.AddItem(selectedPlaceable.PlaceableSO);
+        InventoryUIManager.Instance.RepaintInventory();
+        Destroy(selectedPlaceable.gameObject);
+        selectedPlaceable = null;
+        inventoryScrollView.gameObject.SetActive(true);
     }
 }

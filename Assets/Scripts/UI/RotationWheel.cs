@@ -7,6 +7,7 @@ public class RotationWheel : MonoBehaviour
     private float radius = 0f;
     private Transform parentPlaceableTransform;
 
+    public bool IsRotating { get; private set; }
 
     private void OnEnable()
     {
@@ -32,6 +33,8 @@ public class RotationWheel : MonoBehaviour
 
     public void OnDrag(PointerEventData data)
     {
+        IsRotating = true;
+
         Ray ray = Camera.main.ScreenPointToRay(data.position);
 
         Vector3 rayPoint = ray.GetPoint(Vector3.Distance(transform.position, Camera.main.transform.position));
@@ -55,6 +58,7 @@ public class RotationWheel : MonoBehaviour
 
     public void OnDragEnd()
     {
+        IsRotating = false;
         transform.localPosition = GetOriginalFixedPoint();
     }
 
