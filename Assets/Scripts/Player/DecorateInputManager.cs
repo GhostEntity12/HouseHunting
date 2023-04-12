@@ -8,6 +8,8 @@ public class DecorateInputManager : MonoBehaviour
 {
     [SerializeField] private new Camera camera;
     [SerializeField] private ScrollRect inventoryScrollView;
+    [SerializeField] private float cameraSpeed = 20f;
+    [SerializeField] private MeshRenderer floorMeshRenderer;
 
     private static DecorateInputManager instance;
     private PlayerInput playerInput;
@@ -17,6 +19,7 @@ public class DecorateInputManager : MonoBehaviour
     private bool isSelectingPlaceable = false;
     private (Vector3 position, float angle) placeableInitialState = (Vector3.zero, 0f);
     private float cameraYRotation = 0f;
+    private (float xMin, float xMax, float zMin, float zMax) cameraBound = (0f, 0f, 0f, 0f);
 
     public static DecorateInputManager Instance => instance;
     public Placeable SelectedPlaceable => selectedPlaceable;
@@ -36,6 +39,12 @@ public class DecorateInputManager : MonoBehaviour
         playerInput.Decorate.MouseDown.canceled += ctx => MouseDownCanceled();
 
         playerInput.Decorate.MouseDown.performed += ctx => MouseDownPerformed();
+
+        //camera can only move within 200% of the floor size
+        cameraBound.xMin = (floorMeshRenderer.transform.position.x - floorMeshRenderer.bounds.size.x / 2) * 2.0f;
+        cameraBound.xMax = (floorMeshRenderer.transform.position.x + floorMeshRenderer.bounds.size.x / 2) * 2.0f;
+        cameraBound.zMin = (floorMeshRenderer.transform.position.z - floorMeshRenderer.bounds.size.z / 2) * 2.0f;
+        cameraBound.zMax = (floorMeshRenderer.transform.position.z + floorMeshRenderer.bounds.size.z / 2) * 2.0f;
     }
 
     void Start()
@@ -100,6 +109,7 @@ public class DecorateInputManager : MonoBehaviour
                 selectedPlaceable.transform.position = new Vector3(worldPosition.x, 0, worldPosition.z);
             }
         }
+        //check if selected placeable is valid position every frame
         if (selectedPlaceable != null)
         {
             if (selectedPlaceable.IsValidPosition)
@@ -113,6 +123,7 @@ public class DecorateInputManager : MonoBehaviour
                 selectedPlaceable.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
             }
         }
+        //check if mouse is over UI, if not, drag camera
         if (Mouse.current.leftButton.wasPressedThisFrame)
             isDraggingCamera = !EventSystem.current.IsPointerOverGameObject(PointerInputModule.kMouseLeftId) && !isDraggingPlaceable && !isSelectingPlaceable;
         if (isDraggingCamera)
@@ -121,6 +132,23 @@ public class DecorateInputManager : MonoBehaviour
                 if (selectedPlaceable.GetComponentInChildren<RotationWheel>().IsRotating) return;
             RotateCamera(playerInput.Decorate.MouseMove.ReadValue<Vector2>());
         }
+    }
+
+    private void FixedUpdate() 
+    {
+        MoveCamera(playerInput.Decorate.MoveCamera.ReadValue<Vector2>());
+    }
+
+    private void MoveCamera(Vector2 input)
+    {
+        Vector3 direction = camera.transform.forward * input.y + camera.transform.right * input.x;
+        direction.y = 0;
+
+        camera.transform.position = new Vector3(
+            Mathf.Clamp(camera.transform.position.x + direction.x * cameraSpeed * Time.deltaTime, cameraBound.xMin, cameraBound.xMax),
+            camera.transform.position.y,
+            Mathf.Clamp(camera.transform.position.z + direction.z * cameraSpeed * Time.deltaTime, cameraBound.zMin, cameraBound.zMax)
+        );
     }
 
     public void SelectPlacable(Placeable toBeSelected)

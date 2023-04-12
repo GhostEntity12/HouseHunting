@@ -317,6 +317,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MoveCamera"",
+                    ""type"": ""Value"",
+                    ""id"": ""5f187f97-6da1-4864-917f-3fb0233554c9"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -352,6 +361,61 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""MouseMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""433a2608-6b16-46b1-a3ad-f786a713d323"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""5edcd2f4-8084-48ee-8e24-329189621939"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""6410b02f-7a78-4ea3-be21-42277cb961fe"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""33c94c81-34b2-436e-9741-b6c63d842cc3"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""0ff1fc5d-3c98-4959-b49d-43b9724a16c5"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -375,6 +439,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Decorate_ExitToHouse = m_Decorate.FindAction("ExitToHouse", throwIfNotFound: true);
         m_Decorate_MouseDown = m_Decorate.FindAction("MouseDown", throwIfNotFound: true);
         m_Decorate_MouseMove = m_Decorate.FindAction("MouseMove", throwIfNotFound: true);
+        m_Decorate_MoveCamera = m_Decorate.FindAction("MoveCamera", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -551,6 +616,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Decorate_ExitToHouse;
     private readonly InputAction m_Decorate_MouseDown;
     private readonly InputAction m_Decorate_MouseMove;
+    private readonly InputAction m_Decorate_MoveCamera;
     public struct DecorateActions
     {
         private @PlayerInput m_Wrapper;
@@ -558,6 +624,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @ExitToHouse => m_Wrapper.m_Decorate_ExitToHouse;
         public InputAction @MouseDown => m_Wrapper.m_Decorate_MouseDown;
         public InputAction @MouseMove => m_Wrapper.m_Decorate_MouseMove;
+        public InputAction @MoveCamera => m_Wrapper.m_Decorate_MoveCamera;
         public InputActionMap Get() { return m_Wrapper.m_Decorate; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -576,6 +643,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @MouseMove.started -= m_Wrapper.m_DecorateActionsCallbackInterface.OnMouseMove;
                 @MouseMove.performed -= m_Wrapper.m_DecorateActionsCallbackInterface.OnMouseMove;
                 @MouseMove.canceled -= m_Wrapper.m_DecorateActionsCallbackInterface.OnMouseMove;
+                @MoveCamera.started -= m_Wrapper.m_DecorateActionsCallbackInterface.OnMoveCamera;
+                @MoveCamera.performed -= m_Wrapper.m_DecorateActionsCallbackInterface.OnMoveCamera;
+                @MoveCamera.canceled -= m_Wrapper.m_DecorateActionsCallbackInterface.OnMoveCamera;
             }
             m_Wrapper.m_DecorateActionsCallbackInterface = instance;
             if (instance != null)
@@ -589,6 +659,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @MouseMove.started += instance.OnMouseMove;
                 @MouseMove.performed += instance.OnMouseMove;
                 @MouseMove.canceled += instance.OnMouseMove;
+                @MoveCamera.started += instance.OnMoveCamera;
+                @MoveCamera.performed += instance.OnMoveCamera;
+                @MoveCamera.canceled += instance.OnMoveCamera;
             }
         }
     }
@@ -612,5 +685,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnExitToHouse(InputAction.CallbackContext context);
         void OnMouseDown(InputAction.CallbackContext context);
         void OnMouseMove(InputAction.CallbackContext context);
+        void OnMoveCamera(InputAction.CallbackContext context);
     }
 }

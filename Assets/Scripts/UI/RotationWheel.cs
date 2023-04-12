@@ -42,16 +42,9 @@ public class RotationWheel : MonoBehaviour
         Vector3 mousePos = new Vector3(rayPoint.x, 0.1f, rayPoint.z);
 
         //calculate the angle between the fixed point and the mouse position
-        float angle = GetAngle(mousePos - parentPlaceableTransform.position);
+        float angle = GetAngle(mousePos - parentPlaceableTransform.position, GetOriginalFixedPoint());
 
-        //normalize the vector between mouse position and parent placeable to get a fixed radius of one unit for the wheel
-        Vector3 normalized = Vector3.Normalize(mousePos - parentPlaceableTransform.position);
-
-        //fix the anchor point to be on the circumference of the wheel with the specified radius
-        transform.localPosition = new Vector3(normalized.x * radius, 0.1f, normalized.z * radius);
-
-        //convert the angle to between -180 and 180
-        angle = angle > 180 ? angle - 360 : angle;
+        MoveToPositionOnWheel(angle);
 
         //pass the angle as a negative value to the placeable so that it rotates in the correct direction
         parentPlaceableTransform.GetComponent<Placeable>().RotateToAngle(-angle);
@@ -64,26 +57,49 @@ public class RotationWheel : MonoBehaviour
     }
 
     /// <summary>
-    ///  Gets the angle between the fixed point and the mouse position
+    ///  Gets the angle between two points that originate from 0, 0
     /// </summary>
     /// <param name="to">A point on the floor</param>
     /// <returns>A float that represents the angle ranging from 0 - 360</returns>
-    private float GetAngle(Vector3 to)
+    private float GetAngle(Vector3 to, Vector3 from)
     {
-        float fixedX = GetOriginalFixedPoint().x;
-        float fixedY = GetOriginalFixedPoint().z;
+        float fixedX = from.x;
+        float fixedY = from.z;
         float newX = to.x;
         float newY = to.z;
 
         float angleRadians = Mathf.Atan2(newY, newX) - Mathf.Atan2(fixedY, fixedX);
 
-        if (angleRadians < 0) {
+        if (angleRadians < 0) 
             angleRadians += 2 * Mathf.PI;
-        }
 
         float angleDegrees = angleRadians * 180 / Mathf.PI;
 
         return angleDegrees;
+    }
+
+    private void Update() 
+    {
+        if (!IsRotating)
+            RotateToCamera();
+    }
+
+    private void RotateToCamera()
+    {
+        Vector3 cameraPos = Camera.main.transform.position;
+        Vector3 placeablePos = parentPlaceableTransform.position;
+
+        float angle = GetAngle(cameraPos - parentPlaceableTransform.position, GetOriginalFixedPoint());
+
+        MoveToPositionOnWheel(angle);
+    }
+
+    private void MoveToPositionOnWheel(float angle)
+    {
+        float x = Mathf.Sin(angle * Mathf.Deg2Rad) * radius;
+        float z = Mathf.Cos(angle * Mathf.Deg2Rad) * -radius;
+
+        transform.localPosition = new Vector3(x, 0.1f, z);
     }
 
     /// <summary>
