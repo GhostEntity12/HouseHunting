@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 public class Inventory
 {
@@ -39,5 +38,20 @@ public class Inventory
             else
                 items.RemoveAt(index);
         }
+    }
+
+    public override string ToString()
+    {
+        if (items.Count == 0)
+            return "Empty inventory";
+
+        string result = "";
+
+        foreach ((PlaceableSO furniture, int quantity) item in items)
+        {
+            result += item.furniture.name + " x" + item.quantity + ", ";
+        }
+
+        return result;
     }
 }

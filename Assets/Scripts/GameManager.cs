@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IDataPersistence
 {
     private static GameManager instance;
     private Inventory inventory;
@@ -33,5 +33,15 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    public void LoadData(GameData data)
+    {
+        Debug.Log(data.number);
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.number = 420;
     }
 }

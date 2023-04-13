@@ -1,5 +1,7 @@
 using UnityEngine;
+using Newtonsoft.Json;
 
+[JsonObject(MemberSerialization.OptIn)]
 public class Placeable : MonoBehaviour
 {
     [SerializeField] private PlaceableSO placeableSO;
