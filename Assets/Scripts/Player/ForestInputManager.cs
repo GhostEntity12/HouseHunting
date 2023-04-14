@@ -3,14 +3,22 @@ using UnityEngine.SceneManagement;
 
 public class ForestInputManager : MonoBehaviour
 {
+    private static ForestInputManager instance;
     private new Camera camera;
     private PlayerInput playerInput;
     private PlayerMovement movement;
     private PlayerLook look;
     private Gun gun;
 
+    public static ForestInputManager Instance => instance;
+
     void Awake()
     {
+        if (instance != null && instance != this)
+            Destroy(this.gameObject);
+        else
+            instance = this;
+
         playerInput = new PlayerInput();
 
         movement = GetComponent<PlayerMovement>();

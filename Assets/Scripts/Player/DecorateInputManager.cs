@@ -27,7 +27,7 @@ public class DecorateInputManager : MonoBehaviour
     void Awake()
     {
         if (instance != null && instance != this)
-            Destroy(this);
+            Destroy(this.gameObject);
         else
             instance = this;
 

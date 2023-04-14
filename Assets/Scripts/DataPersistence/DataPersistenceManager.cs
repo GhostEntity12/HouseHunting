@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class DataPersistenceManager : MonoBehaviour
 {
@@ -14,16 +15,35 @@ public class DataPersistenceManager : MonoBehaviour
     private void Awake() 
     {
         if (Instance != null && Instance != this)
-            Destroy(this);
+            Destroy(this.gameObject);
         else
             Instance = this;
+
+        DontDestroyOnLoad(gameObject);
+        fileDataHandler = new FileDataHandler(Application.persistentDataPath, savedFileName);
     }
 
-    private void Start() 
+    private void OnEnable() 
     {
-        fileDataHandler = new FileDataHandler(Application.persistentDataPath, savedFileName);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+    }
+
+    private void OnDisable() 
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
         dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
+    }
+
+    private void OnSceneUnloaded(Scene scene)
+    {
+        SaveGame();
     }
 
     public void NewGame()

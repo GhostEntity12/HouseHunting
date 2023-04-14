@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
     void Awake()
     {
         if (Instance != null && Instance != this)
-            Destroy(this);
+            Destroy(this.gameObject);
         else
             Instance = this;
 
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        Debug.Log(data.number);
+        // Debug.Log(data.number);
     }
 
     public void SaveData(GameData data)
