@@ -33,7 +33,11 @@ public class DecorateInputManager : MonoBehaviour
 
         playerInput = new PlayerInput();
 
-        playerInput.Decorate.ExitToHouse.performed += ctx => SceneManager.LoadScene("House");
+        playerInput.Decorate.ExitToHouse.performed += ctx => 
+        {
+            DecorateManager.Instance.SavePlaceables();
+            SceneManager.LoadScene("House"); 
+        };
 
         playerInput.Decorate.MouseDown.started += ctx => MouseDownStarted();
         playerInput.Decorate.MouseDown.canceled += ctx => MouseDownCanceled();

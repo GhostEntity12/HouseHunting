@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8937904}
   - component: {fileID: 8937903}
-  - component: {fileID: 8937905}
   m_Layer: 0
   m_Name: DecorateInputManager
   m_TagString: Untagged
@@ -172,21 +171,6 @@ Transform:
   m_Father: {fileID: 1985837288}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8937905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8937902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdaae8ed31e34b242b0ac34ef11cedb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 1026169476}
-  xSensitivity: 20
-  ySensitivity: 20
 --- !u!1 &27288852
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,6 +471,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Placeable_Table
       objectReference: {fileID: 0}
+    - target: {fileID: 4408006311470859530, guid: 2f4b06969d53f434aa6b152cc4776240, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6130737722407600114, guid: 2f4b06969d53f434aa6b152cc4776240, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -652,6 +640,10 @@ PrefabInstance:
     - target: {fileID: 6687055942871566689, guid: 3a32fa9bd96e69a45a45bce94bf15c16, type: 3}
       propertyPath: m_Name
       value: Placeable_Chair
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687055942871566689, guid: 3a32fa9bd96e69a45a45bce94bf15c16, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8987057357527107057, guid: 3a32fa9bd96e69a45a45bce94bf15c16, type: 3}
       propertyPath: m_RootOrder
@@ -1075,6 +1067,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1217013444}
   m_CullTransparentMesh: 1
+--- !u!1 &1264675467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1264675468}
+  - component: {fileID: 1264675469}
+  m_Layer: 0
+  m_Name: DecorateManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1264675468
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264675467}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1985837288}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1264675469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264675467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6427211cddae2b4c98ec77db6485aa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1279363351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1907,6 +1943,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1264675468}
   - {fileID: 8937904}
   - {fileID: 1823584658}
   m_Father: {fileID: 0}

@@ -35,12 +35,10 @@ public class GameManager : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         inventory = Inventory.Deserialize(data.serializedInventory);
-        Debug.Log("Loaded inventory: " + inventory);
     }
 
     public void SaveData(GameData data)
     {
         data.serializedInventory = inventory.Serialize();
-        Debug.Log("Saved inventory: " + inventory);
     }
 }
