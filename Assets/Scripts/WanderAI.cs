@@ -5,8 +5,10 @@ public class WanderAI : MonoBehaviour
 {
     public NavMeshAgent agent;
     public float range = 15f; //radius of sphere
-
+	public float perceptionRadius = 10f;
     private Shootable shootable;
+
+    public bool isPredator;
 
     void Start()
     {
@@ -27,6 +29,30 @@ public class WanderAI : MonoBehaviour
                 agent.SetDestination(point);
             }
         }
+		Collider[] hitColliders = Physics.OverlapSphere(transform.position, perceptionRadius);
+foreach (Collider hitCollider in hitColliders)
+{
+    if (hitCollider.CompareTag("Player"))
+    {
+		Debug.Log("Player in range!");
+		if (isPredator)
+		{
+        // Player is within perception radius, do something
+        Debug.Log("Attack!");
+        // For example, you could set the agent's destination to the player's position:
+        agent.SetDestination(hitCollider.transform.position);
+		} else {
+			Debug.Log("Run!");
+			Vector3 playerDirection = hitCollider.transform.position - transform.position;
+            Vector3 destination = transform.position - playerDirection;
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(destination, out hit, 2.0f, NavMesh.AllAreas))
+            {
+                agent.SetDestination(hit.position);
+            }
+		}
+	}
+}
     }
 
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
