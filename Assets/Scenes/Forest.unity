@@ -414,6 +414,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3520433945217684714, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
+      propertyPath: isPredator
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3520433945217684714, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
+      propertyPath: preyMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f19c0660c60cee4dac3f678891655f2, type: 2}
+    - target: {fileID: 3520433945217684714, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
+      propertyPath: predatorMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 915d42be6e0406045be5591fe9b61fdb, type: 2}
     - target: {fileID: 8607944281932643591, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
       propertyPath: m_Name
       value: Chair
@@ -729,6 +741,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1171529578584424129, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
+      propertyPath: preyMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f19c0660c60cee4dac3f678891655f2, type: 2}
+    - target: {fileID: 1171529578584424129, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
+      propertyPath: predatorMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 915d42be6e0406045be5591fe9b61fdb, type: 2}
     - target: {fileID: 1778503834011940512, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1362,6 +1382,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3520433945217684714, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
+      propertyPath: preyMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f19c0660c60cee4dac3f678891655f2, type: 2}
+    - target: {fileID: 3520433945217684714, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
+      propertyPath: predatorMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 915d42be6e0406045be5591fe9b61fdb, type: 2}
     - target: {fileID: 8607944281932643591, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
       propertyPath: m_Name
       value: Chair (1)
@@ -1379,6 +1407,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1171529578584424129, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
+      propertyPath: isPredator
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171529578584424129, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
+      propertyPath: preyMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f19c0660c60cee4dac3f678891655f2, type: 2}
+    - target: {fileID: 1171529578584424129, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
+      propertyPath: predatorMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 915d42be6e0406045be5591fe9b61fdb, type: 2}
     - target: {fileID: 1778503834011940512, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
       propertyPath: m_RootOrder
       value: 5
