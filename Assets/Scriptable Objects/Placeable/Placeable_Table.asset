@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b96ec4e06aa914a49a738eb91696fa6d, type: 3}
   m_Name: Placeable_Table
   m_EditorClassIdentifier: 
+  id: table
   name: Table
   thumbnail: {fileID: 21300000, guid: f9161c6c9e06dc445ada3ee16d991f90, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 2f4b06969d53f434aa6b152cc4776240, type: 3}

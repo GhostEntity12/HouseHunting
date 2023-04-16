@@ -40,6 +40,31 @@ public class Inventory
         }
     }
 
+    public List<(string, int)> Serialize()
+    {
+        List<(string, int)> serializedInventory = new List<(string, int)>();
+
+        foreach ((PlaceableSO furniture, int quantity) item in items)
+        {
+            serializedInventory.Add((item.furniture.name, item.quantity));
+        }
+
+        return serializedInventory;
+    }
+
+    public static Inventory Deserialize(List<(string, int)> serializedInventory)
+    {
+        Inventory inventory = new Inventory();
+
+        foreach ((string furnitureName, int quantity) item in serializedInventory)
+        {
+            PlaceableSO furniture = DataPersistenceManager.Instance.PlaceableScriptableObjects.Find(x => x.name == item.furnitureName);
+            inventory.items.Add((furniture, item.quantity));
+        }
+
+        return inventory;
+    }
+
     public override string ToString()
     {
         if (items.Count == 0)

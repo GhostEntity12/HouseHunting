@@ -5,12 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class DataPersistenceManager : MonoBehaviour
 {
+    [SerializeField] private List<PlaceableSO> placeableScriptableObjects; // this list stores all the placeable scriptable objects in the game, every time a new one is created, it must be added to this list via the Unity editor
+    [SerializeField] private string savedFileName = "data";
+
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler fileDataHandler;
-    private string savedFileName = "data";
+
 
     public static DataPersistenceManager Instance { get; private set; }
+
+    public List<PlaceableSO> PlaceableScriptableObjects { get => placeableScriptableObjects; }
 
     private void Awake() 
     {

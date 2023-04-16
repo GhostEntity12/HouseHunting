@@ -18,9 +18,6 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
         HideCursor();
         inventory = new Inventory();
-
-        //https://stackoverflow.com/questions/32306704/how-to-pass-data-and-references-between-scenes-in-unity
-        DontDestroyOnLoad(gameObject);
     }
 
     public void HideCursor()
@@ -37,11 +34,13 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        // Debug.Log(data.number);
+        inventory = Inventory.Deserialize(data.serializedInventory);
+        Debug.Log("Loaded inventory: " + inventory);
     }
 
     public void SaveData(GameData data)
     {
-        data.number = 420;
+        data.serializedInventory = inventory.Serialize();
+        Debug.Log("Saved inventory: " + inventory);
     }
 }
