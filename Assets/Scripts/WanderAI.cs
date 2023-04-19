@@ -5,25 +5,24 @@ public class WanderAI : MonoBehaviour
 {
     public NavMeshAgent agent;
     public float range = 15f; //radius of sphere
-	public float perceptionRadius = 10f;
+	public float perceptionRadius = 3f;
     private Shootable shootable;
     [SerializeField] private Material predatorMaterial;
     [SerializeField] private Material preyMaterial;
     public bool isPredator;
     private MeshRenderer meshRenderer;
-    void Start()
-    {
-        agent = GetComponent<NavMeshAgent>();
-        shootable = GetComponent<Shootable>();
-    }
+    private Canvas alertCanvas;
 
     void Awake()
     {
+        agent = GetComponent<NavMeshAgent>();
+        shootable = GetComponent<Shootable>();
         meshRenderer = GetComponent<MeshRenderer>();
+        alertCanvas = GetComponentInChildren<Canvas>();
     }
+
     void Update()
     {
-        
         if (shootable.IsDead) return;
 
         if(agent.remainingDistance <= agent.stoppingDistance) //done with path
@@ -34,37 +33,46 @@ public class WanderAI : MonoBehaviour
                 agent.SetDestination(point);
             }
         }
+
 		Collider[] hitColliders = Physics.OverlapSphere(transform.position, perceptionRadius);
-foreach (Collider hitCollider in hitColliders)
-{
-    if (hitCollider.CompareTag("Player"))
-    {
-		Debug.Log("Player in range!");
-		if (isPredator)
-		{
-        // Player is within perception radius, do something
-        Debug.Log("Attack!");
-        // For example, you could set the agent's destination to the player's position:
-        meshRenderer.material = predatorMaterial;
-        agent.SetDestination(hitCollider.transform.position);
-		} else {
-			Debug.Log("Run!");
-            meshRenderer.material = preyMaterial;
-			Vector3 playerDirection = hitCollider.transform.position - transform.position;
-            Vector3 destination = transform.position - playerDirection;
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(destination, out hit, 2.0f, NavMesh.AllAreas))
+
+        foreach (Collider hitCollider in hitColliders)
+        {
+            if (hitCollider.CompareTag("Player"))
             {
-                agent.SetDestination(hit.position);
+                alertCanvas.enabled = true;
+                if (isPredator)
+                {
+                    // Player is within perception radius, do something
+                    Debug.Log(gameObject.name + " Attack!");
+                    // For example, you could set the agent's destination to the player's position:
+                    meshRenderer.material = predatorMaterial;
+                    agent.SetDestination(hitCollider.transform.position);
+                } 
+                else 
+                {
+                    Debug.Log(gameObject.name + " Run!");
+                    meshRenderer.material = preyMaterial;
+                    Vector3 playerDirection = hitCollider.transform.position - transform.position;
+                    Vector3 destination = transform.position - playerDirection;
+                    NavMeshHit hit;
+                    if (NavMesh.SamplePosition(destination, out hit, 2.0f, NavMesh.AllAreas))
+                    {
+                        agent.SetDestination(hit.position);
+                    }
+                }
+                break;
             }
-		}
-	}
-}
+            else
+            {
+                alertCanvas.enabled = false;
+                meshRenderer.material.color = Color.white;
+            }
+        }
     }
 
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
-
         Vector3 randomPoint = center + Random.insideUnitSphere * range; //random point in a sphere 
         NavMeshHit hit;
         if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas)) //documentation: https://docs.unity3d.com/ScriptReference/AI.NavMesh.SamplePosition.html
