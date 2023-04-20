@@ -1,17 +1,17 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class WanderAI : MonoBehaviour 
 {
-    public NavMeshAgent agent;
-    public float range = 15f; //radius of sphere
-	public float perceptionRadius = 3f;
     private Shootable shootable;
-    [SerializeField] private Material predatorMaterial;
-    [SerializeField] private Material preyMaterial;
-    public bool isPredator;
     private MeshRenderer meshRenderer;
     private Canvas alertCanvas;
+    private float perceptionRadius;
+    private bool isAlertedByGunshot = false;
+    public NavMeshAgent agent;
+    public float range = 15f; //radius of sphere
+    public bool isPredator;
 
     void Awake()
     {
@@ -19,19 +19,29 @@ public class WanderAI : MonoBehaviour
         shootable = GetComponent<Shootable>();
         meshRenderer = GetComponent<MeshRenderer>();
         alertCanvas = GetComponentInChildren<Canvas>();
+
+        perceptionRadius = shootable.ShootableSO.perceptionRadius;
+    }
+
+    private void OnEnable() 
+    {
+        Gun.OnGunShootEvent += OnGunShoot;
+    }
+
+    private void OnDisable() 
+    {
+        Gun.OnGunShootEvent -= OnGunShoot;
     }
 
     void Update()
     {
         if (shootable.IsDead) return;
 
-        if(agent.remainingDistance <= agent.stoppingDistance) //done with path
+        if (agent.remainingDistance <= agent.stoppingDistance) //done with path
         {
             Vector3 point;
             if (RandomPoint(transform.position, range, out point)) //pass in our centre point and radius of area
-            {
                 agent.SetDestination(point);
-            }
         }
 
 		Collider[] hitColliders = Physics.OverlapSphere(transform.position, perceptionRadius);
@@ -44,22 +54,18 @@ public class WanderAI : MonoBehaviour
                 if (isPredator)
                 {
                     // Player is within perception radius, do something
-                    Debug.Log(gameObject.name + " Attack!");
                     // For example, you could set the agent's destination to the player's position:
-                    meshRenderer.material = predatorMaterial;
+                    meshRenderer.material.color = Color.red;
                     agent.SetDestination(hitCollider.transform.position);
                 } 
                 else 
                 {
-                    Debug.Log(gameObject.name + " Run!");
-                    meshRenderer.material = preyMaterial;
+                    meshRenderer.material.color = Color.green;
                     Vector3 playerDirection = hitCollider.transform.position - transform.position;
                     Vector3 destination = transform.position - playerDirection;
                     NavMeshHit hit;
                     if (NavMesh.SamplePosition(destination, out hit, 2.0f, NavMesh.AllAreas))
-                    {
                         agent.SetDestination(hit.position);
-                    }
                 }
                 break;
             }
@@ -69,6 +75,28 @@ public class WanderAI : MonoBehaviour
                 meshRenderer.material.color = Color.white;
             }
         }
+    }
+
+    void OnGunShoot()
+    {
+        StopAllCoroutines();
+        StartCoroutine(DoublePerceptionRadius());
+    }
+
+    IEnumerator DoublePerceptionRadius()
+    {
+        // if it's already doubled, don't double it again
+        if (!isAlertedByGunshot)
+            perceptionRadius *= 2;
+
+        isAlertedByGunshot = true;
+
+        yield return new WaitForSeconds(10f);
+
+        if (isAlertedByGunshot)
+            perceptionRadius /= 2;
+
+        isAlertedByGunshot = false;
     }
 
     bool RandomPoint(Vector3 center, float range, out Vector3 result)

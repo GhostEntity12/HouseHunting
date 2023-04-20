@@ -6,4 +6,5 @@ public class ShootableSO : ScriptableObject
     public new string name;
     public int maxHealth;
     public float speed;
+    public float perceptionRadius; //how far the AI can see the player
 }
