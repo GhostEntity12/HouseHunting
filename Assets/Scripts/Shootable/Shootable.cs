@@ -17,7 +17,7 @@ public abstract class Shootable : MonoBehaviour
     void Awake()
     {
         currentHealth = shootableSO.maxHealth;
-        meshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
         alertCanvas = GetComponentInChildren<Canvas>();
     }
 

@@ -17,7 +17,7 @@ public class WanderAI : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         shootable = GetComponent<Shootable>();
-        meshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
         alertCanvas = GetComponentInChildren<Canvas>();
 
         perceptionRadius = shootable.ShootableSO.perceptionRadius;

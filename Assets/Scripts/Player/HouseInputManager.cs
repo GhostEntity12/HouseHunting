@@ -57,7 +57,7 @@ public class HouseInputManager : MonoBehaviour
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, 3f))
         {
             //if we are interacting with a door, load the forest scene
-            if (hit.transform.CompareTag("Door"))
+            if (hit.transform.parent.transform.CompareTag("Door"))
                 SceneManager.LoadScene("Forest");
         }
     }

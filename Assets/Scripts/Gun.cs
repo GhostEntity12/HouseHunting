@@ -13,7 +13,7 @@ public class Gun : MonoBehaviour
         OnGunShootEvent?.Invoke();
         if (Physics.Raycast(gunPoint.position, gunPoint.forward, out RaycastHit hit, 1000f))
         {
-            Shootable shootableTarget = hit.transform.GetComponent<Shootable>();
+            Shootable shootableTarget = hit.transform.GetComponentInParent<Shootable>();
             if (shootableTarget != null)
                 shootableTarget.TakeDamage(damage);
         }

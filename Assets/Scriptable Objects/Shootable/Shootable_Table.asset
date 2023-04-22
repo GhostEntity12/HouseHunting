@@ -15,4 +15,4 @@ MonoBehaviour:
   name: Table
   maxHealth: 100
   speed: 3
-  model: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  perceptionRadius: 5

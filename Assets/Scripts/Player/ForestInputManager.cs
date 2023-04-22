@@ -56,7 +56,7 @@ public class ForestInputManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, 3f))
         {
-            Shootable shootable = hit.transform.GetComponent<Shootable>();
+            Shootable shootable = hit.transform.GetComponentInParent<Shootable>();
             if (shootable != null)
             {
                 if (shootable.IsDead)
@@ -66,7 +66,7 @@ public class ForestInputManager : MonoBehaviour
                 }
             }
             //if we are interacting with a door, load the house scene
-            if (hit.transform.CompareTag("Door"))
+            if (hit.transform.parent.transform.CompareTag("Door"))
                 SceneManager.LoadScene("House");
         }
     }
