@@ -35,7 +35,11 @@ public class WanderAI : MonoBehaviour
 
     void Update()
     {
-        if (shootable.IsDead) return;
+        if (shootable.IsDead)
+        {
+            agent.isStopped = true;
+            return;
+        }
 
         if (agent.remainingDistance <= agent.stoppingDistance) //done with path
         {
