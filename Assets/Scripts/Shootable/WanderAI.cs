@@ -10,7 +10,7 @@ public class WanderAI : MonoBehaviour
     private float perceptionRadius;
     private bool isAlertedByGunshot = false;
     public NavMeshAgent agent;
-    public float range = 15f; //radius of sphere
+    public float wanderRadius = 15f; // how far the AI can wander
     public bool isPredator;
 
     void Awake()
@@ -21,6 +21,7 @@ public class WanderAI : MonoBehaviour
         alertCanvas = GetComponentInChildren<Canvas>();
 
         perceptionRadius = shootable.ShootableSO.perceptionRadius;
+        agent.speed = shootable.ShootableSO.speed;
     }
 
     private void OnEnable() 
@@ -44,7 +45,7 @@ public class WanderAI : MonoBehaviour
         if (agent.remainingDistance <= agent.stoppingDistance) //done with path
         {
             Vector3 point;
-            if (RandomPoint(transform.position, range, out point)) //pass in our centre point and radius of area
+            if (RandomPoint(transform.position, wanderRadius, out point)) //pass in our centre point and radius of area
                 agent.SetDestination(point);
         }
 
@@ -57,10 +58,20 @@ public class WanderAI : MonoBehaviour
                 alertCanvas.enabled = true;
                 if (isPredator)
                 {
-                    // Player is within perception radius, do something
-                    // For example, you could set the agent's destination to the player's position:
                     meshRenderer.material.color = Color.red;
-                    agent.SetDestination(hitCollider.transform.position);
+
+                    float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
+
+                    if (distance <= 2f)
+                    {
+                        agent.isStopped = true;
+                        AttackPlayer();
+                    }
+                    else
+                    {
+                        agent.isStopped = false;
+                        agent.SetDestination(hitCollider.transform.position);
+                    }
                 } 
                 else 
                 {
@@ -101,6 +112,11 @@ public class WanderAI : MonoBehaviour
             perceptionRadius /= 2;
 
         isAlertedByGunshot = false;
+    }
+
+    void AttackPlayer()
+    {
+        Debug.Log("Attacking player");
     }
 
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
