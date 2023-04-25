@@ -8,7 +8,6 @@ public class ForestInputManager : MonoBehaviour
     private PlayerInput playerInput;
     private PlayerMovement movement;
     private PlayerLook look;
-    //private Gun gun;
 
     public static ForestInputManager Instance => instance;
 
@@ -24,10 +23,9 @@ public class ForestInputManager : MonoBehaviour
         movement = GetComponent<PlayerMovement>();
         look = GetComponent<PlayerLook>();
 
-        //gun = GetComponentInChildren<Gun>();
-
         camera = GetComponentInChildren<Camera>();
 
+        playerInput.Forest.Interact.performed += ctx => Interact();
     }
 
     void FixedUpdate()
@@ -50,5 +48,23 @@ public class ForestInputManager : MonoBehaviour
         playerInput.Forest.Disable();
     }
 
-    
+    private void Interact()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, 3f))
+        {
+            Shootable shootable = hit.transform.GetComponentInParent<Shootable>();
+            if (shootable != null)
+            {
+                if (shootable.IsDead)
+                {
+                    GameManager.Instance.Inventory.AddItem(shootable.PlaceableSO);
+                    Destroy(shootable.gameObject);
+                }
+            }
+            //if we are interacting with a door, load the house scene
+            if (hit.transform.parent.transform.CompareTag("Door"))
+                SceneManager.LoadScene("House");
+        }
+    }
 }

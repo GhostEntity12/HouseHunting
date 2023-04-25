@@ -31,6 +31,7 @@ public class WeaponSwitching : MonoBehaviour
 
         for (int i = 0; i < keys.Length; i++)
         {
+            //TODO: switch to new input system
             if (Input.GetKeyDown(keys[i]) && timeSinceLastSwitch >= switchTime)
             {
                 selectedWeapon = i;

@@ -29,9 +29,6 @@ public class Gun : MonoBehaviour
     public GameObject muzzleFlash, bulletHole;
     public TextMeshProUGUI text;
 
-
-    
-    
     private void Awake()
     {
         ammoLeft = magSize;
@@ -51,6 +48,7 @@ public class Gun : MonoBehaviour
 
     public void MyInput()
     {
+        // TODO: switch to new input system
         if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
