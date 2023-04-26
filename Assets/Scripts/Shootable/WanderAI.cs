@@ -9,6 +9,8 @@ public class WanderAI : MonoBehaviour
     private Canvas alertCanvas;
     private float perceptionRadius;
     private bool isAlertedByGunshot = false;
+    private float timeSinceLastAttack = 0f;
+
     public NavMeshAgent agent;
     public float wanderRadius = 15f; // how far the AI can wander
     public bool isPredator;
@@ -116,7 +118,15 @@ public class WanderAI : MonoBehaviour
 
     void AttackPlayer()
     {
-        Debug.Log("Attacking player");
+        if (timeSinceLastAttack >= shootable.ShootableSO.attackInterval)
+        {
+            timeSinceLastAttack = 0f;
+            ForestInputManager.Instance.TakeDamage(shootable.ShootableSO.damage);
+        }
+        else
+        {
+            timeSinceLastAttack += Time.deltaTime;
+        }
     }
 
     bool RandomPoint(Vector3 center, float range, out Vector3 result)

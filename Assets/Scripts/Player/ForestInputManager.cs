@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class ForestInputManager : MonoBehaviour
 {
+    [SerializeField] private int maxHealth;
+    private int currentHealth;
     private static ForestInputManager instance;
     private new Camera camera;
     private PlayerInput playerInput;
@@ -26,6 +28,8 @@ public class ForestInputManager : MonoBehaviour
         camera = GetComponentInChildren<Camera>();
 
         playerInput.Forest.Interact.performed += ctx => Interact();
+
+        currentHealth = maxHealth;
     }
 
     void FixedUpdate()
@@ -66,5 +70,18 @@ public class ForestInputManager : MonoBehaviour
             if (hit.transform.parent.transform.CompareTag("Door"))
                 SceneManager.LoadScene("House");
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        Debug.Log("Player took " + damage + " damage" + " and has " + currentHealth + " health left");
+        if (currentHealth <= 0) Die();
+    }
+
+    private void Die()
+    {
+        // implement death logic here
+        Debug.Log("Player died");
     }
 }

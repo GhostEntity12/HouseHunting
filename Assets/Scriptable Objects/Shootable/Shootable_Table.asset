@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Table
   maxHealth: 100
+  damage: 40
   speed: 3
+  attackInterval: 1
   perceptionRadius: 5

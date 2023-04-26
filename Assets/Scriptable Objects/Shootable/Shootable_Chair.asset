@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Chair
   maxHealth: 50
+  damage: 20
   speed: 4
+  attackInterval: 2
   perceptionRadius: 5
