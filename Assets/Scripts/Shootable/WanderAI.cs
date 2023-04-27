@@ -90,6 +90,7 @@ public class WanderAI : MonoBehaviour
             {
                 alertCanvas.enabled = false;
                 meshRenderer.material.color = Color.white;
+                agent.isStopped = false;
             }
         }
     }

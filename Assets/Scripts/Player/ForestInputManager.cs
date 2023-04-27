@@ -81,7 +81,17 @@ public class ForestInputManager : MonoBehaviour
 
     private void Die()
     {
-        // implement death logic here
-        Debug.Log("Player died");
+        // detach the camera from the player
+        Camera camera = GetComponentInChildren<Camera>();
+        camera.transform.parent = null;
+
+        // destroy all children of the camera
+        foreach (Transform child in camera.transform)
+            Destroy(child.gameObject);
+        
+        // destroy the player object
+        Destroy(gameObject);
+
+        GameManager.Instance.GameOver();
     }
 }
