@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Table
   maxHealth: 100
+  damage: 40
   speed: 3
-  model: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  attackInterval: 1
+  perceptionRadius: 5

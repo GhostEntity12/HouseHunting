@@ -3,12 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class ForestInputManager : MonoBehaviour
 {
+    [SerializeField] private int maxHealth;
+    private int currentHealth;
     private static ForestInputManager instance;
     private new Camera camera;
     private PlayerInput playerInput;
     private PlayerMovement movement;
     private PlayerLook look;
-    private Gun gun;
 
     public static ForestInputManager Instance => instance;
 
@@ -25,10 +26,10 @@ public class ForestInputManager : MonoBehaviour
         look = GetComponent<PlayerLook>();
 
         camera = GetComponentInChildren<Camera>();
-        gun = GetComponentInChildren<Gun>();
 
-        playerInput.Forest.Shoot.performed += ctx => gun.Shoot();
         playerInput.Forest.Interact.performed += ctx => Interact();
+
+        currentHealth = maxHealth;
     }
 
     void FixedUpdate()
@@ -56,7 +57,7 @@ public class ForestInputManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, 3f))
         {
-            Shootable shootable = hit.transform.GetComponent<Shootable>();
+            Shootable shootable = hit.transform.GetComponentInParent<Shootable>();
             if (shootable != null)
             {
                 if (shootable.IsDead)
@@ -66,8 +67,31 @@ public class ForestInputManager : MonoBehaviour
                 }
             }
             //if we are interacting with a door, load the house scene
-            if (hit.transform.CompareTag("Door"))
+            if (hit.transform.parent.transform.CompareTag("Door"))
                 SceneManager.LoadScene("House");
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        Debug.Log("Player took " + damage + " damage" + " and has " + currentHealth + " health left");
+        if (currentHealth <= 0) Die();
+    }
+
+    private void Die()
+    {
+        // detach the camera from the player
+        Camera camera = GetComponentInChildren<Camera>();
+        camera.transform.parent = null;
+
+        // destroy all children of the camera
+        foreach (Transform child in camera.transform)
+            Destroy(child.gameObject);
+        
+        // destroy the player object
+        Destroy(gameObject);
+
+        GameManager.Instance.GameOver();
     }
 }

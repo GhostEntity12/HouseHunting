@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour, IDataPersistence
 {
     private static GameManager instance;
     private Inventory inventory;
+
+    [SerializeField] private GameObject gameOverUI;
 
     public static GameManager Instance { get; private set; }
 
@@ -40,5 +43,18 @@ public class GameManager : MonoBehaviour, IDataPersistence
     public void SaveData(GameData data)
     {
         data.serializedInventory = inventory.Serialize();
+    }
+
+    public void GameOver()
+    {
+        gameOverUI.SetActive(true);
+        ShowCursor();
+    }
+
+    public void RespawnInHouse()
+    {
+        gameOverUI.SetActive(false);
+        HideCursor();
+        SceneManager.LoadScene("House");
     }
 }
