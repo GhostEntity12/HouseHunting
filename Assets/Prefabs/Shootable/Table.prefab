@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 736955873112452282}
-  range: 15
+  wanderRadius: 15
   isPredator: 0
 --- !u!195 &736955873112452282
 NavMeshAgent:
