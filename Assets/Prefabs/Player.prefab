@@ -46,8 +46,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d8b048778b877b4396458ea492b2448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunPoint: {fileID: 2525959301245031288}
   damage: 10
+  timeBetweenShooting: 0
+  spread: 0
+  range: 0
+  reloadTime: 0
+  timeBetweenShots: 0
+  magSize: 0
+  bulletsPerTap: 0
+  allowButtonHold: 0
+  Cam: {fileID: 0}
+  muzzlePoint: {fileID: 0}
+  muzzleFlash: {fileID: 0}
+  bulletHole: {fileID: 0}
+  text: {fileID: 0}
 --- !u!1 &446771967822049098
 GameObject:
   m_ObjectHideFlags: 0
