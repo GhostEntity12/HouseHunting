@@ -123,6 +123,8 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<< HEAD:Assets/Scenes/forestTest.unity
+=======
 --- !u!1 &55381250
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,6 +515,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 659532264}
   m_CullTransparentMesh: 1
+>>>>>>> main:Assets/Scenes/Forest.unity
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,6 +608,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD:Assets/Scenes/forestTest.unity
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &742058135
+=======
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1001 &723669104
@@ -682,6 +690,7 @@ Transform:
   m_PrefabInstance: {fileID: 170367674}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &935712555
+>>>>>>> main:Assets/Scenes/Forest.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -689,6 +698,21 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD:Assets/Scenes/forestTest.unity
+  - component: {fileID: 742058138}
+  - component: {fileID: 742058137}
+  - component: {fileID: 742058136}
+  - component: {fileID: 742058139}
+  m_Layer: 0
+  m_Name: Terrain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!154 &742058136
+TerrainCollider:
+=======
   - component: {fileID: 935712556}
   - component: {fileID: 935712558}
   - component: {fileID: 935712557}
@@ -701,10 +725,81 @@ GameObject:
   m_IsActive: 1
 --- !u!224 &935712556
 RectTransform:
+>>>>>>> main:Assets/Scenes/Forest.unity
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD:Assets/Scenes/forestTest.unity
+  m_GameObject: {fileID: 742058135}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_TerrainData: {fileID: 15600000, guid: c1ca08d45a2324a43bbd2eab2c3d4721, type: 2}
+  m_EnableTreeColliders: 1
+--- !u!218 &742058137
+Terrain:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742058135}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_TerrainData: {fileID: 15600000, guid: c1ca08d45a2324a43bbd2eab2c3d4721, type: 2}
+  m_TreeDistance: 5000
+  m_TreeBillboardDistance: 50
+  m_TreeCrossFadeLength: 5
+  m_TreeMaximumFullLODCount: 50
+  m_DetailObjectDistance: 80
+  m_DetailObjectDensity: 1
+  m_HeightmapPixelError: 5
+  m_SplatMapDistance: 1000
+  m_HeightmapMaximumLOD: 0
+  m_ShadowCastingMode: 2
+  m_DrawHeightmap: 1
+  m_DrawInstanced: 0
+  m_DrawTreesAndFoliage: 1
+  m_StaticShadowCaster: 0
+  m_IgnoreQualitySettings: 0
+  m_ReflectionProbeUsage: 1
+  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_BakeLightProbesForTrees: 1
+  m_PreserveTreePrototypeLayers: 0
+  m_DeringLightProbesForTrees: 1
+  m_ReceiveGI: 1
+  m_ScaleInLightmap: 0.0256
+  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
+  m_GroupingID: 0
+  m_RenderingLayerMask: 1
+  m_AllowAutoConnect: 1
+  m_EnableHeightmapRayTracing: 1
+  m_EnableTreesAndDetailsRayTracing: 0
+--- !u!4 &742058138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742058135}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -526, y: -12, z: -450}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &742058139
+=======
   m_GameObject: {fileID: 935712555}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -720,11 +815,39 @@ RectTransform:
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &935712557
+>>>>>>> main:Assets/Scenes/Forest.unity
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD:Assets/Scenes/forestTest.unity
+  m_GameObject: {fileID: 742058135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 55a45e54a644a47428319c2a8b17c9d5, type: 2}
+  m_BuildHeightMesh: 0
+=======
   m_GameObject: {fileID: 935712555}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -816,6 +939,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935712555}
   m_CullTransparentMesh: 1
+>>>>>>> main:Assets/Scenes/Forest.unity
 --- !u!1001 &996901503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -834,11 +958,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1778503834011940512, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
       propertyPath: m_LocalPosition.y
+<<<<<<< HEAD:Assets/Scenes/forestTest.unity
+      value: -1.2110004
+=======
       value: 0
+>>>>>>> main:Assets/Scenes/Forest.unity
       objectReference: {fileID: 0}
     - target: {fileID: 1778503834011940512, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.094
+      value: -15.83
       objectReference: {fileID: 0}
     - target: {fileID: 1778503834011940512, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1075,6 +1203,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f81df0dc79c6b2408a565b81dd13cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD:Assets/Scenes/forestTest.unity
+=======
   maxHealth: 100
 --- !u!1 &1386420313
 GameObject:
@@ -1297,6 +1427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+>>>>>>> main:Assets/Scenes/Forest.unity
 --- !u!1 &1459504886
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,11 +1522,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1778503834011940512, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
       propertyPath: m_LocalPosition.y
+<<<<<<< HEAD:Assets/Scenes/forestTest.unity
+      value: -1.6940005
+=======
       value: 0
+>>>>>>> main:Assets/Scenes/Forest.unity
       objectReference: {fileID: 0}
     - target: {fileID: 1778503834011940512, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.25
+      value: -17.986
       objectReference: {fileID: 0}
     - target: {fileID: 1778503834011940512, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1438,6 +1573,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
+<<<<<<< HEAD:Assets/Scenes/forestTest.unity
+=======
 --- !u!1 &1640932211
 GameObject:
   m_ObjectHideFlags: 0
@@ -2214,6 +2351,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1886990489}
   m_CullTransparentMesh: 1
+>>>>>>> main:Assets/Scenes/Forest.unity
 --- !u!1 &1913892280
 GameObject:
   m_ObjectHideFlags: 0
@@ -2310,7 +2448,11 @@ RectTransform:
   - {fileID: 1459504887}
   - {fileID: 1452056680}
   m_Father: {fileID: 0}
+<<<<<<< HEAD:Assets/Scenes/forestTest.unity
+  m_RootOrder: 9
+=======
   m_RootOrder: 15
+>>>>>>> main:Assets/Scenes/Forest.unity
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2338,7 +2480,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1778503834011940512, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1778503834011940512, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2346,11 +2488,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1778503834011940512, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
       propertyPath: m_LocalPosition.y
+<<<<<<< HEAD:Assets/Scenes/forestTest.unity
+      value: -1.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778503834011940512, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -16.65
+=======
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1778503834011940512, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
       propertyPath: m_LocalPosition.z
       value: -2.92
+>>>>>>> main:Assets/Scenes/Forest.unity
       objectReference: {fileID: 0}
     - target: {fileID: 1778503834011940512, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2421,11 +2571,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1778503834011940512, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
       propertyPath: m_LocalPosition.y
+<<<<<<< HEAD:Assets/Scenes/forestTest.unity
+      value: -1.6980004
+=======
       value: 0
+>>>>>>> main:Assets/Scenes/Forest.unity
       objectReference: {fileID: 0}
     - target: {fileID: 1778503834011940512, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.61
+      value: -17.346
       objectReference: {fileID: 0}
     - target: {fileID: 1778503834011940512, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2486,7 +2640,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6512200027144434544, guid: c630c2faa29cd0c449090803c741c0f1, type: 3}
       propertyPath: m_LocalPosition.y
+<<<<<<< HEAD:Assets/Scenes/forestTest.unity
+      value: 1.87
+=======
       value: 0
+>>>>>>> main:Assets/Scenes/Forest.unity
       objectReference: {fileID: 0}
     - target: {fileID: 6512200027144434544, guid: c630c2faa29cd0c449090803c741c0f1, type: 3}
       propertyPath: m_LocalPosition.z
