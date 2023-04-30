@@ -40,6 +40,24 @@ public class Inventory
         }
     }
 
+    public void MergeInventory(Inventory other)
+    {
+        foreach ((PlaceableSO furniture, int quantity) item in other.items)
+        {
+            for (int i = 0; i < item.quantity; i++)
+            {
+                AddItem(item.furniture);
+            }
+        }
+
+        other.ClearInventory();
+    }
+
+    public void ClearInventory()
+    {
+        items.Clear();
+    }
+
     public List<(string, int)> Serialize()
     {
         List<(string, int)> serializedInventory = new List<(string, int)>();

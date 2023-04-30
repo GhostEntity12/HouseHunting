@@ -4,13 +4,13 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour, IDataPersistence
 {
     private static GameManager instance;
-    private Inventory inventory;
+    private Inventory permanentInventory;
 
     [SerializeField] private GameObject gameOverUI;
 
     public static GameManager Instance { get; private set; }
 
-    public Inventory Inventory { get => inventory; }
+    public Inventory PermanentInventory { get => permanentInventory; }
 
     void Awake()
     {
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
             Instance = this;
 
         HideCursor();
-        inventory = new Inventory();
+        permanentInventory = new Inventory();
     }
 
     public void HideCursor()
@@ -37,12 +37,12 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        inventory = Inventory.Deserialize(data.serializedInventory);
+        permanentInventory = Inventory.Deserialize(data.serializedPermanentInventory);
     }
 
     public void SaveData(GameData data)
     {
-        data.serializedInventory = inventory.Serialize();
+        data.serializedPermanentInventory = permanentInventory.Serialize();
     }
 
     public void GameOver()

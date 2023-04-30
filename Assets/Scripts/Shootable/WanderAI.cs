@@ -122,7 +122,7 @@ public class WanderAI : MonoBehaviour
         if (timeSinceLastAttack >= shootable.ShootableSO.attackInterval)
         {
             timeSinceLastAttack = 0f;
-            ForestInputManager.Instance.TakeDamage(shootable.ShootableSO.damage);
+            ForestManager.Instance.DealDamageToPlayer(shootable.ShootableSO.damage);
         }
         else
         {
