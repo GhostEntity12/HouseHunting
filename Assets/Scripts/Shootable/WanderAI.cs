@@ -15,7 +15,7 @@ public class WanderAI : MonoBehaviour
     public float wanderRadius = 15f; // how far the AI can wander
     public bool isPredator;
 
-    void Awake()
+    private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         shootable = GetComponent<Shootable>();
@@ -36,7 +36,7 @@ public class WanderAI : MonoBehaviour
         Gun.OnGunShootEvent -= OnGunShoot;
     }
 
-    void Update()
+    private void Update()
     {
         if (shootable.IsDead)
         {
@@ -95,13 +95,13 @@ public class WanderAI : MonoBehaviour
         }
     }
 
-    void OnGunShoot()
+    private void OnGunShoot()
     {
         StopAllCoroutines();
         StartCoroutine(DoublePerceptionRadius());
     }
 
-    IEnumerator DoublePerceptionRadius()
+    private IEnumerator DoublePerceptionRadius()
     {
         // if it's already doubled, don't double it again
         if (!isAlertedByGunshot)
@@ -117,7 +117,7 @@ public class WanderAI : MonoBehaviour
         isAlertedByGunshot = false;
     }
 
-    void AttackPlayer()
+    private void AttackPlayer()
     {
         if (timeSinceLastAttack >= shootable.ShootableSO.attackInterval)
         {
@@ -130,7 +130,7 @@ public class WanderAI : MonoBehaviour
         }
     }
 
-    bool RandomPoint(Vector3 center, float range, out Vector3 result)
+    private bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
         Vector3 randomPoint = center + Random.insideUnitSphere * range; //random point in a sphere 
         NavMeshHit hit;

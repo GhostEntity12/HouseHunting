@@ -3,11 +3,12 @@ using UnityEngine;
 public class InventoryUIManager : MonoBehaviour
 {
     [SerializeField] private InventoryItemsUI inventoryItemsUIPrefab;
+
     private static InventoryUIManager instance;
 
     public static InventoryUIManager Instance { get; private set; }
 
-    void Awake()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
             Destroy(this.gameObject);
@@ -15,7 +16,7 @@ public class InventoryUIManager : MonoBehaviour
             Instance = this;
     }
 
-    void Start()
+    private void Start()
     {
         foreach (var item in GameManager.Instance.PermanentInventory.Items)
         {

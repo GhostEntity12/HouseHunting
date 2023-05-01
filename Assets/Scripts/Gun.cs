@@ -8,7 +8,6 @@ public class Gun : MonoBehaviour
     public delegate void OnGunShoot();
     public static event OnGunShoot OnGunShootEvent;
 
-
     //Gun stats
     public int damage;
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
@@ -34,7 +33,6 @@ public class Gun : MonoBehaviour
         ammoLeft = magSize;
         readyToShoot = true;
     }
-
 
     private void Update()
     {

@@ -11,7 +11,7 @@ public class ForestInputManager : MonoBehaviour
 
     public static ForestInputManager Instance => instance;
 
-    void Awake()
+    private void Awake()
     {
         if (instance != null && instance != this)
             Destroy(this.gameObject);
@@ -28,7 +28,7 @@ public class ForestInputManager : MonoBehaviour
         playerInput.Forest.Interact.performed += ctx => Interact();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         movement.Move(playerInput.Forest.Movement.ReadValue<Vector2>());
     }

@@ -4,10 +4,9 @@ using UnityEngine;
 public class DecorateManager : MonoBehaviour, IDataPersistence
 {
     private static DecorateManager instance;
-
-    public static DecorateManager Instance { get; private set; }
-
     private List<SerializableDecoration> serializedDecorations;
+
+    public static DecorateManager Instance => instance;
 
     public void LoadData(GameData data)
     {
@@ -21,10 +20,10 @@ public class DecorateManager : MonoBehaviour, IDataPersistence
 
     private void Awake() 
     {
-        if (Instance != null && Instance != this)
+        if (instance != null && instance != this)
             Destroy(this.gameObject);
         else
-            Instance = this;
+            instance = this;
 
         serializedDecorations = new List<SerializableDecoration>();
     }

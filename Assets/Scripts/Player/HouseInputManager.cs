@@ -11,8 +11,7 @@ public class HouseInputManager : MonoBehaviour
 
     public static HouseInputManager Instance => instance;
 
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         if (instance != null && instance != this)
             Destroy(this.gameObject);
@@ -30,8 +29,7 @@ public class HouseInputManager : MonoBehaviour
         playerInput.House.Decorate.performed += ctx => SceneManager.LoadScene("Decorate");
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         movement.Move(playerInput.House.Movement.ReadValue<Vector2>());
     }

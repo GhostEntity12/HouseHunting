@@ -6,18 +6,15 @@ public class GameManager : MonoBehaviour, IDataPersistence
     private static GameManager instance;
     private Inventory permanentInventory;
 
-    [SerializeField] private GameObject gameOverUI;
-
-    public static GameManager Instance { get; private set; }
-
+    public static GameManager Instance => instance;
     public Inventory PermanentInventory { get => permanentInventory; }
 
-    void Awake()
+    private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (instance != null && instance != this)
             Destroy(this.gameObject);
         else
-            Instance = this;
+            instance = this;
 
         HideCursor();
         permanentInventory = new Inventory();
@@ -43,18 +40,5 @@ public class GameManager : MonoBehaviour, IDataPersistence
     public void SaveData(GameData data)
     {
         data.serializedPermanentInventory = permanentInventory.Serialize();
-    }
-
-    public void GameOver()
-    {
-        gameOverUI.SetActive(true);
-        ShowCursor();
-    }
-
-    public void RespawnInHouse()
-    {
-        gameOverUI.SetActive(false);
-        HideCursor();
-        SceneManager.LoadScene("House");
     }
 }
