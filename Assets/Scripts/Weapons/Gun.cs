@@ -8,29 +8,35 @@ public class Gun : MonoBehaviour
     public delegate void OnGunShoot();
     public static event OnGunShoot OnGunShootEvent;
 
+    //bullet
+    public GameObject bullet;
+    public float shootForce;
+
+
 
     //Gun stats
-    public int damage;
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
     public int magSize, bulletsPerTap;
     public bool allowButtonHold;
     int ammoLeft, ammoShot;
+
 
     //bools
     bool shooting, readyToShoot, reloading;
 
     //Reference
     public Camera Cam;
-    public RaycastHit hit;
     public Transform muzzlePoint;
 
     //Graphics
-    //public CameraShake camShake;
-    public GameObject muzzleFlash, bulletHole;
+    public GameObject muzzleFlash;
     public TextMeshProUGUI text;
 
-    private void Awake()
+    private Recoil Recoil_Script;
+
+    public void Awake()
     {
+        Recoil_Script = GameObject.Find("CameraRot/CameraRecoil").GetComponent<Recoil>();
         ammoLeft = magSize;
         readyToShoot = true;
     }
@@ -48,7 +54,6 @@ public class Gun : MonoBehaviour
 
     public void MyInput()
     {
-        // TODO: switch to new input system
         if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
@@ -74,26 +79,19 @@ public class Gun : MonoBehaviour
 
         //calculate direction with spread
         Vector3 direction = Cam.transform.forward + new Vector3(x, y, 0);
-        
-        //Raycast
-        if (Physics.Raycast(Cam.transform.position, direction, out hit, range))
-        {
-            Shootable shootableTarget = hit.transform.GetComponentInParent<Shootable>();
-            if (shootableTarget != null)
-            {
-                shootableTarget.TakeDamage(damage);
-            }
-        }
 
-        //Camera shake
-        //camShake.Shake(camShakeDuration, camShakeMagnitude);
+        //Spawn bullet at attack point
+        GameObject currentBullet = Instantiate(bullet, muzzlePoint.position, Quaternion.identity);
+        currentBullet.transform.forward = direction.normalized;
 
-        //bullet hole
-        GameObject obj = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
-        obj.transform.position += obj.transform.forward/1000;
+        //Add force to bullet
+        currentBullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shootForce, ForceMode.Impulse);
 
         //Muzzle flash
         Instantiate(muzzleFlash, muzzlePoint.position, Quaternion.identity);
+
+        //recoil
+        Recoil_Script.RecoilFire();
 
         ammoLeft--;
         ammoShot--;
@@ -103,7 +101,9 @@ public class Gun : MonoBehaviour
         {
             Invoke("Shoot", timeBetweenShots);
         }
+
     }
+
 
     private void ResetShot()
     {
