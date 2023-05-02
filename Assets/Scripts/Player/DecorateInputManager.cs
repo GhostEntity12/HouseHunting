@@ -24,7 +24,7 @@ public class DecorateInputManager : MonoBehaviour
     public static DecorateInputManager Instance => instance;
     public Placeable SelectedPlaceable => selectedPlaceable;
 
-    void Awake()
+    private void Awake()
     {
         if (instance != null && instance != this)
             Destroy(this.gameObject);
@@ -51,7 +51,7 @@ public class DecorateInputManager : MonoBehaviour
         cameraBound.zMax = (floorMeshRenderer.transform.position.z + floorMeshRenderer.bounds.size.z / 2) * 2.0f;
     }
 
-    void Start()
+    private void Start()
     {
         GameManager.Instance.ShowCursor();
     }
@@ -155,6 +155,26 @@ public class DecorateInputManager : MonoBehaviour
         );
     }
 
+    private RaycastHit CastRayFromMouseToFloor()
+    {
+        Vector3 screenMousePosFar = new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), camera.farClipPlane);
+        Vector3 screenMousePosNear = new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), camera.nearClipPlane);
+        Vector3 worldMousePosFar = camera.ScreenToWorldPoint(screenMousePosFar);
+        Vector3 worldMousePosNear = camera.ScreenToWorldPoint(screenMousePosNear);
+
+        RaycastHit hit;
+        Physics.Raycast(worldMousePosNear, worldMousePosFar - worldMousePosNear, out hit, int.MaxValue, 1 << LayerMask.NameToLayer("Floor"));
+
+        return hit;
+    }
+
+    private void RotateCamera(Vector2 mouseDelta)
+    {
+        cameraYRotation -= mouseDelta.x * Time.deltaTime * 30;
+
+        camera.transform.localRotation = Quaternion.Euler(camera.transform.localRotation.eulerAngles.x, cameraYRotation, 0);
+    }
+
     public void SelectPlacable(Placeable toBeSelected)
     {
         isSelectingPlaceable = true;
@@ -212,31 +232,11 @@ public class DecorateInputManager : MonoBehaviour
         inventoryScrollView.gameObject.SetActive(true);
     }
 
-    private RaycastHit CastRayFromMouseToFloor()
-    {
-        Vector3 screenMousePosFar = new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), camera.farClipPlane);
-        Vector3 screenMousePosNear = new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), camera.nearClipPlane);
-        Vector3 worldMousePosFar = camera.ScreenToWorldPoint(screenMousePosFar);
-        Vector3 worldMousePosNear = camera.ScreenToWorldPoint(screenMousePosNear);
-
-        RaycastHit hit;
-        Physics.Raycast(worldMousePosNear, worldMousePosFar - worldMousePosNear, out hit, int.MaxValue, 1 << LayerMask.NameToLayer("Floor"));
-
-        return hit;
-    }
-
-    private void RotateCamera(Vector2 mouseDelta)
-    {
-        cameraYRotation -= mouseDelta.x * Time.deltaTime * 30;
-
-        camera.transform.localRotation = Quaternion.Euler(camera.transform.localRotation.eulerAngles.x, cameraYRotation, 0);
-    }
-
     public void RemoveSelectedPlaceable()
     {
         if (selectedPlaceable == null) return;
 
-        GameManager.Instance.Inventory.AddItem(selectedPlaceable.PlaceableSO);
+        GameManager.Instance.PermanentInventory.AddItem(selectedPlaceable.PlaceableSO);
         InventoryUIManager.Instance.RepaintInventory();
         Destroy(selectedPlaceable.gameObject);
         selectedPlaceable = null;

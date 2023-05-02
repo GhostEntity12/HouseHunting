@@ -27,7 +27,7 @@ public class InventoryItemsUI : MonoBehaviour
         //after spawning the placeable, select it
         DecorateInputManager.Instance.SelectPlacable(spawned);
         //remove the item from the inventory
-        GameManager.Instance.Inventory.RemoveItem(placeableSO);
+        GameManager.Instance.PermanentInventory.RemoveItem(placeableSO);
         //change the quantity of the item in the inventory
         if (int.Parse(quantityText.text) > 1)
             ChangeQuantity(int.Parse(quantityText.text) - 1);

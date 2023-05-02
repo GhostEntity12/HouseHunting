@@ -4,23 +4,20 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour, IDataPersistence
 {
     private static GameManager instance;
-    private Inventory inventory;
+    private Inventory permanentInventory;
 
-    [SerializeField] private GameObject gameOverUI;
+    public static GameManager Instance => instance;
+    public Inventory PermanentInventory { get => permanentInventory; }
 
-    public static GameManager Instance { get; private set; }
-
-    public Inventory Inventory { get => inventory; }
-
-    void Awake()
+    private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (instance != null && instance != this)
             Destroy(this.gameObject);
         else
-            Instance = this;
+            instance = this;
 
         HideCursor();
-        inventory = new Inventory();
+        permanentInventory = new Inventory();
     }
 
     public void HideCursor()
@@ -37,24 +34,11 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        inventory = Inventory.Deserialize(data.serializedInventory);
+        permanentInventory = Inventory.Deserialize(data.serializedPermanentInventory);
     }
 
     public void SaveData(GameData data)
     {
-        data.serializedInventory = inventory.Serialize();
-    }
-
-    public void GameOver()
-    {
-        gameOverUI.SetActive(true);
-        ShowCursor();
-    }
-
-    public void RespawnInHouse()
-    {
-        gameOverUI.SetActive(false);
-        HideCursor();
-        SceneManager.LoadScene("House");
+        data.serializedPermanentInventory = permanentInventory.Serialize();
     }
 }

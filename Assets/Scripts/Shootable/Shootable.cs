@@ -14,11 +14,18 @@ public abstract class Shootable : MonoBehaviour
     public ShootableSO ShootableSO => shootableSO;
     public PlaceableSO PlaceableSO => placeableSO;
 
-    void Awake()
+    private void Awake()
     {
         currentHealth = shootableSO.maxHealth;
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         alertCanvas = GetComponentInChildren<Canvas>();
+    }
+
+    private void Die()
+    {
+        isDead = true;
+        alertCanvas.enabled = false;
+        meshRenderer.material.color = Color.blue; // Here we just change the material to the dead material for testing purposes, this can be changed to whatever logic to handle death
     }
 
     public void TakeDamage(int damage)
@@ -28,12 +35,5 @@ public abstract class Shootable : MonoBehaviour
         currentHealth -= damage;
 
         if (currentHealth <= 0) Die();
-    }
-
-    private void Die()
-    {
-        isDead = true;
-        alertCanvas.enabled = false;
-        meshRenderer.material.color = Color.blue; // Here we just change the material to the dead material for testing purposes, this can be changed to whatever logic to handle death
     }
 }

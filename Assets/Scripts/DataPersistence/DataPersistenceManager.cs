@@ -12,7 +12,6 @@ public class DataPersistenceManager : MonoBehaviour
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler fileDataHandler;
 
-
     public static DataPersistenceManager Instance { get; private set; }
 
     public List<PlaceableSO> PlaceableScriptableObjects { get => placeableScriptableObjects; }
@@ -51,6 +50,17 @@ public class DataPersistenceManager : MonoBehaviour
         SaveGame();
     }
 
+    private void OnApplicationQuit()
+    {
+        SaveGame();
+    }
+
+    private List<IDataPersistence> FindAllDataPersistenceObjects()
+    {
+        IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
+        return new List<IDataPersistence>(dataPersistenceObjects);
+    }
+
     public void NewGame()
     {
         gameData = new GameData();
@@ -77,16 +87,5 @@ public class DataPersistenceManager : MonoBehaviour
         }
 
         fileDataHandler.Save(gameData);
-    }
-
-    private void OnApplicationQuit()
-    {
-        SaveGame();
-    }
-
-    private List<IDataPersistence> FindAllDataPersistenceObjects()
-    {
-        IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
-        return new List<IDataPersistence>(dataPersistenceObjects);
     }
 }

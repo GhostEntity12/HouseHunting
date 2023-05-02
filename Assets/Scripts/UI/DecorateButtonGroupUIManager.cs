@@ -6,11 +6,12 @@ public class DecorateButtonGroupUIManager : MonoBehaviour
     [SerializeField] private Button cancelButton;
     [SerializeField] private Button okButton;
     [SerializeField] private Transform buttonGroup;
+
     private static DecorateButtonGroupUIManager instance;
 
     public static DecorateButtonGroupUIManager Instance => instance;
     
-    void Awake()
+    private void Awake()
     {
         if (instance != null && instance != this)
             Destroy(this.gameObject);

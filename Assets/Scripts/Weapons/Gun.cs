@@ -12,8 +12,6 @@ public class Gun : MonoBehaviour
     public GameObject bullet;
     public float shootForce;
 
-
-
     //Gun stats
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
     public int magSize, bulletsPerTap;
@@ -40,7 +38,6 @@ public class Gun : MonoBehaviour
         ammoLeft = magSize;
         readyToShoot = true;
     }
-
 
     private void Update()
     {

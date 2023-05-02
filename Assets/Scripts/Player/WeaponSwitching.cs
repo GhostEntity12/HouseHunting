@@ -5,18 +5,13 @@ using UnityEngine;
 public class WeaponSwitching : MonoBehaviour
 {
     [SerializeField] private Transform[] weapons;
-
     [SerializeField] private KeyCode[] keys;
-
     [SerializeField] private float switchTime;
 
     public static int selectedWeapon;
     private float timeSinceLastSwitch;
 
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         SetWeapons();
         Select(selectedWeapon);
@@ -24,8 +19,7 @@ public class WeaponSwitching : MonoBehaviour
         timeSinceLastSwitch = 0f;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         int previousSelectedWeapon = selectedWeapon;
 

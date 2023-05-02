@@ -3,8 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class ForestInputManager : MonoBehaviour
 {
-    [SerializeField] private int maxHealth;
-    private int currentHealth;
     private static ForestInputManager instance;
     private new Camera camera;
     private PlayerInput playerInput;
@@ -13,7 +11,7 @@ public class ForestInputManager : MonoBehaviour
 
     public static ForestInputManager Instance => instance;
 
-    void Awake()
+    private void Awake()
     {
         if (instance != null && instance != this)
             Destroy(this.gameObject);
@@ -28,11 +26,9 @@ public class ForestInputManager : MonoBehaviour
         camera = GetComponentInChildren<Camera>();
 
         playerInput.Forest.Interact.performed += ctx => Interact();
-
-        currentHealth = maxHealth;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         movement.Move(playerInput.Forest.Movement.ReadValue<Vector2>());
     }
@@ -62,36 +58,18 @@ public class ForestInputManager : MonoBehaviour
             {
                 if (shootable.IsDead)
                 {
-                    GameManager.Instance.Inventory.AddItem(shootable.PlaceableSO);
+                    ForestManager.Instance.HuntingInventory.AddItem(shootable.PlaceableSO);
+                    Debug.Log(ForestManager.Instance.HuntingInventory);
                     Destroy(shootable.gameObject);
                 }
             }
             //if we are interacting with a door, load the house scene
             if (hit.transform.parent.transform.CompareTag("Door"))
+            {
+                // add hunting inventory to the player inventory
+                GameManager.Instance.PermanentInventory.MergeInventory(ForestManager.Instance.HuntingInventory);
                 SceneManager.LoadScene("House");
+            }
         }
-    }
-
-    public void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-        Debug.Log("Player took " + damage + " damage" + " and has " + currentHealth + " health left");
-        if (currentHealth <= 0) Die();
-    }
-
-    private void Die()
-    {
-        // detach the camera from the player
-        Camera camera = GetComponentInChildren<Camera>();
-        camera.transform.parent = null;
-
-        // destroy all children of the camera
-        foreach (Transform child in camera.transform)
-            Destroy(child.gameObject);
-        
-        // destroy the player object
-        Destroy(gameObject);
-
-        GameManager.Instance.GameOver();
     }
 }
