@@ -90,6 +90,7 @@ public class ForestManager : MonoBehaviour, IDataPersistence
 
     public void RespawnInHouse()
     {
+        GameManager.Instance.PermanentInventory.MergeInventory(huntingInventory);
         gameOverUI.SetActive(false);
         GameManager.Instance.HideCursor();
         SceneManager.LoadScene("House");

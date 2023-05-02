@@ -65,11 +65,7 @@ public class ForestInputManager : MonoBehaviour
             }
             //if we are interacting with a door, load the house scene
             if (hit.transform.parent.transform.CompareTag("Door"))
-            {
-                // add hunting inventory to the player inventory
-                GameManager.Instance.PermanentInventory.MergeInventory(ForestManager.Instance.HuntingInventory);
-                SceneManager.LoadScene("House");
-            }
+                ForestManager.Instance.RespawnInHouse();
         }
     }
 }
