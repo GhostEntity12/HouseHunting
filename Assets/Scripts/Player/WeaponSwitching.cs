@@ -8,7 +8,7 @@ public class WeaponSwitching : MonoBehaviour
     [SerializeField] private KeyCode[] keys;
     [SerializeField] private float switchTime;
 
-    private int selectedWeapon;
+    public static int selectedWeapon;
     private float timeSinceLastSwitch;
 
     private void Start()
@@ -25,12 +25,13 @@ public class WeaponSwitching : MonoBehaviour
 
         for (int i = 0; i < keys.Length; i++)
         {
-            //TODO: switch to new input system
             if (Input.GetKeyDown(keys[i]) && timeSinceLastSwitch >= switchTime)
             {
                 selectedWeapon = i;
             }
         }
+
+
 
         if (previousSelectedWeapon != selectedWeapon)
         {
@@ -49,8 +50,6 @@ public class WeaponSwitching : MonoBehaviour
         {
             weapons[i] = transform.GetChild(i);
         }
-
-        if (keys == null) keys = new KeyCode[weapons.Length];
 
     }
 
