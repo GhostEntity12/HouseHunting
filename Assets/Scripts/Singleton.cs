@@ -11,7 +11,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 	{
 		if (Instance != null && Instance != this as T)
 		{
-			Debug.LogError($"An instance of {this.name} already exists");
+			Debug.LogError($"An instance of {typeof(T)} already exists");
 			Destroy(this.gameObject);
 		}
 		else
