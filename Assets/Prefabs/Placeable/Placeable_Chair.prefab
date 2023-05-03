@@ -155,7 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304f65a922a1c7e419427ba953ffe214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeableSO: {fileID: 11400000, guid: 41b976bac237e8945a8910c406a257ad, type: 2}
+  <Mesh>k__BackingField: {fileID: 5605430149568423139}
+  <RotationWheel>k__BackingField: {fileID: 1330771250707429528}
 --- !u!136 &187715261468328272
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -307,6 +308,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee16736a98dd9c04d8423232e36fbb14, type: 3}
+--- !u!114 &1330771250707429528 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4467121243246783173, guid: ee16736a98dd9c04d8423232e36fbb14, type: 3}
+  m_PrefabInstance: {fileID: 3425478433589989981}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86944a8bcc099e541a2fc3c231394fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3767065727497602638 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2003802966849459219, guid: ee16736a98dd9c04d8423232e36fbb14, type: 3}

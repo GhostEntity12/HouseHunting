@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4467121243246783173}
   - component: {fileID: 5202392148728096179}
   m_Layer: 5
-  m_Name: Anchor
+  m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86944a8bcc099e541a2fc3c231394fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 397934840948776487}
 --- !u!114 &5202392148728096179
 MonoBehaviour:
   m_ObjectHideFlags: 0
