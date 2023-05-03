@@ -21,8 +21,16 @@ public class Placeable : MonoBehaviour
             IsValidPosition = false;
     }
 
-    public void RotateToAngle(float angle)
+    public void SetTransforms(Vector3 position, float rotation)
+    {
+        transform.position = position;
+        RotateToAngle(rotation);
+    }
+
+	public void RotateToAngle(float angle)
     {
         Mesh.transform.rotation = Quaternion.Euler(0, angle, 0);
     }
+
+
 }

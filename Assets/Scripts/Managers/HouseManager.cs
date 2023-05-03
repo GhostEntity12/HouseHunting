@@ -23,8 +23,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		foreach (HouseItem item in houseItems)
 		{
 			Placeable spawnedPlaceable = Instantiate(DataPersistenceManager.Instance.GetPlaceablePrefabById(item.inventoryItem.id));
-			spawnedPlaceable.transform.position = item.position;
-			spawnedPlaceable.RotateToAngle(item.rotationAngle);
+			spawnedPlaceable.SetTransforms(item.position, item.rotationAngle);
 			spawnedPlaceable.InventoryItem = item.inventoryItem;
 		}
 	}
