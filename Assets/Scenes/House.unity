@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 258315036}
   - component: {fileID: 258315035}
   - component: {fileID: 258315034}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -615,9 +615,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1966112607}
-        m_TargetAssemblyTypeName: DecorateInputManager, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 298844247}
+        m_TargetAssemblyTypeName: HouseInputManager, Assembly-CSharp
+        m_MethodName: DeselectPlaceable
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -761,9 +761,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1966112607}
-        m_TargetAssemblyTypeName: DecorateButtonGroupUIManager, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 298844247}
+        m_TargetAssemblyTypeName: HouseInputManager, Assembly-CSharp
+        m_MethodName: RemoveSelectedPlaceable
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1421,9 +1421,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1966112607}
-        m_TargetAssemblyTypeName: DecorateInputManager, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 298844247}
+        m_TargetAssemblyTypeName: HouseInputManager, Assembly-CSharp
+        m_MethodName: DeselectPlaceable
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2255,6 +2255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea3c192c884732c4d9f0e22ee2d5b025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  decorateUI: {fileID: 821138248}
   <ExploreCamera>k__BackingField: {fileID: 1838333856}
   <DecorateCamera>k__BackingField: {fileID: 1118677756}
 --- !u!4 &1966112609
