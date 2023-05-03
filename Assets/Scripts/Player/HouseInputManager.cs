@@ -56,7 +56,7 @@ public class HouseInputManager : MonoBehaviour
         {
             //if we are interacting with a door, load the forest scene
             if (hit.transform.parent.transform.CompareTag("Door"))
-                SceneManager.LoadScene("ForestTesting");
+                SceneManager.LoadScene("ForestTestingKai");
         }
     }
 }

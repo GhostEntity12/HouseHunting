@@ -27,6 +27,8 @@ public class ForestManager : MonoBehaviour, IDataPersistence
 
         currentHealth = maxHealth;
         huntingTimerSeconds = huntingDurationSeconds;
+
+        huntingInventory = new Inventory();
     }
 
     private void Start()
@@ -90,6 +92,7 @@ public class ForestManager : MonoBehaviour, IDataPersistence
 
     public void RespawnInHouse()
     {
+        GameManager.Instance.PermanentInventory.MergeInventory(huntingInventory);
         gameOverUI.SetActive(false);
         GameManager.Instance.HideCursor();
         SceneManager.LoadScene("House");
@@ -97,11 +100,11 @@ public class ForestManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        huntingInventory = Inventory.Deserialize(data.serializedHuntingInventory);
+        huntingInventory.SetInventory(data.huntingInventory);
     }
 
     public void SaveData(GameData data)
     {
-        data.serializedHuntingInventory = huntingInventory.Serialize();
+        data.huntingInventory = huntingInventory.Items;
     }
 }

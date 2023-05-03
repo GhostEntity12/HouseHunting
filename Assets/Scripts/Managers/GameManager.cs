@@ -34,11 +34,11 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        permanentInventory = Inventory.Deserialize(data.serializedPermanentInventory);
+        permanentInventory.SetInventory(data.permanentInventory);
     }
 
     public void SaveData(GameData data)
     {
-        data.serializedPermanentInventory = permanentInventory.Serialize();
+        data.permanentInventory = permanentInventory.Items;
     }
 }

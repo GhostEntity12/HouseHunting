@@ -58,18 +58,14 @@ public class ForestInputManager : MonoBehaviour
             {
                 if (shootable.IsDead)
                 {
-                    ForestManager.Instance.HuntingInventory.AddItem(shootable.PlaceableSO);
+                    ForestManager.Instance.HuntingInventory.AddItem(shootable.GetInventoryItem());
                     Debug.Log(ForestManager.Instance.HuntingInventory);
                     Destroy(shootable.gameObject);
                 }
             }
             //if we are interacting with a door, load the house scene
             if (hit.transform.parent.transform.CompareTag("Door"))
-            {
-                // add hunting inventory to the player inventory
-                GameManager.Instance.PermanentInventory.MergeInventory(ForestManager.Instance.HuntingInventory);
-                SceneManager.LoadScene("House");
-            }
+                ForestManager.Instance.RespawnInHouse();
         }
     }
 }

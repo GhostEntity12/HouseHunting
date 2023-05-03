@@ -5,33 +5,27 @@ using UnityEngine.UI;
 public class InventoryItemsUI : MonoBehaviour
 {
     [SerializeField] private Image image;
-    [SerializeField] private TextMeshProUGUI quantityText;
 
-    private PlaceableSO placeableSO;
+    private InventoryItem inventoryItem;
+    private FurnitureSO furnitureSO;
 
-    public void SetPlaceablePrefab(PlaceableSO placebleSO, int quantity)
+    public void SetPlaceablePrefab(InventoryItem inventoryItem)
     {
-        this.placeableSO = placebleSO;
-        image.sprite = placebleSO.thumbnail;
-        quantityText.text = quantity.ToString();
-    }
-
-    public void ChangeQuantity(int quantity)
-    {
-        quantityText.text = quantity.ToString();
+        this.inventoryItem = inventoryItem;
+        furnitureSO = DataPersistenceManager.Instance.AllFurnitureSO.Find(x => x.id == inventoryItem.id);
+        image.sprite = furnitureSO.thumbnail;
     }
 
     public void SpawnPlaceable()
     {
-        Placeable spawned = Instantiate(placeableSO.placeablePrefab);
+        Placeable spawned = Instantiate(furnitureSO.placeablePrefab);
         //after spawning the placeable, select it
         DecorateInputManager.Instance.SelectPlacable(spawned);
         //remove the item from the inventory
-        GameManager.Instance.PermanentInventory.RemoveItem(placeableSO);
-        //change the quantity of the item in the inventory
-        if (int.Parse(quantityText.text) > 1)
-            ChangeQuantity(int.Parse(quantityText.text) - 1);
-        else
-            Destroy(gameObject);
+        GameManager.Instance.PermanentInventory.RemoveItem(inventoryItem);
+        //repaint the inventory
+        InventoryUIManager.Instance.RepaintInventory();
+
+        spawned.InventoryItem = inventoryItem;
     }
 }
