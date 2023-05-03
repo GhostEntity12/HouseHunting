@@ -5,15 +5,16 @@ public class DecorateButtonGroupUIManager : Singleton<DecorateButtonGroupUIManag
 {
     [SerializeField] private Button cancelButton;
     [SerializeField] private Button okButton;
-    [SerializeField] private Transform buttonGroup;
+    [SerializeField] private CanvasGroup buttonGroup;
         
     public void ButtonGroupVisibility(bool visible)
     {
-        buttonGroup.gameObject.SetActive(visible);
+        buttonGroup.alpha = visible ? 1 : 0;
+        buttonGroup.interactable = buttonGroup.blocksRaycasts = visible;
     }
 
-    public void OkButtonVisibility(bool visible)
+    public void OkButtonInteractable(bool interactable)
     {
-        okButton.gameObject.SetActive(visible);
+        okButton.interactable = interactable;
     }
 }

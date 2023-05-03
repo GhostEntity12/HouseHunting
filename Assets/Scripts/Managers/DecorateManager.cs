@@ -16,30 +16,30 @@ public class DecorateManager : Singleton<DecorateManager>, IDataPersistence
         data.houseItems = houseItems;
     }
 
-    protected override void Awake() 
-    {
-        base.Awake();
-        houseItems = new List<HouseItem>();
-    }
+    //public void SavePlaceables()
+    //{
+    //    Placeable[] allPlaceables = FindObjectsOfType<Placeable>();
+    //    houseItems.Clear();
+    //    foreach (Placeable placeable in allPlaceables)
+    //    {
+    //        MeshRenderer meshRenderer = placeable.GetComponentInChildren<MeshRenderer>();
+    //        houseItems.Add(new HouseItem(placeable.InventoryItem, placeable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
+    //    }
+    //}
 
-    private void Start() 
-    {
-        foreach (HouseItem item in houseItems)
-        {
-            Placeable spawnedPlaceable = Instantiate(DataPersistenceManager.Instance.GetPlaceablePrefabById(item.inventoryItem.id));
-            spawnedPlaceable.SetTransforms(item.position, item.rotationAngle);
-            spawnedPlaceable.InventoryItem = item.inventoryItem;
-        }
-    }
+    //protected override void Awake() 
+    //{
+    //    base.Awake();
+    //    houseItems = new List<HouseItem>();
+    //}
 
-    public void SavePlaceables()
-    {
-        Placeable[] allPlaceables = FindObjectsOfType<Placeable>();
-        houseItems.Clear();
-        foreach (Placeable placeable in allPlaceables)
-        {
-            MeshRenderer meshRenderer = placeable.GetComponentInChildren<MeshRenderer>();
-            houseItems.Add(new HouseItem(placeable.InventoryItem, placeable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
-        }
-    }
+    //private void Start() 
+    //{
+    //    foreach (HouseItem item in houseItems)
+    //    {
+    //        Placeable spawnedPlaceable = Instantiate(DataPersistenceManager.Instance.GetPlaceablePrefabById(item.inventoryItem.id));
+    //        spawnedPlaceable.SetTransforms(item.position, item.rotationAngle);
+    //        spawnedPlaceable.InventoryItem = item.inventoryItem;
+    //    }
+    //}
 }

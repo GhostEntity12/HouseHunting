@@ -17,7 +17,7 @@ public class Placeable : MonoBehaviour
 
     private void OnTriggerStay(Collider other) 
     {
-        if (other.TryGetComponent(out Placeable _) && DecorateInputManager.Instance.SelectedPlaceable == this)
+        if (other.TryGetComponent(out Placeable _) && HouseInputManager.Instance.SelectedPlaceable == this)
             IsValidPosition = false;
     }
 
