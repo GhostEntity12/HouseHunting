@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 6779599493470380603}
-  range: 15
+  wanderRadius: 15
   isPredator: 1
 --- !u!114 &196274095699371804
 MonoBehaviour:
@@ -170,8 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f8f73ebed778e344b7e1ca0c42bd7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootableSO: {fileID: 11400000, guid: 390014d96b7a124489f5476ed23af37c, type: 2}
-  placeableSO: {fileID: 11400000, guid: 41b976bac237e8945a8910c406a257ad, type: 2}
+  furnitureSO: {fileID: 11400000, guid: 390014d96b7a124489f5476ed23af37c, type: 2}
 --- !u!195 &6779599493470380603
 NavMeshAgent:
   m_ObjectHideFlags: 0

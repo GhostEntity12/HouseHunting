@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class DataPersistenceManager : MonoBehaviour
 {
-    [SerializeField] private List<PlaceableSO> placeableScriptableObjects; // this list stores all the placeable scriptable objects in the game, every time a new one is created, it must be added to this list via the Unity editor
+    [SerializeField] private List<FurnitureSO> allFurnitureSOs; // this list stores all the placeable scriptable objects in the game, every time a new one is created, it must be added to this list via the Unity editor
     [SerializeField] private string savedFileName = "data";
 
     private GameData gameData;
@@ -14,7 +14,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public static DataPersistenceManager Instance { get; private set; }
 
-    public List<PlaceableSO> PlaceableScriptableObjects { get => placeableScriptableObjects; }
+    public List<FurnitureSO> AllFurnitureSO { get => allFurnitureSOs; }
 
     private void Awake() 
     {
@@ -87,5 +87,10 @@ public class DataPersistenceManager : MonoBehaviour
         }
 
         fileDataHandler.Save(gameData);
+    }
+
+    public Placeable GetPlaceablePrefabById(string id)
+    {
+        return allFurnitureSOs.Find(x => x.id == id).placeablePrefab;
     }
 }

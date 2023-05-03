@@ -2,53 +2,28 @@ using System.Collections.Generic;
 
 public class Inventory
 {
-    private List<(PlaceableSO furniture, int quantity)> items;
+    private List<InventoryItem> items;
 
-    public List<(PlaceableSO furniture, int quantity)> Items => items;
+    public List<InventoryItem> Items => items;
 
     public Inventory()
     {
-        items = new List<(PlaceableSO furniture, int quantity)>();
+        items = new List<InventoryItem>();
     }
 
-    public void AddItem(PlaceableSO furniture)
+    public void AddItem(InventoryItem newItem)
     {
-        PlaceableSO item = items.Find(x => x.furniture == furniture).furniture;
-
-        if (item != null)
-        {
-            int index = items.FindIndex(x => x.furniture == furniture);
-            items[index] = (item, items[index].quantity + 1);
-        }
-        else
-        {
-            items.Add((furniture, 1));
-        }
+        items.Add(newItem);
     }
 
-    public void RemoveItem(PlaceableSO furniture)
+    public void RemoveItem(InventoryItem itemToRemove)
     {
-        PlaceableSO item = items.Find(x => x.furniture == furniture).furniture;
-
-        if (item != null)
-        {
-            int index = items.FindIndex(x => x.furniture == furniture);
-            if (items[index].quantity > 1)
-                items[index] = (item, items[index].quantity - 1);
-            else
-                items.RemoveAt(index);
-        }
+        items.Remove(itemToRemove);
     }
 
     public void MergeInventory(Inventory other)
     {
-        foreach ((PlaceableSO furniture, int quantity) item in other.items)
-        {
-            for (int i = 0; i < item.quantity; i++)
-            {
-                AddItem(item.furniture);
-            }
-        }
+        items.AddRange(other.Items);
 
         other.ClearInventory();
     }
@@ -58,29 +33,9 @@ public class Inventory
         items.Clear();
     }
 
-    public List<(string, int)> Serialize()
+    public void SetInventory(List<InventoryItem> newItems)
     {
-        List<(string, int)> serializedInventory = new List<(string, int)>();
-
-        foreach ((PlaceableSO furniture, int quantity) item in items)
-        {
-            serializedInventory.Add((item.furniture.name, item.quantity));
-        }
-
-        return serializedInventory;
-    }
-
-    public static Inventory Deserialize(List<(string, int)> serializedInventory)
-    {
-        Inventory inventory = new Inventory();
-
-        foreach ((string furnitureName, int quantity) item in serializedInventory)
-        {
-            PlaceableSO furniture = DataPersistenceManager.Instance.PlaceableScriptableObjects.Find(x => x.name == item.furnitureName);
-            inventory.items.Add((furniture, item.quantity));
-        }
-
-        return inventory;
+        items = newItems;
     }
 
     public override string ToString()
@@ -90,9 +45,9 @@ public class Inventory
 
         string result = "";
 
-        foreach ((PlaceableSO furniture, int quantity) item in items)
+        foreach (var item in items)
         {
-            result += item.furniture.name + " x" + item.quantity + ", ";
+            result += $"{item.id}, {item.scaleFactor}, {item.materialIndex}, {item.price}\n";
         }
 
         return result;

@@ -2,23 +2,30 @@ using UnityEngine;
 
 public abstract class Shootable : MonoBehaviour
 {
-    [SerializeField] private ShootableSO shootableSO; // Defines the stats of the shootable (health, speed, etc.)
-    [SerializeField] private PlaceableSO placeableSO; // This stores the placeable object that will be added to the inventory if it dies
+    [SerializeField] private FurnitureSO furnitureSO;
 
     private MeshRenderer meshRenderer;
     private int currentHealth;
     private bool isDead = false;
     private Canvas alertCanvas;
+    private float price;
+    private int materialIndex;
+    private float scaleFactor;
 
     public bool IsDead => isDead;
-    public ShootableSO ShootableSO => shootableSO;
-    public PlaceableSO PlaceableSO => placeableSO;
+    public FurnitureSO FurnitureSO => furnitureSO;
 
     private void Awake()
     {
-        currentHealth = shootableSO.maxHealth;
+        currentHealth = furnitureSO.maxHealth;
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         alertCanvas = GetComponentInChildren<Canvas>();
+
+        price = furnitureSO.basePrice * Random.Range(0.5f, 1.5f);
+        materialIndex = Random.Range(0, meshRenderer.materials.Length);
+        scaleFactor = Random.Range(0.95f, 1.05f);
+
+        meshRenderer.material = furnitureSO.materials[materialIndex];
     }
 
     private void Die()
@@ -35,5 +42,10 @@ public abstract class Shootable : MonoBehaviour
         currentHealth -= damage;
 
         if (currentHealth <= 0) Die();
+    }
+
+    public InventoryItem GetInventoryItem()
+    {
+        return new InventoryItem(furnitureSO.id, scaleFactor, materialIndex, price);
     }
 }

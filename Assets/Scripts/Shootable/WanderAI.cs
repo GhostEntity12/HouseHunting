@@ -22,8 +22,8 @@ public class WanderAI : MonoBehaviour
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         alertCanvas = GetComponentInChildren<Canvas>();
 
-        perceptionRadius = shootable.ShootableSO.perceptionRadius;
-        agent.speed = shootable.ShootableSO.speed;
+        perceptionRadius = shootable.FurnitureSO.perceptionRadius;
+        agent.speed = shootable.FurnitureSO.speed;
     }
 
     private void OnEnable() 
@@ -119,10 +119,10 @@ public class WanderAI : MonoBehaviour
 
     private void AttackPlayer()
     {
-        if (timeSinceLastAttack >= shootable.ShootableSO.attackInterval)
+        if (timeSinceLastAttack >= shootable.FurnitureSO.attackInterval)
         {
             timeSinceLastAttack = 0f;
-            ForestManager.Instance.DealDamageToPlayer(shootable.ShootableSO.damage);
+            ForestManager.Instance.DealDamageToPlayer(shootable.FurnitureSO.damage);
         }
         else
         {

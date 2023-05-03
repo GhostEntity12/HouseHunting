@@ -4,18 +4,18 @@ using UnityEngine;
 public class DecorateManager : MonoBehaviour, IDataPersistence
 {
     private static DecorateManager instance;
-    private List<SerializableDecoration> serializedDecorations;
+    private List<HouseItem> houseItems;
 
     public static DecorateManager Instance => instance;
 
     public void LoadData(GameData data)
     {
-        serializedDecorations = data.serializedDecorations;
+        houseItems = data.houseItems;
     }
 
     public void SaveData(GameData data)
     {
-        data.serializedDecorations = serializedDecorations;
+        data.houseItems = houseItems;
     }
 
     private void Awake() 
@@ -25,28 +25,28 @@ public class DecorateManager : MonoBehaviour, IDataPersistence
         else
             instance = this;
 
-        serializedDecorations = new List<SerializableDecoration>();
+        houseItems = new List<HouseItem>();
     }
 
     private void Start() 
     {
-        List<(PlaceableSO placeableSO, SerializableDecoration serializableDecoration)> placeableSOsMap = SerializableDecoration.Deserialize(serializedDecorations);
-        foreach ((PlaceableSO placeableSO, SerializableDecoration serializableDecoration) in placeableSOsMap)
+        foreach (HouseItem item in houseItems)
         {
-            Placeable spawnedPlaceable = Instantiate(placeableSO.placeablePrefab);
-            spawnedPlaceable.transform.position = serializableDecoration.position;
-            spawnedPlaceable.RotateToAngle(serializableDecoration.rotationAngle);
+            Placeable spawnedPlaceable = Instantiate(DataPersistenceManager.Instance.GetPlaceablePrefabById(item.inventoryItem.id));
+            spawnedPlaceable.transform.position = item.position;
+            spawnedPlaceable.RotateToAngle(item.rotationAngle);
+            spawnedPlaceable.InventoryItem = item.inventoryItem;
         }
     }
 
     public void SavePlaceables()
     {
         Placeable[] allPlaceables = FindObjectsOfType<Placeable>();
-        serializedDecorations.Clear();
+        houseItems.Clear();
         foreach (Placeable placeable in allPlaceables)
         {
             MeshRenderer meshRenderer = placeable.GetComponentInChildren<MeshRenderer>();
-            serializedDecorations.Add(new SerializableDecoration(placeable.PlaceableSO.id, placeable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
+            houseItems.Add(new HouseItem(placeable.InventoryItem, placeable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
         }
     }
 }

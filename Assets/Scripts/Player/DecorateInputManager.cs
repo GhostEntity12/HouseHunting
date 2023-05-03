@@ -236,7 +236,7 @@ public class DecorateInputManager : MonoBehaviour
     {
         if (selectedPlaceable == null) return;
 
-        GameManager.Instance.PermanentInventory.AddItem(selectedPlaceable.PlaceableSO);
+        GameManager.Instance.PermanentInventory.AddItem(selectedPlaceable.InventoryItem);
         InventoryUIManager.Instance.RepaintInventory();
         Destroy(selectedPlaceable.gameObject);
         selectedPlaceable = null;

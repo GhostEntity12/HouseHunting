@@ -4,10 +4,15 @@ using Newtonsoft.Json;
 [JsonObject(MemberSerialization.OptIn)]
 public class Placeable : MonoBehaviour
 {
-    [SerializeField] private PlaceableSO placeableSO;
+    private MeshRenderer meshRenderer;
 
     public bool IsValidPosition { get; private set; } = true;
-    public PlaceableSO PlaceableSO => placeableSO;
+    public InventoryItem InventoryItem { get; set; }
+
+    private void Awake()
+    {
+        meshRenderer = transform.GetComponentInChildren<MeshRenderer>();
+    }
 
     private void OnTriggerExit(Collider other) 
     {
@@ -22,6 +27,6 @@ public class Placeable : MonoBehaviour
 
     public void RotateToAngle(float angle)
     {
-        transform.GetComponentInChildren<MeshRenderer>().transform.rotation = Quaternion.Euler(0, angle, 0);
+        meshRenderer.transform.rotation = Quaternion.Euler(0, angle, 0);
     }
 }
