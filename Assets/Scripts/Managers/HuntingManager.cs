@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class ForestManager : MonoBehaviour, IDataPersistence
+public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 {
     [SerializeField] private int maxHealth;
     [SerializeField] private Transform player;
@@ -10,21 +10,14 @@ public class ForestManager : MonoBehaviour, IDataPersistence
     [SerializeField] private float huntingDurationSeconds;
     [SerializeField] private TextMeshProUGUI huntingTimerText;
 
-    private static ForestManager instance;
     private int currentHealth;
     private Inventory huntingInventory;
     private float huntingTimerSeconds;
 
-    public static ForestManager Instance => instance;
     public Inventory HuntingInventory => huntingInventory;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance != null && instance != this)
-            Destroy(this.gameObject);
-        else
-            instance = this;
-
         currentHealth = maxHealth;
         huntingTimerSeconds = huntingDurationSeconds;
 

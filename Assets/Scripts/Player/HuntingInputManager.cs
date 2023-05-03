@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class ForestInputManager : Singleton<ForestInputManager>
+public class HuntingInputManager : Singleton<HuntingInputManager>
 {
 	private new Camera camera;
 	private PlayerInput playerInput;
@@ -17,27 +16,27 @@ public class ForestInputManager : Singleton<ForestInputManager>
 
 		camera = GetComponentInChildren<Camera>();
 
-		playerInput.Forest.Interact.performed += ctx => Interact();
+		playerInput.Hunting.Interact.performed += ctx => Interact();
 	}
 
 	private void FixedUpdate()
 	{
-		movement.Move(playerInput.Forest.Movement.ReadValue<Vector2>());
+		movement.Move(playerInput.Hunting.Movement.ReadValue<Vector2>());
 	}
 
 	private void LateUpdate()
 	{
-		look.Look(playerInput.Forest.Look.ReadValue<Vector2>());
+		look.Look(playerInput.Hunting.Look.ReadValue<Vector2>());
 	}
 
 	private void OnEnable()
 	{
-		playerInput.Forest.Enable();
+		playerInput.Hunting.Enable();
 	}
 
 	private void OnDisable()
 	{
-		playerInput.Forest.Disable();
+		playerInput.Hunting.Disable();
 	}
 
     private void Interact()
@@ -46,13 +45,13 @@ public class ForestInputManager : Singleton<ForestInputManager>
 		{
 			if (hit.transform.TryGetComponent(out Shootable shootable) && shootable.IsDead)
 			{
-				ForestManager.Instance.HuntingInventory.AddItem(shootable.GetInventoryItem());
-				Debug.Log(ForestManager.Instance.HuntingInventory);
+				HuntingManager.Instance.HuntingInventory.AddItem(shootable.GetInventoryItem());
+				Debug.Log(HuntingManager.Instance.HuntingInventory);
 				Destroy(shootable.gameObject);
 			}
 			//if we are interacting with a door, load the house scene
 			if (hit.transform.parent.transform.CompareTag("Door"))
-				ForestManager.Instance.RespawnInHouse();
+				HuntingManager.Instance.RespawnInHouse();
 		}
 	}
 }
