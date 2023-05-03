@@ -18,6 +18,8 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 
     protected override void Awake()
     {
+        base.Awake();
+
         currentHealth = maxHealth;
         huntingTimerSeconds = huntingDurationSeconds;
 
