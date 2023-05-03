@@ -14,15 +14,17 @@ public class HouseInputManager : Singleton<HouseInputManager>
         // Singleton setup
         base.Awake();
 
+        // Generate inputs and subscribe
         playerInput = new PlayerInput();
+        playerInput.House.Interact.performed += ctx => Interact();
+        playerInput.House.Decorate.performed += ctx => SceneManager.LoadScene("Decorate");
 
+        // Get movement and look
         movement = GetComponent<PlayerMovement>();
         look = GetComponent<PlayerLook>();
 
+        // Get camera
         camera = GetComponentInChildren<Camera>();
-
-        playerInput.House.Interact.performed += ctx => Interact();
-        playerInput.House.Decorate.performed += ctx => SceneManager.LoadScene("Decorate");
     }
 
     private void FixedUpdate()
@@ -47,12 +49,10 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
     private void Interact()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, 3f))
+		if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hit, 3f) &&
+            hit.transform.parent.CompareTag("Door"))
         {
-            //if we are interacting with a door, load the forest scene
-            if (hit.transform.parent.transform.CompareTag("Door"))
-                SceneManager.LoadScene("ForestTestingKai");
+			SceneManager.LoadScene("ForestTesting");
         }
-    }
+	}
 }
