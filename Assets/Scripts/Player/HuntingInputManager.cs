@@ -50,7 +50,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 				Destroy(shootable.gameObject);
 			}
 			//if we are interacting with a door, load the house scene
-			if (hit.transform.parent.transform.CompareTag("Door"))
+			else if (hit.transform.parent.transform.CompareTag("Door"))
 				HuntingManager.Instance.RespawnInHouse();
 		}
 	}
