@@ -1,41 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DecorateButtonGroupUIManager : MonoBehaviour
+public class DecorateButtonGroupUIManager : Singleton<DecorateButtonGroupUIManager>
 {
     [SerializeField] private Button cancelButton;
     [SerializeField] private Button okButton;
     [SerializeField] private Transform buttonGroup;
-
-    private static DecorateButtonGroupUIManager instance;
-
-    public static DecorateButtonGroupUIManager Instance => instance;
-    
-    private void Awake()
+        
+    public void ButtonGroupVisibility(bool visible)
     {
-        if (instance != null && instance != this)
-            Destroy(this.gameObject);
-        else
-            instance = this;
-    }
-    
-    public void ShowButtonGroup()
-    {
-        buttonGroup.gameObject.SetActive(true);
+        buttonGroup.gameObject.SetActive(visible);
     }
 
-    public void HideButtonGroup()
+    public void OkButtonVisibility(bool visible)
     {
-        buttonGroup.gameObject.SetActive(false);
-    }
-
-    public void HideOkButton()
-    {
-        okButton.gameObject.SetActive(false);
-    }
-
-    public void ShowOkButton()
-    {
-        okButton.gameObject.SetActive(true);
+        okButton.gameObject.SetActive(visible);
     }
 }

@@ -1,22 +1,18 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class HouseInputManager : MonoBehaviour
+public class HouseInputManager : Singleton<HouseInputManager>
 {
-    private static HouseInputManager instance;
     private new Camera camera;
     private PlayerInput playerInput;
     private PlayerMovement movement;
     private PlayerLook look;
 
-    public static HouseInputManager Instance => instance;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance != null && instance != this)
-            Destroy(this.gameObject);
-        else
-            instance = this;
+        // Singleton setup
+        base.Awake();
 
         playerInput = new PlayerInput();
 

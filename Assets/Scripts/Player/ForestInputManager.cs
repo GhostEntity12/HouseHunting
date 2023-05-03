@@ -1,29 +1,24 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ForestInputManager : MonoBehaviour
+public class ForestInputManager : Singleton<ForestInputManager>
 {
-    private static ForestInputManager instance;
-    private new Camera camera;
-    private PlayerInput playerInput;
-    private PlayerMovement movement;
-    private PlayerLook look;
+	private new Camera camera;
+	private PlayerInput playerInput;
+	private PlayerMovement movement;
+	private PlayerLook look;
 
-    public static ForestInputManager Instance => instance;
+	protected override void Awake()
+	{
+		playerInput = new PlayerInput();
 
-    private void Awake()
-    {
-        if (instance != null && instance != this)
-            Destroy(this.gameObject);
-        else
-            instance = this;
+		movement = GetComponent<PlayerMovement>();
+		look = GetComponent<PlayerLook>();
 
-        playerInput = new PlayerInput();
+		camera = GetComponentInChildren<Camera>();
 
-        movement = GetComponent<PlayerMovement>();
-        look = GetComponent<PlayerLook>();
-
-        camera = GetComponentInChildren<Camera>();
+		playerInput.Forest.Interact.performed += ctx => Interact();
+	}
 
         playerInput.Forest.Interact.performed += ctx => Interact();
     }

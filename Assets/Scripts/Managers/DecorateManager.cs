@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DecorateManager : MonoBehaviour, IDataPersistence
+public class DecorateManager : Singleton<DecorateManager>, IDataPersistence
 {
-    private static DecorateManager instance;
     private List<HouseItem> houseItems;
 
-    public static DecorateManager Instance => instance;
 
     public void LoadData(GameData data)
     {
@@ -18,13 +16,9 @@ public class DecorateManager : MonoBehaviour, IDataPersistence
         data.houseItems = houseItems;
     }
 
-    private void Awake() 
+    protected override void Awake() 
     {
-        if (instance != null && instance != this)
-            Destroy(this.gameObject);
-        else
-            instance = this;
-
+        base.Awake();
         houseItems = new List<HouseItem>();
     }
 
