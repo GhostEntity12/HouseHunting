@@ -3,8 +3,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController controller;
-    private float speed = 5.0f;
-    private float gravity = -9.81f;
+    [SerializeField] private float speed = 5.0f;
+    private readonly float gravity = -9.81f;
     private Vector3 playerVelocity;
 
     private void Start()
@@ -14,10 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(Vector2 input)
     {
-        Vector3 moveDirection = Vector3.zero;
-        moveDirection.x = input.x;
-        moveDirection.z = input.y;
-        controller.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime);
+        Vector3 moveDirection = new(input.x, 0, input.y);
+        controller.Move(speed * Time.deltaTime * transform.TransformDirection(moveDirection));
 
         playerVelocity.y += gravity * Time.deltaTime;
 

@@ -24,7 +24,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     ""name"": ""PlayerInput"",
     ""maps"": [
         {
-            ""name"": ""Forest"",
+            ""name"": ""Hunting"",
             ""id"": ""88fbae35-2339-47e1-bf2e-670c5074a3d0"",
             ""actions"": [
                 {
@@ -422,12 +422,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // Forest
-        m_Forest = asset.FindActionMap("Forest", throwIfNotFound: true);
-        m_Forest_Movement = m_Forest.FindAction("Movement", throwIfNotFound: true);
-        m_Forest_Look = m_Forest.FindAction("Look", throwIfNotFound: true);
-        m_Forest_Shoot = m_Forest.FindAction("Shoot", throwIfNotFound: true);
-        m_Forest_Interact = m_Forest.FindAction("Interact", throwIfNotFound: true);
+        // Hunting
+        m_Hunting = asset.FindActionMap("Hunting", throwIfNotFound: true);
+        m_Hunting_Movement = m_Hunting.FindAction("Movement", throwIfNotFound: true);
+        m_Hunting_Look = m_Hunting.FindAction("Look", throwIfNotFound: true);
+        m_Hunting_Shoot = m_Hunting.FindAction("Shoot", throwIfNotFound: true);
+        m_Hunting_Interact = m_Hunting.FindAction("Interact", throwIfNotFound: true);
         // House
         m_House = asset.FindActionMap("House", throwIfNotFound: true);
         m_House_Movement = m_House.FindAction("Movement", throwIfNotFound: true);
@@ -496,44 +496,44 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Forest
-    private readonly InputActionMap m_Forest;
-    private IForestActions m_ForestActionsCallbackInterface;
-    private readonly InputAction m_Forest_Movement;
-    private readonly InputAction m_Forest_Look;
-    private readonly InputAction m_Forest_Shoot;
-    private readonly InputAction m_Forest_Interact;
-    public struct ForestActions
+    // Hunting
+    private readonly InputActionMap m_Hunting;
+    private IHuntingActions m_HuntingActionsCallbackInterface;
+    private readonly InputAction m_Hunting_Movement;
+    private readonly InputAction m_Hunting_Look;
+    private readonly InputAction m_Hunting_Shoot;
+    private readonly InputAction m_Hunting_Interact;
+    public struct HuntingActions
     {
         private @PlayerInput m_Wrapper;
-        public ForestActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_Forest_Movement;
-        public InputAction @Look => m_Wrapper.m_Forest_Look;
-        public InputAction @Shoot => m_Wrapper.m_Forest_Shoot;
-        public InputAction @Interact => m_Wrapper.m_Forest_Interact;
-        public InputActionMap Get() { return m_Wrapper.m_Forest; }
+        public HuntingActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_Hunting_Movement;
+        public InputAction @Look => m_Wrapper.m_Hunting_Look;
+        public InputAction @Shoot => m_Wrapper.m_Hunting_Shoot;
+        public InputAction @Interact => m_Wrapper.m_Hunting_Interact;
+        public InputActionMap Get() { return m_Wrapper.m_Hunting; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(ForestActions set) { return set.Get(); }
-        public void SetCallbacks(IForestActions instance)
+        public static implicit operator InputActionMap(HuntingActions set) { return set.Get(); }
+        public void SetCallbacks(IHuntingActions instance)
         {
-            if (m_Wrapper.m_ForestActionsCallbackInterface != null)
+            if (m_Wrapper.m_HuntingActionsCallbackInterface != null)
             {
-                @Movement.started -= m_Wrapper.m_ForestActionsCallbackInterface.OnMovement;
-                @Movement.performed -= m_Wrapper.m_ForestActionsCallbackInterface.OnMovement;
-                @Movement.canceled -= m_Wrapper.m_ForestActionsCallbackInterface.OnMovement;
-                @Look.started -= m_Wrapper.m_ForestActionsCallbackInterface.OnLook;
-                @Look.performed -= m_Wrapper.m_ForestActionsCallbackInterface.OnLook;
-                @Look.canceled -= m_Wrapper.m_ForestActionsCallbackInterface.OnLook;
-                @Shoot.started -= m_Wrapper.m_ForestActionsCallbackInterface.OnShoot;
-                @Shoot.performed -= m_Wrapper.m_ForestActionsCallbackInterface.OnShoot;
-                @Shoot.canceled -= m_Wrapper.m_ForestActionsCallbackInterface.OnShoot;
-                @Interact.started -= m_Wrapper.m_ForestActionsCallbackInterface.OnInteract;
-                @Interact.performed -= m_Wrapper.m_ForestActionsCallbackInterface.OnInteract;
-                @Interact.canceled -= m_Wrapper.m_ForestActionsCallbackInterface.OnInteract;
+                @Movement.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnMovement;
+                @Movement.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnMovement;
+                @Movement.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnMovement;
+                @Look.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnLook;
+                @Look.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnLook;
+                @Look.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnLook;
+                @Shoot.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnShoot;
+                @Interact.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnInteract;
             }
-            m_Wrapper.m_ForestActionsCallbackInterface = instance;
+            m_Wrapper.m_HuntingActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Movement.started += instance.OnMovement;
@@ -551,7 +551,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
             }
         }
     }
-    public ForestActions @Forest => new ForestActions(this);
+    public HuntingActions @Hunting => new HuntingActions(this);
 
     // House
     private readonly InputActionMap m_House;
@@ -666,7 +666,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         }
     }
     public DecorateActions @Decorate => new DecorateActions(this);
-    public interface IForestActions
+    public interface IHuntingActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);

@@ -48,7 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304f65a922a1c7e419427ba953ffe214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeableSO: {fileID: 11400000, guid: a8eb897d434f4a94097dbf432b7f272e, type: 2}
+  <Mesh>k__BackingField: {fileID: 8400588765780102242}
+  <RotationWheel>k__BackingField: {fileID: 1187489145735782959}
 --- !u!65 &8397737973995697679
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -303,6 +304,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee16736a98dd9c04d8423232e36fbb14, type: 3}
+--- !u!114 &1187489145735782959 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4467121243246783173, guid: ee16736a98dd9c04d8423232e36fbb14, type: 3}
+  m_PrefabInstance: {fileID: 3279931200179128554}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86944a8bcc099e541a2fc3c231394fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3912036133613755641 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2003802966849459219, guid: ee16736a98dd9c04d8423232e36fbb14, type: 3}
