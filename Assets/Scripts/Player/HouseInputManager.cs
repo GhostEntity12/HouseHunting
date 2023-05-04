@@ -163,7 +163,10 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		// Only execute the following in decorate mode
 		if (HouseManager.Instance.Mode != HouseManager.HouseMode.Decorate) return;
 
-		// TODO - explanation from Kai
+		// REVIEW - explanation from Kai
+		// If is dragging furniture (this variable is set in DecorateMouseDownStarted):
+		// 1. Raycast from mouse to floor
+		// 2. If raycast hits floor, set furniture position to raycast hit position
 		if (isDraggingPlaceable)
 		{
 			Debug.Log("Dragging1");
@@ -191,8 +194,13 @@ public class HouseInputManager : Singleton<HouseInputManager>
 				isSelectingPlaceable);
 		}
 
-		if (isDraggingCamera && SelectedPlaceable && !SelectedPlaceable.RotationWheel.IsRotating)
+		if (isDraggingCamera)
 		{
+			// this check must be inside the if statement, because we want the camera to rotate if:
+			// 1. we are not selecting a placeable
+			// 2. we are selecting a placeable, but we are not rotating it
+			if (SelectedPlaceable != null)
+				if (SelectedPlaceable.RotationWheel.IsRotating) return;
 			RotateDecorateCamera(playerInput.Decorate.MouseMove.ReadValue<Vector2>());
 		}
 	}
@@ -221,7 +229,10 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		HouseManager.Instance.DecorateCamera.transform.localRotation = Quaternion.Euler(HouseManager.Instance.DecorateCamera.transform.localRotation.eulerAngles.x, cameraYRotation, 0);
 	}
 
-	// TODO - get explanation from Kai?
+	// REVIEW - get explanation from Kai?
+	/// <summary>
+    /// Utility function to cast a ray from the mouse to the floor and return the hit, this is to know the position of the mouse on the floor game object
+    /// </summary>
 	private RaycastHit CastRayFromMouseToFloor()
 	{
 		Vector3 screenMousePosFar = new(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), HouseManager.Instance.DecorateCamera.farClipPlane);
@@ -248,9 +259,9 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		// Set new placeable color to green
 		// This makes an assumption that the placement is automatically valid...
 		// May be resolved by the every frame check
-		// TODO - check
+		// REVIEW - check
 		SelectedPlaceable = placeableToSelect;
-		SelectedPlaceable.Mesh.material.color = Color.green;
+		SelectedPlaceable.Mesh.material.color = SelectedPlaceable.IsValidPosition ? Color.green : Color.red;
 
 		// Enable button group
 		DecorateButtonGroupUIManager.Instance.ButtonGroupVisibility(true);
