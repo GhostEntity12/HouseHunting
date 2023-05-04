@@ -31,11 +31,14 @@ public class ForestInputManager : MonoBehaviour
     private void FixedUpdate()
     {
         movement.Move(playerInput.Forest.Movement.ReadValue<Vector2>());
+
+        movement.Crouch(playerInput.Forest.Crouch.ReadValue<float>());
     }
 
     private void LateUpdate() 
     {
         look.Look(playerInput.Forest.Look.ReadValue<Vector2>());
+    
     }
 
     private void OnEnable()
