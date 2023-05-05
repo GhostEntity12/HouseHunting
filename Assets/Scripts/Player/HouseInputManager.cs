@@ -35,8 +35,11 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
 		// Generate inputs and subscribe
 		playerInput = new PlayerInput();
+
 		playerInput.House.Interact.performed += ctx => ExploreInteract();
 		playerInput.House.Decorate.performed += ctx => HouseManager.Instance.SetHouseMode(HouseManager.HouseMode.Decorate);
+		playerInput.House.OpenShop.performed += ctx => ShopUIManager.Instance.ToggleShop();
+
 		playerInput.Decorate.MouseDown.started += ctx => DecorateMouseDownStarted();
 		playerInput.Decorate.MouseDown.performed += ctx => DecorateMouseDownPerformed();
 		playerInput.Decorate.MouseDown.canceled += ctx => DecorateMouseDownCanceled();
@@ -68,7 +71,8 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		switch (HouseManager.Instance.Mode)
 		{
 			case HouseManager.HouseMode.Explore:
-				movement.Move(playerInput.House.Movement.ReadValue<Vector2>());
+				if (!ShopUIManager.Instance.IsShopOpen)
+					movement.Move(playerInput.House.Movement.ReadValue<Vector2>());
 				break;
 			case HouseManager.HouseMode.Decorate:
 				MoveDecorateCamera(playerInput.Decorate.MoveCamera.ReadValue<Vector2>());
@@ -81,7 +85,8 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	private void LateUpdate()
 	{
 		// 1st person camera movement for exploration mode
-		look.Look(playerInput.House.Look.ReadValue<Vector2>());
+		if (!ShopUIManager.Instance.IsShopOpen)
+			look.Look(playerInput.House.Look.ReadValue<Vector2>());
 	}
 
 	/// <summary>

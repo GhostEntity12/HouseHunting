@@ -194,6 +194,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenShop"",
+                    ""type"": ""Button"",
+                    ""id"": ""b2d5ae4d-16a6-4fe4-a692-adc4a0c7a53b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -282,6 +291,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Decorate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""332daacf-74d1-4426-8a59-f95f46dd2208"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenShop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -434,6 +454,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_House_Interact = m_House.FindAction("Interact", throwIfNotFound: true);
         m_House_Look = m_House.FindAction("Look", throwIfNotFound: true);
         m_House_Decorate = m_House.FindAction("Decorate", throwIfNotFound: true);
+        m_House_OpenShop = m_House.FindAction("OpenShop", throwIfNotFound: true);
         // Decorate
         m_Decorate = asset.FindActionMap("Decorate", throwIfNotFound: true);
         m_Decorate_ExitToHouse = m_Decorate.FindAction("ExitToHouse", throwIfNotFound: true);
@@ -560,6 +581,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_House_Interact;
     private readonly InputAction m_House_Look;
     private readonly InputAction m_House_Decorate;
+    private readonly InputAction m_House_OpenShop;
     public struct HouseActions
     {
         private @PlayerInput m_Wrapper;
@@ -568,6 +590,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_House_Interact;
         public InputAction @Look => m_Wrapper.m_House_Look;
         public InputAction @Decorate => m_Wrapper.m_House_Decorate;
+        public InputAction @OpenShop => m_Wrapper.m_House_OpenShop;
         public InputActionMap Get() { return m_Wrapper.m_House; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -589,6 +612,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Decorate.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnDecorate;
                 @Decorate.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnDecorate;
                 @Decorate.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnDecorate;
+                @OpenShop.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnOpenShop;
+                @OpenShop.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnOpenShop;
+                @OpenShop.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnOpenShop;
             }
             m_Wrapper.m_HouseActionsCallbackInterface = instance;
             if (instance != null)
@@ -605,6 +631,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Decorate.started += instance.OnDecorate;
                 @Decorate.performed += instance.OnDecorate;
                 @Decorate.canceled += instance.OnDecorate;
+                @OpenShop.started += instance.OnOpenShop;
+                @OpenShop.performed += instance.OnOpenShop;
+                @OpenShop.canceled += instance.OnOpenShop;
             }
         }
     }
@@ -679,6 +708,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnDecorate(InputAction.CallbackContext context);
+        void OnOpenShop(InputAction.CallbackContext context);
     }
     public interface IDecorateActions
     {

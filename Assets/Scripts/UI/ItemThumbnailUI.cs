@@ -2,14 +2,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryItemsUI : MonoBehaviour
+public class ItemThumbnailUI : MonoBehaviour
 {
     [SerializeField] private Image image;
 
     private InventoryItem inventoryItem;
     private FurnitureSO furnitureSO;
 
-    public void SetPlaceablePrefab(InventoryItem inventoryItem)
+    public void SetItem(InventoryItem inventoryItem)
     {
         this.inventoryItem = inventoryItem;
         furnitureSO = DataPersistenceManager.Instance.AllFurnitureSO.Find(x => x.id == inventoryItem.id);
@@ -27,5 +27,10 @@ public class InventoryItemsUI : MonoBehaviour
         InventoryUIManager.Instance.RepaintInventory();
 
         spawned.InventoryItem = inventoryItem;
+    }
+
+    public void SelectItem()
+    {
+        ShopUIManager.Instance.SelectFurniture((furnitureSO, inventoryItem));
     }
 }
