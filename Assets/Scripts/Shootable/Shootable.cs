@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+
 
 public abstract class Shootable : MonoBehaviour
 {
@@ -12,6 +14,14 @@ public abstract class Shootable : MonoBehaviour
     private int materialIndex;
     private float scaleFactor;
 
+    [System.Serializable]
+    public struct Hitbox
+    {
+        public Collider collider;
+        public float multiplier;
+    }
+
+    public Hitbox[] Hitboxes;
     public bool IsDead => isDead;
     public FurnitureSO FurnitureSO => furnitureSO;
 
@@ -35,12 +45,20 @@ public abstract class Shootable : MonoBehaviour
         meshRenderer.material.color = Color.blue; // Here we just change the material to the dead material for testing purposes, this can be changed to whatever logic to handle death
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Collider hitbox)
     {
         if (isDead) return;
-
-        currentHealth -= damage;
-
+        float damage_mult = 1f;
+        foreach (Hitbox hit in Hitboxes)
+        {
+            if (hit.collider == hitbox)
+            {
+                damage_mult = hit.multiplier;
+            }
+        }
+        int final_damage = (int)(damage * damage_mult);
+        currentHealth -= final_damage;
+        print(damage_mult);
         if (currentHealth <= 0) Die();
     }
 
