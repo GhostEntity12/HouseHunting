@@ -48,7 +48,9 @@ public abstract class Shootable : MonoBehaviour
     public void TakeDamage(int damage, Collider hitbox)
     {
         if (isDead) return;
+
         float damage_mult = 1f;
+
         foreach (Hitbox hit in Hitboxes)
         {
             if (hit.collider == hitbox)
@@ -56,9 +58,11 @@ public abstract class Shootable : MonoBehaviour
                 damage_mult = hit.multiplier;
             }
         }
+
         int final_damage = (int)(damage * damage_mult);
+
         currentHealth -= final_damage;
-        print(damage_mult);
+
         if (currentHealth <= 0) Die();
     }
 
