@@ -38,7 +38,6 @@ public class WanderAI : MonoBehaviour
         Gun.OnGunShootEvent -= OnGunShoot;
     }
 
-
     private void Update()
     {
         if (shootable.IsDead)
@@ -49,11 +48,11 @@ public class WanderAI : MonoBehaviour
 
         if (IsPlayerSneaking())
         {
-            wanderRadius = 5f;
+            perceptionRadius = shootable.FurnitureSO.perceptionRadius / 2;
             Debug.Log("player is sneaking");
         }
         else {
-            wanderRadius = 15f;
+            perceptionRadius = shootable.FurnitureSO.perceptionRadius;
             Debug.Log("player is not sneaking");
         }
 
