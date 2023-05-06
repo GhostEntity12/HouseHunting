@@ -545,7 +545,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_Look;
     private readonly InputAction m_Hunting_Shoot;
     private readonly InputAction m_Hunting_Interact;
-    private readonly InputAction m_Forest_Crouch;
+    private readonly InputAction m_Hunting_Crouch;
     public struct HuntingActions
     {
         private @PlayerInput m_Wrapper;
@@ -576,6 +576,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnInteract;
+                @Crouch.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
+                @Crouch.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
             }
             m_Wrapper.m_HuntingActionsCallbackInterface = instance;
