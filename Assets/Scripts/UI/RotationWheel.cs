@@ -6,14 +6,21 @@ public class RotationWheel : MonoBehaviour
     private float radius = 0f;
     private Transform parentPlaceableTransform;
 
+    [SerializeField] private Canvas canvas;
+
     public bool IsRotating { get; private set; }
 
-    private void OnEnable()
+	private void Awake()
+    { 
+        parentPlaceableTransform = transform.GetComponentInParent<Placeable>().transform;
+	}
+
+	private void OnEnable()
     {
         EventTrigger trigger = GetComponent<EventTrigger>();
 
-        EventTrigger.Entry dragEntry = new EventTrigger.Entry();
-        EventTrigger.Entry dragEndEntry = new EventTrigger.Entry();
+        EventTrigger.Entry dragEntry = new();
+        EventTrigger.Entry dragEndEntry = new();
 
         dragEntry.eventID = EventTriggerType.Drag;
         dragEndEntry.eventID = EventTriggerType.EndDrag;
@@ -23,8 +30,6 @@ public class RotationWheel : MonoBehaviour
 
         trigger.triggers.Add(dragEntry);
         trigger.triggers.Add(dragEndEntry);
-
-        parentPlaceableTransform = transform.GetComponentInParent<Placeable>().transform;
 
         //get distance from transform to parent to determine the radius of the wheel
         radius = Vector2.Distance(new Vector2(transform.localPosition.x, transform.localPosition.z), new Vector2());
@@ -38,7 +43,7 @@ public class RotationWheel : MonoBehaviour
 
         Vector3 rayPoint = ray.GetPoint(Vector3.Distance(transform.position, Camera.main.transform.position));
 
-        Vector3 mousePos = new Vector3(rayPoint.x, 0.1f, rayPoint.z);
+        Vector3 mousePos = new(rayPoint.x, 0.1f, rayPoint.z);
 
         //calculate the angle between the fixed point and the mouse position
         float angle = GetAngle(mousePos - parentPlaceableTransform.position, GetOriginalFixedPoint());
@@ -108,5 +113,10 @@ public class RotationWheel : MonoBehaviour
     private Vector3 GetOriginalFixedPoint()
     {
         return new Vector3(0f, 0.1f, -radius);
+    }
+
+    public void SetVisibility(bool visible)
+    {
+        canvas.enabled = visible;
     }
 }

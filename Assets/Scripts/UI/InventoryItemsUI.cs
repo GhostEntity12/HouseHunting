@@ -20,7 +20,7 @@ public class InventoryItemsUI : MonoBehaviour
     {
         Placeable spawned = Instantiate(furnitureSO.placeablePrefab);
         //after spawning the placeable, select it
-        DecorateInputManager.Instance.SelectPlacable(spawned);
+        HouseInputManager.Instance.SelectPlacable(spawned);
         //remove the item from the inventory
         GameManager.Instance.PermanentInventory.RemoveItem(inventoryItem);
         //repaint the inventory

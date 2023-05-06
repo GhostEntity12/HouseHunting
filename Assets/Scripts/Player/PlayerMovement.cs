@@ -3,8 +3,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController controller;
-    private float speed = 5.0f;
-    private float gravity = -9.81f;
+    [SerializeField] private float speed = 5.0f;
+    private readonly float gravity = -9.81f;
     private Vector3 playerVelocity;
     public bool isSneaking;
     private void Start()
@@ -15,9 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(Vector2 input)
     {
-        Vector3 moveDirection = Vector3.zero;
-        moveDirection.x = input.x;
-        moveDirection.z = input.y;
+        Vector3 moveDirection = new(input.x, 0, input.y);
 
         // Slow down the movement if the player is not sprinting
         float currentSpeed = isSneaking ? speed / 2 : speed;
