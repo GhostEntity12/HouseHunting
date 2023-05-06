@@ -31,6 +31,11 @@ public class ItemThumbnailUI : MonoBehaviour
 
     public void SelectItem()
     {
-        ShopUIManager.Instance.SelectFurniture((furnitureSO, inventoryItem));
+        ShopUIManager.Instance.SelectItem((furnitureSO, inventoryItem));
+    }
+
+    public void SetTab()
+    {
+        ShopUIManager.Instance.SetTab(furnitureSO.id);
     }
 }
