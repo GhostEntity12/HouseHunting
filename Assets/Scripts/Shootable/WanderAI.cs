@@ -10,6 +10,7 @@ public class WanderAI : MonoBehaviour
     private float perceptionRadius;
     private bool isAlertedByGunshot = false;
     private float timeSinceLastAttack = 0f;
+     public PlayerMovement playerMovement;
 
     public NavMeshAgent agent;
     public float wanderRadius = 15f; // how far the AI can wander
@@ -24,6 +25,7 @@ public class WanderAI : MonoBehaviour
 
         perceptionRadius = shootable.FurnitureSO.perceptionRadius;
         agent.speed = shootable.FurnitureSO.speed;
+        playerMovement = FindObjectOfType<PlayerMovement>();
     }
 
     private void OnEnable() 
@@ -42,6 +44,16 @@ public class WanderAI : MonoBehaviour
         {
             agent.isStopped = true;
             return;
+        }
+
+        if (IsPlayerSneaking())
+        {
+            perceptionRadius = shootable.FurnitureSO.perceptionRadius / 2;
+            Debug.Log("player is sneaking");
+        }
+        else {
+            perceptionRadius = shootable.FurnitureSO.perceptionRadius;
+            Debug.Log("player is not sneaking");
         }
 
         if (agent.remainingDistance <= agent.stoppingDistance) //done with path
@@ -115,6 +127,15 @@ public class WanderAI : MonoBehaviour
         isAlertedByGunshot = false;
     }
 
+    private bool IsPlayerSneaking()
+    {
+        if (playerMovement != null)
+        {
+            return playerMovement.isSneaking;
+        }
+
+        return false;
+    }
     private void AttackPlayer()
     {
         if (timeSinceLastAttack >= shootable.FurnitureSO.attackInterval)

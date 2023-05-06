@@ -62,6 +62,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""92bbdb1f-9de3-4754-83b4-0835b6658d9b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""88c3a650-5e4d-47a0-b7ad-57fa07d6f094"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -190,6 +210,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""name"": ""Decorate"",
                     ""type"": ""Button"",
                     ""id"": ""7e9746d0-f0cf-4e6c-9be9-4b73937d77a3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""f644904a-704c-4b1c-9920-6caa545d9152"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -282,6 +311,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Decorate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a0b47c94-3485-46e6-a38c-5e653de1e61e"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -428,12 +468,14 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Hunting_Look = m_Hunting.FindAction("Look", throwIfNotFound: true);
         m_Hunting_Shoot = m_Hunting.FindAction("Shoot", throwIfNotFound: true);
         m_Hunting_Interact = m_Hunting.FindAction("Interact", throwIfNotFound: true);
+        m_Hunting_Crouch = m_Hunting.FindAction("Crouch", throwIfNotFound: true);
         // House
         m_House = asset.FindActionMap("House", throwIfNotFound: true);
         m_House_Movement = m_House.FindAction("Movement", throwIfNotFound: true);
         m_House_Interact = m_House.FindAction("Interact", throwIfNotFound: true);
         m_House_Look = m_House.FindAction("Look", throwIfNotFound: true);
         m_House_Decorate = m_House.FindAction("Decorate", throwIfNotFound: true);
+        m_House_Crouch = m_House.FindAction("Crouch", throwIfNotFound: true);
         // Decorate
         m_Decorate = asset.FindActionMap("Decorate", throwIfNotFound: true);
         m_Decorate_ExitToHouse = m_Decorate.FindAction("ExitToHouse", throwIfNotFound: true);
@@ -503,6 +545,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_Look;
     private readonly InputAction m_Hunting_Shoot;
     private readonly InputAction m_Hunting_Interact;
+    private readonly InputAction m_Hunting_Crouch;
     public struct HuntingActions
     {
         private @PlayerInput m_Wrapper;
@@ -511,6 +554,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Hunting_Look;
         public InputAction @Shoot => m_Wrapper.m_Hunting_Shoot;
         public InputAction @Interact => m_Wrapper.m_Hunting_Interact;
+        public InputAction @Crouch => m_Wrapper.m_Hunting_Crouch;
         public InputActionMap Get() { return m_Wrapper.m_Hunting; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -532,6 +576,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnInteract;
+                @Crouch.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
+                @Crouch.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
+                @Crouch.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
             }
             m_Wrapper.m_HuntingActionsCallbackInterface = instance;
             if (instance != null)
@@ -548,6 +595,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
             }
         }
     }
@@ -560,6 +610,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_House_Interact;
     private readonly InputAction m_House_Look;
     private readonly InputAction m_House_Decorate;
+    private readonly InputAction m_House_Crouch;
     public struct HouseActions
     {
         private @PlayerInput m_Wrapper;
@@ -568,6 +619,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_House_Interact;
         public InputAction @Look => m_Wrapper.m_House_Look;
         public InputAction @Decorate => m_Wrapper.m_House_Decorate;
+        public InputAction @Crouch => m_Wrapper.m_House_Crouch;
         public InputActionMap Get() { return m_Wrapper.m_House; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -589,6 +641,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Decorate.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnDecorate;
                 @Decorate.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnDecorate;
                 @Decorate.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnDecorate;
+                @Crouch.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnCrouch;
+                @Crouch.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnCrouch;
+                @Crouch.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnCrouch;
             }
             m_Wrapper.m_HouseActionsCallbackInterface = instance;
             if (instance != null)
@@ -605,6 +660,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Decorate.started += instance.OnDecorate;
                 @Decorate.performed += instance.OnDecorate;
                 @Decorate.canceled += instance.OnDecorate;
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
             }
         }
     }
@@ -672,6 +730,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
     }
     public interface IHouseActions
     {
@@ -679,6 +738,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnDecorate(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
     }
     public interface IDecorateActions
     {

@@ -22,6 +22,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	private void FixedUpdate()
 	{
 		movement.Move(playerInput.Hunting.Movement.ReadValue<Vector2>());
+		movement.Crouch(playerInput.Hunting.Crouch.ReadValue<float>());
 	}
 
 	private void LateUpdate()
