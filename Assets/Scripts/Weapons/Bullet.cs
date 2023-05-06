@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
         Shootable shootableTarget = collision.transform.GetComponentInParent<Shootable>();
         if (shootableTarget != null)
         {
-            shootableTarget.TakeDamage(damage);
+            shootableTarget.TakeDamage(damage, collision.collider);
             //bullet hole
             ContactPoint contact = collision.contacts[0];
             Quaternion rotation = Quaternion.FromToRotation(Vector3.up, contact.normal);
