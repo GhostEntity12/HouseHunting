@@ -38,7 +38,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		playerInput.House.Interact.performed += ctx => ExploreInteract();
 		playerInput.House.Decorate.performed += ctx => HouseManager.Instance.SetHouseMode(HouseManager.HouseMode.Decorate);
 		playerInput.Decorate.MouseDown.started += ctx => DecorateMouseDownStarted();
-		playerInput.Decorate.MouseDown.performed += ctx => DecorateMouseDownPerformed();
 		playerInput.Decorate.MouseDown.canceled += ctx => DecorateMouseDownCanceled();
 		playerInput.Decorate.ExitToHouse.performed += ctx =>
 		{
@@ -121,32 +120,24 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
 	//=============================================
 
-	// TODO - discuss Started and Performed - they both trigger at the same time
-
 	// Triggers on mouse down
 	private void DecorateMouseDownStarted()
 	{
-		Debug.Log("md Start");
-		// Returns true if a raycast hits a placeable which is the selected placeable
-		isDraggingPlaceable =
-			Physics.Raycast(HouseManager.Instance.DecorateCamera.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit hit, int.MaxValue, ~LayerMask.GetMask("Floor")) &&
-			hit.transform.TryGetComponent(out Placeable placeable) &&
-			placeable == SelectedPlaceable;
-	}
-
-	// Triggers on mouse down
-	private void DecorateMouseDownPerformed()
-	{
-		Debug.Log("md Performed");
-		if (SelectedPlaceable) return;
-
-		if (Physics.Raycast(HouseManager.Instance.DecorateCamera.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit hit) &&
+		if (SelectedPlaceable)
+		{
+			// Sets isDraggingPlaceable to whether a raycast hits a placeable which is the selected placeable
+			isDraggingPlaceable =
+				Physics.Raycast(HouseManager.Instance.DecorateCamera.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit hit, int.MaxValue, ~LayerMask.GetMask("Floor")) &&
+				hit.transform.TryGetComponent(out Placeable placeable) &&
+				placeable == SelectedPlaceable;
+		}
+		// No selected raycast and clicked on a gameobject with a Placeable
+		else if (Physics.Raycast(HouseManager.Instance.DecorateCamera.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit hit) &&
 			hit.transform.TryGetComponent(out Placeable placeable))
 		{
 			SelectPlacable(placeable);
 		}
 	}
-
 
 	// Triggers on mouse up
 	private void DecorateMouseDownCanceled()
@@ -163,17 +154,14 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		// Only execute the following in decorate mode
 		if (HouseManager.Instance.Mode != HouseManager.HouseMode.Decorate) return;
 
-		// REVIEW - explanation from Kai
 		// If is dragging furniture (this variable is set in DecorateMouseDownStarted):
 		// 1. Raycast from mouse to floor
 		// 2. If raycast hits floor, set furniture position to raycast hit position
 		if (isDraggingPlaceable)
 		{
-			Debug.Log("Dragging1");
 			RaycastHit hitFloor = CastRayFromMouseToFloor();
 			if (hitFloor.transform && SelectedPlaceable)
 			{
-				Debug.Log("Dragging2");
 				Vector3 position = new(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), HouseManager.Instance.DecorateCamera.WorldToScreenPoint(SelectedPlaceable.transform.position).z);
 				Vector3 worldPosition = HouseManager.Instance.DecorateCamera.ScreenToWorldPoint(position);
 				SelectedPlaceable.transform.position = new Vector3(worldPosition.x, 0, worldPosition.z);
@@ -189,8 +177,8 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		if (Mouse.current.leftButton.wasPressedThisFrame)
 		{
 			isDraggingCamera =
-				!(EventSystem.current.IsPointerOverGameObject(PointerInputModule.kMouseLeftId) || 
-				isDraggingPlaceable || 
+				!(EventSystem.current.IsPointerOverGameObject(PointerInputModule.kMouseLeftId) ||
+				isDraggingPlaceable ||
 				isSelectingPlaceable);
 		}
 
@@ -229,18 +217,12 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		HouseManager.Instance.DecorateCamera.transform.localRotation = Quaternion.Euler(HouseManager.Instance.DecorateCamera.transform.localRotation.eulerAngles.x, cameraYRotation, 0);
 	}
 
-	// REVIEW - get explanation from Kai?
 	/// <summary>
-    /// Utility function to cast a ray from the mouse to the floor and return the hit, this is to know the position of the mouse on the floor game object
-    /// </summary>
+	/// Utility function to cast a ray from the mouse to the floor and return the hit, this is to know the position of the mouse on the floor game object
+	/// </summary>
 	private RaycastHit CastRayFromMouseToFloor()
 	{
-		Vector3 screenMousePosFar = new(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), HouseManager.Instance.DecorateCamera.farClipPlane);
-		Vector3 screenMousePosNear = new(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), HouseManager.Instance.DecorateCamera.nearClipPlane);
-		Vector3 worldMousePosFar = HouseManager.Instance.DecorateCamera.ScreenToWorldPoint(screenMousePosFar);
-		Vector3 worldMousePosNear = HouseManager.Instance.DecorateCamera.ScreenToWorldPoint(screenMousePosNear);
-
-		Physics.Raycast(worldMousePosNear, worldMousePosFar - worldMousePosNear, out RaycastHit hit, int.MaxValue, 1 << LayerMask.NameToLayer("Floor"));
+		Physics.Raycast(HouseManager.Instance.DecorateCamera.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit hit, int.MaxValue, 1 << LayerMask.NameToLayer("Floor"));
 
 		return hit;
 	}
@@ -259,7 +241,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		// Set new placeable color to green
 		// This makes an assumption that the placement is automatically valid...
 		// May be resolved by the every frame check
-		// REVIEW - check
 		SelectedPlaceable = placeableToSelect;
 		SelectedPlaceable.Mesh.material.color = SelectedPlaceable.IsValidPosition ? Color.green : Color.red;
 
