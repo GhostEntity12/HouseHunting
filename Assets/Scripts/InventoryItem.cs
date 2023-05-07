@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public struct InventoryItem
 {
     public string id;
