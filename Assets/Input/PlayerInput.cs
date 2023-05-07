@@ -66,7 +66,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Crouch"",
                     ""type"": ""Button"",
-                    ""id"": ""92bbdb1f-9de3-4754-83b4-0835b6658d9b"",
+                    ""id"": ""0e16a203-14d2-43a3-8939-70129b7ad8e9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -164,7 +164,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""88c3a650-5e4d-47a0-b7ad-57fa07d6f094"",
+                    ""id"": ""04a4e74c-e3f9-40d5-a660-0fc5c04106d2"",
                     ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -216,15 +216,18 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-<<<<<<< HEAD
                     ""name"": ""OpenShop"",
                     ""type"": ""Button"",
                     ""id"": ""b2d5ae4d-16a6-4fe4-a692-adc4a0c7a53b"",
-=======
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Crouch"",
                     ""type"": ""Button"",
-                    ""id"": ""f644904a-704c-4b1c-9920-6caa545d9152"",
->>>>>>> 406fd08627610bee5eff852a386a6dcccffea6a6
+                    ""id"": ""09c88c20-88ea-436a-9250-5dd96da8bcec"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -322,21 +325,23 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-<<<<<<< HEAD
                     ""id"": ""332daacf-74d1-4426-8a59-f95f46dd2208"",
                     ""path"": ""<Keyboard>/b"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""OpenShop"",
-=======
-                    ""id"": ""a0b47c94-3485-46e6-a38c-5e653de1e61e"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""12efbce1-649b-41bc-b977-2bfec8e5f722"",
                     ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Crouch"",
->>>>>>> 406fd08627610bee5eff852a386a6dcccffea6a6
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -490,11 +495,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_House_Interact = m_House.FindAction("Interact", throwIfNotFound: true);
         m_House_Look = m_House.FindAction("Look", throwIfNotFound: true);
         m_House_Decorate = m_House.FindAction("Decorate", throwIfNotFound: true);
-<<<<<<< HEAD
         m_House_OpenShop = m_House.FindAction("OpenShop", throwIfNotFound: true);
-=======
         m_House_Crouch = m_House.FindAction("Crouch", throwIfNotFound: true);
->>>>>>> 406fd08627610bee5eff852a386a6dcccffea6a6
         // Decorate
         m_Decorate = asset.FindActionMap("Decorate", throwIfNotFound: true);
         m_Decorate_ExitToHouse = m_Decorate.FindAction("ExitToHouse", throwIfNotFound: true);
@@ -629,11 +631,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_House_Interact;
     private readonly InputAction m_House_Look;
     private readonly InputAction m_House_Decorate;
-<<<<<<< HEAD
     private readonly InputAction m_House_OpenShop;
-=======
     private readonly InputAction m_House_Crouch;
->>>>>>> 406fd08627610bee5eff852a386a6dcccffea6a6
     public struct HouseActions
     {
         private @PlayerInput m_Wrapper;
@@ -642,11 +641,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_House_Interact;
         public InputAction @Look => m_Wrapper.m_House_Look;
         public InputAction @Decorate => m_Wrapper.m_House_Decorate;
-<<<<<<< HEAD
         public InputAction @OpenShop => m_Wrapper.m_House_OpenShop;
-=======
         public InputAction @Crouch => m_Wrapper.m_House_Crouch;
->>>>>>> 406fd08627610bee5eff852a386a6dcccffea6a6
         public InputActionMap Get() { return m_Wrapper.m_House; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -668,15 +664,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Decorate.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnDecorate;
                 @Decorate.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnDecorate;
                 @Decorate.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnDecorate;
-<<<<<<< HEAD
                 @OpenShop.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnOpenShop;
                 @OpenShop.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnOpenShop;
                 @OpenShop.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnOpenShop;
-=======
                 @Crouch.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnCrouch;
->>>>>>> 406fd08627610bee5eff852a386a6dcccffea6a6
             }
             m_Wrapper.m_HouseActionsCallbackInterface = instance;
             if (instance != null)
@@ -693,15 +686,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Decorate.started += instance.OnDecorate;
                 @Decorate.performed += instance.OnDecorate;
                 @Decorate.canceled += instance.OnDecorate;
-<<<<<<< HEAD
                 @OpenShop.started += instance.OnOpenShop;
                 @OpenShop.performed += instance.OnOpenShop;
                 @OpenShop.canceled += instance.OnOpenShop;
-=======
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
->>>>>>> 406fd08627610bee5eff852a386a6dcccffea6a6
             }
         }
     }
@@ -777,11 +767,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnDecorate(InputAction.CallbackContext context);
-<<<<<<< HEAD
         void OnOpenShop(InputAction.CallbackContext context);
-=======
         void OnCrouch(InputAction.CallbackContext context);
->>>>>>> 406fd08627610bee5eff852a386a6dcccffea6a6
     }
     public interface IDecorateActions
     {
