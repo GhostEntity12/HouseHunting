@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public struct InventoryItem
 {
     public string id;
@@ -13,5 +11,10 @@ public struct InventoryItem
         this.scaleFactor = scaleFactor;
         this.materialIndex = materialIndex;
         this.price = price;
+    }
+
+    public float value
+    {
+        get { return price * scaleFactor; }
     }
 }

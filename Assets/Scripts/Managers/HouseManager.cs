@@ -15,11 +15,34 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
 
 	private List<HouseItem> houseItems;
+	private float houseValue = 0;
 
 	private void Start()
 	{
 		SpawnSerializedPlaceables();
+		houseValue = CalculateHouseRating(houseItems); // assign total value here
+
+        Debug.Log("HouseRating: "+houseValue);
 		SetHouseMode(HouseMode.Explore);
+	}
+
+	// function to calculate house rating, on certain threseholds (to be determined later), unlockTier is called to unlock that tier.
+	private float CalculateHouseRating(List<HouseItem> houseItems)
+	{
+		float tValue = 0;
+		foreach (HouseItem item in houseItems)
+		{
+			tValue += item.inventoryItem.value;
+		}
+		// can be changed in future
+		if (tValue > 9000)
+			unlockTier("D"); // dummy function for now
+		return tValue;
+	}
+
+	public void unlockTier(string tier)
+	{
+		// do nothing
 	}
 
 	public void LoadData(GameData data)
