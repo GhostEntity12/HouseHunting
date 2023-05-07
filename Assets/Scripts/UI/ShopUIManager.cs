@@ -13,7 +13,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
     [SerializeField] private ItemThumbnailUI shopTabPrefab;
     [SerializeField] private TextMeshProUGUI noItemsText;
 
-    private (FurnitureSO so, InventoryItem inventoryItem) selectedFurniture;
+    private (FurnitureSO so, InventoryItem inventoryItem)? selectedFurniture;
     private List<string> tabs;
     private List<InventoryItem> currentDisplayedItems;
 
@@ -78,6 +78,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
         shopCanvas.enabled = !shopCanvas.enabled;
         if (IsShopOpen)
         {
+            Debug.Log(GameManager.Instance.Currency);
             GameManager.Instance.ShowCursor();
             RepaintShop();
         }
@@ -95,6 +96,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
             furnitureDetailsPanel.SetActive(false);
             return;
         }
+        selectedFurniture = selectedInventoryItem;
         furnitureDetailsPanel.SetActive(true);
         furnitureDetailsPanel.GetComponent<FurnitureDetailsUI>().SetFurniture(selectedInventoryItem.Value);
     }
@@ -104,5 +106,17 @@ public class ShopUIManager : Singleton<ShopUIManager>
         currentDisplayedItems = GameManager.Instance.PermanentInventory.Items.FindAll(x => x.id == tabName);
         RepaintShop();
         SelectItem(null);
+    }
+
+    public void SellItem()
+    {
+        if (selectedFurniture is null) return;
+
+        GameManager.Instance.Currency += (int)selectedFurniture?.inventoryItem.price;
+        GameManager.Instance.PermanentInventory.RemoveItem((InventoryItem)selectedFurniture?.inventoryItem);
+        SetTab(selectedFurniture?.inventoryItem.id);
+        SelectItem(null);
+
+        Debug.Log(GameManager.Instance.Currency);
     }
 }
