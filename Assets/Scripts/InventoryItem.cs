@@ -12,4 +12,9 @@ public struct InventoryItem
         this.materialIndex = materialIndex;
         this.price = price;
     }
+
+    public float value
+    {
+        get { return price * scaleFactor; }
+    }
 }
