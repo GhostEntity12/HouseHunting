@@ -18,15 +18,19 @@ public class Gun : MonoBehaviour
 
 
     //bools
-    bool shooting, readyToShoot, reloading;
+    bool shooting, readyToShoot, reloading, aiming;
 
     //Reference
     public Camera Cam;
     public Transform muzzlePoint;
+    public Animator anim;
+    public GameObject ammoType1, ammoType2;
+
 
     //Graphics
     public GameObject muzzleFlash;
     public TextMeshProUGUI text;
+    
 
     private Recoil Recoil_Script;
 
@@ -35,7 +39,10 @@ public class Gun : MonoBehaviour
         Recoil_Script = GameObject.Find("CameraRot/CameraRecoil").GetComponent<Recoil>();
         ammoLeft = magSize;
         readyToShoot = true;
+        anim = GetComponent<Animator>();
+        aiming = false;
     }
+
 
     private void Update()
     {
@@ -54,11 +61,37 @@ public class Gun : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) && ammoLeft < magSize && !reloading && this.gameObject.activeSelf) Reload();
 
+        //Switching ammo
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            bullet = ammoType1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            bullet = ammoType2;
+        }
+
         //Shoot
         if (readyToShoot && shooting && !reloading &&  ammoLeft > 0)
         {
             ammoShot = bulletsPerTap;
             Shoot();
+        }
+
+        //Aim
+            //Very inefficient
+        // TODO
+        if(Input.GetMouseButtonDown(1))
+        {   
+            aiming = true;
+            anim.SetBool("Aiming", true);
+        }
+
+        if(Input.GetMouseButtonUp(1))
+        {
+            aiming = false;
+            anim.SetBool("Aiming", false);
         }
     }
 
