@@ -30,8 +30,10 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		// Singleton setup
 		base.Awake();
 
-		// Subscribe to mode change event
-		HouseManager.ModeChanged += SetInput;
+        Debug.Log(gameObject.name);
+
+        // Subscribe to mode change event
+        HouseManager.ModeChanged += SetInput;
 
 		// Generate inputs and subscribe
 		playerInput = new PlayerInput();
@@ -147,7 +149,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	// Triggers on mouse up
 	private void DecorateMouseDownCanceled()
 	{
-		Debug.Log("md Cancel");
 		isDraggingCamera = false;
 		isDraggingPlaceable = false;
 		isSelectingPlaceable = false;
@@ -266,6 +267,9 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	public void DeselectPlaceable(bool savePosition = true)
 	{
 		if (!SelectedPlaceable) return;
+
+		// Hide button group
+		DecorateButtonGroupUIManager.Instance.ButtonGroupVisibility(false);
 
 		if (savePosition)
 		{
