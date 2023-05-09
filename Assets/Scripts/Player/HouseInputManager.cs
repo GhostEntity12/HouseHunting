@@ -30,8 +30,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		// Singleton setup
 		base.Awake();
 
-        Debug.Log(gameObject.name);
-
         // Subscribe to mode change event
         HouseManager.ModeChanged += SetInput;
 
@@ -95,9 +93,9 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	/// </summary>
 	private void ExploreInteract()
 	{
-		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, playerReach, ~LayerMask.NameToLayer("Door")))
+		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, out RaycastHit hit, playerReach))
 		{
-			SceneManager.LoadScene("ForestTestingKai");
+			hit.transform.GetComponent<IInteractable>()?.Interact();
 		}
 	}
 
