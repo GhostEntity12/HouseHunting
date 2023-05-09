@@ -65,6 +65,12 @@ public abstract class Shootable : MonoBehaviour
 
         if (currentHealth <= 0) Die();
     }
+    public int[] GetHealth()
+    {
+        int[] healthStatus = { currentHealth, furnitureSO.maxHealth };
+        return healthStatus;
+    }
+        
 
     public InventoryItem GetInventoryItem()
     {

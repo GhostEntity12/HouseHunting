@@ -50,7 +50,10 @@ public class WanderAI : MonoBehaviour
 				agent.SetDestination(point);
 		}
 
-		Collider[] hitColliders = Physics.OverlapSphere(transform.position, perceptionRadius);
+        int[] status = shootable.GetHealth(); //fetch currentHealth and maxHealth respectfully
+        agent.speed = shootable.FurnitureSO.speed * (1 - Mathf.Pow(((status[1] - status[0])/status[1]),3)); //multiplies the speed proportionally to a graph of y = 1 - x^3, where x is ((maxHealth - currentHealth) / maxHealth)
+
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, perceptionRadius);
 
         foreach (Collider hitCollider in hitColliders)
         {
