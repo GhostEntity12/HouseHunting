@@ -219,9 +219,21 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	/// <param name="mouseDelta">The change in mouse position</param>
 	private void RotateDecorateCamera(Vector2 mouseDelta)
 	{
-		cameraYRotation -= mouseDelta.x * Time.deltaTime * 30;
-		HouseManager.Instance.DecorateCamera.transform.localRotation = Quaternion.Euler(HouseManager.Instance.DecorateCamera.transform.localRotation.eulerAngles.x, cameraYRotation, 0);
-	}
+		Camera camera = HouseManager.Instance.DecorateCamera;
+		
+		// rotate on the horizontal axis
+		camera.transform.RotateAround(new Vector3(0, camera.transform.position.y, 0), Vector3.up, mouseDelta.x * Time.deltaTime * 30);
+
+		// prevent the camera from rotating too much vertically, i.e, prevent it from seeing under the house's floor or flip around
+		float verticalAngleToRotate = -mouseDelta.y * Time.deltaTime * 30;
+		if (camera.transform.position.y < 3)
+			verticalAngleToRotate = Mathf.Clamp(verticalAngleToRotate, 0, verticalAngleToRotate);
+		else if (camera.transform.position.y > 15)
+			verticalAngleToRotate = Mathf.Clamp(verticalAngleToRotate, verticalAngleToRotate, 0);
+
+		// rotate on the vertical axis
+		camera.transform.RotateAround(Vector3.zero, camera.transform.right, verticalAngleToRotate);
+    }
 
 	/// <summary>
 	/// Utility function to cast a ray from the mouse to the floor and return the hit, this is to know the position of the mouse on the floor game object
