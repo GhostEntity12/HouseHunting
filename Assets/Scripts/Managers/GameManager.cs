@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
     public static GameManager Instance => instance;
     public Inventory PermanentInventory { get => permanentInventory; }
+    public int Currency { get; set; }
 
     private void Awake()
     {
@@ -34,10 +35,12 @@ public class GameManager : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         permanentInventory.SetInventory(data.permanentInventory);
+        Currency = data.currency;
     }
 
     public void SaveData(GameData data)
     {
         data.permanentInventory = permanentInventory.Items;
+        data.currency = Currency;
     }
 }

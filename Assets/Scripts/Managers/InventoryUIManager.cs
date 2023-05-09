@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class InventoryUIManager : MonoBehaviour
 {
-    [SerializeField] private InventoryItemsUI inventoryItemsUIPrefab;
+    [SerializeField] private ItemThumbnailUI inventoryItemsUIPrefab;
 
     private static InventoryUIManager instance;
 
@@ -20,8 +20,8 @@ public class InventoryUIManager : MonoBehaviour
     {
         foreach (InventoryItem item in GameManager.Instance.PermanentInventory.Items)
         {
-            InventoryItemsUI inventoryItem = Instantiate(inventoryItemsUIPrefab, transform);
-            inventoryItem.SetPlaceablePrefab(item);
+            ItemThumbnailUI inventoryItem = Instantiate(inventoryItemsUIPrefab, transform);
+            inventoryItem.SetItem(item);
         }
     }
 
@@ -36,8 +36,8 @@ public class InventoryUIManager : MonoBehaviour
         //add all items UI from the inventory
         foreach (InventoryItem item in GameManager.Instance.PermanentInventory.Items)
         {
-            InventoryItemsUI inventoryItem = Instantiate(inventoryItemsUIPrefab, transform);
-            inventoryItem.SetPlaceablePrefab(item);
+            ItemThumbnailUI inventoryItem = Instantiate(inventoryItemsUIPrefab, transform);
+            inventoryItem.SetItem(item);
         }
     }
 }
