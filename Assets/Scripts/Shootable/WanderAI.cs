@@ -49,11 +49,11 @@ public class WanderAI : MonoBehaviour
         if (IsPlayerSneaking())
         {
             perceptionRadius = shootable.FurnitureSO.perceptionRadius / 2;
-            Debug.Log("player is sneaking");
+            //Debug.Log("player is sneaking");
         }
         else {
             perceptionRadius = shootable.FurnitureSO.perceptionRadius;
-            Debug.Log("player is not sneaking");
+            //Debug.Log("player is not sneaking");
         }
 
         if (agent.remainingDistance <= agent.stoppingDistance) //done with path
