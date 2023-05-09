@@ -14,7 +14,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log($"Created new instance of singleton {typeof(T)}", this.gameObject);
+			// Debug.Log($"Created new instance of singleton {typeof(T)}", this.gameObject);
 			Instance = this as T;
 		}
 	}

@@ -21,7 +21,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	private bool isDraggingCamera = false;
 	private bool isSelectingPlaceable = false;
 	private (Vector3 position, float angle) placeableInitialState = (Vector3.zero, 0f);
-	private float cameraYRotation = 0f;
 	private Bounds cameraBounds;
 	public Placeable SelectedPlaceable { get; private set; }
 
@@ -96,9 +95,9 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	/// </summary>
 	private void ExploreInteract()
 	{
-		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, playerReach, LayerMask.NameToLayer("Door")))
+		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, playerReach, ~LayerMask.NameToLayer("Door")))
 		{
-			SceneManager.LoadScene("ForestTestingJames");
+			SceneManager.LoadScene("ForestTestingKai");
 		}
 	}
 
@@ -273,6 +272,9 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
 		// Hide inventory
 		inventoryScrollView.gameObject.SetActive(false);
+
+		// Dont allow player to change mode while placing furniture
+		playerInput.Decorate.ExitToHouse.Disable();
 	}
 
 	public void DeselectPlaceable(bool savePosition = true)
@@ -281,6 +283,9 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
 		// Hide button group
 		DecorateButtonGroupUIManager.Instance.ButtonGroupVisibility(false);
+
+		// Re-enable house mode change
+		playerInput.Decorate.ExitToHouse.Enable();
 
 		if (savePosition)
 		{
