@@ -48,22 +48,28 @@ public abstract class Shootable : MonoBehaviour
     {
         if (isDead) return;
 
-        float damage_mult = 1f;
+        float damageMult = 1f;
 
         foreach (Hitbox hit in Hitboxes)
         {
             if (hit.collider == hitbox)
             {
-                damage_mult = hit.multiplier;
+                damageMult = hit.multiplier;
             }
         }
 
-        int final_damage = (int)(damage * damage_mult);
+        int finalDamage = (int)(damage * damageMult);
 
-        currentHealth -= final_damage;
+        currentHealth -= finalDamage;
 
         if (currentHealth <= 0) Die();
     }
+    public int[] GetHealth()
+    {
+        int[] healthStatus = { currentHealth, furnitureSO.maxHealth };
+        return healthStatus;
+    }
+        
 
     public InventoryItem GetInventoryItem()
     {
