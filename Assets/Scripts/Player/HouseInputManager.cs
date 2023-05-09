@@ -11,6 +11,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	[Header("Explore Mode")]
 	[SerializeField] private PlayerMovement movement;
 	[SerializeField] private PlayerLook look;
+	[SerializeField] private float playerReach = 3f;
 
 	[Header("Decorate Mode")]
 	[SerializeField] private ScrollRect inventoryScrollView;
@@ -95,9 +96,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	/// </summary>
 	private void ExploreInteract()
 	{
-		// TODO - Optimise this to a layermask 
-		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, out RaycastHit hit, 3f) &&
-			hit.transform.parent.CompareTag("Door"))
+		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, playerReach, LayerMask.NameToLayer("Door")))
 		{
 			SceneManager.LoadScene("ForestTestingJames");
 		}
