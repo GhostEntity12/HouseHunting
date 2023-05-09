@@ -11,6 +11,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	[Header("Explore Mode")]
 	[SerializeField] private PlayerMovement movement;
 	[SerializeField] private PlayerLook look;
+	[SerializeField] private float playerReach = 3f;
 
 	[Header("Decorate Mode")]
 	[SerializeField] private ScrollRect inventoryScrollView;
@@ -30,13 +31,18 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		// Singleton setup
 		base.Awake();
 
-		// Subscribe to mode change event
-		HouseManager.ModeChanged += SetInput;
+        Debug.Log(gameObject.name);
+
+        // Subscribe to mode change event
+        HouseManager.ModeChanged += SetInput;
 
 		// Generate inputs and subscribe
 		playerInput = new PlayerInput();
+
 		playerInput.House.Interact.performed += ctx => ExploreInteract();
 		playerInput.House.Decorate.performed += ctx => HouseManager.Instance.SetHouseMode(HouseManager.HouseMode.Decorate);
+		playerInput.House.OpenShop.performed += ctx => ShopUIManager.Instance.ToggleShop();
+
 		playerInput.Decorate.MouseDown.started += ctx => DecorateMouseDownStarted();
 		playerInput.Decorate.MouseDown.canceled += ctx => DecorateMouseDownCanceled();
 		playerInput.Decorate.ExitToHouse.performed += ctx =>
@@ -67,7 +73,8 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		switch (HouseManager.Instance.Mode)
 		{
 			case HouseManager.HouseMode.Explore:
-				movement.Move(playerInput.House.Movement.ReadValue<Vector2>());
+				if (!ShopUIManager.Instance.IsShopOpen)
+					movement.Move(playerInput.House.Movement.ReadValue<Vector2>());
 				break;
 			case HouseManager.HouseMode.Decorate:
 				MoveDecorateCamera(playerInput.Decorate.MoveCamera.ReadValue<Vector2>());
@@ -80,7 +87,8 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	private void LateUpdate()
 	{
 		// 1st person camera movement for exploration mode
-		look.Look(playerInput.House.Look.ReadValue<Vector2>());
+		if (!ShopUIManager.Instance.IsShopOpen)
+			look.Look(playerInput.House.Look.ReadValue<Vector2>());
 	}
 
 	/// <summary>
@@ -88,9 +96,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	/// </summary>
 	private void ExploreInteract()
 	{
-		// TODO - Optimise this to a layermask 
-		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, out RaycastHit hit, 3f) &&
-			hit.transform.parent.CompareTag("Door"))
+		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, playerReach, LayerMask.NameToLayer("Door")))
 		{
 			SceneManager.LoadScene("ForestTestingJames");
 		}
@@ -142,7 +148,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	// Triggers on mouse up
 	private void DecorateMouseDownCanceled()
 	{
-		Debug.Log("md Cancel");
 		isDraggingCamera = false;
 		isDraggingPlaceable = false;
 		isSelectingPlaceable = false;
@@ -261,6 +266,9 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	public void DeselectPlaceable(bool savePosition = true)
 	{
 		if (!SelectedPlaceable) return;
+
+		// Hide button group
+		DecorateButtonGroupUIManager.Instance.ButtonGroupVisibility(false);
 
 		if (savePosition)
 		{
