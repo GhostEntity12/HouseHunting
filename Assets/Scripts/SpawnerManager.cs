@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnerManger : MonoBehaviour
+public class SpawnerManager : MonoBehaviour
 {
 	List<Spawner> spawners = new();
 
