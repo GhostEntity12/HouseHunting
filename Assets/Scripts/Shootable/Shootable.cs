@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public abstract class Shootable : MonoBehaviour
+public abstract class Shootable : MonoBehaviour, IInteractable
 {
     [SerializeField] private FurnitureSO furnitureSO;
 
@@ -74,5 +74,14 @@ public abstract class Shootable : MonoBehaviour
     public InventoryItem GetInventoryItem()
     {
         return new InventoryItem(furnitureSO.id, scaleFactor, materialIndex, price);
+    }
+
+    public void Interact()
+    {
+        if (isDead)
+        {
+            HuntingManager.Instance.HuntingInventory.AddItem(GetInventoryItem());
+            Destroy(gameObject);
+        }
     }
 }
