@@ -88,7 +88,6 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
     public void RespawnInHouse()
     {
         GameManager.Instance.PermanentInventory.MergeInventory(huntingInventory);
-        Debug.Log(huntingInventory);
         gameOverUI.SetActive(false);
         GameManager.Instance.HideCursor();
         SceneManager.LoadScene("House");

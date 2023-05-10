@@ -93,10 +93,10 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	/// </summary>
 	private void ExploreInteract()
 	{
-		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, out RaycastHit hit, playerReach))
+		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, out RaycastHit hit, playerReach) && hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
 		{
-			hit.transform.GetComponent<IInteractable>()?.Interact();
-		}
+            interactable.Interact();
+        }
 	}
 
 	/// <summary>
@@ -149,7 +149,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		isDraggingPlaceable = false;
 		isSelectingPlaceable = false;
 	}
-
 
 	private void Update()
 	{
