@@ -10,7 +10,7 @@ public class Door : MonoBehaviour, IInteractable
         if (sceneToLoad != null)
         {
             // if we are in hunting scene, call respawn in house instead
-            if (FindObjectOfType<HuntingManager>() != null)
+            if (HuntingManager.Instance != null)
                 HuntingManager.Instance.RespawnInHouse();
             else
                 SceneManager.LoadScene(sceneToLoad.name);
