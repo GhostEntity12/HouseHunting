@@ -222,13 +222,17 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
 		// prevent the camera from rotating too much vertically, i.e, prevent it from seeing under the house's floor or flip around
 		float verticalAngleToRotate = -mouseDelta.y * Time.deltaTime * 30;
-		if (camera.transform.position.y < 3)
-			verticalAngleToRotate = Mathf.Clamp(verticalAngleToRotate, 0, verticalAngleToRotate);
-		else if (camera.transform.position.y > 15)
-			verticalAngleToRotate = Mathf.Clamp(verticalAngleToRotate, verticalAngleToRotate, 0);
 
-		// rotate on the vertical axis
-		camera.transform.RotateAround(Vector3.zero, camera.transform.right, verticalAngleToRotate);
+		// Calculate distance from origin to point
+        float distance = Vector3.Distance(Vector3.zero, camera.transform.position);
+
+        // Calculate angle between y-axis and point
+        float angle = Mathf.Atan2(camera.transform.position.y, Mathf.Sqrt(camera.transform.position.x * camera.transform.position.x + camera.transform.position.z * camera.transform.position.z)) * Mathf.Rad2Deg;
+
+		if (angle + verticalAngleToRotate > 80 || angle + verticalAngleToRotate < 10) return;
+
+        // rotate on the vertical axis
+        camera.transform.RotateAround(Vector3.zero, camera.transform.right, verticalAngleToRotate);
     }
 
 	/// <summary>
