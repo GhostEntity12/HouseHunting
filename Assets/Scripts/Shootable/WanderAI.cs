@@ -74,7 +74,7 @@ public class WanderAI : MonoBehaviour
                 alertCanvas.enabled = true;
                 if (isPredator)
                 {
-                    meshRenderer.material.color = Color.red;
+                    //meshRenderer.material.color = Color.red;
 
                     float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
 
@@ -91,7 +91,7 @@ public class WanderAI : MonoBehaviour
                 } 
                 else 
                 {
-                    meshRenderer.material.color = Color.green;
+                    //meshRenderer.material.color = Color.green;
                     Vector3 playerDirection = hitCollider.transform.position - transform.position;
                     Vector3 destination = transform.position - playerDirection;
 					if (NavMesh.SamplePosition(destination, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
@@ -102,7 +102,7 @@ public class WanderAI : MonoBehaviour
             else
             {
                 alertCanvas.enabled = false;
-                meshRenderer.material.color = Color.white;
+                //meshRenderer.material.color = Color.white;
                 agent.isStopped = false;
             }
         }
