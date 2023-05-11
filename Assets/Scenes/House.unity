@@ -692,7 +692,7 @@ PrefabInstance:
     - target: {fileID: 6013237026090962126, guid: fc1508b594816424683a2f0bfade27a9, type: 3}
       propertyPath: sceneToLoad
       value: 
-      objectReference: {fileID: 102900000, guid: 73ff48469bbcd6749a2ca929b61a8f60, type: 3}
+      objectReference: {fileID: 102900000, guid: 5d514ee2f3e97ac46b032f71a724873b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3235,7 +3235,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 561467939}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9985705
+  m_Size: 0.9999979
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4260,7 +4260,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00049225584, y: 0.000013965499}
+  m_AnchoredPosition: {x: 0.00049225584, y: 0.000005833372}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1810564101
