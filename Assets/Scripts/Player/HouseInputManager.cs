@@ -325,7 +325,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		GameManager.Instance.PermanentInventory.AddItem(SelectedPlaceable.InventoryItem);
 		InventoryUIManager.Instance.RepaintInventory();
 		Destroy(SelectedPlaceable.gameObject);
-		SelectedPlaceable = null;
+		DeselectPlaceable(false);
 		inventoryScrollView.gameObject.SetActive(true);
 	}
 }
