@@ -1475,7 +1475,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1745296669}
         m_TargetAssemblyTypeName: DecorateButtonGroupUIManager, Assembly-CSharp
-        m_MethodName: OkButtonVisibility
+        m_MethodName: ButtonGroupVisibility
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1697,7 +1697,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1745296669}
         m_TargetAssemblyTypeName: DecorateButtonGroupUIManager, Assembly-CSharp
-        m_MethodName: OkButtonVisibility
+        m_MethodName: ButtonGroupVisibility
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2491,7 +2491,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1745296669}
         m_TargetAssemblyTypeName: DecorateButtonGroupUIManager, Assembly-CSharp
-        m_MethodName: OkButtonVisibility
+        m_MethodName: ButtonGroupVisibility
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3235,7 +3235,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 561467939}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99998575
+  m_Size: 0.9985705
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4260,7 +4260,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00049225584, y: 0.0030153994}
+  m_AnchoredPosition: {x: 0.00049225584, y: 0.000013965499}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1810564101

@@ -287,17 +287,15 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
 		// Re-enable house mode change
 		playerInput.Decorate.ExitToHouse.Enable();
+		// Revert mesh color
+		SelectedPlaceable.Mesh.material.color = Color.white;
+		// Disable rotation wheel
+		SelectedPlaceable.RotationWheel.SetVisibility(false);
 
 		if (savePosition)
 		{
 			if (SelectedPlaceable.IsValidPosition)
 			{
-				// Revert mesh color
-				SelectedPlaceable.Mesh.material.color = Color.white;
-				// Disable rotation wheel
-				SelectedPlaceable.RotationWheel.SetVisibility(false);
-				// Deselect
-				SelectedPlaceable = null;
 
 				inventoryScrollView.gameObject.SetActive(true);
 			}
@@ -313,6 +311,8 @@ public class HouseInputManager : Singleton<HouseInputManager>
 			SelectedPlaceable.SetTransforms(placeableInitialState.position, placeableInitialState.angle);
 			SelectedPlaceable.Mesh.material.color = Color.white;
 		}
+		// Deselect
+		SelectedPlaceable = null;
 	}
 
 	/// <summary>
@@ -325,7 +325,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		GameManager.Instance.PermanentInventory.AddItem(SelectedPlaceable.InventoryItem);
 		InventoryUIManager.Instance.RepaintInventory();
 		Destroy(SelectedPlaceable.gameObject);
-		SelectedPlaceable = null;
+		DeselectPlaceable(false);
 		inventoryScrollView.gameObject.SetActive(true);
 	}
 }
