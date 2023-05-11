@@ -116,6 +116,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
         GameManager.Instance.PermanentInventory.RemoveItem((InventoryItem)selectedFurniture?.inventoryItem);
         SetTab(selectedFurniture?.inventoryItem.id);
         SelectItem(null);
+        InventoryUIManager.Instance.RepaintInventory();
 
         Debug.Log(GameManager.Instance.Currency);
     }
