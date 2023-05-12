@@ -18,7 +18,7 @@ MonoBehaviour:
   damage: 40
   speed: 3
   attackInterval: 1
-  perceptionRadius: 5
+  perceptionRadius: 30
   materials:
   - {fileID: 2100000, guid: 77e0807815f787f49986266eb8a05c81, type: 2}
   basePrice: 100
