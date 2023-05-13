@@ -30,18 +30,17 @@ public class WeaponWheelButtonController : MonoBehaviour
         }
     }
 
-    public void Selected()
-    {
-        selected = true;
-        WeaponWheelController.weaponID = ID;
-    }
+    // public void Selected()
+    // {
+    //     selected = true;
+    //     WeaponWheelController.weaponID = ID;
+    // }
 
-    public void Deselected()
-    {
-        selected = false;
-        WeaponWheelController.weaponID = 0;
-        
-    }
+    // public void Deselected()
+    // {
+    //     selected = false;
+    //     WeaponWheelController.weaponID = 0;
+    // }
 
     public void HoverEnter()
     {

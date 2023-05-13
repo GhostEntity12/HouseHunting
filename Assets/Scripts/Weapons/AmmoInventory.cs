@@ -27,33 +27,27 @@ public class AmmoInventory : MonoBehaviour
 
     public void Spend(int ammoSpent)
     {   
-        if (shotgun.activeInHierarchy)
-        {
-            shotgunAmmo -= ammoSpent;
-        }
+        // if (shotgun.activeInHierarchy)
+        // {
+        //     shotgunAmmo -= ammoSpent;
+        // }
 
-        if (lar.activeInHierarchy)
-        {
-            rifleAmmo -= ammoSpent; 
-        }
+        // if (lar.activeInHierarchy)
+        // {
+        //     rifleAmmo -= ammoSpent; 
+        // }
 
-        if (xbow.activeInHierarchy)
-        {
-            crossbowAmmo -= ammoSpent;   
-        }
+        // if (xbow.activeInHierarchy)
+        // {
+        //     crossbowAmmo -= ammoSpent;   
+        // }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        shotgun = weaponHolder.transform.GetChild(0).gameObject;
-        lar = weaponHolder.transform.GetChild(1).gameObject;
-        xbow = weaponHolder.transform.GetChild(2).gameObject;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // shotgun = weaponHolder.transform.GetChild(0).gameObject;
+        // lar = weaponHolder.transform.GetChild(1).gameObject;
+        // xbow = weaponHolder.transform.GetChild(2).gameObject;
     }
 }

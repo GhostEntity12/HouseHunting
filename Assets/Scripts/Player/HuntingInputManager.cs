@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class HuntingInputManager : Singleton<HuntingInputManager>
 {
+	[SerializeField] WeaponWheelController weaponWheelController;
+
 	private new Camera camera;
 	private PlayerInput playerInput;
 	private PlayerMovement movement;
@@ -17,6 +19,9 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		camera = GetComponentInChildren<Camera>();
 
 		playerInput.Hunting.Interact.performed += ctx => Interact();
+
+		playerInput.Hunting.OpenWeaponWheel.started += ctx => OpenWeaponWheel();
+		playerInput.Hunting.OpenWeaponWheel.canceled += ctx => CloseWeaponWheel();
 	}
 
 	private void FixedUpdate()
@@ -27,7 +32,8 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 	private void LateUpdate()
 	{
-		look.Look(playerInput.Hunting.Look.ReadValue<Vector2>());
+		if (!weaponWheelController.gameObject.activeInHierarchy)
+			look.Look(playerInput.Hunting.Look.ReadValue<Vector2>());
 	}
 
 	private void OnEnable()
@@ -47,4 +53,14 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 			interactable.Interact();
         }
     }
+
+	private void OpenWeaponWheel()
+	{
+		weaponWheelController.OpenWeaponWheel();
+    }
+
+	private void CloseWeaponWheel()
+	{
+		weaponWheelController.CloseWeaponWheel();
+	}
 }

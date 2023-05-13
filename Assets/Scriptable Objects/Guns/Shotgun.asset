@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fab90db06d00632449427e7316814d82, type: 3}
+  m_Name: Shotgun
+  m_EditorClassIdentifier: 
+  id: shotgun
+  name: Shotgun
+  bulletPrefab: {fileID: 3790431006243065009, guid: 5ff316bf07ef7cf42a70ce61b97da412, type: 3}
+  icon: {fileID: 21300000, guid: d79a92fb90dd48841b06e145213af236, type: 3}
+  shootForce: 50
+  timeBetweenShooting: 0
+  spread: 0.2
+  reloadTime: 1
+  timeBetweenShots: 0
+  magSize: 24
+  bulletsPerTap: 12
+  ammoTotal: 400
+  allowButtonHold: 0

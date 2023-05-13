@@ -11,12 +11,9 @@ public class Recoil : MonoBehaviour
     public float recoilY;
     public float recoilZ;
 
-
     //Settings
     public float snappiness;
     public float returnSpeed;
-
-
 
     // Start is called before the first frame update
     void Start()
