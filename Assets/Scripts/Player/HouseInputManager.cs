@@ -39,8 +39,9 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		playerInput.House.Interact.performed += ctx => ExploreInteract();
 		playerInput.House.Decorate.performed += ctx => HouseManager.Instance.SetHouseMode(HouseManager.HouseMode.Decorate);
 		playerInput.House.OpenShop.performed += ctx => ShopUIManager.Instance.ToggleShop();
+		playerInput.House.Pause.performed += ctx => { if (!ShopUIManager.Instance.IsShopOpen) GameManager.Instance.PauseGame(); };
 
-		playerInput.Decorate.MouseDown.started += ctx => DecorateMouseDownStarted();
+        playerInput.Decorate.MouseDown.started += ctx => DecorateMouseDownStarted();
 		playerInput.Decorate.MouseDown.canceled += ctx => DecorateMouseDownCanceled();
 		playerInput.Decorate.ExitToHouse.performed += ctx =>
 		{
