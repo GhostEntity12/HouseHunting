@@ -8,12 +8,22 @@ public class WanderAI : MonoBehaviour
     private MeshRenderer meshRenderer;
     private Canvas alertCanvas;
     private float perceptionRadius;
+    private float sneakingPerceptionRadius;
+    private float height;
+    private int fieldOfView;
+    private float gunshotHearingRadius;
+    private float walkingHearingRadius;
+    private float sneakingHearingRadius;
     private bool isAlertedByGunshot = false;
+    private bool xray;
     private float timeSinceLastAttack = 0f;
+    private float alertness = 0; // between 0 and 100
+    private GameObject subject;
 
     public NavMeshAgent agent;
     public float wanderRadius = 15f; // how far the AI can wander
     public bool isPredator;
+    private int investigate = 0; // 0: At ease. 1: Must Investigate. 2: Investigating
 
     private void Awake()
     {
@@ -21,9 +31,17 @@ public class WanderAI : MonoBehaviour
         shootable = GetComponent<Shootable>();
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         alertCanvas = GetComponentInChildren<Canvas>();
+        subject = GameObject.FindWithTag("Player");
 
         perceptionRadius = shootable.FurnitureSO.perceptionRadius;
+        sneakingPerceptionRadius = shootable.FurnitureSO.sneakingPerceptionRadius;
+        fieldOfView = shootable.FurnitureSO.fieldOfView;
+        gunshotHearingRadius = shootable.FurnitureSO.gunshotHearingRadius;
+        walkingHearingRadius = shootable.FurnitureSO.walkingHearingRadius;
+        sneakingHearingRadius = shootable.FurnitureSO.sneakingHearingRadius;
         agent.speed = shootable.FurnitureSO.speed;
+        height = shootable.FurnitureSO.height;
+        xray = shootable.FurnitureSO.xray;
     }
 
     private void OnEnable() 
@@ -36,6 +54,74 @@ public class WanderAI : MonoBehaviour
         Gun.OnGunShootEvent -= OnGunShoot;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere((transform.position + new Vector3(0,height,0)), sneakingHearingRadius);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere((transform.position + new Vector3(0,height,0)), walkingHearingRadius);
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere((transform.position + new Vector3(0,height,0)), gunshotHearingRadius);
+
+        // Raycast currently doesn't work, so it has been commented out in the meantime.
+
+        //int defaultLayer = 0;
+        //int playerLayer = 9;
+        //int defaultLayerMask = 1 << defaultLayer;
+        //int playerLayerMask = 1 << playerLayer;
+        //int finalMask = defaultLayerMask | playerLayerMask;
+
+        //RaycastHit hit;
+
+        if (subject != null)
+        {
+            Vector3 toPosition = (subject.transform.position - (transform.position + new Vector3(0,height,0))).normalized;
+            float angleToPosition = Vector3.Angle(transform.forward, toPosition);
+
+            if (angleToPosition <= fieldOfView ) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawRay((transform.position + new Vector3(0,height,0)), toPosition);
+                Gizmos.color = Color.white;
+            }
+            else
+            {
+                Gizmos.color = Color.black;
+                Gizmos.DrawRay((transform.position + new Vector3(0,height,0)), toPosition);
+                Gizmos.color = Color.blue;
+            }
+            
+        }
+        else
+        {
+            Gizmos.color = Color.blue;
+        }
+
+        Gizmos.DrawWireSphere((transform.position + new Vector3(0,height,0)), perceptionRadius);
+
+        Quaternion leftRayRotation = Quaternion.AngleAxis(-fieldOfView, Vector3.up);
+        Quaternion rightRayRotation = Quaternion.AngleAxis(fieldOfView, Vector3.up);
+
+        Vector3 leftRayDirection = leftRayRotation * transform.forward * perceptionRadius;
+        Vector3 rightRayDirection = rightRayRotation * transform.forward * perceptionRadius;
+        Vector3 forwardDirection = Vector3.Lerp(leftRayDirection, rightRayDirection, 0.5f);
+
+        float gapLength = (leftRayDirection - rightRayDirection).magnitude;
+
+        Vector3 upRayDirection = forwardDirection + new Vector3(0, gapLength / 2, 0);
+        Vector3 downRayDirection = forwardDirection + new Vector3(0, gapLength / -2, 0);
+
+        Gizmos.DrawRay((transform.position + new Vector3(0,height,0)), upRayDirection);
+        Gizmos.DrawRay((transform.position + new Vector3(0,height,0)), downRayDirection);
+        Gizmos.DrawRay((transform.position + new Vector3(0,height,0)), leftRayDirection);
+        Gizmos.DrawRay((transform.position + new Vector3(0,height,0)), rightRayDirection);
+        Gizmos.DrawLine((transform.position + new Vector3(0,height,0)) + downRayDirection, (transform.position + new Vector3(0,height,0)) + upRayDirection);
+        Gizmos.DrawLine((transform.position + new Vector3(0,height,0)) + leftRayDirection, (transform.position + new Vector3(0,height,0)) + rightRayDirection);
+
+    }
+
     private void Update()
     {
         if (shootable.IsDead)
@@ -44,62 +130,107 @@ public class WanderAI : MonoBehaviour
             return;
         }
 
-        if (agent.remainingDistance <= agent.stoppingDistance) //done with path
+        if (agent.remainingDistance <= agent.stoppingDistance && alertness < 50) //done with path
         {
-			if (RandomPoint(transform.position, wanderRadius, out Vector3 point)) //pass in our centre point and radius of area
-				agent.SetDestination(point);
-		}
+            if (RandomPoint(transform.position, wanderRadius, out Vector3 point)) //pass in our centre point and radius of area
+                agent.SetDestination(point);
+        }
+        else
+        {
+            if (agent.remainingDistance <= agent.stoppingDistance || investigate == 1)
+            {
+                investigate = 2;
+                if (RandomPoint(subject.transform.position, 3, out Vector3 point)) //pass in our centre point and radius of area
+                    agent.SetDestination(point);
+            }
+        }
 
         int[] status = shootable.GetHealth(); //fetch currentHealth and maxHealth respectfully
         agent.speed = shootable.FurnitureSO.speed * (1 - Mathf.Pow(((status[1] - status[0])/status[1]),3)); //multiplies the speed proportionally to a graph of y = 1 - x^3, where x is ((maxHealth - currentHealth) / maxHealth)
 
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, perceptionRadius);
+        Collider[] hitColliders = Physics.OverlapSphere((transform.position + new Vector3(0,height,0)), perceptionRadius);
+
+        bool detected = false;
 
         foreach (Collider hitCollider in hitColliders)
         {
-            if (hitCollider.CompareTag("Player"))
+            Vector3 toPosition = (hitCollider.transform.position - (transform.position + new Vector3(0,height,0))).normalized;
+            float angleToPosition = Vector3.Angle(transform.forward, toPosition);
+            if (hitCollider.CompareTag("Player") && angleToPosition <= fieldOfView)
             {
-                alertCanvas.enabled = true;
-                if (isPredator)
-                {
-                    meshRenderer.material.color = Color.red;
-
-                    float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
-
-                    if (distance <= 2f)
-                    {
-                        agent.isStopped = true;
-                        AttackPlayer();
-                    }
-                    else
-                    {
-                        agent.isStopped = false;
-                        agent.SetDestination(hitCollider.transform.position);
-                    }
-                } 
-                else 
-                {
-                    meshRenderer.material.color = Color.green;
-                    Vector3 playerDirection = hitCollider.transform.position - transform.position;
-                    Vector3 destination = transform.position - playerDirection;
-					if (NavMesh.SamplePosition(destination, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
-						agent.SetDestination(hit.position);
-				}
+                subject = hitCollider.gameObject;
+                detected = true;
                 break;
             }
             else
             {
-                alertCanvas.enabled = false;
-                meshRenderer.material.color = Color.white;
-                agent.isStopped = false;
+                
             }
+        }
+        if (detected)
+        {
+            alertness += Time.deltaTime * 100;
+        }
+        else
+        {
+            alertness -= Time.deltaTime * 10;
+        }
+        alertness = Mathf.Clamp(alertness, 0, 100);
+        if (alertness >= 50 && subject != null && investigate == 0)
+        {
+            investigate = 1;
+        }
+        if (alertness >= 75 && subject != null)
+        {
+            alertCanvas.enabled = true;
+            if (isPredator)
+            {
+                meshRenderer.material.color = Color.red;
+
+                float distance = Vector3.Distance(transform.position, subject.transform.position);
+
+                if (distance <= 2f)
+                {
+                    agent.isStopped = true;
+                    if (alertness >= 100)
+                    {
+                        AttackPlayer();
+                    }
+                }
+                else
+                {
+                    agent.isStopped = false;
+                    agent.SetDestination(subject.transform.position);
+                }
+            }
+            else
+            {
+                meshRenderer.material.color = Color.green;
+                Vector3 playerDirection = subject.transform.position - (transform.position);
+                Vector3 destination = (transform.position) - playerDirection;
+                if (NavMesh.SamplePosition(destination, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
+                    agent.SetDestination(hit.position);
+            }
+        }
+        else
+        {
+            alertCanvas.enabled = false;
+            meshRenderer.material.color = Color.white;
+            agent.isStopped = false;
+            investigate = 0;
         }
     }
 
     private void OnGunShoot()
     {
-        StopAllCoroutines();
-        StartCoroutine(DoublePerceptionRadius());
+        GameObject player = GameObject.FindWithTag("Player");
+        float distance = Vector3.Distance((transform.position + new Vector3(0,height,0)), player.transform.position);
+        if (distance <= gunshotHearingRadius)
+        {
+            alertness += 80;
+            //StopAllCoroutines();
+            //StartCoroutine(DoublePerceptionRadius());
+        }
     }
 
     private IEnumerator DoublePerceptionRadius()
