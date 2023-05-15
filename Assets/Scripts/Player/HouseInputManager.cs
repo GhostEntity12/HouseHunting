@@ -21,7 +21,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	private bool isDraggingCamera = false;
 	private bool isSelectingPlaceable = false;
 	private (Vector3 position, float angle) placeableInitialState = (Vector3.zero, 0f);
-	private float cameraYRotation = 0f;
 	private Bounds cameraBounds;
 	public Placeable SelectedPlaceable { get; private set; }
 
@@ -30,8 +29,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	{
 		// Singleton setup
 		base.Awake();
-
-        Debug.Log(gameObject.name);
 
         // Subscribe to mode change event
         HouseManager.ModeChanged += SetInput;
@@ -96,10 +93,10 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	/// </summary>
 	private void ExploreInteract()
 	{
-		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, playerReach, LayerMask.NameToLayer("Door")))
+		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, out RaycastHit hit, playerReach) && hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
 		{
-			SceneManager.LoadScene("ForestTestingJames");
-		}
+            interactable.Interact();
+        }
 	}
 
 	/// <summary>
@@ -152,7 +149,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		isDraggingPlaceable = false;
 		isSelectingPlaceable = false;
 	}
-
 
 	private void Update()
 	{
@@ -218,9 +214,25 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	/// <param name="mouseDelta">The change in mouse position</param>
 	private void RotateDecorateCamera(Vector2 mouseDelta)
 	{
-		cameraYRotation -= mouseDelta.x * Time.deltaTime * 30;
-		HouseManager.Instance.DecorateCamera.transform.localRotation = Quaternion.Euler(HouseManager.Instance.DecorateCamera.transform.localRotation.eulerAngles.x, cameraYRotation, 0);
-	}
+		Camera camera = HouseManager.Instance.DecorateCamera;
+		
+		// rotate on the horizontal axis
+		camera.transform.RotateAround(new Vector3(0, camera.transform.position.y, 0), Vector3.up, mouseDelta.x * Time.deltaTime * 30);
+
+		// prevent the camera from rotating too much vertically, i.e, prevent it from seeing under the house's floor or flip around
+		float verticalAngleToRotate = -mouseDelta.y * Time.deltaTime * 30;
+
+		// Calculate distance from origin to point
+        float distance = Vector3.Distance(Vector3.zero, camera.transform.position);
+
+        // Calculate angle between y-axis and point
+        float angle = Mathf.Atan2(camera.transform.position.y, Mathf.Sqrt(camera.transform.position.x * camera.transform.position.x + camera.transform.position.z * camera.transform.position.z)) * Mathf.Rad2Deg;
+
+		if (angle + verticalAngleToRotate > 80 || angle + verticalAngleToRotate < 10) return;
+
+        // rotate on the vertical axis
+        camera.transform.RotateAround(Vector3.zero, camera.transform.right, verticalAngleToRotate);
+    }
 
 	/// <summary>
 	/// Utility function to cast a ray from the mouse to the floor and return the hit, this is to know the position of the mouse on the floor game object
@@ -261,6 +273,9 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
 		// Hide inventory
 		inventoryScrollView.gameObject.SetActive(false);
+
+		// Dont allow player to change mode while placing furniture
+		playerInput.Decorate.ExitToHouse.Disable();
 	}
 
 	public void DeselectPlaceable(bool savePosition = true)
@@ -270,16 +285,17 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		// Hide button group
 		DecorateButtonGroupUIManager.Instance.ButtonGroupVisibility(false);
 
+		// Re-enable house mode change
+		playerInput.Decorate.ExitToHouse.Enable();
+		// Revert mesh color
+		SelectedPlaceable.Mesh.material.color = Color.white;
+		// Disable rotation wheel
+		SelectedPlaceable.RotationWheel.SetVisibility(false);
+
 		if (savePosition)
 		{
 			if (SelectedPlaceable.IsValidPosition)
 			{
-				// Revert mesh color
-				SelectedPlaceable.Mesh.material.color = Color.white;
-				// Disable rotation wheel
-				SelectedPlaceable.RotationWheel.SetVisibility(false);
-				// Deselect
-				SelectedPlaceable = null;
 
 				inventoryScrollView.gameObject.SetActive(true);
 			}
@@ -295,6 +311,8 @@ public class HouseInputManager : Singleton<HouseInputManager>
 			SelectedPlaceable.SetTransforms(placeableInitialState.position, placeableInitialState.angle);
 			SelectedPlaceable.Mesh.material.color = Color.white;
 		}
+		// Deselect
+		SelectedPlaceable = null;
 	}
 
 	/// <summary>
@@ -307,7 +325,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		GameManager.Instance.PermanentInventory.AddItem(SelectedPlaceable.InventoryItem);
 		InventoryUIManager.Instance.RepaintInventory();
 		Destroy(SelectedPlaceable.gameObject);
-		SelectedPlaceable = null;
+		DeselectPlaceable(false);
 		inventoryScrollView.gameObject.SetActive(true);
 	}
 }

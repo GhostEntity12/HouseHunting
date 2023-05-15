@@ -58,7 +58,7 @@ public class Gun : MonoBehaviour
     private void Update()
     {
         MyInput();
-        Debug.Log(aiming);
+        // Debug.Log(aiming);
 
         //Ammo Counter on HUD
         //text.SetText(ammoLeft / bulletsPerTap +  " / " + magSize / bulletsPerTap);

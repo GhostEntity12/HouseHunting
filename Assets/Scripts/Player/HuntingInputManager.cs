@@ -42,20 +42,9 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
     private void Interact()
     {
-		if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hit, 3f))
-		{
-			Debug.Log(hit.transform.gameObject.layer);
-			if (hit.transform.TryGetComponent(out Shootable shootable) && shootable.IsDead)
-			{
-				HuntingManager.Instance.HuntingInventory.AddItem(shootable.GetInventoryItem());
-				Debug.Log(HuntingManager.Instance.HuntingInventory);
-				Destroy(shootable.gameObject);
-			}
-			//if we are interacting with a door, load the house scene
-			else if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Door"))
-			{
-				HuntingManager.Instance.RespawnInHouse();
-			}
-		}
-	}
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hit, 3f) && hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
+        {
+			interactable.Interact();
+        }
+    }
 }
