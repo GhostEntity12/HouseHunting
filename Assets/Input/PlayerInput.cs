@@ -71,6 +71,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""381caadc-35f7-4694-b565-d5edf82c7b7c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -170,6 +179,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3835f930-f7c2-4048-91f1-4bc9e2a3a794"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -489,6 +509,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Hunting_Shoot = m_Hunting.FindAction("Shoot", throwIfNotFound: true);
         m_Hunting_Interact = m_Hunting.FindAction("Interact", throwIfNotFound: true);
         m_Hunting_Crouch = m_Hunting.FindAction("Crouch", throwIfNotFound: true);
+        m_Hunting_Jump = m_Hunting.FindAction("Jump", throwIfNotFound: true);
         // House
         m_House = asset.FindActionMap("House", throwIfNotFound: true);
         m_House_Movement = m_House.FindAction("Movement", throwIfNotFound: true);
@@ -567,6 +588,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_Shoot;
     private readonly InputAction m_Hunting_Interact;
     private readonly InputAction m_Hunting_Crouch;
+    private readonly InputAction m_Hunting_Jump;
     public struct HuntingActions
     {
         private @PlayerInput m_Wrapper;
@@ -576,6 +598,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_Hunting_Shoot;
         public InputAction @Interact => m_Wrapper.m_Hunting_Interact;
         public InputAction @Crouch => m_Wrapper.m_Hunting_Crouch;
+        public InputAction @Jump => m_Wrapper.m_Hunting_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Hunting; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -600,6 +623,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Crouch.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
+                @Jump.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnJump;
             }
             m_Wrapper.m_HuntingActionsCallbackInterface = instance;
             if (instance != null)
@@ -619,6 +645,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
             }
         }
     }
@@ -760,6 +789,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
     public interface IHouseActions
     {
