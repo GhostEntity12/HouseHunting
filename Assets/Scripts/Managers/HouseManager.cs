@@ -82,6 +82,8 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	/// <param name="mode"></param>
 	public void SetHouseMode(HouseMode mode)
 	{
+		// dont allow to switch mode if the shop is opened
+		if (ShopUIManager.Instance.IsShopOpen) return;
 		// Need to:
 		// - Swap camera
 		// - Set cursor visibility

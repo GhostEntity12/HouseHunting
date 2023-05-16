@@ -121,9 +121,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1795491763709660552}
-        m_TargetAssemblyTypeName: ItemThumbnailUI, Assembly-CSharp
-        m_MethodName: SelectItem
+      - m_Target: {fileID: 5133458496086613720}
+        m_TargetAssemblyTypeName: DecorateTabItem, Assembly-CSharp
+        m_MethodName: SpawnPlaceable
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -142,9 +142,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4601691607219831867}
-  - component: {fileID: 1795491763709660552}
+  - component: {fileID: 5133458496086613720}
   m_Layer: 5
-  m_Name: Sell Items UI
+  m_Name: Decorate List Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,7 +172,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1795491763709660552
+--- !u!114 &5133458496086613720
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2914182488073263507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb7a35139dd432747941777d0a10bf65, type: 3}
+  m_Script: {fileID: 11500000, guid: 6fa54399d3aa4a242a60ba04ada4e562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 6204776894187585451}
