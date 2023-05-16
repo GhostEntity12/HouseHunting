@@ -4,6 +4,8 @@ using UnityEngine.AI;
 
 public class WanderAI : MonoBehaviour 
 {
+    enum IState { Idle, Alert, Searching };
+
     private Shootable shootable;
     private MeshRenderer meshRenderer;
     private Canvas alertCanvas;
@@ -19,7 +21,7 @@ public class WanderAI : MonoBehaviour
     private float timeSinceLastAttack = 0f;
     private float alertness = 0; // between 0 and 100
     private GameObject subject;
-    private int investigate = 0; // 0: At ease. 1: Must Investigate. 2: Investigating
+    private IState investigate = IState.Idle;
     
     public PlayerMovement playerMovement;
     public NavMeshAgent agent;
@@ -149,9 +151,9 @@ public class WanderAI : MonoBehaviour
         }
         else
         {
-            if (agent.remainingDistance <= agent.stoppingDistance || investigate == 1)
+            if (agent.remainingDistance <= agent.stoppingDistance || investigate == IState.Alert)
             {
-                investigate = 2;
+                investigate = IState.Searching;
                 if (RandomPoint(subject.transform.position, 3, out Vector3 point)) //pass in our centre point and radius of area
                     agent.SetDestination(point);
             }
@@ -174,10 +176,6 @@ public class WanderAI : MonoBehaviour
                 detected = true;
                 break;
             }
-            else
-            {
-                
-            }
         }
         if (detected)
         {
@@ -188,9 +186,9 @@ public class WanderAI : MonoBehaviour
             alertness -= Time.deltaTime * 10;
         }
         alertness = Mathf.Clamp(alertness, 0, 100);
-        if (alertness >= 50 && subject != null && investigate == 0)
+        if (alertness >= 50 && subject != null && investigate == IState.Idle)
         {
-            investigate = 1;
+            investigate = IState.Alert;
         }
         if (alertness >= 75 && subject != null)
         {
@@ -229,7 +227,7 @@ public class WanderAI : MonoBehaviour
             alertCanvas.enabled = false;
             //meshRenderer.material.color = Color.white;
             agent.isStopped = false;
-            investigate = 0;
+            investigate = IState.Idle;
         }
     }
 
