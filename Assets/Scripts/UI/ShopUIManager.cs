@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class ShopUIManager : Singleton<ShopUIManager>
 {
     [SerializeField] private Canvas shopCanvas;
-    [SerializeField] private ItemThumbnailUI itemThumbnailUIPrefab;
+    [SerializeField] private ShopFurnitureItem shopFurnitureItemPrefab;
     [SerializeField] private GridLayoutGroup gridLayoutGroup;
     [SerializeField] private HorizontalLayoutGroup tabGroup;
     [SerializeField] private GameObject furnitureDetailsPanel;
-    [SerializeField] private ItemThumbnailUI shopTabPrefab;
+    [SerializeField] private ShopTabItem shopTabItemPrefab;
     [SerializeField] private TextMeshProUGUI noItemsText;
 
     private (FurnitureSO so, InventoryItem inventoryItem)? selectedFurniture;
@@ -37,9 +37,8 @@ public class ShopUIManager : Singleton<ShopUIManager>
             if (!tabs.Contains(item.id))
             {
                 tabs.Add(item.id);
-                ItemThumbnailUI shopTab = Instantiate(shopTabPrefab, tabGroup.transform);
+                ShopTabItem shopTab = Instantiate(shopTabItemPrefab, tabGroup.transform);
                 shopTab.SetItem(item);
-                shopTab.SetTab();
             }
         }
 
@@ -67,10 +66,31 @@ public class ShopUIManager : Singleton<ShopUIManager>
             noItemsText.gameObject.SetActive(false);
             foreach (InventoryItem item in currentDisplayedItems)
             {
-                var itemThumbnailUI = Instantiate(itemThumbnailUIPrefab, gridLayoutGroup.transform);
+                ShopFurnitureItem itemThumbnailUI = Instantiate(shopFurnitureItemPrefab, gridLayoutGroup.transform);
                 itemThumbnailUI.SetItem(item);
             }
         }
+    }
+
+    private void RepaintTab()
+    {
+        foreach (Transform child in tabGroup.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (string tab in tabs)
+        {
+            ShopTabItem shopTab = Instantiate(shopTabItemPrefab, tabGroup.transform);
+            shopTab.SetItem(GameManager.Instance.PermanentInventory.Items.Find(x => x.id == tab));
+        }
+
+        tabs.Sort();
+
+        if (tabs.Count > 0)
+            SetTab(tabs[0]);
+
+        RepaintShop();
     }
 
     public void ToggleShop()

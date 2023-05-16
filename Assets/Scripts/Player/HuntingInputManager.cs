@@ -17,7 +17,8 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		camera = GetComponentInChildren<Camera>();
 
 		playerInput.Hunting.Interact.performed += ctx => Interact();
-	}
+        playerInput.Hunting.Pause.performed += ctx => GameManager.Instance.SetGamePause(!GameManager.Instance.IsPaused);
+    }
 
 	private void FixedUpdate()
 	{
