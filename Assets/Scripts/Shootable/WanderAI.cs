@@ -9,14 +9,7 @@ public class WanderAI : MonoBehaviour
     private Shootable shootable;
     private MeshRenderer meshRenderer;
     private Canvas alertCanvas;
-    private float perceptionRadius;
-    private float sneakingPerceptionRadius;
-    private float height;
-    private int fieldOfView;
-    private float gunshotHearingRadius;
-    private float walkingHearingRadius;
-    private float sneakingHearingRadius;
-    private bool isAlertedByGunshot = false;
+    private SenseSO[] senses;
     private bool xray;
     private float timeSinceLastAttack = 0f;
     private float alertness = 0; // between 0 and 100
@@ -36,14 +29,8 @@ public class WanderAI : MonoBehaviour
         alertCanvas = GetComponentInChildren<Canvas>();
         subject = GameObject.FindWithTag("Player");
 
-        perceptionRadius = shootable.FurnitureSO.perceptionRadius;
-        sneakingPerceptionRadius = shootable.FurnitureSO.sneakingPerceptionRadius;
-        fieldOfView = shootable.FurnitureSO.fieldOfView;
-        gunshotHearingRadius = shootable.FurnitureSO.gunshotHearingRadius;
-        walkingHearingRadius = shootable.FurnitureSO.walkingHearingRadius;
-        sneakingHearingRadius = shootable.FurnitureSO.sneakingHearingRadius;
+        senses = shootable.FurnitureSO.senses;
         agent.speed = shootable.FurnitureSO.speed;
-        height = shootable.FurnitureSO.height;
         xray = shootable.FurnitureSO.xray;
         playerMovement = FindObjectOfType<PlayerMovement>();
     }
@@ -60,70 +47,112 @@ public class WanderAI : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere((transform.position + new Vector3(0,height,0)), sneakingHearingRadius);
-
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere((transform.position + new Vector3(0,height,0)), walkingHearingRadius);
-
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere((transform.position + new Vector3(0,height,0)), gunshotHearingRadius);
-
-        // Raycast currently doesn't work, so it has been commented out in the meantime.
-
-        //int defaultLayer = 0;
-        //int playerLayer = 9;
-        //int defaultLayerMask = 1 << defaultLayer;
-        //int playerLayerMask = 1 << playerLayer;
-        //int finalMask = defaultLayerMask | playerLayerMask;
-
-        //RaycastHit hit;
-
-        if (subject != null)
+        if (senses == null)
         {
-            Vector3 toPosition = (subject.transform.position - (transform.position + new Vector3(0,height,0))).normalized;
-            float angleToPosition = Vector3.Angle(transform.forward, toPosition);
-
-            if (angleToPosition <= fieldOfView ) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawRay((transform.position + new Vector3(0,height,0)), toPosition);
-                Gizmos.color = Color.white;
-            }
-            else
-            {
-                Gizmos.color = Color.black;
-                Gizmos.DrawRay((transform.position + new Vector3(0,height,0)), toPosition);
-                Gizmos.color = Color.blue;
-            }
-            
+            return;
         }
-        else
+        foreach (SenseSO sense in senses)
         {
-            Gizmos.color = Color.blue;
+            bool unused = false;
+            switch (sense.senseCategory)
+            {
+                case SenseCategory.Quiet:
+                    if (!IsPlayerSneaking())
+                    {
+                        unused = true;
+                    }
+                    break;
+                case SenseCategory.Normal:
+                    if (IsPlayerSneaking())
+                    {
+                        unused = true;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if (unused)
+            {
+                continue;
+            }
+
+            Quaternion senseRot = transform.rotation;
+            senseRot *= sense.rotOffset;
+            Vector3 sensePos = transform.position;
+            sensePos += Vector3.Scale(senseRot * Vector3.forward, sense.offset);
+
+            Gizmos.color = sense.debugIdleColor; // Default Color
+
+            if (sense is SenseSphereSO sphereSense)
+            {
+                if (subject != null)
+                {
+                    Collider[] hitColliders = Physics.OverlapSphere(sensePos, sphereSense.radius);
+
+                    bool detected = false;
+
+                    foreach (Collider hitCollider in hitColliders)
+                    {
+                        if (hitCollider.CompareTag("Player"))
+                        {
+                            detected = true;
+                            break;
+                        }
+                    }
+
+                    if (detected && (sphereSense.senseType == SenseType.Sight || (sphereSense.senseType == SenseType.Sound && IsPlayerMoving() && sphereSense.senseCategory != SenseCategory.Loud)))
+                    {
+                        Gizmos.color = sphereSense.debugDetectedColor;
+                    }
+                    Gizmos.DrawWireSphere(sensePos, sphereSense.radius);
+                }
+            }
+            else if (sense is SenseConeSO coneSense)
+            {
+                if (subject != null)
+                {
+                    Vector3 toPosition = (subject.transform.position - sensePos).normalized;
+                    float dist = (subject.transform.position - sensePos).magnitude;
+                    float angleToPosition = Vector3.Angle(senseRot * Vector3.forward, toPosition);
+
+                    if (angleToPosition <= coneSense.maxAngle && dist <= coneSense.range) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
+                    {
+                        Gizmos.color = Color.red;
+                        Gizmos.DrawRay(sensePos, toPosition);
+                        if (coneSense.senseType == SenseType.Sight || (coneSense.senseType == SenseType.Sound && IsPlayerMoving() && coneSense.senseCategory != SenseCategory.Loud))
+                        {
+                            Gizmos.color = coneSense.debugDetectedColor;
+                        }
+                    }
+                    else
+                    {
+                        Gizmos.color = Color.black;
+                        Gizmos.DrawRay(sensePos, toPosition);
+                        Gizmos.color = coneSense.debugIdleColor;
+                    }
+                }
+
+                Quaternion leftRayRotation = Quaternion.AngleAxis(-coneSense.maxAngle, Vector3.up);
+                Quaternion rightRayRotation = Quaternion.AngleAxis(coneSense.maxAngle, Vector3.up);
+
+                Vector3 leftRayDirection = leftRayRotation * (senseRot * Vector3.forward) * coneSense.range;
+                Vector3 rightRayDirection = rightRayRotation * (senseRot * Vector3.forward) * coneSense.range;
+                Vector3 forwardDirection = Vector3.Lerp(leftRayDirection, rightRayDirection, 0.5f);
+
+                float gapLength = (leftRayDirection - rightRayDirection).magnitude;
+
+                Vector3 upRayDirection = forwardDirection + new Vector3(0, gapLength / 2, 0);
+                Vector3 downRayDirection = forwardDirection + new Vector3(0, gapLength / -2, 0);
+
+                Gizmos.DrawRay(sensePos, upRayDirection);
+                Gizmos.DrawRay(sensePos, downRayDirection);
+                Gizmos.DrawRay(sensePos, leftRayDirection);
+                Gizmos.DrawRay(sensePos, rightRayDirection);
+                Gizmos.DrawLine(sensePos + downRayDirection, sensePos + upRayDirection);
+                Gizmos.DrawLine(sensePos + leftRayDirection, sensePos + rightRayDirection);
+
+            }
         }
-
-        Gizmos.DrawWireSphere((transform.position + new Vector3(0,height,0)), perceptionRadius);
-
-        Quaternion leftRayRotation = Quaternion.AngleAxis(-fieldOfView, Vector3.up);
-        Quaternion rightRayRotation = Quaternion.AngleAxis(fieldOfView, Vector3.up);
-
-        Vector3 leftRayDirection = leftRayRotation * transform.forward * perceptionRadius;
-        Vector3 rightRayDirection = rightRayRotation * transform.forward * perceptionRadius;
-        Vector3 forwardDirection = Vector3.Lerp(leftRayDirection, rightRayDirection, 0.5f);
-
-        float gapLength = (leftRayDirection - rightRayDirection).magnitude;
-
-        Vector3 upRayDirection = forwardDirection + new Vector3(0, gapLength / 2, 0);
-        Vector3 downRayDirection = forwardDirection + new Vector3(0, gapLength / -2, 0);
-
-        Gizmos.DrawRay((transform.position + new Vector3(0,height,0)), upRayDirection);
-        Gizmos.DrawRay((transform.position + new Vector3(0,height,0)), downRayDirection);
-        Gizmos.DrawRay((transform.position + new Vector3(0,height,0)), leftRayDirection);
-        Gizmos.DrawRay((transform.position + new Vector3(0,height,0)), rightRayDirection);
-        Gizmos.DrawLine((transform.position + new Vector3(0,height,0)) + downRayDirection, (transform.position + new Vector3(0,height,0)) + upRayDirection);
-        Gizmos.DrawLine((transform.position + new Vector3(0,height,0)) + leftRayDirection, (transform.position + new Vector3(0,height,0)) + rightRayDirection);
-
     }
 
     private void Update()
@@ -134,15 +163,15 @@ public class WanderAI : MonoBehaviour
             return;
         }
 
+        /*
         if (IsPlayerSneaking())
         {
-            perceptionRadius = shootable.FurnitureSO.perceptionRadius / 2;
-            //Debug.Log("player is sneaking");
+            Debug.Log("player is sneaking");
         }
         else {
-            perceptionRadius = shootable.FurnitureSO.perceptionRadius;
-            //Debug.Log("player is not sneaking");
+            Debug.Log("player is not sneaking");
         }
+        */
 
         if (agent.remainingDistance <= agent.stoppingDistance && alertness < 50) //done with path
         {
@@ -162,26 +191,125 @@ public class WanderAI : MonoBehaviour
         int[] status = shootable.GetHealth(); //fetch currentHealth and maxHealth respectfully
         agent.speed = shootable.FurnitureSO.speed * (1 - Mathf.Pow(((status[1] - status[0])/status[1]),3)); //multiplies the speed proportionally to a graph of y = 1 - x^3, where x is ((maxHealth - currentHealth) / maxHealth)
 
-        Collider[] hitColliders = Physics.OverlapSphere((transform.position + new Vector3(0,height,0)), perceptionRadius);
-
         bool detected = false;
 
-        foreach (Collider hitCollider in hitColliders)
+        foreach (SenseSO sense in senses)
         {
-            Vector3 toPosition = (hitCollider.transform.position - (transform.position + new Vector3(0,height,0))).normalized;
-            float angleToPosition = Vector3.Angle(transform.forward, toPosition);
-            if (hitCollider.CompareTag("Player") && angleToPosition <= fieldOfView)
+            bool unused = false;
+            switch (sense.senseCategory)
             {
-                subject = hitCollider.gameObject;
-                detected = true;
-                break;
+                case SenseCategory.Quiet:
+                    if (!IsPlayerSneaking())
+                    {
+                        unused = true;
+                    }
+                    break;
+                case SenseCategory.Normal:
+                    if (IsPlayerSneaking())
+                    {
+                        unused = true;
+                    }
+                    break;
+                default:
+                    unused = true;
+                    break;
+            }
+            if (unused)
+            {
+                continue;
+            }
+
+            Quaternion senseRot = transform.rotation;
+            senseRot *= sense.rotOffset;
+            Vector3 sensePos = transform.position;
+            sensePos += Vector3.Scale(senseRot * Vector3.forward, sense.offset);
+
+            bool inRange = false;
+
+            if (sense is SenseSphereSO sphereSense)
+            {
+                if (subject != null)
+                {
+                    Collider[] hitColliders = Physics.OverlapSphere(sensePos, sphereSense.radius);
+
+                    foreach (Collider hitCollider in hitColliders)
+                    {
+                        if (hitCollider.CompareTag("Player"))
+                        {
+                            inRange = true;
+                            break;
+                        }
+                    }
+
+                    if (inRange)
+                    {
+                        if (sphereSense.senseType == SenseType.Sight)
+                        {
+                            detected = true;
+                            if (sphereSense.senseCategory == SenseCategory.Quiet)
+                            {
+                                alertness += Time.deltaTime * 50;
+                            }
+                            else
+                            {
+                                alertness += Time.deltaTime * 100;
+                            }
+                        }
+                        else if (sphereSense.senseType == SenseType.Sound && IsPlayerMoving() && sphereSense.senseCategory != SenseCategory.Loud)
+                        {
+                            detected = true;
+                            if (sphereSense.senseCategory == SenseCategory.Quiet)
+                            {
+                                alertness += Time.deltaTime * 10;
+                            }
+                            else
+                            {
+                                alertness += Time.deltaTime * 25;
+                            }
+                        }
+                    }
+                }
+            }
+            else if (sense is SenseConeSO coneSense)
+            {
+                if (subject != null)
+                {
+                    Vector3 toPosition = (subject.transform.position - sensePos).normalized;
+                    float dist = (subject.transform.position - sensePos).magnitude;
+                    float angleToPosition = Vector3.Angle(senseRot * Vector3.forward, toPosition);
+
+                    if (angleToPosition <= coneSense.maxAngle && dist <= coneSense.range) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
+                    {
+                        if (coneSense.senseType == SenseType.Sight)
+                        {
+                            detected = true;
+                            if (coneSense.senseCategory == SenseCategory.Quiet)
+                            {
+                                alertness += Time.deltaTime * 50;
+                            }
+                            else
+                            {
+                                alertness += Time.deltaTime * 100;
+                            }
+                        }
+                        else if (coneSense.senseType == SenseType.Sound && IsPlayerMoving() && coneSense.senseCategory != SenseCategory.Loud)
+                        {
+                            detected = true;
+                            if (coneSense.senseCategory == SenseCategory.Quiet)
+                            {
+                                alertness += Time.deltaTime * 10;
+                            }
+                            else
+                            {
+                                alertness += Time.deltaTime * 25;
+                            }
+                        }
+                    }
+                }
             }
         }
-        if (detected)
-        {
-            alertness += Time.deltaTime * 100;
-        }
-        else
+
+        if (!detected)
         {
             alertness -= Time.deltaTime * 10;
         }
@@ -233,30 +361,56 @@ public class WanderAI : MonoBehaviour
 
     private void OnGunShoot()
     {
-        GameObject player = GameObject.FindWithTag("Player");
-        float distance = Vector3.Distance((transform.position + new Vector3(0,height,0)), player.transform.position);
-        if (distance <= gunshotHearingRadius)
+        bool detected = false;
+
+        foreach (SenseSO sense in senses)
+        {
+            if (sense.senseCategory != SenseCategory.Loud || sense.senseType != SenseType.Sound)
+            {
+                continue;
+            }
+
+            Quaternion senseRot = transform.rotation;
+            senseRot *= sense.rotOffset;
+            Vector3 sensePos = transform.position;
+            sensePos += Vector3.Scale(senseRot * Vector3.forward, sense.offset);
+
+            if (sense is SenseSphereSO sphereSense)
+            {
+                if (subject != null)
+                {
+                    Collider[] hitColliders = Physics.OverlapSphere(sensePos, sphereSense.radius);
+
+                    foreach (Collider hitCollider in hitColliders)
+                    {
+                        if (hitCollider.CompareTag("Player"))
+                        {
+                            detected = true;
+                            break;
+                        }
+                    }
+                }
+                else if (sense is SenseConeSO coneSense)
+                {
+                    if (subject != null)
+                    {
+                        Vector3 toPosition = (subject.transform.position - sensePos).normalized;
+                        float dist = (subject.transform.position - sensePos).magnitude;
+                        float angleToPosition = Vector3.Angle(senseRot * Vector3.forward, toPosition);
+
+                        if (angleToPosition <= coneSense.maxAngle && dist <= coneSense.range) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
+                        {
+                            detected = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        if (detected)
         {
             alertness += 80;
-            //StopAllCoroutines();
-            //StartCoroutine(DoublePerceptionRadius());
         }
-    }
-
-    private IEnumerator DoublePerceptionRadius()
-    {
-        // if it's already doubled, don't double it again
-        if (!isAlertedByGunshot)
-            perceptionRadius *= 2;
-
-        isAlertedByGunshot = true;
-
-        yield return new WaitForSeconds(10f);
-
-        if (isAlertedByGunshot)
-            perceptionRadius /= 2;
-
-        isAlertedByGunshot = false;
     }
 
     private bool IsPlayerSneaking()
@@ -268,6 +422,17 @@ public class WanderAI : MonoBehaviour
 
         return false;
     }
+
+    private bool IsPlayerMoving()
+    {
+        if (playerMovement != null)
+        {
+            return playerMovement.isMoving;
+        }
+
+        return false;
+    }
+
     private void AttackPlayer()
     {
         if (timeSinceLastAttack >= shootable.FurnitureSO.attackInterval)
