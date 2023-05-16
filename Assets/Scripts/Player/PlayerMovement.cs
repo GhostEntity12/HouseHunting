@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     private float jumpSpeed = 15f;
     public bool isSneaking;
 
-    private bool hasJumped;
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -35,14 +34,13 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(playerVelocity * Time.deltaTime);
     }
 
-    public void Jump(float input)
+    public void Jump()
     {
         if (controller.isGrounded)
         {
             float jump = jumpSpeed + gravity;
 
             playerVelocity.Set(playerVelocity.x, jump, playerVelocity.z);
-            //controller.Move(new Vector3(0f, jump, 0f) * Time.deltaTime);
         }
     }
 

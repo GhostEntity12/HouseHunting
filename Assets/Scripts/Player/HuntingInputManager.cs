@@ -23,7 +23,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	{
 		movement.Move(playerInput.Hunting.Movement.ReadValue<Vector2>());
 		movement.Crouch(playerInput.Hunting.Crouch.ReadValue<float>());
-		playerInput.Hunting.Jump.performed += ctx => movement.Jump(1);
+		playerInput.Hunting.Jump.performed += ctx => movement.Jump();
 	}
 
 	private void LateUpdate()
