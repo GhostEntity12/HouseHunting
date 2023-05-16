@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public Sound[] sounds;
+    public static AudioManager Instance;
+    [SerializeField] public AudioMixerGroup musicMixerGroup;
+    [SerializeField] public AudioMixerGroup sfxMixerGroup;
+    [SerializeField] public Sound[] sounds;
 
     public static AudioManager instance;
     void Awake()
@@ -30,6 +33,16 @@ public class AudioManager : MonoBehaviour
             s.source.loop = s.loop;
             s.source.playOnAwake = s.playOnAwake;
             
+            switch (s.audioType)
+            {
+                case Sound.AudioType.music:
+                    s.source.outputAudioMixerGroup = musicMixerGroup;
+                    break;
+
+                case Sound.AudioType.soundEffect:
+                    s.source.outputAudioMixerGroup = sfxMixerGroup;
+                    break;
+            }
             //s.source.outputAudioMixerGroup = s.mixerGroup;
         }
     }

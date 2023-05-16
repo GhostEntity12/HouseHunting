@@ -4,6 +4,13 @@ using UnityEngine;
 [System.Serializable]
 public class Sound
 {
+    public enum AudioType
+    {
+        soundEffect,
+        music,
+    }
+    public AudioType audioType;
+
     public string name;
     public AudioClip clip;
     public bool loop;
