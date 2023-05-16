@@ -48,29 +48,22 @@ public class GameManager : MonoBehaviour, IDataPersistence
         data.currency = Currency;
     }
 
-    public void PauseGame()
+    public void SetGamePause(bool pause)
     {
         if (pauseMenuCanvas == null) return;
 
-        if (pauseMenuCanvas.enabled)
-        {
-            ResumeGame();
-        }
-        else
+        if (pause)
         {
             Time.timeScale = 0;
             ShowCursor();
             pauseMenuCanvas.enabled = true;
         }
-    }
-
-    public void ResumeGame()
-    {
-        if (pauseMenuCanvas == null) return;
-
-        Time.timeScale = 1;
-        HideCursor();
-        pauseMenuCanvas.enabled = false;
+        else
+        {
+            Time.timeScale = 1;
+            HideCursor();
+            pauseMenuCanvas.enabled = false;
+        }
     }
 
     public void ReturnToMainMenu()
