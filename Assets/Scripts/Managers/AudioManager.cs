@@ -85,4 +85,10 @@ public class AudioManager : MonoBehaviour
         }
         s.source.Pause();
     }
+
+    public void UpdateMixerVolume()
+    {
+        musicMixerGroup.audioMixer.SetFloat("MusicVolume", Mathf.Log10(AudioOptionsManager.musicVolume) * 20);
+        sfxMixerGroup.audioMixer.SetFloat("SFXVolume", Mathf.Log10(AudioOptionsManager.sfxVolume) * 20);
+    }
 }
