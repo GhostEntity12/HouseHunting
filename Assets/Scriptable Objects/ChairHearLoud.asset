@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93a7b946dae0ac34ab16ca9148628988, type: 3}
   m_Name: ChairHearLoud
   m_EditorClassIdentifier: 
-  id: 
-  name: 
+  id: chairHearLoud
+  name: Chair Hear Loud
   offset: {x: 0, y: 0, z: 0}
   rotOffset: {x: 0, y: 0, z: 0, w: 0}
-  debugIdleColor: {r: 0, g: 0, b: 0, a: 0}
+  debugIdleColor: {r: 0, g: 0, b: 1, a: 1}
   debugDetectedColor: {r: 0, g: 0, b: 0, a: 0}
-  senseType: 0
-  senseCategory: 0
-  radius: 0
+  senseType: 1
+  senseCategory: 2
+  radius: 40

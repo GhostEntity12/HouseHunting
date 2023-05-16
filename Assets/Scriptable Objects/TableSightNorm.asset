@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4542cbce753f7974d84ae8b4da51e96f, type: 3}
   m_Name: TableSightNorm
   m_EditorClassIdentifier: 
-  id: 
-  name: 
+  id: tableSightNorm
+  name: Table Sight Norm
   offset: {x: 0, y: 0, z: 0}
   rotOffset: {x: 0, y: 0, z: 0, w: 0}
-  debugIdleColor: {r: 0, g: 0, b: 0, a: 0}
-  debugDetectedColor: {r: 0, g: 0, b: 0, a: 0}
+  debugIdleColor: {r: 0, g: 1, b: 0, a: 1}
+  debugDetectedColor: {r: 1, g: 0, b: 0, a: 1}
   senseType: 0
-  senseCategory: 0
-  range: 0
-  maxAngle: 0
+  senseCategory: 1
+  range: 20
+  maxAngle: 22.5
