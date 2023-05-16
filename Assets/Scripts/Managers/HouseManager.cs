@@ -10,16 +10,40 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	public static event OnModeChange ModeChanged;
 
 	[SerializeField] private CanvasGroup decorateUI;
+	[SerializeField] private MeshFilter playerModel;
 	[field: SerializeField] public Camera ExploreCamera { get; private set; }
 	[field: SerializeField] public Camera DecorateCamera { get; private set; }
 
 
 	private List<HouseItem> houseItems;
+	private float houseValue = 0;
 
 	private void Start()
 	{
 		SpawnSerializedPlaceables();
+		houseValue = CalculateHouseRating(houseItems); // assign total value here
+
+        Debug.Log("HouseRating: "+houseValue);
 		SetHouseMode(HouseMode.Explore);
+	}
+
+	// function to calculate house rating, on certain threseholds (to be determined later), unlockTier is called to unlock that tier.
+	private float CalculateHouseRating(List<HouseItem> houseItems)
+	{
+		float tValue = 0;
+		foreach (HouseItem item in houseItems)
+		{
+			tValue += item.inventoryItem.value;
+		}
+		// can be changed in future
+		if (tValue > 9000)
+			UnlockTier("D"); // dummy function for now
+		return tValue;
+	}
+
+	public void UnlockTier(string tier)
+	{
+		// do nothing
 	}
 
 	public void LoadData(GameData data)
@@ -62,6 +86,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		// - Swap camera
 		// - Set cursor visibility
 		// - Enable UI
+		// - Hide/Show player model
 		Mode = mode;
 		switch (mode)
 		{
@@ -72,6 +97,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 				Cursor.visible = false;
 				decorateUI.alpha = 0;
 				decorateUI.interactable = decorateUI.blocksRaycasts = false;
+				playerModel.gameObject.SetActive(true);
 				break;
 			case HouseMode.Decorate:
 				DecorateCamera.enabled = true;
@@ -80,6 +106,8 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 				Cursor.visible = true;
 				decorateUI.alpha = 1;
 				decorateUI.interactable = decorateUI.blocksRaycasts = true;
+				playerModel.gameObject.SetActive(false);
+				DecorateButtonGroupUIManager.Instance.ButtonGroupVisibility(false); // this is set to false because we only want to see the decorate button group when a furniture is selected
 				break;
 			default:
 				break;

@@ -1,8 +1,7 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 
-public abstract class Shootable : MonoBehaviour
+public abstract class Shootable : MonoBehaviour, IInteractable
 {
     [SerializeField] private FurnitureSO furnitureSO;
 
@@ -10,7 +9,7 @@ public abstract class Shootable : MonoBehaviour
     private int currentHealth;
     private bool isDead = false;
     private Canvas alertCanvas;
-    private float price;
+    private int price;
     private int materialIndex;
     private float scaleFactor;
 
@@ -31,7 +30,7 @@ public abstract class Shootable : MonoBehaviour
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         alertCanvas = GetComponentInChildren<Canvas>();
 
-        price = furnitureSO.basePrice * Random.Range(0.5f, 1.5f);
+        price = Mathf.RoundToInt(furnitureSO.basePrice * Random.Range(0.5f, 1.5f));
         materialIndex = Random.Range(0, meshRenderer.materials.Length);
         scaleFactor = Random.Range(0.95f, 1.05f);
 
@@ -75,5 +74,14 @@ public abstract class Shootable : MonoBehaviour
     public InventoryItem GetInventoryItem()
     {
         return new InventoryItem(furnitureSO.id, scaleFactor, materialIndex, price);
+    }
+
+    public void Interact()
+    {
+        if (isDead)
+        {
+            HuntingManager.Instance.HuntingInventory.AddItem(GetInventoryItem());
+            Destroy(gameObject);
+        }
     }
 }

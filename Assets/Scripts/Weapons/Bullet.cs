@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -7,6 +5,8 @@ public class Bullet : MonoBehaviour
     public int damage;
     public GameObject bulletHole;
     public float lifespan;
+
+    
     
     void OnCollisionEnter(Collision collision)
     {
@@ -22,7 +22,6 @@ public class Bullet : MonoBehaviour
             GameObject obj = Instantiate(bulletHole, contact.point, rotation);
             obj.transform.position += obj.transform.forward/1000;
             Destroy(gameObject);
-
         }
 
         if (collision.gameObject.tag == "floor")

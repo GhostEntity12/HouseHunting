@@ -11,6 +11,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	[Header("Explore Mode")]
 	[SerializeField] private PlayerMovement movement;
 	[SerializeField] private PlayerLook look;
+	[SerializeField] private float playerReach = 3f;
 
 	[Header("Decorate Mode")]
 	[SerializeField] private ScrollRect inventoryScrollView;
@@ -20,7 +21,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	private bool isDraggingCamera = false;
 	private bool isSelectingPlaceable = false;
 	private (Vector3 position, float angle) placeableInitialState = (Vector3.zero, 0f);
-	private float cameraYRotation = 0f;
 	private Bounds cameraBounds;
 	public Placeable SelectedPlaceable { get; private set; }
 
@@ -30,15 +30,17 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		// Singleton setup
 		base.Awake();
 
-		// Subscribe to mode change event
-		HouseManager.ModeChanged += SetInput;
+        // Subscribe to mode change event
+        HouseManager.ModeChanged += SetInput;
 
 		// Generate inputs and subscribe
 		playerInput = new PlayerInput();
+
 		playerInput.House.Interact.performed += ctx => ExploreInteract();
 		playerInput.House.Decorate.performed += ctx => HouseManager.Instance.SetHouseMode(HouseManager.HouseMode.Decorate);
+		playerInput.House.OpenShop.performed += ctx => ShopUIManager.Instance.ToggleShop();
+
 		playerInput.Decorate.MouseDown.started += ctx => DecorateMouseDownStarted();
-		playerInput.Decorate.MouseDown.performed += ctx => DecorateMouseDownPerformed();
 		playerInput.Decorate.MouseDown.canceled += ctx => DecorateMouseDownCanceled();
 		playerInput.Decorate.ExitToHouse.performed += ctx =>
 		{
@@ -68,7 +70,8 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		switch (HouseManager.Instance.Mode)
 		{
 			case HouseManager.HouseMode.Explore:
-				movement.Move(playerInput.House.Movement.ReadValue<Vector2>());
+				if (!ShopUIManager.Instance.IsShopOpen)
+					movement.Move(playerInput.House.Movement.ReadValue<Vector2>());
 				break;
 			case HouseManager.HouseMode.Decorate:
 				MoveDecorateCamera(playerInput.Decorate.MoveCamera.ReadValue<Vector2>());
@@ -81,7 +84,8 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	private void LateUpdate()
 	{
 		// 1st person camera movement for exploration mode
-		look.Look(playerInput.House.Look.ReadValue<Vector2>());
+		if (!ShopUIManager.Instance.IsShopOpen)
+			look.Look(playerInput.House.Look.ReadValue<Vector2>());
 	}
 
 	/// <summary>
@@ -89,12 +93,10 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	/// </summary>
 	private void ExploreInteract()
 	{
-		// TODO - Optimise this to a layermask 
-		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, out RaycastHit hit, 3f) &&
-			hit.transform.parent.CompareTag("Door"))
+		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, out RaycastHit hit, playerReach) && hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
 		{
-			SceneManager.LoadScene("ForestTestingJames");
-		}
+            interactable.Interact();
+        }
 	}
 
 	/// <summary>
@@ -121,59 +123,46 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
 	//=============================================
 
-	// TODO - discuss Started and Performed - they both trigger at the same time
-
 	// Triggers on mouse down
 	private void DecorateMouseDownStarted()
 	{
-		Debug.Log("md Start");
-		// Returns true if a raycast hits a placeable which is the selected placeable
-		isDraggingPlaceable =
-			Physics.Raycast(HouseManager.Instance.DecorateCamera.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit hit, int.MaxValue, ~LayerMask.GetMask("Floor")) &&
-			hit.transform.TryGetComponent(out Placeable placeable) &&
-			placeable == SelectedPlaceable;
-	}
-
-	// Triggers on mouse down
-	private void DecorateMouseDownPerformed()
-	{
-		Debug.Log("md Performed");
-		if (SelectedPlaceable) return;
-
-		if (Physics.Raycast(HouseManager.Instance.DecorateCamera.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit hit) &&
+		if (SelectedPlaceable)
+		{
+			// Sets isDraggingPlaceable to whether a raycast hits a placeable which is the selected placeable
+			isDraggingPlaceable =
+				Physics.Raycast(HouseManager.Instance.DecorateCamera.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit hit, int.MaxValue, ~LayerMask.GetMask("Floor")) &&
+				hit.transform.TryGetComponent(out Placeable placeable) &&
+				placeable == SelectedPlaceable;
+		}
+		// No selected raycast and clicked on a gameobject with a Placeable
+		else if (Physics.Raycast(HouseManager.Instance.DecorateCamera.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit hit) &&
 			hit.transform.TryGetComponent(out Placeable placeable))
 		{
 			SelectPlacable(placeable);
 		}
 	}
 
-
 	// Triggers on mouse up
 	private void DecorateMouseDownCanceled()
 	{
-		Debug.Log("md Cancel");
 		isDraggingCamera = false;
 		isDraggingPlaceable = false;
 		isSelectingPlaceable = false;
 	}
-
 
 	private void Update()
 	{
 		// Only execute the following in decorate mode
 		if (HouseManager.Instance.Mode != HouseManager.HouseMode.Decorate) return;
 
-		// REVIEW - explanation from Kai
 		// If is dragging furniture (this variable is set in DecorateMouseDownStarted):
 		// 1. Raycast from mouse to floor
 		// 2. If raycast hits floor, set furniture position to raycast hit position
 		if (isDraggingPlaceable)
 		{
-			Debug.Log("Dragging1");
 			RaycastHit hitFloor = CastRayFromMouseToFloor();
 			if (hitFloor.transform && SelectedPlaceable)
 			{
-				Debug.Log("Dragging2");
 				Vector3 position = new(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), HouseManager.Instance.DecorateCamera.WorldToScreenPoint(SelectedPlaceable.transform.position).z);
 				Vector3 worldPosition = HouseManager.Instance.DecorateCamera.ScreenToWorldPoint(position);
 				SelectedPlaceable.transform.position = new Vector3(worldPosition.x, 0, worldPosition.z);
@@ -189,8 +178,8 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		if (Mouse.current.leftButton.wasPressedThisFrame)
 		{
 			isDraggingCamera =
-				!(EventSystem.current.IsPointerOverGameObject(PointerInputModule.kMouseLeftId) || 
-				isDraggingPlaceable || 
+				!(EventSystem.current.IsPointerOverGameObject(PointerInputModule.kMouseLeftId) ||
+				isDraggingPlaceable ||
 				isSelectingPlaceable);
 		}
 
@@ -225,22 +214,32 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	/// <param name="mouseDelta">The change in mouse position</param>
 	private void RotateDecorateCamera(Vector2 mouseDelta)
 	{
-		cameraYRotation -= mouseDelta.x * Time.deltaTime * 30;
-		HouseManager.Instance.DecorateCamera.transform.localRotation = Quaternion.Euler(HouseManager.Instance.DecorateCamera.transform.localRotation.eulerAngles.x, cameraYRotation, 0);
-	}
+		Camera camera = HouseManager.Instance.DecorateCamera;
+		
+		// rotate on the horizontal axis
+		camera.transform.RotateAround(new Vector3(0, camera.transform.position.y, 0), Vector3.up, mouseDelta.x * Time.deltaTime * 30);
 
-	// REVIEW - get explanation from Kai?
+		// prevent the camera from rotating too much vertically, i.e, prevent it from seeing under the house's floor or flip around
+		float verticalAngleToRotate = -mouseDelta.y * Time.deltaTime * 30;
+
+		// Calculate distance from origin to point
+        float distance = Vector3.Distance(Vector3.zero, camera.transform.position);
+
+        // Calculate angle between y-axis and point
+        float angle = Mathf.Atan2(camera.transform.position.y, Mathf.Sqrt(camera.transform.position.x * camera.transform.position.x + camera.transform.position.z * camera.transform.position.z)) * Mathf.Rad2Deg;
+
+		if (angle + verticalAngleToRotate > 80 || angle + verticalAngleToRotate < 10) return;
+
+        // rotate on the vertical axis
+        camera.transform.RotateAround(Vector3.zero, camera.transform.right, verticalAngleToRotate);
+    }
+
 	/// <summary>
-    /// Utility function to cast a ray from the mouse to the floor and return the hit, this is to know the position of the mouse on the floor game object
-    /// </summary>
+	/// Utility function to cast a ray from the mouse to the floor and return the hit, this is to know the position of the mouse on the floor game object
+	/// </summary>
 	private RaycastHit CastRayFromMouseToFloor()
 	{
-		Vector3 screenMousePosFar = new(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), HouseManager.Instance.DecorateCamera.farClipPlane);
-		Vector3 screenMousePosNear = new(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), HouseManager.Instance.DecorateCamera.nearClipPlane);
-		Vector3 worldMousePosFar = HouseManager.Instance.DecorateCamera.ScreenToWorldPoint(screenMousePosFar);
-		Vector3 worldMousePosNear = HouseManager.Instance.DecorateCamera.ScreenToWorldPoint(screenMousePosNear);
-
-		Physics.Raycast(worldMousePosNear, worldMousePosFar - worldMousePosNear, out RaycastHit hit, int.MaxValue, 1 << LayerMask.NameToLayer("Floor"));
+		Physics.Raycast(HouseManager.Instance.DecorateCamera.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit hit, int.MaxValue, 1 << LayerMask.NameToLayer("Floor"));
 
 		return hit;
 	}
@@ -259,7 +258,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		// Set new placeable color to green
 		// This makes an assumption that the placement is automatically valid...
 		// May be resolved by the every frame check
-		// REVIEW - check
 		SelectedPlaceable = placeableToSelect;
 		SelectedPlaceable.Mesh.material.color = SelectedPlaceable.IsValidPosition ? Color.green : Color.red;
 
@@ -275,22 +273,29 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
 		// Hide inventory
 		inventoryScrollView.gameObject.SetActive(false);
+
+		// Dont allow player to change mode while placing furniture
+		playerInput.Decorate.ExitToHouse.Disable();
 	}
 
 	public void DeselectPlaceable(bool savePosition = true)
 	{
 		if (!SelectedPlaceable) return;
 
+		// Hide button group
+		DecorateButtonGroupUIManager.Instance.ButtonGroupVisibility(false);
+
+		// Re-enable house mode change
+		playerInput.Decorate.ExitToHouse.Enable();
+		// Revert mesh color
+		SelectedPlaceable.Mesh.material.color = Color.white;
+		// Disable rotation wheel
+		SelectedPlaceable.RotationWheel.SetVisibility(false);
+
 		if (savePosition)
 		{
 			if (SelectedPlaceable.IsValidPosition)
 			{
-				// Revert mesh color
-				SelectedPlaceable.Mesh.material.color = Color.white;
-				// Disable rotation wheel
-				SelectedPlaceable.RotationWheel.SetVisibility(false);
-				// Deselect
-				SelectedPlaceable = null;
 
 				inventoryScrollView.gameObject.SetActive(true);
 			}
@@ -306,6 +311,8 @@ public class HouseInputManager : Singleton<HouseInputManager>
 			SelectedPlaceable.SetTransforms(placeableInitialState.position, placeableInitialState.angle);
 			SelectedPlaceable.Mesh.material.color = Color.white;
 		}
+		// Deselect
+		SelectedPlaceable = null;
 	}
 
 	/// <summary>
@@ -318,7 +325,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		GameManager.Instance.PermanentInventory.AddItem(SelectedPlaceable.InventoryItem);
 		InventoryUIManager.Instance.RepaintInventory();
 		Destroy(SelectedPlaceable.gameObject);
-		SelectedPlaceable = null;
+		DeselectPlaceable(false);
 		inventoryScrollView.gameObject.SetActive(true);
 	}
 }

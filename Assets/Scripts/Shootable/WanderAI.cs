@@ -19,11 +19,12 @@ public class WanderAI : MonoBehaviour
     private float timeSinceLastAttack = 0f;
     private float alertness = 0; // between 0 and 100
     private GameObject subject;
-
+    private int investigate = 0; // 0: At ease. 1: Must Investigate. 2: Investigating
+    
+    public PlayerMovement playerMovement;
     public NavMeshAgent agent;
     public float wanderRadius = 15f; // how far the AI can wander
     public bool isPredator;
-    private int investigate = 0; // 0: At ease. 1: Must Investigate. 2: Investigating
 
     private void Awake()
     {
@@ -42,6 +43,7 @@ public class WanderAI : MonoBehaviour
         agent.speed = shootable.FurnitureSO.speed;
         height = shootable.FurnitureSO.height;
         xray = shootable.FurnitureSO.xray;
+        playerMovement = FindObjectOfType<PlayerMovement>();
     }
 
     private void OnEnable() 
@@ -130,6 +132,16 @@ public class WanderAI : MonoBehaviour
             return;
         }
 
+        if (IsPlayerSneaking())
+        {
+            perceptionRadius = shootable.FurnitureSO.perceptionRadius / 2;
+            //Debug.Log("player is sneaking");
+        }
+        else {
+            perceptionRadius = shootable.FurnitureSO.perceptionRadius;
+            //Debug.Log("player is not sneaking");
+        }
+
         if (agent.remainingDistance <= agent.stoppingDistance && alertness < 50) //done with path
         {
             if (RandomPoint(transform.position, wanderRadius, out Vector3 point)) //pass in our centre point and radius of area
@@ -185,7 +197,7 @@ public class WanderAI : MonoBehaviour
             alertCanvas.enabled = true;
             if (isPredator)
             {
-                meshRenderer.material.color = Color.red;
+                //meshRenderer.material.color = Color.red;
 
                 float distance = Vector3.Distance(transform.position, subject.transform.position);
 
@@ -205,7 +217,7 @@ public class WanderAI : MonoBehaviour
             }
             else
             {
-                meshRenderer.material.color = Color.green;
+                //meshRenderer.material.color = Color.green;
                 Vector3 playerDirection = subject.transform.position - (transform.position);
                 Vector3 destination = (transform.position) - playerDirection;
                 if (NavMesh.SamplePosition(destination, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
@@ -215,7 +227,7 @@ public class WanderAI : MonoBehaviour
         else
         {
             alertCanvas.enabled = false;
-            meshRenderer.material.color = Color.white;
+            //meshRenderer.material.color = Color.white;
             agent.isStopped = false;
             investigate = 0;
         }
@@ -249,6 +261,15 @@ public class WanderAI : MonoBehaviour
         isAlertedByGunshot = false;
     }
 
+    private bool IsPlayerSneaking()
+    {
+        if (playerMovement != null)
+        {
+            return playerMovement.isSneaking;
+        }
+
+        return false;
+    }
     private void AttackPlayer()
     {
         if (timeSinceLastAttack >= shootable.FurnitureSO.attackInterval)
