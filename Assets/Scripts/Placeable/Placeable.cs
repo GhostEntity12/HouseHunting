@@ -9,10 +9,13 @@ public class Placeable : MonoBehaviour
 
     public bool IsValidPosition { get; private set; } = true;
 	public InventoryItem InventoryItem { get; set; }
+    public Material Material { get; set; }
 
     private void Start()
     {
         Mesh.transform.localScale *= InventoryItem.scaleFactor;
+        Material = DataPersistenceManager.Instance.AllFurnitureSO.Find(x => x.id == InventoryItem.id).materials[InventoryItem.materialIndex];
+        Mesh.material = Material;
     }
 
 	private void OnTriggerExit(Collider other) 

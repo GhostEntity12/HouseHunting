@@ -21,6 +21,8 @@ MonoBehaviour:
   perceptionRadius: 5
   materials:
   - {fileID: 2100000, guid: 77e0807815f787f49986266eb8a05c81, type: 2}
+  - {fileID: 2100000, guid: e86089b7200e35043a5cdf794f97fbc5, type: 2}
+  - {fileID: 2100000, guid: b098f126ba88e9f44aebdb6e0584851c, type: 2}
   basePrice: 50
   thumbnail: {fileID: 21300000, guid: 166e5dc9494bfeb4f8094bc130d8669c, type: 3}
   placeablePrefab: {fileID: 1539234630903234798, guid: 3a32fa9bd96e69a45a45bce94bf15c16, type: 3}
