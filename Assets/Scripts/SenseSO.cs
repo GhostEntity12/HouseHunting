@@ -8,7 +8,7 @@ public class SenseSO : ScriptableObject
     public string id;
     public new string name;
     public Vector3 offset;
-    public Quaternion rotOffset;
+    public Vector3 rotOffset;
     public Color debugIdleColor;
     public Color debugDetectedColor;
     public SenseType senseType;

@@ -76,10 +76,8 @@ public class WanderAI : MonoBehaviour
                 continue;
             }
 
-            Quaternion senseRot = transform.rotation;
-            senseRot *= sense.rotOffset;
-            Vector3 sensePos = transform.position;
-            sensePos += Vector3.Scale(senseRot * Vector3.forward, sense.offset);
+            Vector3 senseDir = Quaternion.Euler(sense.rotOffset) * transform.forward;
+            Vector3 sensePos = transform.localToWorldMatrix.MultiplyPoint3x4(sense.offset);
 
             Gizmos.color = sense.debugIdleColor; // Default Color
 
@@ -113,7 +111,7 @@ public class WanderAI : MonoBehaviour
                 {
                     Vector3 toPosition = (subject.transform.position - sensePos).normalized;
                     float dist = (subject.transform.position - sensePos).magnitude;
-                    float angleToPosition = Vector3.Angle(senseRot * Vector3.forward, toPosition);
+                    float angleToPosition = Vector3.Angle(senseDir, toPosition);
 
                     if (angleToPosition <= coneSense.maxAngle && dist <= coneSense.range) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
                     {
@@ -135,8 +133,8 @@ public class WanderAI : MonoBehaviour
                 Quaternion leftRayRotation = Quaternion.AngleAxis(-coneSense.maxAngle, Vector3.up);
                 Quaternion rightRayRotation = Quaternion.AngleAxis(coneSense.maxAngle, Vector3.up);
 
-                Vector3 leftRayDirection = leftRayRotation * (senseRot * Vector3.forward) * coneSense.range;
-                Vector3 rightRayDirection = rightRayRotation * (senseRot * Vector3.forward) * coneSense.range;
+                Vector3 leftRayDirection = leftRayRotation * (senseDir) * coneSense.range;
+                Vector3 rightRayDirection = rightRayRotation * (senseDir) * coneSense.range;
                 Vector3 forwardDirection = Vector3.Lerp(leftRayDirection, rightRayDirection, 0.5f);
 
                 float gapLength = (leftRayDirection - rightRayDirection).magnitude;
@@ -180,7 +178,7 @@ public class WanderAI : MonoBehaviour
         }
         else
         {
-            if (agent.remainingDistance <= agent.stoppingDistance || investigate == IState.Alert)
+            if ((agent.remainingDistance <= agent.stoppingDistance || investigate == IState.Alert) && alertness < 75)
             {
                 investigate = IState.Searching;
                 if (RandomPoint(subject.transform.position, 3, out Vector3 point)) //pass in our centre point and radius of area
@@ -219,10 +217,8 @@ public class WanderAI : MonoBehaviour
                 continue;
             }
 
-            Quaternion senseRot = transform.rotation;
-            senseRot *= sense.rotOffset;
-            Vector3 sensePos = transform.position;
-            sensePos += Vector3.Scale(senseRot * Vector3.forward, sense.offset);
+            Vector3 senseDir = Quaternion.Euler(sense.rotOffset) * transform.forward;
+            Vector3 sensePos = transform.localToWorldMatrix.MultiplyPoint3x4(sense.offset);
 
             bool inRange = false;
 
@@ -276,7 +272,7 @@ public class WanderAI : MonoBehaviour
                 {
                     Vector3 toPosition = (subject.transform.position - sensePos).normalized;
                     float dist = (subject.transform.position - sensePos).magnitude;
-                    float angleToPosition = Vector3.Angle(senseRot * Vector3.forward, toPosition);
+                    float angleToPosition = Vector3.Angle(senseDir, toPosition);
 
                     if (angleToPosition <= coneSense.maxAngle && dist <= coneSense.range) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
                     {
@@ -314,10 +310,7 @@ public class WanderAI : MonoBehaviour
             alertness -= Time.deltaTime * 10;
         }
         alertness = Mathf.Clamp(alertness, 0, 100);
-        if (alertness >= 50 && subject != null && investigate == IState.Idle)
-        {
-            investigate = IState.Alert;
-        }
+        
         if (alertness >= 75 && subject != null)
         {
             alertCanvas.enabled = true;
@@ -350,6 +343,10 @@ public class WanderAI : MonoBehaviour
                     agent.SetDestination(hit.position);
             }
         }
+        else if (alertness >= 50 && subject != null && investigate == IState.Idle)
+        {
+            investigate = IState.Alert;
+        }
         else
         {
             alertCanvas.enabled = false;
@@ -370,10 +367,8 @@ public class WanderAI : MonoBehaviour
                 continue;
             }
 
-            Quaternion senseRot = transform.rotation;
-            senseRot *= sense.rotOffset;
-            Vector3 sensePos = transform.position;
-            sensePos += Vector3.Scale(senseRot * Vector3.forward, sense.offset);
+            Vector3 senseDir = Quaternion.Euler(sense.rotOffset) * transform.forward;
+            Vector3 sensePos = transform.localToWorldMatrix.MultiplyPoint3x4(sense.offset);
 
             if (sense is SenseSphereSO sphereSense)
             {
@@ -396,7 +391,7 @@ public class WanderAI : MonoBehaviour
                     {
                         Vector3 toPosition = (subject.transform.position - sensePos).normalized;
                         float dist = (subject.transform.position - sensePos).magnitude;
-                        float angleToPosition = Vector3.Angle(senseRot * Vector3.forward, toPosition);
+                        float angleToPosition = Vector3.Angle(senseDir, toPosition);
 
                         if (angleToPosition <= coneSense.maxAngle && dist <= coneSense.range) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
                         {
