@@ -37,6 +37,11 @@ public abstract class Shootable : MonoBehaviour, IInteractable
         meshRenderer.material = furnitureSO.materials[materialIndex];
     }
 
+    private void Start()
+    {
+        transform.localScale *= scaleFactor;
+    }
+
     private void Die()
     {
         isDead = true;

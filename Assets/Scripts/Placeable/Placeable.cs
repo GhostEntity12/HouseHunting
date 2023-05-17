@@ -10,6 +10,11 @@ public class Placeable : MonoBehaviour
     public bool IsValidPosition { get; private set; } = true;
 	public InventoryItem InventoryItem { get; set; }
 
+    private void Start()
+    {
+        Mesh.transform.localScale *= InventoryItem.scaleFactor;
+    }
+
 	private void OnTriggerExit(Collider other) 
     {
         IsValidPosition = true;
