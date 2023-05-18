@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7176067888136101942}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 2797687578962592920, guid: 40831efb81a1a514a94e84167a550c75, type: 3}
 --- !u!23 &4595575434033997696
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   furnitureSO: {fileID: 11400000, guid: 390014d96b7a124489f5476ed23af37c, type: 2}
+  Hitboxes: []
 --- !u!195 &6779599493470380603
 NavMeshAgent:
   m_ObjectHideFlags: 0
