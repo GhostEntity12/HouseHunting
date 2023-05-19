@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : Singleton<AudioManager>
 {
     public static AudioManager Instance;
     [SerializeField] public AudioMixerGroup musicMixerGroup;
