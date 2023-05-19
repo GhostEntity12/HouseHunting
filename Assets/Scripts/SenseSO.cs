@@ -5,8 +5,6 @@ public enum SenseCategory { Quiet, Normal, Loud };
 
 public class SenseSO : ScriptableObject
 {
-    public string id;
-    public new string name;
     public Vector3 offset;
     public Vector3 rotOffset;
     public Color debugIdleColor;
