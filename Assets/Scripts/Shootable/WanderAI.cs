@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class WanderAI : MonoBehaviour 
 {
     enum IState { Idle, Alert, Searching };
+    enum SState { Stressed, CanRelax, Relaxing}
 
     private Shootable shootable;
     private MeshRenderer meshRenderer;
@@ -13,6 +14,7 @@ public class WanderAI : MonoBehaviour
     private bool xray;
     private float timeSinceLastAttack = 0f;
     private float alertness = 0; // between 0 and 100
+    private SState stressState = SState.Relaxing;
     private GameObject subject;
     private IState investigate = IState.Idle;
     
@@ -34,17 +36,17 @@ public class WanderAI : MonoBehaviour
         xray = shootable.FurnitureSO.xray;
         playerMovement = FindObjectOfType<PlayerMovement>();
     }
-
+    /*
     private void OnEnable() 
     {
-        Gun.OnGunShootEvent += OnGunShoot;
+        SoundAlerter.OnSoundEmitEvent += OnSoundDetect;
     }
 
     private void OnDisable() 
     {
-        Gun.OnGunShootEvent -= OnGunShoot;
+        SoundAlerter.OnSoundEmitEvent += OnSoundDetect;
     }
-
+    */
     private void OnDrawGizmos()
     {
         if (senses == null)
@@ -56,7 +58,7 @@ public class WanderAI : MonoBehaviour
             bool unused = false;
             switch (sense.senseCategory)
             {
-                case SenseCategory.Quiet:
+                case SenseCategory.Stealth:
                     if (!IsPlayerSneaking())
                     {
                         unused = true;
@@ -98,7 +100,7 @@ public class WanderAI : MonoBehaviour
                         }
                     }
 
-                    if (detected && (sphereSense.senseType == SenseType.Sight || (sphereSense.senseType == SenseType.Sound && IsPlayerMoving() && sphereSense.senseCategory != SenseCategory.Loud)))
+                    if (detected)
                     {
                         Gizmos.color = sphereSense.debugDetectedColor;
                     }
@@ -117,10 +119,7 @@ public class WanderAI : MonoBehaviour
                     {
                         Gizmos.color = Color.red;
                         Gizmos.DrawRay(sensePos, toPosition);
-                        if (coneSense.senseType == SenseType.Sight || (coneSense.senseType == SenseType.Sound && IsPlayerMoving() && coneSense.senseCategory != SenseCategory.Loud))
-                        {
-                            Gizmos.color = coneSense.debugDetectedColor;
-                        }
+                        Gizmos.color = coneSense.debugDetectedColor;
                     }
                     else
                     {
@@ -196,7 +195,7 @@ public class WanderAI : MonoBehaviour
             bool unused = false;
             switch (sense.senseCategory)
             {
-                case SenseCategory.Quiet:
+                case SenseCategory.Stealth:
                     if (!IsPlayerSneaking())
                     {
                         unused = true;
@@ -239,30 +238,15 @@ public class WanderAI : MonoBehaviour
 
                     if (inRange)
                     {
-                        if (sphereSense.senseType == SenseType.Sight)
-                        {
                             detected = true;
-                            if (sphereSense.senseCategory == SenseCategory.Quiet)
+                            if (sphereSense.senseCategory == SenseCategory.Stealth)
                             {
-                                alertness += Time.deltaTime * 50;
+                                IncrementAlertness(Time.deltaTime * 50);
                             }
                             else
                             {
-                                alertness += Time.deltaTime * 100;
+                                IncrementAlertness(Time.deltaTime * 100);
                             }
-                        }
-                        else if (sphereSense.senseType == SenseType.Sound && IsPlayerMoving() && sphereSense.senseCategory != SenseCategory.Loud)
-                        {
-                            detected = true;
-                            if (sphereSense.senseCategory == SenseCategory.Quiet)
-                            {
-                                alertness += Time.deltaTime * 10;
-                            }
-                            else
-                            {
-                                alertness += Time.deltaTime * 25;
-                            }
-                        }
                     }
                 }
             }
@@ -276,39 +260,29 @@ public class WanderAI : MonoBehaviour
 
                     if (angleToPosition <= coneSense.maxAngle && dist <= coneSense.range) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
                     {
-                        if (coneSense.senseType == SenseType.Sight)
-                        {
                             detected = true;
-                            if (coneSense.senseCategory == SenseCategory.Quiet)
+                            if (coneSense.senseCategory == SenseCategory.Stealth)
                             {
-                                alertness += Time.deltaTime * 50;
+                                IncrementAlertness(Time.deltaTime * 50);
                             }
                             else
                             {
-                                alertness += Time.deltaTime * 100;
+                                IncrementAlertness(Time.deltaTime * 100);
                             }
-                        }
-                        else if (coneSense.senseType == SenseType.Sound && IsPlayerMoving() && coneSense.senseCategory != SenseCategory.Loud)
-                        {
-                            detected = true;
-                            if (coneSense.senseCategory == SenseCategory.Quiet)
-                            {
-                                alertness += Time.deltaTime * 10;
-                            }
-                            else
-                            {
-                                alertness += Time.deltaTime * 25;
-                            }
-                        }
                     }
                 }
             }
         }
-
-        if (!detected)
+        if (!detected && stressState == SState.Stressed)
+        {
+            stressState = SState.CanRelax;
+            StartCoroutine("RelaxTimer");
+        }
+        if (stressState == SState.Relaxing)
         {
             alertness -= Time.deltaTime * 10;
         }
+        
         alertness = Mathf.Clamp(alertness, 0, 100);
         
         if (alertness >= 75 && subject != null)
@@ -356,55 +330,27 @@ public class WanderAI : MonoBehaviour
         }
     }
 
-    private void OnGunShoot()
+    public void IncrementAlertness(float gain)
     {
-        bool detected = false;
-
-        foreach (SenseSO sense in senses)
+        alertness += gain;
+        if (stressState != SState.Stressed)
         {
-            if (sense.senseCategory != SenseCategory.Loud || sense.senseType != SenseType.Sound)
-            {
-                continue;
-            }
-
-            Vector3 senseDir = Quaternion.Euler(sense.rotOffset) * transform.forward;
-            Vector3 sensePos = transform.localToWorldMatrix.MultiplyPoint3x4(sense.offset);
-
-            if (sense is SenseSphereSO sphereSense)
-            {
-                if (subject != null)
-                {
-                    Collider[] hitColliders = Physics.OverlapSphere(sensePos, sphereSense.radius);
-
-                    foreach (Collider hitCollider in hitColliders)
-                    {
-                        if (hitCollider.CompareTag("Player"))
-                        {
-                            detected = true;
-                            break;
-                        }
-                    }
-                }
-                else if (sense is SenseConeSO coneSense)
-                {
-                    if (subject != null)
-                    {
-                        Vector3 toPosition = (subject.transform.position - sensePos).normalized;
-                        float dist = (subject.transform.position - sensePos).magnitude;
-                        float angleToPosition = Vector3.Angle(senseDir, toPosition);
-
-                        if (angleToPosition <= coneSense.maxAngle && dist <= coneSense.range) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
-                        {
-                            detected = true;
-                            break;
-                        }
-                    }
-                }
-            }
+            StopCoroutine("RelaxTimer");
+            stressState = SState.Stressed;
         }
-        if (detected)
+    }
+
+    private IEnumerator RelaxTimer()
+    {
+        yield return new WaitForSeconds(2);
+        stressState = SState.Relaxing;
+    }
+
+    private void OnSoundDetect(float volume, Vector3 source)
+    {
+        if ((source - transform.position).magnitude <= volume)
         {
-            alertness += 80;
+            IncrementAlertness(volume);
         }
     }
 

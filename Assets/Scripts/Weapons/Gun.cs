@@ -4,19 +4,18 @@ using TMPro;
 
 public class Gun : MonoBehaviour
 {
-    public delegate void OnGunShoot();
-    public static event OnGunShoot OnGunShootEvent;
+    //public delegate void OnGunShoot();
+    //public static event OnGunShoot OnGunShootEvent;
 
     //bullet
     public GameObject bullet;
     public float shootForce;
 
     //Gun stats
-    public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
+    public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots, volume;
     public int magSize, bulletsPerTap, ammoTotal;
     public bool allowButtonHold;
     int ammoLeft, ammoShot;
-
 
     //bools
     bool shooting, readyToShoot, reloading, aiming;
@@ -31,8 +30,8 @@ public class Gun : MonoBehaviour
     //Graphics
     public GameObject muzzleFlash;
     public TextMeshProUGUI text;
-    
 
+    private SoundAlerter soundAlerter;
     private Recoil Recoil_Script;
 
     public enum AmmoType
@@ -48,6 +47,7 @@ public class Gun : MonoBehaviour
     {
         Recoil_Script = GameObject.Find("CameraRot/CameraRecoil").GetComponent<Recoil>();
         ammoInv_Script = GameObject.Find("Player").GetComponent<AmmoInventory>();
+        soundAlerter = GameObject.Find("Player").GetComponent<SoundAlerter>();
         ammoLeft = magSize;
         readyToShoot = true;
         anim = GetComponent<Animator>();
@@ -116,7 +116,8 @@ public class Gun : MonoBehaviour
 
     private void Shoot()
     {
-        OnGunShootEvent?.Invoke();
+        //OnGunShootEvent?.Invoke();
+        soundAlerter.MakeSound(volume, transform.position);
         readyToShoot = false;
 
         //Spread

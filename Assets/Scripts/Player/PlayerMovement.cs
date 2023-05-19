@@ -1,8 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController controller;
+    private SoundAlerter soundAlerter;
     [SerializeField] private float speed = 5.0f;
     private readonly float gravity = -9.81f;
     private Vector3 playerVelocity;
@@ -11,6 +13,22 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+        soundAlerter = GetComponent<SoundAlerter>();
+    }
+
+    public void Update()
+    {
+        if (isMoving)
+        {
+            if (isSneaking)
+            {
+                soundAlerter.MakeSound(Time.deltaTime * 2, transform.position);
+            }
+            else
+            {
+                soundAlerter.MakeSound(Time.deltaTime * 5, transform.position);
+            }
+        }
     }
 
     public void Move(Vector2 input)

@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public enum SenseType { Sight, Sound };
-public enum SenseCategory { Quiet, Normal, Loud };
+public enum SenseCategory { Stealth, Normal };
 
 public class SenseSO : ScriptableObject
 {
@@ -9,6 +8,5 @@ public class SenseSO : ScriptableObject
     public Vector3 rotOffset;
     public Color debugIdleColor;
     public Color debugDetectedColor;
-    public SenseType senseType;
     public SenseCategory senseCategory;
 }

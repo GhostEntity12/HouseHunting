@@ -20,9 +20,6 @@ MonoBehaviour:
   attackInterval: 1
   xray: 0
   senses:
-  - {fileID: 11400000, guid: 6799d9ae180241445a2ce596d85e4e56, type: 2}
-  - {fileID: 11400000, guid: d1914d8bdfc22a940a1a53351b302217, type: 2}
-  - {fileID: 11400000, guid: a77e251ec8d779241813442b39cc897f, type: 2}
   - {fileID: 11400000, guid: cf6b21924dff1114884671c4df35a3a6, type: 2}
   - {fileID: 11400000, guid: 6a5b3bd76f8630e4fbde59e95f872f1e, type: 2}
   materials:
