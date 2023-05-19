@@ -10,18 +10,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioMixerGroup sfxMixerGroup;
     [SerializeField] public Sound[] sounds;
 
-    public static AudioManager instance;
     void Awake()
     {
-        if (instance == null) 
-            instance = this;
-        else 
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        DontDestroyOnLoad(gameObject);
 
         foreach (Sound s in sounds)
         {
@@ -46,12 +36,6 @@ public class AudioManager : MonoBehaviour
             //s.source.outputAudioMixerGroup = s.mixerGroup;
         }
     }
-
-    void Start()
-    {
-        Play("Ambience");
-    }
-
     // Update is called once per frame
     public void Play(string name)
     {
