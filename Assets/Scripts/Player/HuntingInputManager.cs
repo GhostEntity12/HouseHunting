@@ -19,15 +19,11 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		camera = GetComponentInChildren<Camera>();
 
 		playerInput.Hunting.Interact.performed += ctx => Interact();
-<<<<<<< HEAD
 
 		playerInput.Hunting.OpenWeaponWheel.started += ctx => OpenWeaponWheel();
 		playerInput.Hunting.OpenWeaponWheel.canceled += ctx => CloseWeaponWheel();
-	}
-=======
         playerInput.Hunting.Pause.performed += ctx => GameManager.Instance.SetGamePause(!GameManager.Instance.IsPaused);
     }
->>>>>>> 9d0c4d06c774f13aed081a161511d6a57768a37a
 
 	private void FixedUpdate()
 	{

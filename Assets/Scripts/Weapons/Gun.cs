@@ -72,13 +72,9 @@ public class Gun : MonoBehaviour
 
     public void MyInput()
     {
-<<<<<<< HEAD
-        if (gunSO.allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
-=======
         if (GameManager.Instance.IsPaused) return;
+        if (gunSO.allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
 
-        if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
->>>>>>> 9d0c4d06c774f13aed081a161511d6a57768a37a
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
         if (Input.GetKeyDown(KeyCode.R) && ammoLeft < gunSO.magSize && !reloading && this.gameObject.activeSelf && gunSO.ammoTotal - gunSO.bulletsPerTap >= 0) 

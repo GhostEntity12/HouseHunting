@@ -201,7 +201,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""OpenWeaponWheel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
+                },
                 {
                     ""name"": """",
                     ""id"": ""2e0cc306-1ed0-418c-afaa-baf1564bde00"",
