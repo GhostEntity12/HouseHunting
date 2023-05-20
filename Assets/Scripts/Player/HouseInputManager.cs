@@ -39,8 +39,9 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		playerInput.House.Interact.performed += ctx => ExploreInteract();
 		playerInput.House.Decorate.performed += ctx => HouseManager.Instance.SetHouseMode(HouseManager.HouseMode.Decorate);
 		playerInput.House.OpenShop.performed += ctx => ShopUIManager.Instance.ToggleShop();
+		playerInput.House.Pause.performed += ctx => { PausePressed(); };
 
-		playerInput.Decorate.MouseDown.started += ctx => DecorateMouseDownStarted();
+        playerInput.Decorate.MouseDown.started += ctx => DecorateMouseDownStarted();
 		playerInput.Decorate.MouseDown.canceled += ctx => DecorateMouseDownCanceled();
 		playerInput.Decorate.ExitToHouse.performed += ctx =>
 		{
@@ -103,7 +104,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	/// Changes the set of inputs to use
 	/// </summary>
 	/// <param name="mode"></param>
-	void SetInput(HouseManager.HouseMode mode)
+	private void SetInput(HouseManager.HouseMode mode)
 	{
 		switch (mode)
 		{
@@ -242,6 +243,14 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		Physics.Raycast(HouseManager.Instance.DecorateCamera.ScreenPointToRay(Mouse.current.position.ReadValue()), out RaycastHit hit, int.MaxValue, 1 << LayerMask.NameToLayer("Floor"));
 
 		return hit;
+	}
+
+	private void PausePressed()
+	{
+		if (!ShopUIManager.Instance.IsShopOpen)
+		{
+			GameManager.Instance.SetGamePause(!GameManager.Instance.IsPaused);
+		}
 	}
 
 	/// <summary>
