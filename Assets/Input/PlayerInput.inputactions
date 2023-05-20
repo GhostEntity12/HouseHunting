@@ -51,15 +51,18 @@
                     "initialStateCheck": false
                 },
                 {
-<<<<<<< HEAD
                     "name": "OpenWeaponWheel",
                     "type": "Button",
                     "id": "518864de-6e45-4afa-8848-7b6971231d07",
-=======
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "16af94c8-06c5-439e-8162-7f279e1fc9e7",
->>>>>>> 9d0c4d06c774f13aed081a161511d6a57768a37a
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -168,21 +171,23 @@
                 },
                 {
                     "name": "",
-<<<<<<< HEAD
                     "id": "5b0e2deb-29db-453c-a3cf-74d911edb3f4",
                     "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "OpenWeaponWheel",
-=======
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2e0cc306-1ed0-418c-afaa-baf1564bde00",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
->>>>>>> 9d0c4d06c774f13aed081a161511d6a57768a37a
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
