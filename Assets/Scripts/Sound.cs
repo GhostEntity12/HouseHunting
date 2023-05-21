@@ -3,7 +3,8 @@ using UnityEngine;
 
 [System.Serializable]
 public class Sound
-{
+{   
+    // initialize fields for the sound
     public enum AudioType
     {
         soundEffect,
@@ -20,8 +21,6 @@ public class Sound
     public float volume;
     [Range(.1f, 3f)] 
     public float pitch;
-
-    // public AudioMixerGroup mixerGroup;
 
     [HideInInspector]
     public AudioSource source;
