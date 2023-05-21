@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class HuntingInputManager : Singleton<HuntingInputManager>
 {
-	[SerializeField] WeaponWheelController weaponWheelController;
+	[SerializeField] WeaponWheel weaponWheelController;
 
 	private new Camera camera;
 	private PlayerInput playerInput;
@@ -18,11 +18,21 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 		camera = GetComponentInChildren<Camera>();
 
+		// interact
 		playerInput.Hunting.Interact.performed += ctx => Interact();
 
+		// weapon wheel
 		playerInput.Hunting.OpenWeaponWheel.started += ctx => OpenWeaponWheel();
 		playerInput.Hunting.OpenWeaponWheel.canceled += ctx => CloseWeaponWheel();
+
+		// pause
         playerInput.Hunting.Pause.performed += ctx => GameManager.Instance.SetGamePause(!GameManager.Instance.IsPaused);
+
+		// shoot
+		playerInput.Hunting.Shoot.performed += ctx => WeaponManager.Instance.CurrentGun.Shoot();
+
+		// reload
+		playerInput.Hunting.Reload.performed += ctx => WeaponManager.Instance.CurrentGun.Reload();
     }
 
 	private void FixedUpdate()

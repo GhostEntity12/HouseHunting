@@ -89,6 +89,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""7ce7cde9-a82b-4af7-806c-2da234659dd4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -210,6 +219,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e28fc43b-c3c5-4078-8c7f-3110225f4b95"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -551,6 +571,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Hunting_Crouch = m_Hunting.FindAction("Crouch", throwIfNotFound: true);
         m_Hunting_OpenWeaponWheel = m_Hunting.FindAction("OpenWeaponWheel", throwIfNotFound: true);
         m_Hunting_Pause = m_Hunting.FindAction("Pause", throwIfNotFound: true);
+        m_Hunting_Reload = m_Hunting.FindAction("Reload", throwIfNotFound: true);
         // House
         m_House = asset.FindActionMap("House", throwIfNotFound: true);
         m_House_Movement = m_House.FindAction("Movement", throwIfNotFound: true);
@@ -632,6 +653,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_Crouch;
     private readonly InputAction m_Hunting_OpenWeaponWheel;
     private readonly InputAction m_Hunting_Pause;
+    private readonly InputAction m_Hunting_Reload;
     public struct HuntingActions
     {
         private @PlayerInput m_Wrapper;
@@ -643,6 +665,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Crouch => m_Wrapper.m_Hunting_Crouch;
         public InputAction @OpenWeaponWheel => m_Wrapper.m_Hunting_OpenWeaponWheel;
         public InputAction @Pause => m_Wrapper.m_Hunting_Pause;
+        public InputAction @Reload => m_Wrapper.m_Hunting_Reload;
         public InputActionMap Get() { return m_Wrapper.m_Hunting; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -673,6 +696,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Pause.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnPause;
+                @Reload.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_HuntingActionsCallbackInterface = instance;
             if (instance != null)
@@ -698,6 +724,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -849,6 +878,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnOpenWeaponWheel(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
     public interface IHouseActions
     {

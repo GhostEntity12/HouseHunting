@@ -3,12 +3,15 @@ using System.Collections.Generic;
 public class Inventory
 {
     private List<InventoryItem> items;
+    private List<WeaponInventoryItem> gunAmmo = new List<WeaponInventoryItem>();
 
-    public List<InventoryItem> Items => items;
+    public List<InventoryItem> Items { get; set; }
+    public List<WeaponInventoryItem> GunAmmo { get; set; }
 
     public Inventory()
     {
         items = new List<InventoryItem>();
+        gunAmmo = new List<WeaponInventoryItem>();
     }
 
     public void AddItem(InventoryItem newItem)
@@ -33,9 +36,9 @@ public class Inventory
         items.Clear();
     }
 
-    public void SetInventory(List<InventoryItem> newItems)
+    public void AddGun(string id)
     {
-        items = newItems;
+        gunAmmo.Add(new WeaponInventoryItem(id));
     }
 
     public override string ToString()

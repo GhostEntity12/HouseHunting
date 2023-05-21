@@ -3,13 +3,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class WeaponWheelController : MonoBehaviour
+public class WeaponWheel : MonoBehaviour
 {
     // [SerializeField] GameObject weaponWheelItem;
     [SerializeField] private Image weaponWheelItemPrefab;
-    [SerializeField] private Recoil recoil;
-    [SerializeField] private GameObject weaponHolder;
-    [SerializeField] private Sprite testImage;
     [SerializeField] private Image insideWheel;
     private List<Image> weaponWheelItems = new List<Image>();
     private int selectedIndex = 0;

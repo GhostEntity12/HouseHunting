@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -7,68 +8,43 @@ public class Gun : MonoBehaviour
     [SerializeField] public Transform muzzlePoint;
     [SerializeField] public GameObject muzzleFlashPrefab;
 
-    private int ammoLeft, ammoShot;
-
     //bools
     private bool shooting, readyToShoot, reloading, aiming;
 
-    //Reference
-    private Camera cam;
-    public AmmoType ammoType;
-
     private Animator anim;
-    private Recoil Recoil_Script;
+    private Recoil recoil;
 
     public GunSO GunSO { get => gunSO; }
     public delegate void OnGunShoot();
     public static event OnGunShoot OnGunShootEvent;
 
-
-    public enum AmmoType
-    {   
-        shotgunAmmo,
-        rifleAmmo,
-        crossbowAmmo,
-    }
-
     //Dictionary<AmmoType,int> ammoCount = new Dictionary<AmmoType,int>();
 
     public void Awake()
     {
-        Recoil_Script = GameObject.Find("CameraRot/CameraRecoil").GetComponent<Recoil>();
+        recoil = GetComponentInParent<Recoil>();
         ammoInventory = GameObject.Find("Player").GetComponent<AmmoInventory>();
-        ammoLeft = gunSO.magSize;
         readyToShoot = true;
         anim = GetComponent<Animator>();
         aiming = false;
-        cam = Camera.main;
     }
 
 
     private void Update()
     {
-        MyInput();
-        // Debug.Log(aiming);
-
-        //Ammo Counter on HUD
-        //text.SetText(ammoLeft / bulletsPerTap +  " / " + magSize / bulletsPerTap);
-        switch(ammoType)
-        {
-            case AmmoType.shotgunAmmo:
-                gunSO.ammoTotal = ammoInventory.shotgunAmmo;
-                break;
-            case AmmoType.rifleAmmo:
-                gunSO.ammoTotal = ammoInventory.rifleAmmo;
-                break;
-            case AmmoType.crossbowAmmo:
-                gunSO.ammoTotal = ammoInventory.crossbowAmmo;
-                break;
-        }
-
-        HuntingUIManager.Instance.SetAmmoCounterText(ammoLeft / gunSO.bulletsPerTap +  " / " + gunSO.ammoTotal / gunSO.bulletsPerTap);
+        // switch(ammoType)
+        // {
+        //     case AmmoType.shotgunAmmo:
+        //         gunSO.ammoTotal = ammoInventory.shotgunAmmo;
+        //         break;
+        //     case AmmoType.rifleAmmo:
+        //         gunSO.ammoTotal = ammoInventory.rifleAmmo;
+        //         break;
+        //     case AmmoType.crossbowAmmo:
+        //         gunSO.ammoTotal = ammoInventory.crossbowAmmo;
+        //         break;
+        // }
     }
-
-    //private void OnDisable() => reloading = false;
 
     public void MyInput()
     {
@@ -77,93 +53,95 @@ public class Gun : MonoBehaviour
 
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        if (Input.GetKeyDown(KeyCode.R) && ammoLeft < gunSO.magSize && !reloading && this.gameObject.activeSelf && gunSO.ammoTotal - gunSO.bulletsPerTap >= 0) 
-        {
-            ammoInventory.Spend(gunSO.magSize - ammoLeft);
-            Reload();
-        }
+        // if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < gunSO.magSize && !reloading && this.gameObject.activeSelf && gunSO.ammoTotal - gunSO.bulletsPerTap >= 0) 
+        // {
+        //     ammoInventory.Spend(gunSO.magSize - bulletsLeft);
+        //     Reload();
+        // }
         
-
         //Shoot
-        if (readyToShoot && shooting && !reloading &&  ammoLeft > 0)
-        {
-            ammoShot = gunSO.bulletsPerTap;
-            Shoot();
-        }
+        // if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
+        // {
+        //     ammoShot = gunSO.bulletsPerTap;
+        //     Shoot();
+        // }
 
-        //Aim
-        if(Input.GetMouseButtonDown(1))
-        {   
-            aiming = true;
-            anim.SetBool("Aiming", true);
-        }
+        // //Aim
+        // if(Input.GetMouseButtonDown(1))
+        // {   
+        //     aiming = true;
+        //     anim.SetBool("Aiming", true);
+        // }
 
-        if(Input.GetMouseButtonUp(1))
-        {
-            aiming = false;
-            anim.SetBool("Aiming", false);
-        }
+        // if(Input.GetMouseButtonUp(1))
+        // {
+        //     aiming = false;
+        //     anim.SetBool("Aiming", false);
+        // }
     }
 
-
-    private void Shoot()
+    public void Shoot()
     {
+        if (GameManager.Instance.IsPaused) return;
+        if ( !readyToShoot || WeaponManager.Instance.BulletsInMag <= 0 || reloading) return;
+
         OnGunShootEvent?.Invoke();
         readyToShoot = false;
 
-        //Spread
-        float x = Random.Range(-gunSO.spread, gunSO.spread);
-        float y = Random.Range(-gunSO.spread, gunSO.spread);
-
-        //calculate direction with spread
-        if (aiming)
+        for (int i = 0; i < gunSO.bulletsPerTap; i++)
         {
-            x = x/4;
-            y = y/4;
+            //Spread
+            float x = Random.Range(-gunSO.spread, gunSO.spread);
+            float y = Random.Range(-gunSO.spread, gunSO.spread);
+
+            //calculate direction with spread
+            if (aiming)
+            {
+                x = x/4;
+                y = y/4;
+            }
+
+            Vector3 direction = Camera.main.transform.forward + new Vector3(x, y, 0);
+
+            //Spawn bullet at attack point
+            Bullet currentBullet = Instantiate(gunSO.bulletPrefab, muzzlePoint.position, Quaternion.identity);
+            
+            currentBullet.transform.forward = direction.normalized;
+
+            //Add force to bullet
+            currentBullet.GetComponent<Rigidbody>().AddForce(direction.normalized * gunSO.shootForce, ForceMode.Impulse);
         }
-
-        Vector3 direction = cam.transform.forward + new Vector3(x, y, 0);
-
-        //Spawn bullet at attack point
-        Bullet currentBullet = Instantiate(gunSO.bulletPrefab, muzzlePoint.position, Quaternion.identity);
-        
-        currentBullet.transform.forward = direction.normalized;
-
-        //Add force to bullet
-        currentBullet.GetComponent<Rigidbody>().AddForce(direction.normalized * gunSO.shootForce, ForceMode.Impulse);
 
         //Muzzle flash
         Instantiate(muzzleFlashPrefab, muzzlePoint.position, Quaternion.identity);
 
         //recoil
-        Recoil_Script.RecoilFire();
+        recoil.RecoilFire();
 
-        ammoLeft--;
-        ammoShot--;
-        Invoke("ResetShot", gunSO.timeBetweenShooting);
+        WeaponManager.Instance.BulletsInMag -= gunSO.bulletsPerTap;
+        HuntingUIManager.Instance.SetAmmoCounterText(WeaponManager.Instance.BulletsInMag / gunSO.bulletsPerTap +  " / " + WeaponManager.Instance.BulletsInInventory / gunSO.bulletsPerTap);
 
-        if (ammoShot > 0 && ammoLeft > 0)
-        {
-            Invoke("Shoot", gunSO.timeBetweenShots);
-        }
+        StartCoroutine(ResetShot(gunSO.timeBetweenShots));
     }
 
-
-    private void ResetShot()
+    public void Reload()
     {
-        readyToShoot = true;
-    }
+        if (reloading) return;
 
-    private void Reload()
-    {
         reloading = true;
-        Invoke("ReloadFinished", gunSO.reloadTime);
+        StartCoroutine(ResetReload(gunSO.reloadTime));
     }
 
-    private void ReloadFinished()
+    private IEnumerator ResetReload(float delay)
     {
-        ammoLeft = gunSO.magSize;
+        yield return new WaitForSeconds(delay);
+        WeaponManager.Instance.Reload();
         reloading = false;
     }
 
+    private IEnumerator ResetShot(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        readyToShoot = true;
+    }
 }
