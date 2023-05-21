@@ -3,16 +3,21 @@ using System;
 using UnityEngine;
 
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : Singleton<AudioManager>
 {
     public static AudioManager Instance;
-    [SerializeField] public AudioMixerGroup musicMixerGroup;
-    [SerializeField] public AudioMixerGroup sfxMixerGroup;
-    [SerializeField] public Sound[] sounds;
+    public AudioMixerGroup musicMixerGroup;
+    public AudioMixerGroup sfxMixerGroup;
+    public Sound[] sounds;
 
     void Awake()
     {
 
+        Setup();
+    }
+
+    private void Setup()
+    {
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
@@ -33,7 +38,6 @@ public class AudioManager : MonoBehaviour
                     s.source.outputAudioMixerGroup = sfxMixerGroup;
                     break;
             }
-            //s.source.outputAudioMixerGroup = s.mixerGroup;
         }
     }
     // Update is called once per frame

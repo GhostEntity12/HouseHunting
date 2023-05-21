@@ -14,7 +14,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	[field: SerializeField] public Camera ExploreCamera { get; private set; }
 	[field: SerializeField] public Camera DecorateCamera { get; private set; }
 
-	private AudioManager[] audioManager;
+
 	private List<HouseItem> houseItems;
 	private float houseValue = 0;
 
@@ -25,9 +25,6 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
         Debug.Log("HouseRating: "+houseValue);
 		SetHouseMode(HouseMode.Explore);
-
-		audioManager = FindObjectsOfType<AudioManager>();
-        audioManager[0].Play("Building");
 	}
 
 	// function to calculate house rating, on certain threseholds (to be determined later), unlockTier is called to unlock that tier.
