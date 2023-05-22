@@ -90,7 +90,7 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
         GameManager.Instance.PermanentInventory.MergeInventory(huntingInventory);
         gameOverUI.SetActive(false);
         GameManager.Instance.HideCursor();
-        SceneManager.LoadScene("House");
+        SceneManager.LoadScene(1);
     }
 
     public void LoadData(GameData data)

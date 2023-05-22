@@ -30,8 +30,8 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		// Singleton setup
 		base.Awake();
 
-        // Subscribe to mode change event
-        HouseManager.ModeChanged += SetInput;
+		// Subscribe to mode change event
+		HouseManager.ModeChanged += SetInput;
 
 		// Generate inputs and subscribe
 		playerInput = new PlayerInput();
@@ -39,9 +39,9 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		playerInput.House.Interact.performed += ctx => ExploreInteract();
 		playerInput.House.Decorate.performed += ctx => HouseManager.Instance.SetHouseMode(HouseManager.HouseMode.Decorate);
 		playerInput.House.OpenShop.performed += ctx => ShopUIManager.Instance.ToggleShop();
-		playerInput.House.Pause.performed += ctx => { PausePressed(); };
+		playerInput.House.Pause.performed += ctx => PausePressed();
 
-        playerInput.Decorate.MouseDown.started += ctx => DecorateMouseDownStarted();
+		playerInput.Decorate.MouseDown.started += ctx => DecorateMouseDownStarted();
 		playerInput.Decorate.MouseDown.canceled += ctx => DecorateMouseDownCanceled();
 		playerInput.Decorate.ExitToHouse.performed += ctx =>
 		{
@@ -94,10 +94,16 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	/// </summary>
 	private void ExploreInteract()
 	{
-		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, out RaycastHit hit, playerReach) && hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
+		Debug.Log("Pressed Interact");
+		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, out RaycastHit hit, playerReach))
 		{
-            interactable.Interact();
-        }
+			Debug.Log($"Hit {hit.transform.name}");
+			if (hit.transform.TryGetComponent(out IInteractable interactable))
+			{
+				Debug.Log("Interact");
+				interactable.Interact();
+			}
+		}
 	}
 
 	/// <summary>
@@ -216,7 +222,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	private void RotateDecorateCamera(Vector2 mouseDelta)
 	{
 		Camera camera = HouseManager.Instance.DecorateCamera;
-		
+
 		// rotate on the horizontal axis
 		camera.transform.RotateAround(new Vector3(0, camera.transform.position.y, 0), Vector3.up, mouseDelta.x * Time.deltaTime * 30);
 
@@ -224,16 +230,16 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		float verticalAngleToRotate = -mouseDelta.y * Time.deltaTime * 30;
 
 		// Calculate distance from origin to point
-        float distance = Vector3.Distance(Vector3.zero, camera.transform.position);
+		float distance = Vector3.Distance(Vector3.zero, camera.transform.position);
 
-        // Calculate angle between y-axis and point
-        float angle = Mathf.Atan2(camera.transform.position.y, Mathf.Sqrt(camera.transform.position.x * camera.transform.position.x + camera.transform.position.z * camera.transform.position.z)) * Mathf.Rad2Deg;
+		// Calculate angle between y-axis and point
+		float angle = Mathf.Atan2(camera.transform.position.y, Mathf.Sqrt(camera.transform.position.x * camera.transform.position.x + camera.transform.position.z * camera.transform.position.z)) * Mathf.Rad2Deg;
 
 		if (angle + verticalAngleToRotate > 80 || angle + verticalAngleToRotate < 10) return;
 
-        // rotate on the vertical axis
-        camera.transform.RotateAround(Vector3.zero, camera.transform.right, verticalAngleToRotate);
-    }
+		// rotate on the vertical axis
+		camera.transform.RotateAround(Vector3.zero, camera.transform.right, verticalAngleToRotate);
+	}
 
 	/// <summary>
 	/// Utility function to cast a ray from the mouse to the floor and return the hit, this is to know the position of the mouse on the floor game object
