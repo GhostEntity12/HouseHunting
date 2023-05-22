@@ -11,10 +11,11 @@ public struct WeaponInventoryItem
         this.totalBulletsLeft = totalBulletsLeft;
     }
 
-    public WeaponInventoryItem(string id)
+    // This was changed to give a number of bullets by default (100)
+    public WeaponInventoryItem(string id, int bullets = 100)
     {
         this.id = id;
         bulletsInMag = 0;
-        totalBulletsLeft = 0;
+        totalBulletsLeft = 100;
     }
 }
