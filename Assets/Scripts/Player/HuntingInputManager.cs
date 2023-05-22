@@ -18,6 +18,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 		playerInput.Hunting.Interact.performed += ctx => Interact();
         playerInput.Hunting.Pause.performed += ctx => GameManager.Instance.SetGamePause(!GameManager.Instance.IsPaused);
+		playerInput.Hunting.Jump.performed += ctx => movement.Jump();
     }
 
 	private void FixedUpdate()
