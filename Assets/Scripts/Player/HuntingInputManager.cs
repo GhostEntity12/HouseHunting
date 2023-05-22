@@ -27,6 +27,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 		// pause
         playerInput.Hunting.Pause.performed += ctx => GameManager.Instance.SetGamePause(!GameManager.Instance.IsPaused);
+		playerInput.Hunting.OpenInventory.performed += ctx => ShopUIManager.Instance.ToggleShop();
 		playerInput.Hunting.Jump.performed += ctx => movement.Jump();
 
 		// shoot
@@ -38,12 +39,15 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 	private void FixedUpdate()
 	{
+		if (ShopUIManager.Instance.IsShopOpen) return;
+
 		movement.Move(playerInput.Hunting.Movement.ReadValue<Vector2>());
 		movement.Crouch(playerInput.Hunting.Crouch.ReadValue<float>());
 	}
 
 	private void LateUpdate()
-	{
+	{ 
+		if (ShopUIManager.Instance.IsShopOpen) return;
 		if (!weaponWheelController.gameObject.activeInHierarchy)
 			look.Look(playerInput.Hunting.Look.ReadValue<Vector2>());
 	}
