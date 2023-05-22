@@ -15,4 +15,5 @@ public class FurnitureSO : ScriptableObject
     public int basePrice;
     public Sprite thumbnail;
     public Placeable placeablePrefab;
+    public Shootable shootablePrefab;
 }

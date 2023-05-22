@@ -42,7 +42,7 @@ public abstract class Shootable : MonoBehaviour, IInteractable
         transform.localScale *= scaleFactor;
     }
 
-    private void Die()
+    public void Die()
     {
         isDead = true;
         alertCanvas.enabled = false;
@@ -69,6 +69,7 @@ public abstract class Shootable : MonoBehaviour, IInteractable
 
         if (currentHealth <= 0) Die();
     }
+
     public int[] GetHealth()
     {
         int[] healthStatus = { currentHealth, furnitureSO.maxHealth };

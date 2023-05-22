@@ -142,7 +142,14 @@ public class ShopUIManager : Singleton<ShopUIManager>
         if (selectedFurniture is null) return;
 
         inventory.RemoveItem((InventoryItem)selectedFurniture?.inventoryItem);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        // i wanted to use HuntingInputManager. which is attached to the player but it's null for some reason
+        Shootable shootable = Instantiate(selectedFurniture?.so.shootablePrefab, player.transform.position + player.transform.forward * 2, Quaternion.identity);
+        shootable.Die();
         SetTab(selectedFurniture?.inventoryItem.id);
         SelectItem(null);
+        // uncomment this if you want the shop to close after dropping an item, its better to keep it open if you want to drop multiple items
+        // otherwise its better to close it if the player is only dropping one item.
+        // ToggleShop();
     }
 }
