@@ -6,7 +6,7 @@ public class WeaponManager : Singleton<WeaponManager>
     [SerializeField] private List<Gun> guns;
     private Gun currentGun;
     private int currentGunIndex = 0;
-    private List<WeaponInventoryItem> gunAmmo;
+    private List<WeaponInventoryItem> gunAmmo = new();
 
     public List<Gun> Guns => guns;
     public int CurrentGunIndex => currentGunIndex;

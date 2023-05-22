@@ -8,21 +8,21 @@ public class SpawnerManager : MonoBehaviour
 	// This can be swapped with the percentageOfSpawnersToTrigger below if wanted
 	[SerializeField] int numToSpawn;
 
-	//[Range(0, 1)]
-	//[SerializeField] float percentageOfSpawnersToTrigger;
+	[Range(0, 1)]
+	[SerializeField] float percentageOfSpawnersToTrigger;
 
 	private void Awake()
 	{
 		spawners = new List<Spawner>(FindObjectsOfType<Spawner>());
 		
-		//numToSpawn = Mathf.FloorToInt(spawners.Count * percentageOfSpawnersToTrigger);
+		numToSpawn = Mathf.FloorToInt(spawners.Count * percentageOfSpawnersToTrigger);
 
 		// Warn if there aren't enough spawners
-		if (spawners.Count < numToSpawn)
-		{
-			Debug.LogWarning($"There may not be enough spawners - {spawners.Count} spawners were found, a minimum of {numToSpawn} are suggested.");
-			numToSpawn = spawners.Count;
-		}
+		//if (spawners.Count < numToSpawn)
+		//{
+		//	Debug.LogWarning($"There may not be enough spawners - {spawners.Count} spawners were found, a minimum of {numToSpawn} are suggested.");
+		//	numToSpawn = spawners.Count;
+		//}
 
 		spawners.Shuffle();
 		Queue<Spawner> spawnerQueue = new(spawners);
