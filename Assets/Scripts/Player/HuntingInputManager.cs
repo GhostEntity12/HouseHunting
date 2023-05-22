@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class HuntingInputManager : Singleton<HuntingInputManager>
 {
+	[SerializeField] WeaponWheel weaponWheelController;
+
 	private new Camera camera;
 	private PlayerInput playerInput;
 	private PlayerMovement movement;
@@ -16,9 +18,22 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 		camera = GetComponentInChildren<Camera>();
 
+		// interact
 		playerInput.Hunting.Interact.performed += ctx => Interact();
+
+		// weapon wheel
+		playerInput.Hunting.OpenWeaponWheel.started += ctx => OpenWeaponWheel();
+		playerInput.Hunting.OpenWeaponWheel.canceled += ctx => CloseWeaponWheel();
+
+		// pause
         playerInput.Hunting.Pause.performed += ctx => GameManager.Instance.SetGamePause(!GameManager.Instance.IsPaused);
 		playerInput.Hunting.Jump.performed += ctx => movement.Jump();
+
+		// shoot
+		playerInput.Hunting.Shoot.performed += ctx => WeaponManager.Instance.CurrentGun.Shoot();
+
+		// reload
+		playerInput.Hunting.Reload.performed += ctx => WeaponManager.Instance.CurrentGun.Reload();
     }
 
 	private void FixedUpdate()
@@ -29,7 +44,8 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 	private void LateUpdate()
 	{
-		look.Look(playerInput.Hunting.Look.ReadValue<Vector2>());
+		if (!weaponWheelController.gameObject.activeInHierarchy)
+			look.Look(playerInput.Hunting.Look.ReadValue<Vector2>());
 	}
 
 	private void OnEnable()
@@ -49,4 +65,14 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 			interactable.Interact();
         }
     }
+
+	private void OpenWeaponWheel()
+	{
+		weaponWheelController.OpenWeaponWheel();
+    }
+
+	private void CloseWeaponWheel()
+	{
+		weaponWheelController.CloseWeaponWheel();
+	}
 }

@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 1664331432279431598}
   - component: {fileID: 9044442938559451673}
   m_Layer: 0
-  m_Name: LeverAction
+  m_Name: Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,24 +169,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2041032446475502356}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8b048778b877b4396458ea492b2448, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c750834e85aa434592367f5a67ae82e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1701891651511816558, guid: 0ed628029aeff8b45ae54a00e10920f9, type: 3}
-  shootForce: 100
-  timeBetweenShooting: 2
-  spread: 0
-  range: 100
-  reloadTime: 1
-  timeBetweenShots: 0
-  magSize: 7
-  bulletsPerTap: 1
-  allowButtonHold: 0
-  recoilForce: 0
-  Cam: {fileID: 0}
+  gunSO: {fileID: 11400000, guid: 32118748925db9a45a9281c1d16cd3f7, type: 2}
+  ammoInventory: {fileID: 0}
   muzzlePoint: {fileID: 9044442938445331869}
-  muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4, type: 3}
-  text: {fileID: 8415560571675261288, guid: 57b4341301f49354bb62894672edf364, type: 3}
+  muzzleFlashPrefab: {fileID: 1000010254994808, guid: 849b008210656a542b75ecfdc722a116, type: 3}
+  ammoType: 1
 --- !u!1 &2418816163705883090
 GameObject:
   m_ObjectHideFlags: 0

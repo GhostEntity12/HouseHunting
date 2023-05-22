@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 659654999893775899, guid: 94a448de968685a47a8219c63ea8ad83, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Player Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4230644132993505579, guid: 94a448de968685a47a8219c63ea8ad83, type: 3}
       propertyPath: m_RootOrder
@@ -63,7 +63,31 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 659654999893775899, guid: 94a448de968685a47a8219c63ea8ad83, type: 3}
       insertIndex: -1
       addedObject: {fileID: 942944589}
+    - targetCorrespondingSourceObject: {fileID: 8337428779502255245, guid: 94a448de968685a47a8219c63ea8ad83, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1619718373892744839}
   m_SourcePrefab: {fileID: 100100000, guid: 94a448de968685a47a8219c63ea8ad83, type: 3}
+--- !u!1 &3752051249222547483 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8337428779502255245, guid: 94a448de968685a47a8219c63ea8ad83, type: 3}
+  m_PrefabInstance: {fileID: 5162684238690108566}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1619718373892744839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3752051249222547483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d6f362199acc941b311d63496bae92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guns:
+  - {fileID: 2932757771291123352, guid: ceff132106ef38140bee93ace2b7aa97, type: 3}
+  - {fileID: 9044442938559451673, guid: 3387f283955c7f6449c60a21db593378, type: 3}
+  - {fileID: 7744787206299875300, guid: b564367a31bf57d40ac12e86b95962e7, type: 3}
 --- !u!1 &5657111898024006285 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 659654999893775899, guid: 94a448de968685a47a8219c63ea8ad83, type: 3}
@@ -81,3 +105,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f81df0dc79c6b2408a565b81dd13cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponWheelController: {fileID: 0}

@@ -1,102 +1,159 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class WeaponWheelController : MonoBehaviour
+public class WeaponWheel : MonoBehaviour
 {
-    public Animator anim;
-    public bool weaponWheelSelected = false;
-    public Image selectedItem;
-    public Sprite noImage;
-    public static int weaponID;
-    public GameObject weaponHolder, SSG, LAR, Xbow;
-    private Recoil Recoil_Script;
+    // [SerializeField] GameObject weaponWheelItem;
+    [SerializeField] private Image weaponWheelItemPrefab;
+    [SerializeField] private Image insideWheel;
+    private List<Image> weaponWheelItems = new List<Image>();
+    private int selectedIndex = 0;
 
-
-
-    void Start()
+    private void Start()
     {
-        Recoil_Script = GameObject.Find("CameraRot/CameraRecoil").GetComponent<Recoil>();
-        SSG = weaponHolder.transform.GetChild(0).gameObject;
-        LAR = weaponHolder.transform.GetChild(1).gameObject;
-        Xbow = weaponHolder.transform.GetChild(2).gameObject;
+        float gapAngle = 2f;
+        float segmentAngle = 360f / WeaponManager.Instance.Guns.Count; // the angle of each segment of the wheel, i.e., how much its takes up of the circle
+
+        for (int i = 0; i < WeaponManager.Instance.Guns.Count; i++)
+        {
+            // instantiate weapon wheel item (full circle)
+            Image item = Instantiate(weaponWheelItemPrefab, transform);
+            // adjust the fill amount of the wheel to the size of the segment, but subtract half the gap angle
+            item.fillAmount = 1f / WeaponManager.Instance.Guns.Count - gapAngle / 2 / 360f;
+
+            item.transform.localPosition = Vector3.zero;
+            // rotate the wheel item by the angle of the segment
+            item.transform.rotation = Quaternion.Euler(0f, 0f, -segmentAngle * i - gapAngle / 2);
+
+            // add the weapon wheel item to the list to keep track of it
+            weaponWheelItems.Add(item);
+            
+            // instantiate image icon for each weapon
+            // this wheel is 65% of the size of the weapon wheel item, which the weapon icon lies on
+            float iconWheelRadius = item.rectTransform.rect.width / 2 * 0.65f;
+
+            // create a new game object and add an image component to it
+            Image icon = new GameObject("Icon").AddComponent<Image>();
+            icon.transform.SetParent(transform);
+            // set the icon's sprite to the weapon's icon
+            icon.sprite = WeaponManager.Instance.Guns[i].GunSO.icon;
+
+            // calculate the angle of the icon based on the index of the weapon, i.e., which segment of the wheel it is in
+            float angleInDegrees = 360 / WeaponManager.Instance.Guns.Count * i;
+
+            // offset angle by half angle to center the icon in the segment
+            angleInDegrees += 360 / WeaponManager.Instance.Guns.Count / 2;
+            // convert the angle to radians
+            float angleInRadians = angleInDegrees * Mathf.Deg2Rad;
+            // calculate the x and y coordinates of the icon based on the angle
+            float x = iconWheelRadius * Mathf.Sin(angleInRadians);
+            float y = iconWheelRadius * Mathf.Cos(angleInRadians);
+
+            // set the position and size of the icon
+            icon.transform.localPosition = new Vector3(x, y, 0f);
+            icon.rectTransform.sizeDelta = new Vector2(100f, 100f);
+        }
+
+        insideWheel.fillAmount = 1f / WeaponManager.Instance.Guns.Count;
+
+        CloseWeaponWheel();
     }
 
+    // private void Update()
+    // {
+    //     switch (weaponID)
+    //     {
+    //         case 0: //no weapon selected
+    //             // selectedItem.sprite = noImage;
+    //             break;
 
+    //         case 1: //SSG
+    //             SSG.SetActive(true);
+    //             LAR.SetActive(false);
+    //             Xbow.SetActive(false);
+    //             recoil.recoilX = 1;
+    //             recoil.recoilY = 1;
+    //             recoil.recoilZ = 1;
+    //             recoil.snappiness = 3;
+    //             recoil.returnSpeed = 2;
+    //             CloseWeaponWheel();
+    //             weaponID = 0;
+    //             break;
 
-    // Update is called once per frame
-    void Update()
+    //         case 2: //LAR
+    //             SSG.SetActive(false);
+    //             LAR.SetActive(true);
+    //             Xbow.SetActive(false);
+    //             recoil.recoilX = 14;
+    //             recoil.recoilY = 14;
+    //             recoil.recoilZ = 14;
+    //             recoil.snappiness = 25;
+    //             recoil.returnSpeed = 5;
+    //             CloseWeaponWheel();
+    //             weaponID = 0;
+    //             break;
+            
+    //         case 3: //Xbow
+    //             SSG.SetActive(false);
+    //             LAR.SetActive(false);
+    //             Xbow.SetActive(true);
+    //             recoil.recoilX = 1;
+    //             recoil.recoilY = 1;
+    //             recoil.recoilZ = 1;
+    //             recoil.snappiness = 1;
+    //             recoil.returnSpeed = 2;
+    //             CloseWeaponWheel();
+    //             weaponID = 0;
+    //             break;
+    //     }
+    // }
+
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (gameObject.activeSelf)
         {
-            weaponWheelSelected = true;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.Confined;
-        }
-
-
-        if(weaponWheelSelected)
-        {
+            // calculate the angle of the mouse from the center of the screen
+            Vector2 mousePos = Mouse.current.position.ReadValue();
+            Vector2 center = new Vector2(Screen.width / 2, Screen.height / 2);
             
-            anim.SetBool("OpenWeaponWheel", true);
-        }
-        else
-        {
-            anim.SetBool("OpenWeaponWheel", false);
-        }
+            float distanceBetweenMouseAndCenter = Vector2.Distance(mousePos, center);
+            if (distanceBetweenMouseAndCenter < insideWheel.rectTransform.rect.width / 2)
+            {
+                weaponWheelItems.ForEach(item => item.color = Color.gray);
+                selectedIndex = WeaponManager.Instance.CurrentGunIndex;
+                return;
+            }
 
-        switch(weaponID)
-        {
-            case 0: //no weapon selected
-                selectedItem.sprite = noImage;
-                break;
+            // calculate the angle of the mouse from the center of the screen
+            float mouseAngleFromCenter = Vector2.SignedAngle(mousePos - center, Vector2.up); // returns -180 to 180
+            // convert the angle to a value between 0 and 360
+            mouseAngleFromCenter = (mouseAngleFromCenter + 360) % 360;
 
-            case 1: //SSG
-                SSG.SetActive(true);
-                LAR.SetActive(false);
-                Xbow.SetActive(false);
-                Recoil_Script.recoilX = 1;
-                Recoil_Script.recoilY = 1;
-                Recoil_Script.recoilZ = 1;
-                Recoil_Script.snappiness = 3;
-                Recoil_Script.returnSpeed = 2;
-                weaponWheelSelected = false;
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.lockState = CursorLockMode.Confined;
-                weaponID = 0;
-                break;
+            // calculate the angle of each segment of the wheel
+            float anglePerSegment = 360f / WeaponManager.Instance.Guns.Count;
+            selectedIndex = Mathf.FloorToInt(mouseAngleFromCenter / anglePerSegment);
 
-            case 2: //LAR
-                SSG.SetActive(false);
-                LAR.SetActive(true);
-                Xbow.SetActive(false);
-                Recoil_Script.recoilX = 14;
-                Recoil_Script.recoilY = 14;
-                Recoil_Script.recoilZ = 14;
-                Recoil_Script.snappiness = 25;
-                Recoil_Script.returnSpeed = 5;
-                weaponWheelSelected = false;
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.lockState = CursorLockMode.Confined;
-                weaponID = 0;
-                break;
-            
-            case 3: //Xbow
-                SSG.SetActive(false);
-                LAR.SetActive(false);
-                Xbow.SetActive(true);
-                Recoil_Script.recoilX = 1;
-                Recoil_Script.recoilY = 1;
-                Recoil_Script.recoilZ = 1;
-                Recoil_Script.snappiness = 1;
-                Recoil_Script.returnSpeed = 2;
-                weaponWheelSelected = false;
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.lockState = CursorLockMode.Confined;
-                weaponID = 0;
-                break;
+            // highlight the selected weapon
+            weaponWheelItems.ForEach(item => item.color = Color.gray);
+            weaponWheelItems[selectedIndex].color = Color.white;
+
+            // rotate the inside wheel to follow the mouse
+            insideWheel.transform.rotation = Quaternion.Euler(0f, 0f, -mouseAngleFromCenter + anglePerSegment / 2);
         }
+    }
+
+    public void OpenWeaponWheel()
+    {
+        gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void CloseWeaponWheel()
+    {
+        gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        WeaponManager.Instance.SelectGun(selectedIndex);
     }
 }

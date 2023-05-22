@@ -33,7 +33,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		float tValue = 0;
 		foreach (HouseItem item in houseItems)
 		{
-			tValue += item.inventoryItem.value;
+			tValue += item.inventoryItem.Value;
 		}
 		// can be changed in future
 		if (tValue > 9000)

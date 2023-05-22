@@ -60,9 +60,27 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "OpenWeaponWheel",
+                    "type": "Button",
+                    "id": "518864de-6e45-4afa-8848-7b6971231d07",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "16af94c8-06c5-439e-8162-7f279e1fc9e7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "7ce7cde9-a82b-4af7-806c-2da234659dd4",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -182,12 +200,34 @@
                 },
                 {
                     "name": "",
+                    "id": "5b0e2deb-29db-453c-a3cf-74d911edb3f4",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenWeaponWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2e0cc306-1ed0-418c-afaa-baf1564bde00",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e28fc43b-c3c5-4078-8c7f-3110225f4b95",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
