@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 5.0f;
     private readonly float gravity = -9.81f;
     private Vector3 playerVelocity;
+    private float jumpSpeed = 15f;
     public bool isSneaking;
     public bool isMoving;
     private void Start()
@@ -27,10 +28,22 @@ public class PlayerMovement : MonoBehaviour
         playerVelocity.y += gravity * Time.deltaTime;
 
         if (controller.isGrounded && playerVelocity.y < 0)
+        {
             playerVelocity.y = -2f;
+        }
 
         controller.Move(playerVelocity * Time.deltaTime);
         
+    }
+
+    public void Jump()
+    {
+        if (controller.isGrounded)
+        {
+            float jump = jumpSpeed + gravity;
+
+            playerVelocity.Set(playerVelocity.x, jump, playerVelocity.z);
+        }
     }
 
     public void Crouch(float input)

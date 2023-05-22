@@ -297,7 +297,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		// Re-enable house mode change
 		playerInput.Decorate.ExitToHouse.Enable();
 		// Revert mesh color
-		SelectedPlaceable.Mesh.material.color = Color.white;
+		SelectedPlaceable.Mesh.material = SelectedPlaceable.Material;
 		// Disable rotation wheel
 		SelectedPlaceable.RotationWheel.SetVisibility(false);
 
@@ -318,7 +318,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		{
 			// If do not save position, revert to initial state
 			SelectedPlaceable.SetTransforms(placeableInitialState.position, placeableInitialState.angle);
-			SelectedPlaceable.Mesh.material.color = Color.white;
+			SelectedPlaceable.Mesh.material = SelectedPlaceable.Material;
 		}
 		// Deselect
 		SelectedPlaceable = null;

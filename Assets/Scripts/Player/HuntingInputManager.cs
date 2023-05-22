@@ -27,6 +27,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 		// pause
         playerInput.Hunting.Pause.performed += ctx => GameManager.Instance.SetGamePause(!GameManager.Instance.IsPaused);
+		playerInput.Hunting.Jump.performed += ctx => movement.Jump();
 
 		// shoot
 		playerInput.Hunting.Shoot.performed += ctx => WeaponManager.Instance.CurrentGun.Shoot();
