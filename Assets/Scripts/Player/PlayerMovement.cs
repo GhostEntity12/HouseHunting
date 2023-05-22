@@ -8,11 +8,10 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 playerVelocity;
     private float jumpSpeed = 15f;
     public bool isSneaking;
-
+    public bool isMoving;
     private void Start()
     {
         controller = GetComponent<CharacterController>();
-
     }
 
     public void Move(Vector2 input)
@@ -24,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(transform.TransformDirection(moveDirection) * currentSpeed * Time.deltaTime);
 
+        Movement(moveDirection.magnitude);
+
         playerVelocity.y += gravity * Time.deltaTime;
 
         if (controller.isGrounded && playerVelocity.y < 0)
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         controller.Move(playerVelocity * Time.deltaTime);
+        
     }
 
     public void Jump()
@@ -59,5 +61,17 @@ public class PlayerMovement : MonoBehaviour
     public void Sneak(bool input)
     {
         isSneaking = input;
+    }
+
+    public void Movement(float input)
+    {
+        if (input < 0.1)
+        {
+            isMoving = false;
+        }
+        else
+        {
+            isMoving = true;
+        }
     }
 }

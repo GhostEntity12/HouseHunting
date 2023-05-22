@@ -10,6 +10,6 @@ public class Door : MonoBehaviour, IInteractable
 		if (HuntingManager.Instance != null)
 			HuntingManager.Instance.RespawnInHouse();
 		else
-			SceneManager.LoadScene(0);
+			SceneManager.LoadScene(1);
     }
 }

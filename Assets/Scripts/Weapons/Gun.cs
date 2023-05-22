@@ -82,6 +82,8 @@ public class Gun : MonoBehaviour
 
     public void MyInput()
     {
+        if (GameManager.Instance.IsPaused) return;
+
         if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 

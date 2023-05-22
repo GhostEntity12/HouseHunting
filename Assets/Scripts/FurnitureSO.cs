@@ -9,7 +9,8 @@ public class FurnitureSO : ScriptableObject
     public int damage;
     public float speed;
     public float attackInterval;
-    public float perceptionRadius; //how far the AI can see the player
+    public bool xray; //can the furniture see the player through obstructions?
+    public SenseSO[] senses;
     public Material[] materials;
     public int basePrice;
     public Sprite thumbnail;
