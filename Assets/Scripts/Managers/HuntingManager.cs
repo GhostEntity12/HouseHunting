@@ -95,7 +95,7 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        huntingInventory.SetInventory(data.huntingInventory);
+        huntingInventory.Items = data.huntingInventory;
     }
 
     public void SaveData(GameData data)

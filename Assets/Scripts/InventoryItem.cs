@@ -5,6 +5,8 @@ public struct InventoryItem
     public int materialIndex;
     public int price;
 
+    public float Value => price * scaleFactor;
+
     public InventoryItem(string id, float scaleFactor, int materialIndex, int price)
     {
         this.id = id;
@@ -13,8 +15,4 @@ public struct InventoryItem
         this.price = price;
     }
 
-    public float value
-    {
-        get { return price * scaleFactor; }
-    }
 }

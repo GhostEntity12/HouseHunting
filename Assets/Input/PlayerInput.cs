@@ -73,9 +73,36 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""381caadc-35f7-4694-b565-d5edf82c7b7c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenWeaponWheel"",
+                    ""type"": ""Button"",
+                    ""id"": ""518864de-6e45-4afa-8848-7b6971231d07"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""16af94c8-06c5-439e-8162-7f279e1fc9e7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""7ce7cde9-a82b-4af7-806c-2da234659dd4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -193,6 +220,28 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""3835f930-f7c2-4048-91f1-4bc9e2a3a794"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5b0e2deb-29db-453c-a3cf-74d911edb3f4"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenWeaponWheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""2e0cc306-1ed0-418c-afaa-baf1564bde00"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
@@ -210,6 +259,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""OpenInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e28fc43b-c3c5-4078-8c7f-3110225f4b95"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -549,7 +609,10 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Hunting_Shoot = m_Hunting.FindAction("Shoot", throwIfNotFound: true);
         m_Hunting_Interact = m_Hunting.FindAction("Interact", throwIfNotFound: true);
         m_Hunting_Crouch = m_Hunting.FindAction("Crouch", throwIfNotFound: true);
+        m_Hunting_Jump = m_Hunting.FindAction("Jump", throwIfNotFound: true);
+        m_Hunting_OpenWeaponWheel = m_Hunting.FindAction("OpenWeaponWheel", throwIfNotFound: true);
         m_Hunting_Pause = m_Hunting.FindAction("Pause", throwIfNotFound: true);
+        m_Hunting_Reload = m_Hunting.FindAction("Reload", throwIfNotFound: true);
         m_Hunting_OpenInventory = m_Hunting.FindAction("OpenInventory", throwIfNotFound: true);
         // House
         m_House = asset.FindActionMap("House", throwIfNotFound: true);
@@ -630,7 +693,10 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_Shoot;
     private readonly InputAction m_Hunting_Interact;
     private readonly InputAction m_Hunting_Crouch;
+    private readonly InputAction m_Hunting_Jump;
+    private readonly InputAction m_Hunting_OpenWeaponWheel;
     private readonly InputAction m_Hunting_Pause;
+    private readonly InputAction m_Hunting_Reload;
     private readonly InputAction m_Hunting_OpenInventory;
     public struct HuntingActions
     {
@@ -641,7 +707,10 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_Hunting_Shoot;
         public InputAction @Interact => m_Wrapper.m_Hunting_Interact;
         public InputAction @Crouch => m_Wrapper.m_Hunting_Crouch;
+        public InputAction @Jump => m_Wrapper.m_Hunting_Jump;
+        public InputAction @OpenWeaponWheel => m_Wrapper.m_Hunting_OpenWeaponWheel;
         public InputAction @Pause => m_Wrapper.m_Hunting_Pause;
+        public InputAction @Reload => m_Wrapper.m_Hunting_Reload;
         public InputAction @OpenInventory => m_Wrapper.m_Hunting_OpenInventory;
         public InputActionMap Get() { return m_Wrapper.m_Hunting; }
         public void Enable() { Get().Enable(); }
@@ -667,9 +736,18 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Crouch.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
+                @Jump.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnJump;
+                @OpenWeaponWheel.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnOpenWeaponWheel;
+                @OpenWeaponWheel.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnOpenWeaponWheel;
+                @OpenWeaponWheel.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnOpenWeaponWheel;
                 @Pause.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnPause;
+                @Reload.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnReload;
                 @OpenInventory.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnOpenInventory;
                 @OpenInventory.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnOpenInventory;
                 @OpenInventory.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnOpenInventory;
@@ -692,9 +770,18 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
+                @OpenWeaponWheel.started += instance.OnOpenWeaponWheel;
+                @OpenWeaponWheel.performed += instance.OnOpenWeaponWheel;
+                @OpenWeaponWheel.canceled += instance.OnOpenWeaponWheel;
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
                 @OpenInventory.started += instance.OnOpenInventory;
                 @OpenInventory.performed += instance.OnOpenInventory;
                 @OpenInventory.canceled += instance.OnOpenInventory;
@@ -847,7 +934,10 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
+        void OnOpenWeaponWheel(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
         void OnOpenInventory(InputAction.CallbackContext context);
     }
     public interface IHouseActions
