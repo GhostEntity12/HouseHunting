@@ -5,7 +5,10 @@ public class Inventory
     private List<InventoryItem> items;
     private List<WeaponInventoryItem> gunAmmo = new List<WeaponInventoryItem>();
 
-    public List<InventoryItem> Items { get; set; }
+	public List<InventoryItem> Items { 
+        get { return items; } 
+        set { items = value; } 
+    }
     public List<WeaponInventoryItem> GunAmmo { get; set; }
 
     public Inventory()
