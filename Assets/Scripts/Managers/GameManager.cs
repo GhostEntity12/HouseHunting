@@ -38,13 +38,15 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        permanentInventory.SetInventory(data.permanentInventory);
+        permanentInventory.Items = data.permanentInventory;
+        permanentInventory.GunAmmo = data.gunAmmo;
         Currency = data.currency;
     }
 
     public void SaveData(GameData data)
     {
         data.permanentInventory = permanentInventory.Items;
+        data.gunAmmo = permanentInventory.GunAmmo;
         data.currency = Currency;
     }
 

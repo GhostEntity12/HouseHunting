@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 5881727287344065269}
   - component: {fileID: 7744787206299875300}
   m_Layer: 31
-  m_Name: Crossbow 1
+  m_Name: Crossbow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -454,24 +454,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3126259693033042120}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8b048778b877b4396458ea492b2448, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c750834e85aa434592367f5a67ae82e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1485033661919127732, guid: f8825bd63efe53f468074c57fcc04429, type: 3}
-  shootForce: 100
-  timeBetweenShooting: 0
-  spread: 0
-  range: 0
-  reloadTime: 1
-  timeBetweenShots: 0
-  magSize: 1
-  bulletsPerTap: 1
-  allowButtonHold: 0
-  recoilForce: 0
-  Cam: {fileID: 0}
-  muzzlePoint: {fileID: 0}
-  muzzleFlash: {fileID: 1000010254994808, guid: 849b008210656a542b75ecfdc722a116, type: 3}
-  text: {fileID: 0}
+  gunSO: {fileID: 11400000, guid: 260cd78f5b7281843b0c646b1f74255c, type: 2}
+  ammoInventory: {fileID: 0}
+  muzzlePoint: {fileID: 406708720872090986}
+  muzzleFlashPrefab: {fileID: 1000010254994808, guid: 849b008210656a542b75ecfdc722a116, type: 3}
+  ammoType: 2
 --- !u!1 &5030455133972718382
 GameObject:
   m_ObjectHideFlags: 0
