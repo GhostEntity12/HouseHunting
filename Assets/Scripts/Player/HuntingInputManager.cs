@@ -18,13 +18,13 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 		playerInput.Hunting.Interact.performed += ctx => Interact();
         playerInput.Hunting.Pause.performed += ctx => GameManager.Instance.SetGamePause(!GameManager.Instance.IsPaused);
+		playerInput.Hunting.Jump.performed += ctx => movement.Jump();
     }
 
 	private void FixedUpdate()
 	{
 		movement.Move(playerInput.Hunting.Movement.ReadValue<Vector2>());
 		movement.Crouch(playerInput.Hunting.Crouch.ReadValue<float>());
-		playerInput.Hunting.Jump.performed += ctx => movement.Jump();
 	}
 
 	private void LateUpdate()
