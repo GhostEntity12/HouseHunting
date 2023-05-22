@@ -27,6 +27,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6a5b3bd76f8630e4fbde59e95f872f1e, type: 2}
   materials:
   - {fileID: 2100000, guid: 77e0807815f787f49986266eb8a05c81, type: 2}
+  - {fileID: 2100000, guid: f6169a20652d95d4d8e1ad0b423f5224, type: 2}
+  - {fileID: 2100000, guid: f5b68ce47b6fe5845bd37c940c812f2f, type: 2}
+  - {fileID: 2100000, guid: b098f126ba88e9f44aebdb6e0584851c, type: 2}
   basePrice: 100
   thumbnail: {fileID: 21300000, guid: cef2f2757602f4745ba2b681b13173a0, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 2f4b06969d53f434aa6b152cc4776240, type: 3}
