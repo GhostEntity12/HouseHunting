@@ -305,7 +305,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		{
 			if (SelectedPlaceable.IsValidPosition)
 			{
-
 				inventoryScrollView.gameObject.SetActive(true);
 			}
 			//If position of placeable is not valid, put it back in the inventory
