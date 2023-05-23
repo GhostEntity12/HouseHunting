@@ -96,7 +96,7 @@ public class Gun : MonoBehaviour
         if (readyToShoot && shooting && !reloading &&  ammoLeft > 0)
         {
             ammoShot = bulletsPerTap;
-            Shoot();
+            Shoot(true);
         }
 
         //Aim
@@ -114,10 +114,13 @@ public class Gun : MonoBehaviour
     }
 
 
-    private void Shoot()
+    private void Shoot(bool firstShot = false)
     {
         //OnGunShootEvent?.Invoke();
-        soundAlerter.MakeSound(volume, transform.position);
+        if (firstShot)
+        {
+            soundAlerter.MakeSound(volume, transform.position);
+        }
         readyToShoot = false;
 
         //Spread

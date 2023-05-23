@@ -9,26 +9,10 @@ public class PlayerMovement : MonoBehaviour
     private readonly float gravity = -9.81f;
     private Vector3 playerVelocity;
     public bool isSneaking;
-    public bool isMoving;
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         soundAlerter = GetComponent<SoundAlerter>();
-    }
-
-    public void Update()
-    {
-        if (isMoving)
-        {
-            if (isSneaking)
-            {
-                soundAlerter.MakeSound(Time.deltaTime * 2, transform.position);
-            }
-            else
-            {
-                soundAlerter.MakeSound(Time.deltaTime * 5, transform.position);
-            }
-        }
     }
 
     public void Move(Vector2 input)
@@ -40,15 +24,22 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(transform.TransformDirection(moveDirection) * currentSpeed * Time.deltaTime);
 
-        Movement(moveDirection.magnitude);
-
         playerVelocity.y += gravity * Time.deltaTime;
 
         if (controller.isGrounded && playerVelocity.y < 0)
             playerVelocity.y = -2f;
 
         controller.Move(playerVelocity * Time.deltaTime);
-        
+
+        if (isSneaking)
+        {
+            soundAlerter.MakeSound(Time.deltaTime * 2, transform.position, 2);
+        }
+        else
+        {
+            soundAlerter.MakeSound(Time.deltaTime * 5, transform.position, 5);
+        }
+
     }
 
     public void Crouch(float input)
@@ -66,17 +57,5 @@ public class PlayerMovement : MonoBehaviour
     public void Sneak(bool input)
     {
         isSneaking = input;
-    }
-
-    public void Movement(float input)
-    {
-        if (input < 0.1)
-        {
-            isMoving = false;
-        }
-        else
-        {
-            isMoving = true;
-        }
     }
 }

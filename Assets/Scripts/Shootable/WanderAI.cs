@@ -364,16 +364,6 @@ public class WanderAI : MonoBehaviour
         return false;
     }
 
-    private bool IsPlayerMoving()
-    {
-        if (playerMovement != null)
-        {
-            return playerMovement.isMoving;
-        }
-
-        return false;
-    }
-
     private void AttackPlayer()
     {
         if (timeSinceLastAttack >= shootable.FurnitureSO.attackInterval)

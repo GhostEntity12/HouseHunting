@@ -10,7 +10,7 @@ public class WeaponWheelController : MonoBehaviour
     public static int weaponID;
     public GameObject weaponHolder, SSG, LAR, Xbow;
     private Recoil Recoil_Script;
-
+    private SoundAlerter soundAlerter;
 
 
     void Start()
@@ -19,6 +19,7 @@ public class WeaponWheelController : MonoBehaviour
         SSG = weaponHolder.transform.GetChild(0).gameObject;
         LAR = weaponHolder.transform.GetChild(1).gameObject;
         Xbow = weaponHolder.transform.GetChild(2).gameObject;
+        soundAlerter = GetComponent<SoundAlerter>();
     }
 
 
@@ -63,6 +64,7 @@ public class WeaponWheelController : MonoBehaviour
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.lockState = CursorLockMode.Confined;
+                soundAlerter.MakeSound(10, weaponHolder.transform.position);
                 weaponID = 0;
                 break;
 
@@ -79,6 +81,7 @@ public class WeaponWheelController : MonoBehaviour
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.lockState = CursorLockMode.Confined;
+                soundAlerter.MakeSound(10, weaponHolder.transform.position);
                 weaponID = 0;
                 break;
             
@@ -95,6 +98,7 @@ public class WeaponWheelController : MonoBehaviour
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.lockState = CursorLockMode.Confined;
+                soundAlerter.MakeSound(10, weaponHolder.transform.position);
                 weaponID = 0;
                 break;
         }
