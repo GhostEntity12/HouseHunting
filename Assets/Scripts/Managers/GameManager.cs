@@ -72,6 +72,6 @@ public class GameManager : MonoBehaviour, IDataPersistence
     {
         Time.timeScale = 1;
         ShowCursor();
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(0);
     }
 }
