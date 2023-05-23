@@ -33,7 +33,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		float tValue = 0;
 		foreach (HouseItem item in houseItems)
 		{
-			tValue += item.inventoryItem.value;
+			tValue += item.inventoryItem.Value;
 		}
 		// can be changed in future
 		if (tValue > 9000)
@@ -82,6 +82,8 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	/// <param name="mode"></param>
 	public void SetHouseMode(HouseMode mode)
 	{
+		// dont allow to switch mode if the shop is opened
+		if (ShopUIManager.Instance.IsShopOpen) return;
 		// Need to:
 		// - Swap camera
 		// - Set cursor visibility

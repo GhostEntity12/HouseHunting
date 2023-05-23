@@ -1,13 +1,17 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour, IDataPersistence
 {
+    [SerializeField] private Canvas pauseMenuCanvas;
+
     private static GameManager instance;
     private Inventory permanentInventory;
 
     public static GameManager Instance => instance;
     public Inventory PermanentInventory { get => permanentInventory; }
     public int Currency { get; set; }
+    public bool IsPaused { get => pauseMenuCanvas.enabled; }
 
     private void Awake()
     {
@@ -34,13 +38,40 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        permanentInventory.SetInventory(data.permanentInventory);
+        permanentInventory.Items = data.permanentInventory;
+        permanentInventory.GunAmmo = data.gunAmmo;
         Currency = data.currency;
     }
 
     public void SaveData(GameData data)
     {
         data.permanentInventory = permanentInventory.Items;
+        data.gunAmmo = permanentInventory.GunAmmo;
         data.currency = Currency;
+    }
+
+    public void SetGamePause(bool pause)
+    {
+        if (pauseMenuCanvas == null) return;
+
+        if (pause)
+        {
+            Time.timeScale = 0;
+            ShowCursor();
+            pauseMenuCanvas.enabled = true;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            HideCursor();
+            pauseMenuCanvas.enabled = false;
+        }
+    }
+
+    public void ReturnToMainMenu()
+    {
+        Time.timeScale = 1;
+        ShowCursor();
+        SceneManager.LoadScene(0);
     }
 }
