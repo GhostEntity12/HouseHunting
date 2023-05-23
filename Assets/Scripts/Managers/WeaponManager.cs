@@ -42,6 +42,8 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public void SelectGun(int index)
     {
+        if (index >= Guns.Count)
+            return;
         Gun selectedGun = guns[index];
         if (selectedGun != null && selectedGun != currentGun)
         {
@@ -51,6 +53,14 @@ public class WeaponManager : Singleton<WeaponManager>
         }
 
         HuntingUIManager.Instance.SetAmmoCounterText(BulletsInMag / currentGun.GunSO.bulletsPerTap +  " / " + BulletsInInventory / currentGun.GunSO.bulletsPerTap);
+    }
+
+ 
+    // function which gives the player ammo
+    public void GiveAmmo(int number)
+    {
+        gunAmmo[currentGunIndex] = new WeaponInventoryItem(gunAmmo[currentGunIndex].id, gunAmmo[currentGunIndex].bulletsInMag, gunAmmo[currentGunIndex].totalBulletsLeft + number);
+        HuntingUIManager.Instance.SetAmmoCounterText(BulletsInMag / currentGun.GunSO.bulletsPerTap + " / " + BulletsInInventory / currentGun.GunSO.bulletsPerTap);
     }
 
     public void Reload()
