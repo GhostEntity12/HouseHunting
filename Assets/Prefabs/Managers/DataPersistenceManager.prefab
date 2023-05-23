@@ -47,4 +47,10 @@ MonoBehaviour:
   allFurnitureSOs:
   - {fileID: 11400000, guid: 505f44f28ec30be44828ef4f711ffd60, type: 2}
   - {fileID: 11400000, guid: 390014d96b7a124489f5476ed23af37c, type: 2}
+  allShopItems:
+  - {fileID: 11400000, guid: 3d45f43b8bbd1e146b019ba0cf99f409, type: 2}
+  - {fileID: 11400000, guid: 8b45c660b64b11345a93a811e517800d, type: 2}
+  - {fileID: 11400000, guid: 00b03ce217396c14abe2f532afc7d10f, type: 2}
+  - {fileID: 11400000, guid: 15d8281f422fcd944866716b67ec1f56, type: 2}
+  defaultGunSO: {fileID: 11400000, guid: 8fe96e106545c50498bb3b14c76c014e, type: 2}
   savedFileName: data

@@ -12,10 +12,11 @@ public class ShopUIManager : Singleton<ShopUIManager>
     [SerializeField] private GameObject furnitureDetailsPanel;
     [SerializeField] private ShopTabItem shopTabItemPrefab;
     [SerializeField] private TextMeshProUGUI noItemsText;
+    [SerializeField] private TextMeshProUGUI currencyText;
 
-    private (FurnitureSO so, InventoryItem inventoryItem)? selectedFurniture;
+    private (FurnitureSO so, FurnitureItem inventoryItem)? selectedFurniture;
     private List<string> tabs;
-    private List<InventoryItem> currentDisplayedItems;
+    private List<FurnitureItem> currentDisplayedItems;
     private Inventory inventory;
 
     public bool IsShopOpen => shopCanvas.enabled;
@@ -27,7 +28,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
 
         SelectItem(null);
         tabs = new List<string>();
-        currentDisplayedItems = new List<InventoryItem>();
+        currentDisplayedItems = new List<FurnitureItem>();
     }
 
     private void Start()
@@ -49,12 +50,15 @@ public class ShopUIManager : Singleton<ShopUIManager>
         else
         {
             noItemsText.gameObject.SetActive(false);
-            foreach (InventoryItem item in currentDisplayedItems)
+            foreach (FurnitureItem item in currentDisplayedItems)
             {
                 ShopFurnitureItem itemThumbnailUI = Instantiate(shopFurnitureItemPrefab, gridLayoutGroup.transform);
                 itemThumbnailUI.SetItem(item);
             }
         }
+
+        if (currencyText != null)
+            currencyText.text = "$" + GameManager.Instance.Currency.ToString();
     }
 
     private void RepaintTab()
@@ -66,7 +70,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
 
         tabs.Clear();
 
-        foreach (InventoryItem item in inventory.Items)
+        foreach (FurnitureItem item in inventory.Items)
         {
             // add a tab for this item if it doesn't exist
             if (!tabs.Contains(item.id))
@@ -75,13 +79,13 @@ public class ShopUIManager : Singleton<ShopUIManager>
             }
         }
 
+        tabs.Sort();
+
         foreach (string tab in tabs)
         {
             ShopTabItem shopTab = Instantiate(shopTabItemPrefab, tabGroup.transform);
             shopTab.SetItem(inventory.Items.Find(x => x.id == tab));
         }
-
-        tabs.Sort();
 
         if (tabs.Count > 0)
             SetTab(tabs[0]);
@@ -104,7 +108,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
         }
     }
 
-    public void SelectItem((FurnitureSO so, InventoryItem inventoryItem)? selectedInventoryItem)
+    public void SelectItem((FurnitureSO so, FurnitureItem inventoryItem)? selectedInventoryItem)
     {
         if (selectedInventoryItem is null)
         {
@@ -128,27 +132,35 @@ public class ShopUIManager : Singleton<ShopUIManager>
         if (selectedFurniture is null) return;
 
         GameManager.Instance.Currency += (int)selectedFurniture?.inventoryItem.price;
-        inventory.RemoveItem((InventoryItem)selectedFurniture?.inventoryItem);
+        inventory.RemoveItem((FurnitureItem)selectedFurniture?.inventoryItem);
         SetTab(selectedFurniture?.inventoryItem.id);
+        RepaintTab();
         SelectItem(null);
         InventoryUIManager.Instance.RepaintInventory();
-
-        Debug.Log(GameManager.Instance.Currency);
     }
 
     public void DropItem()
     {
         if (selectedFurniture is null) return;
 
-        inventory.RemoveItem((InventoryItem)selectedFurniture?.inventoryItem);
+        inventory.RemoveItem((FurnitureItem)selectedFurniture?.inventoryItem);
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         // i wanted to use HuntingInputManager. which is attached to the player but it's null for some reason
         Shootable shootable = Instantiate(selectedFurniture?.so.shootablePrefab, player.transform.position + player.transform.forward * 2, Quaternion.identity);
         shootable.Die();
         SetTab(selectedFurniture?.inventoryItem.id);
+        RepaintTab();
         SelectItem(null);
         // uncomment this if you want the shop to close after dropping an item, its better to keep it open if you want to drop multiple items
         // otherwise its better to close it if the player is only dropping one item.
         // ToggleShop();
+    }
+
+    public void SetSellTab()
+    {
+        foreach (var item in DataPersistenceManager.Instance.AllShopItems)
+        {
+            Debug.Log(item.id);
+        }
     }
 }

@@ -9,17 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fab90db06d00632449427e7316814d82, type: 3}
+  m_Script: {fileID: 11500000, guid: 43309e89d2687d24a907ad13d27c82ce, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   id: shotgun
-  name: Shotgun
-  bulletPrefab: {fileID: 3790431006243065009, guid: 5ff316bf07ef7cf42a70ce61b97da412, type: 3}
+  price: 1000
+  maxQuantity: 1
   icon: {fileID: 21300000, guid: d79a92fb90dd48841b06e145213af236, type: 3}
-  shootForce: 50
-  timeBetweenShots: 1
-  spread: 0.2
-  reloadTime: 1
-  magSize: 24
-  bulletsPerTap: 12
-  price: 3000

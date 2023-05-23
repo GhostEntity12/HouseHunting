@@ -8,7 +8,7 @@ public class Placeable : MonoBehaviour
     [field: SerializeField] public RotationWheel RotationWheel { get; private set; }
 
     public bool IsValidPosition { get; private set; } = true;
-	public InventoryItem InventoryItem { get; set; }
+	public FurnitureItem InventoryItem { get; set; }
     public Material Material { get; set; }
 
     private void Start()

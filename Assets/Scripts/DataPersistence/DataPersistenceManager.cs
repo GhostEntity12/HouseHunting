@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class DataPersistenceManager : MonoBehaviour
 {
     [SerializeField] private List<FurnitureSO> allFurnitureSOs; // this list stores all the placeable scriptable objects in the game, every time a new one is created, it must be added to this list via the Unity editor
+    [SerializeField] private List<ShopItemSO> allShopItems; // this list stores all the buyable items in the game, every time a new one is created, it must be added to this list via the Unity editor
     [SerializeField] private string savedFileName = "data";
 
     private GameData gameData;
@@ -15,6 +16,7 @@ public class DataPersistenceManager : MonoBehaviour
     public static DataPersistenceManager Instance { get; private set; }
 
     public List<FurnitureSO> AllFurnitureSO { get => allFurnitureSOs; }
+    public List<ShopItemSO> AllShopItems { get => allShopItems; }
 
     private void Awake() 
     {
@@ -64,6 +66,9 @@ public class DataPersistenceManager : MonoBehaviour
     public void NewGame()
     {
         gameData = new GameData();
+        gameData.boughtItems.Add(new GunShopItem("crossbow", 1, 0, 100));
+        Debug.Log("Added");
+        gameData.boughtItems.ForEach(x => Debug.Log(x.GetType()));
     }
 
     public void LoadGame()
@@ -92,5 +97,10 @@ public class DataPersistenceManager : MonoBehaviour
     public Placeable GetPlaceablePrefabById(string id)
     {
         return allFurnitureSOs.Find(x => x.id == id).placeablePrefab;
+    }
+
+    public ShopItemSO GetShopItemById(string id)
+    {
+        return allShopItems.Find(x => x.id == id);
     }
 }

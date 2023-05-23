@@ -77,9 +77,9 @@ public abstract class Shootable : MonoBehaviour, IInteractable
     }
         
 
-    public InventoryItem GetInventoryItem()
+    public FurnitureItem GetInventoryItem()
     {
-        return new InventoryItem(furnitureSO.id, scaleFactor, materialIndex, price);
+        return new FurnitureItem(furnitureSO.id, scaleFactor, materialIndex, price);
     }
 
     public void Interact()

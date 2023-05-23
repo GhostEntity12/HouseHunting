@@ -11,17 +11,19 @@ public class WeaponWheel : MonoBehaviour
     private List<Image> weaponWheelItems = new List<Image>();
     private int selectedIndex = 0;
 
+    private int DistinctItemCount => GameManager.Instance.PermanentInventory.BoughtItems.Count;
+
     private void Start()
     {
-        float gapAngle = 2f;
-        float segmentAngle = 360f / WeaponManager.Instance.Guns.Count; // the angle of each segment of the wheel, i.e., how much its takes up of the circle
+        float gapAngle = DistinctItemCount > 1 ? 2f : 0f;
+        float segmentAngle = 360f / DistinctItemCount; // the angle of each segment of the wheel, i.e., how much its takes up of the circle
 
-        for (int i = 0; i < WeaponManager.Instance.Guns.Count; i++)
+        for (int i = 0; i < DistinctItemCount; i++)
         {
             // instantiate weapon wheel item (full circle)
             Image item = Instantiate(weaponWheelItemPrefab, transform);
             // adjust the fill amount of the wheel to the size of the segment, but subtract half the gap angle
-            item.fillAmount = 1f / WeaponManager.Instance.Guns.Count - gapAngle / 2 / 360f;
+            item.fillAmount = 1f / DistinctItemCount - gapAngle / 2 / 360f;
 
             item.transform.localPosition = Vector3.zero;
             // rotate the wheel item by the angle of the segment
@@ -38,13 +40,13 @@ public class WeaponWheel : MonoBehaviour
             Image icon = new GameObject("Icon").AddComponent<Image>();
             icon.transform.SetParent(transform);
             // set the icon's sprite to the weapon's icon
-            icon.sprite = WeaponManager.Instance.Guns[i].GunSO.icon;
+            icon.sprite = DataPersistenceManager.Instance.GetShopItemById(GameManager.Instance.PermanentInventory.BoughtItems[i].id).icon;
 
             // calculate the angle of the icon based on the index of the weapon, i.e., which segment of the wheel it is in
-            float angleInDegrees = 360 / WeaponManager.Instance.Guns.Count * i;
+            float angleInDegrees = 360 / DistinctItemCount * i;
 
             // offset angle by half angle to center the icon in the segment
-            angleInDegrees += 360 / WeaponManager.Instance.Guns.Count / 2;
+            angleInDegrees += 360 / DistinctItemCount / 2;
             // convert the angle to radians
             float angleInRadians = angleInDegrees * Mathf.Deg2Rad;
             // calculate the x and y coordinates of the icon based on the angle
@@ -56,7 +58,7 @@ public class WeaponWheel : MonoBehaviour
             icon.rectTransform.sizeDelta = new Vector2(100f, 100f);
         }
 
-        insideWheel.fillAmount = 1f / WeaponManager.Instance.Guns.Count;
+        insideWheel.fillAmount = 1f / DistinctItemCount;
 
         CloseWeaponWheel();
     }
@@ -132,10 +134,10 @@ public class WeaponWheel : MonoBehaviour
             mouseAngleFromCenter = (mouseAngleFromCenter + 360) % 360;
 
             // calculate the angle of each segment of the wheel
-            float anglePerSegment = 360f / WeaponManager.Instance.Guns.Count;
+            float anglePerSegment = 360f / DistinctItemCount;
             selectedIndex = Mathf.FloorToInt(mouseAngleFromCenter / anglePerSegment);
 
-            // highlight the selected weapon
+            // highlight the selected item
             weaponWheelItems.ForEach(item => item.color = Color.gray);
             weaponWheelItems[selectedIndex].color = Color.white;
 
@@ -154,6 +156,6 @@ public class WeaponWheel : MonoBehaviour
     {
         gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
-        WeaponManager.Instance.SelectGun(selectedIndex);
+        WeaponManager.Instance.SelectItem(selectedIndex);
     }
 }

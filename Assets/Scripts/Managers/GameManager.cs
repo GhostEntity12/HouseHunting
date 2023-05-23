@@ -39,14 +39,14 @@ public class GameManager : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         permanentInventory.Items = data.permanentInventory;
-        permanentInventory.GunAmmo = data.gunAmmo;
+        permanentInventory.BoughtItems = data.boughtItems;
         Currency = data.currency;
     }
 
     public void SaveData(GameData data)
     {
         data.permanentInventory = permanentInventory.Items;
-        data.gunAmmo = permanentInventory.GunAmmo;
+        data.boughtItems = permanentInventory.BoughtItems;
         data.currency = Currency;
     }
 
@@ -72,6 +72,6 @@ public class GameManager : MonoBehaviour, IDataPersistence
     {
         Time.timeScale = 1;
         ShowCursor();
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(0);
     }
 }
