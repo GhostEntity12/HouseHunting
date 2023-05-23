@@ -89,7 +89,7 @@ public class Gun : MonoBehaviour
 
         if (firstShot)
         {
-            soundAlerter.MakeSound(volume, transform.position);
+            soundAlerter.MakeSound(GunSO.volume, transform.position);
         }
         readyToShoot = false;
 

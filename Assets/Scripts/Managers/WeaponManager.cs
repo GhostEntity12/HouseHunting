@@ -7,6 +7,7 @@ public class WeaponManager : Singleton<WeaponManager>
     private Gun currentGun;
     private int currentGunIndex = 0;
     private List<WeaponInventoryItem> gunAmmo = new();
+    private SoundAlerter soundAlerter;
 
     public List<Gun> Guns => guns;
     public int CurrentGunIndex => currentGunIndex;
@@ -29,6 +30,7 @@ public class WeaponManager : Singleton<WeaponManager>
     private void Start()
     {
         gunAmmo = GameManager.Instance.PermanentInventory.GunAmmo;
+        soundAlerter = GameObject.Find("Player").GetComponent<SoundAlerter>();
 
         foreach (Gun gun in guns)
         {
@@ -50,6 +52,7 @@ public class WeaponManager : Singleton<WeaponManager>
             Destroy(currentGun.gameObject);
             currentGun = Instantiate(selectedGun, transform);
             currentGunIndex = index;
+            soundAlerter.MakeSound(10, transform.position);
         }
 
         HuntingUIManager.Instance.SetAmmoCounterText(BulletsInMag / currentGun.GunSO.bulletsPerTap +  " / " + BulletsInInventory / currentGun.GunSO.bulletsPerTap);
