@@ -13,6 +13,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
     [SerializeField] private ShopTabItem shopTabItemPrefab;
     [SerializeField] private TextMeshProUGUI noItemsText;
     [SerializeField] private TextMeshProUGUI currencyText;
+    // [SerializeField] private CanvasRenderer buyMenu;
 
     private (FurnitureSO so, FurnitureItem inventoryItem)? selectedFurniture;
     private List<string> tabs;
@@ -38,6 +39,8 @@ public class ShopUIManager : Singleton<ShopUIManager>
 
     private void RepaintShop()
     {
+        noItemsText.gameObject.SetActive(false);
+
         foreach (Transform child in gridLayoutGroup.transform)
         {
             Destroy(child.gameObject);
@@ -123,6 +126,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
     public void SetTab(string tabName)
     {
         currentDisplayedItems = inventory.Items.FindAll(x => x.id == tabName);
+        BuyMenuUIManager.Instance.ToggleBuyMenu(false);
         SelectItem(null);
         RepaintShop();
     }
@@ -154,13 +158,5 @@ public class ShopUIManager : Singleton<ShopUIManager>
         // uncomment this if you want the shop to close after dropping an item, its better to keep it open if you want to drop multiple items
         // otherwise its better to close it if the player is only dropping one item.
         // ToggleShop();
-    }
-
-    public void SetSellTab()
-    {
-        foreach (var item in DataPersistenceManager.Instance.AllShopItems)
-        {
-            Debug.Log(item.id);
-        }
     }
 }
