@@ -33,7 +33,6 @@ public class ShopUIManager : Singleton<ShopUIManager>
     private void Start()
     {
         inventory = HuntingManager.Instance != null ? HuntingManager.Instance.HuntingInventory : GameManager.Instance.PermanentInventory;
-        Debug.Log(inventory.Items.Count);
     }
 
     private void RepaintShop()
