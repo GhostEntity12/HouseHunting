@@ -44,16 +44,17 @@ public class Hitbox : MonoBehaviour
 #if UNITY_EDITOR
 	private void OnDrawGizmos()
 	{
-		// Get appropriate color
-		Color[] colors = { Color.blue, Color.green, Color.red };
-		float scaled = Mathf.Clamp(damageModifier, 0, 1.999f);
-		Color start = colors[(int)scaled];
-		Color end = colors[(int)scaled + 1];
-		Color c = Color.Lerp(start, end, scaled - (int)scaled);
-		Gizmos.color = new(c.r, c.g, c.b, 0.3f);
-		// Render
+
 		if (showHitbox)
-		{
+		{   // Get appropriate color
+			Color[] colors = { Color.blue, Color.green, Color.red };
+			float scaled = Mathf.Clamp(damageModifier, 0, 1.999f);
+			Color start = colors[(int)scaled];
+			Color end = colors[(int)scaled + 1];
+			Color c = Color.Lerp(start, end, scaled - (int)scaled);
+			Gizmos.color = new(c.r, c.g, c.b, 0.3f);
+			
+			// Render
 			switch (hitbox) {
 				case BoxCollider bc:
 					Gizmos.DrawCube(bc.center, bc.size);
