@@ -13,6 +13,7 @@ public class Gun : MonoBehaviour
 
     private Animator anim;
     private Recoil recoil;
+    private SoundAlerter soundAlerter;
 
     public GunSO GunSO { get => gunSO; }
     public delegate void OnGunShoot();
@@ -24,6 +25,7 @@ public class Gun : MonoBehaviour
     {
         recoil = GetComponentInParent<Recoil>();
         ammoInventory = GameObject.Find("Player").GetComponent<AmmoInventory>();
+        soundAlerter = GameObject.Find("Player").GetComponent<SoundAlerter>();
         readyToShoot = true;
         anim = GetComponent<Animator>();
         aiming = false;
@@ -80,12 +82,15 @@ public class Gun : MonoBehaviour
         // }
     }
 
-    public void Shoot()
+    public void Shoot(bool firstShot = false)
     {
         if (GameManager.Instance.IsPaused) return;
         if ( !readyToShoot || WeaponManager.Instance.BulletsInMag <= 0 || reloading) return;
 
-        OnGunShootEvent?.Invoke();
+        if (firstShot)
+        {
+            soundAlerter.MakeSound(GunSO.volume, transform.position);
+        }
         readyToShoot = false;
 
         for (int i = 0; i < gunSO.bulletsPerTap; i++)
