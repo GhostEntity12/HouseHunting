@@ -35,6 +35,9 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 		// reload
 		playerInput.Hunting.Reload.performed += ctx => WeaponManager.Instance.CurrentGun.Reload();
+
+		// aim
+		playerInput.Hunting.Aim.performed += ctx => WeaponManager.Instance.CurrentGun.Aim();
     }
 
 	private void FixedUpdate()

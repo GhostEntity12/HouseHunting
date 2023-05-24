@@ -1,10 +1,24 @@
 using UnityEngine;
+using System.Collections;
 
 public class Bullet : MonoBehaviour
 {
     public int damage;
     public GameObject bulletHole;
     public float lifespan;
+
+    void Update()
+    {
+        //DeSpawn bullet
+        if (gameObject.activeInHierarchy)
+        {
+            StartCoroutine(DisableBullet(lifespan));
+        }
+    }
+    
+
+
+
 
     void OnCollisionEnter(Collision collision)
     {
@@ -19,21 +33,24 @@ public class Bullet : MonoBehaviour
             Vector3 position = contact.point;
             GameObject obj = Instantiate(bulletHole, contact.point, rotation);
             obj.transform.position += obj.transform.forward/1000;
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         if (collision.gameObject.tag == "floor")
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         if (collision.gameObject.tag == "Player")
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
+    }
 
-        //DeSpawn bullet
-        Destroy(gameObject, lifespan); 
+    private IEnumerator DisableBullet(float lifespan)
+    {
+        yield return new WaitForSeconds(lifespan);
+        gameObject.SetActive(false);
     }
     
 }

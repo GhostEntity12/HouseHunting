@@ -5,7 +5,7 @@ public class GunSO : ScriptableObject
 {
     public string id;
     public new string name;
-    public Bullet bulletPrefab;
+    public GameObject bulletPrefab;
     public Sprite icon;
     public float shootForce;
     public float timeBetweenShots;

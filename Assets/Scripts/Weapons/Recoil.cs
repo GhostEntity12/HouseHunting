@@ -18,11 +18,11 @@ public class Recoil : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        recoilX = 1;
-        recoilY = 1;
-        recoilZ = 1;
-        snappiness = 3;
-        returnSpeed = 2;
+        recoilX = -14;
+        recoilY = 5;
+        recoilZ = 0;
+        snappiness = 8;
+        returnSpeed = 5;
     }
 
     // Update is called once per frame

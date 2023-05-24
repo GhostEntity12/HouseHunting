@@ -18,6 +18,7 @@ public class WeaponManager : Singleton<WeaponManager>
     }
 
     public int BulletsInInventory => gunAmmo[currentGunIndex].totalBulletsLeft;
+    //public int BulletsInInventory => 1000;
 
     protected override void Awake()
     {
