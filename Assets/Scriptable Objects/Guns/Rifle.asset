@@ -22,4 +22,4 @@ MonoBehaviour:
   reloadTime: 1
   magSize: 7
   bulletsPerTap: 1
-  price: 2000
+  bulletShopItem: {fileID: 11400000, guid: f3a684ff4fe193242ac434de63ea8118, type: 2}

@@ -66,9 +66,7 @@ public class DataPersistenceManager : MonoBehaviour
     public void NewGame()
     {
         gameData = new GameData();
-        gameData.boughtItems.Add(new GunShopItem("crossbow", 1, 0, 100));
-        Debug.Log("Added");
-        gameData.boughtItems.ForEach(x => Debug.Log(x.GetType()));
+        gameData.boughtItems.Add(new GunShopItem("crossbow", 1, 0));
     }
 
     public void LoadGame()

@@ -13,7 +13,6 @@ public class ShopUIManager : Singleton<ShopUIManager>
     [SerializeField] private ShopTabItem shopTabItemPrefab;
     [SerializeField] private TextMeshProUGUI noItemsText;
     [SerializeField] private TextMeshProUGUI currencyText;
-    // [SerializeField] private CanvasRenderer buyMenu;
 
     private (FurnitureSO so, FurnitureItem inventoryItem)? selectedFurniture;
     private List<string> tabs;
