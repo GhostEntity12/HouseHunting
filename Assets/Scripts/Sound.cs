@@ -27,4 +27,13 @@ public class Sound
     [HideInInspector]
     public AudioSource source;
 
+    public void Setup()
+    {
+        source.clip = clip;
+        source.loop = loop;
+        source.playOnAwake = playOnAwake;
+        source.volume = volume;
+        source.pitch = pitch;
+    }
+
 }
