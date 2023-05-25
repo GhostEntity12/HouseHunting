@@ -73,9 +73,108 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""381caadc-35f7-4694-b565-d5edf82c7b7c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenWeaponWheel"",
+                    ""type"": ""Button"",
+                    ""id"": ""518864de-6e45-4afa-8848-7b6971231d07"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""16af94c8-06c5-439e-8162-7f279e1fc9e7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""7ce7cde9-a82b-4af7-806c-2da234659dd4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""ee11ff63-d43e-4a31-a2d1-29726d488556"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick1"",
+                    ""type"": ""Value"",
+                    ""id"": ""578fcd47-65d7-484b-bd2c-d6a9c5b6d2b9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Quick2"",
+                    ""type"": ""Button"",
+                    ""id"": ""e84c593f-8bd6-4ac6-acbc-c2c55984d571"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick3"",
+                    ""type"": ""Button"",
+                    ""id"": ""6e3ee953-7b8c-46b5-b4b9-8d4c5a9586be"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick4"",
+                    ""type"": ""Button"",
+                    ""id"": ""18b6ca5c-d67b-4c11-96f3-3ca04fa58ada"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick5"",
+                    ""type"": ""Button"",
+                    ""id"": ""b4e0518d-75d3-4172-94cd-b2ca0ba20805"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick6"",
+                    ""type"": ""Button"",
+                    ""id"": ""1da8ed7e-5edf-48ee-9870-0f0d1861d2a7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugAmmo"",
+                    ""type"": ""Button"",
+                    ""id"": ""76d1ac6f-d949-4ece-aa0c-fd32fb6bdbdb"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -184,6 +283,28 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""3835f930-f7c2-4048-91f1-4bc9e2a3a794"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5b0e2deb-29db-453c-a3cf-74d911edb3f4"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenWeaponWheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""2e0cc306-1ed0-418c-afaa-baf1564bde00"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
@@ -192,6 +313,127 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e28fc43b-c3c5-4078-8c7f-3110225f4b95"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46bca0ac-997a-4aeb-b88b-c3ba5742d922"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f4e8f20-f97f-4f4e-9b36-15cd764994b3"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quick1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53ed7107-743a-48c9-a437-c6cf47678cc5"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quick2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""33dc316f-cac5-4b51-91cb-142808438575"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quick3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5678bf33-2797-49d8-98b9-d726081803b3"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quick4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0cb5262a-3ff0-4cf9-b8a3-18ed42342c63"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quick5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d320e440-a6e9-45e5-8e33-e730d671584c"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quick6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""51c8d6b1-96c1-46bf-a437-83792d78148b"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugAmmo"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""64678518-d464-41eb-84b1-8c334b29a125"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugAmmo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""857c9309-7645-41c1-9c21-b0f9239804a3"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DebugAmmo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -529,7 +771,18 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Hunting_Shoot = m_Hunting.FindAction("Shoot", throwIfNotFound: true);
         m_Hunting_Interact = m_Hunting.FindAction("Interact", throwIfNotFound: true);
         m_Hunting_Crouch = m_Hunting.FindAction("Crouch", throwIfNotFound: true);
+        m_Hunting_Jump = m_Hunting.FindAction("Jump", throwIfNotFound: true);
+        m_Hunting_OpenWeaponWheel = m_Hunting.FindAction("OpenWeaponWheel", throwIfNotFound: true);
         m_Hunting_Pause = m_Hunting.FindAction("Pause", throwIfNotFound: true);
+        m_Hunting_Reload = m_Hunting.FindAction("Reload", throwIfNotFound: true);
+        m_Hunting_OpenInventory = m_Hunting.FindAction("OpenInventory", throwIfNotFound: true);
+        m_Hunting_Quick1 = m_Hunting.FindAction("Quick1", throwIfNotFound: true);
+        m_Hunting_Quick2 = m_Hunting.FindAction("Quick2", throwIfNotFound: true);
+        m_Hunting_Quick3 = m_Hunting.FindAction("Quick3", throwIfNotFound: true);
+        m_Hunting_Quick4 = m_Hunting.FindAction("Quick4", throwIfNotFound: true);
+        m_Hunting_Quick5 = m_Hunting.FindAction("Quick5", throwIfNotFound: true);
+        m_Hunting_Quick6 = m_Hunting.FindAction("Quick6", throwIfNotFound: true);
+        m_Hunting_DebugAmmo = m_Hunting.FindAction("DebugAmmo", throwIfNotFound: true);
         // House
         m_House = asset.FindActionMap("House", throwIfNotFound: true);
         m_House_Movement = m_House.FindAction("Movement", throwIfNotFound: true);
@@ -609,7 +862,18 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_Shoot;
     private readonly InputAction m_Hunting_Interact;
     private readonly InputAction m_Hunting_Crouch;
+    private readonly InputAction m_Hunting_Jump;
+    private readonly InputAction m_Hunting_OpenWeaponWheel;
     private readonly InputAction m_Hunting_Pause;
+    private readonly InputAction m_Hunting_Reload;
+    private readonly InputAction m_Hunting_OpenInventory;
+    private readonly InputAction m_Hunting_Quick1;
+    private readonly InputAction m_Hunting_Quick2;
+    private readonly InputAction m_Hunting_Quick3;
+    private readonly InputAction m_Hunting_Quick4;
+    private readonly InputAction m_Hunting_Quick5;
+    private readonly InputAction m_Hunting_Quick6;
+    private readonly InputAction m_Hunting_DebugAmmo;
     public struct HuntingActions
     {
         private @PlayerInput m_Wrapper;
@@ -619,7 +883,18 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_Hunting_Shoot;
         public InputAction @Interact => m_Wrapper.m_Hunting_Interact;
         public InputAction @Crouch => m_Wrapper.m_Hunting_Crouch;
+        public InputAction @Jump => m_Wrapper.m_Hunting_Jump;
+        public InputAction @OpenWeaponWheel => m_Wrapper.m_Hunting_OpenWeaponWheel;
         public InputAction @Pause => m_Wrapper.m_Hunting_Pause;
+        public InputAction @Reload => m_Wrapper.m_Hunting_Reload;
+        public InputAction @OpenInventory => m_Wrapper.m_Hunting_OpenInventory;
+        public InputAction @Quick1 => m_Wrapper.m_Hunting_Quick1;
+        public InputAction @Quick2 => m_Wrapper.m_Hunting_Quick2;
+        public InputAction @Quick3 => m_Wrapper.m_Hunting_Quick3;
+        public InputAction @Quick4 => m_Wrapper.m_Hunting_Quick4;
+        public InputAction @Quick5 => m_Wrapper.m_Hunting_Quick5;
+        public InputAction @Quick6 => m_Wrapper.m_Hunting_Quick6;
+        public InputAction @DebugAmmo => m_Wrapper.m_Hunting_DebugAmmo;
         public InputActionMap Get() { return m_Wrapper.m_Hunting; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -644,9 +919,42 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Crouch.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
+                @Jump.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnJump;
+                @OpenWeaponWheel.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnOpenWeaponWheel;
+                @OpenWeaponWheel.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnOpenWeaponWheel;
+                @OpenWeaponWheel.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnOpenWeaponWheel;
                 @Pause.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnPause;
+                @Reload.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnReload;
+                @OpenInventory.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnOpenInventory;
+                @OpenInventory.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnOpenInventory;
+                @OpenInventory.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnOpenInventory;
+                @Quick1.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick1;
+                @Quick1.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick1;
+                @Quick1.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick1;
+                @Quick2.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick2;
+                @Quick2.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick2;
+                @Quick2.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick2;
+                @Quick3.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick3;
+                @Quick3.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick3;
+                @Quick3.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick3;
+                @Quick4.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick4;
+                @Quick4.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick4;
+                @Quick4.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick4;
+                @Quick5.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick5;
+                @Quick5.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick5;
+                @Quick5.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick5;
+                @Quick6.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick6;
+                @Quick6.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick6;
+                @Quick6.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnQuick6;
+                @DebugAmmo.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnDebugAmmo;
+                @DebugAmmo.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnDebugAmmo;
+                @DebugAmmo.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnDebugAmmo;
             }
             m_Wrapper.m_HuntingActionsCallbackInterface = instance;
             if (instance != null)
@@ -666,9 +974,42 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
+                @OpenWeaponWheel.started += instance.OnOpenWeaponWheel;
+                @OpenWeaponWheel.performed += instance.OnOpenWeaponWheel;
+                @OpenWeaponWheel.canceled += instance.OnOpenWeaponWheel;
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
+                @OpenInventory.started += instance.OnOpenInventory;
+                @OpenInventory.performed += instance.OnOpenInventory;
+                @OpenInventory.canceled += instance.OnOpenInventory;
+                @Quick1.started += instance.OnQuick1;
+                @Quick1.performed += instance.OnQuick1;
+                @Quick1.canceled += instance.OnQuick1;
+                @Quick2.started += instance.OnQuick2;
+                @Quick2.performed += instance.OnQuick2;
+                @Quick2.canceled += instance.OnQuick2;
+                @Quick3.started += instance.OnQuick3;
+                @Quick3.performed += instance.OnQuick3;
+                @Quick3.canceled += instance.OnQuick3;
+                @Quick4.started += instance.OnQuick4;
+                @Quick4.performed += instance.OnQuick4;
+                @Quick4.canceled += instance.OnQuick4;
+                @Quick5.started += instance.OnQuick5;
+                @Quick5.performed += instance.OnQuick5;
+                @Quick5.canceled += instance.OnQuick5;
+                @Quick6.started += instance.OnQuick6;
+                @Quick6.performed += instance.OnQuick6;
+                @Quick6.canceled += instance.OnQuick6;
+                @DebugAmmo.started += instance.OnDebugAmmo;
+                @DebugAmmo.performed += instance.OnDebugAmmo;
+                @DebugAmmo.canceled += instance.OnDebugAmmo;
             }
         }
     }
@@ -818,7 +1159,18 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
+        void OnOpenWeaponWheel(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
+        void OnOpenInventory(InputAction.CallbackContext context);
+        void OnQuick1(InputAction.CallbackContext context);
+        void OnQuick2(InputAction.CallbackContext context);
+        void OnQuick3(InputAction.CallbackContext context);
+        void OnQuick4(InputAction.CallbackContext context);
+        void OnQuick5(InputAction.CallbackContext context);
+        void OnQuick6(InputAction.CallbackContext context);
+        void OnDebugAmmo(InputAction.CallbackContext context);
     }
     public interface IHouseActions
     {

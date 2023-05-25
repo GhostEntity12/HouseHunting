@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fab90db06d00632449427e7316814d82, type: 3}
+  m_Name: Crossbow
+  m_EditorClassIdentifier: 
+  id: crossbow
+  name: Crossbow
+  bulletPrefab: {fileID: -2745290377811084254, guid: f8825bd63efe53f468074c57fcc04429, type: 3}
+  icon: {fileID: 21300000, guid: 10f7123ecdff66c4dbf27fd86ec1155c, type: 3}
+  shootForce: 100
+  timeBetweenShots: 2
+  spread: 0
+  reloadTime: 1
+  magSize: 1
+  bulletsPerTap: 1
+  allowButtonHold: 0

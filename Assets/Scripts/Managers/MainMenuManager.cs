@@ -13,13 +13,13 @@ public class MainMenuManager : Singleton<MainMenuManager>
     public void NewGame()
     {
         DataPersistenceManager.Instance.NewGame();
-        SceneManager.LoadScene("ForestTestingEthan");
+        SceneManager.LoadScene(2);
     }
 
     public void Continue()
     {
         DataPersistenceManager.Instance.LoadGame();
-        SceneManager.LoadScene("ForestTestingEthan");
+        SceneManager.LoadScene(2);
     }
 
     public void QuitGame()

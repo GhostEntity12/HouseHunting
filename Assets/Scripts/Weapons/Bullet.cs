@@ -6,11 +6,9 @@ public class Bullet : MonoBehaviour
     public GameObject bulletHole;
     public float lifespan;
 
-    
-    
     void OnCollisionEnter(Collision collision)
     {
-        //on collision with shootable furniture, take damage
+        // on collision with shootable furniture, take damage
         Shootable shootableTarget = collision.transform.GetComponentInParent<Shootable>();
         if (shootableTarget != null)
         {
