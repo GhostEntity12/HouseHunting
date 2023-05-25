@@ -3,10 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : Singleton<MainMenuManager>
 {
+    private AudioManager audioManager;
     
     private void Start() 
     {
-
+        audioManager = FindObjectOfType<AudioManager>();
+		audioManager.Play("Ambience02");
     }
     public void NewGame()
     {

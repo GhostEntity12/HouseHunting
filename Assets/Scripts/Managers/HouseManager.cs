@@ -18,6 +18,8 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	private List<HouseItem> houseItems;
 	private float houseValue = 0;
 
+	private AudioManager audioManager;
+
 	private void Start()
 	{
 		SpawnSerializedPlaceables();
@@ -25,6 +27,9 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
         Debug.Log("HouseRating: "+houseValue);
 		SetHouseMode(HouseMode.Explore);
+
+		audioManager = FindObjectOfType<AudioManager>();
+		audioManager.Play("Building");
 	}
 
 	// function to calculate house rating, on certain threseholds (to be determined later), unlockTier is called to unlock that tier.

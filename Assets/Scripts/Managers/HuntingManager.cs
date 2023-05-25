@@ -13,8 +13,9 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
     private int currentHealth;
     private Inventory huntingInventory;
     private float huntingTimerSeconds;
-    //private AudioManager audioManager;
     public Inventory HuntingInventory => huntingInventory;
+
+    private AudioManager audioManager;
 
     protected override void Awake()
     {
@@ -29,8 +30,9 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
     private void Start()
     {
         huntingTimerText.text = FormatTime(huntingDurationSeconds);
-        AudioManager.Instance.Play("Combat");
-        //audioManager.Play("Ambience");
+
+        audioManager = FindObjectOfType<AudioManager>();
+		audioManager.Play("Ambience");
     }
 
     private void Update() 
