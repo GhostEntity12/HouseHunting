@@ -15,4 +15,9 @@ public class BuyMenuItemUI : MonoBehaviour
         thumbnail.sprite = item.icon;
         nameText.text = item.name;
     }
+
+    public void OnClick()
+    {
+        BuyMenuUIManager.Instance.SelectItem(shopItem);
+    }
 }

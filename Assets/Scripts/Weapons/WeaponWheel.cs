@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ public class WeaponWheel : MonoBehaviour
     private List<Image> weaponWheelItems = new List<Image>();
     private int selectedIndex = 0;
 
-    private int DistinctItemCount => GameManager.Instance.PermanentInventory.BoughtItems.Count;
+    private int DistinctItemCount => GameManager.Instance.PermanentInventory.BoughtItems.Where(x => x is GunShopItem).Cast<GunShopItem>().ToList().Count;
 
     private void Start()
     {
