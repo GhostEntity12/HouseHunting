@@ -64,6 +64,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""2ec92dad-eb30-4d05-8632-c7166be9528b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Crouch"",
                     ""type"": ""Button"",
                     ""id"": ""0e16a203-14d2-43a3-8939-70129b7ad8e9"",
@@ -273,7 +282,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""04a4e74c-e3f9-40d5-a660-0fc5c04106d2"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -434,6 +443,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""DebugAmmo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4ef95762-bab2-40ba-b6d5-7d42c1277e38"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -499,6 +519,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""7040fe47-d6d5-4dba-8f45-1bb56b93bb45"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""b6db9991-ae16-42b9-bd78-b4d99eee5e9a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -608,7 +637,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""12efbce1-649b-41bc-b977-2bfec8e5f722"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -624,6 +653,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d78ad43-d3e3-453b-83e8-5721c0e56d31"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -770,6 +810,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Hunting_Look = m_Hunting.FindAction("Look", throwIfNotFound: true);
         m_Hunting_Shoot = m_Hunting.FindAction("Shoot", throwIfNotFound: true);
         m_Hunting_Interact = m_Hunting.FindAction("Interact", throwIfNotFound: true);
+        m_Hunting_Sprint = m_Hunting.FindAction("Sprint", throwIfNotFound: true);
         m_Hunting_Crouch = m_Hunting.FindAction("Crouch", throwIfNotFound: true);
         m_Hunting_Jump = m_Hunting.FindAction("Jump", throwIfNotFound: true);
         m_Hunting_OpenWeaponWheel = m_Hunting.FindAction("OpenWeaponWheel", throwIfNotFound: true);
@@ -792,6 +833,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_House_OpenShop = m_House.FindAction("OpenShop", throwIfNotFound: true);
         m_House_Crouch = m_House.FindAction("Crouch", throwIfNotFound: true);
         m_House_Pause = m_House.FindAction("Pause", throwIfNotFound: true);
+        m_House_Sprint = m_House.FindAction("Sprint", throwIfNotFound: true);
         // Decorate
         m_Decorate = asset.FindActionMap("Decorate", throwIfNotFound: true);
         m_Decorate_ExitToHouse = m_Decorate.FindAction("ExitToHouse", throwIfNotFound: true);
@@ -861,6 +903,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_Look;
     private readonly InputAction m_Hunting_Shoot;
     private readonly InputAction m_Hunting_Interact;
+    private readonly InputAction m_Hunting_Sprint;
     private readonly InputAction m_Hunting_Crouch;
     private readonly InputAction m_Hunting_Jump;
     private readonly InputAction m_Hunting_OpenWeaponWheel;
@@ -882,6 +925,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Hunting_Look;
         public InputAction @Shoot => m_Wrapper.m_Hunting_Shoot;
         public InputAction @Interact => m_Wrapper.m_Hunting_Interact;
+        public InputAction @Sprint => m_Wrapper.m_Hunting_Sprint;
         public InputAction @Crouch => m_Wrapper.m_Hunting_Crouch;
         public InputAction @Jump => m_Wrapper.m_Hunting_Jump;
         public InputAction @OpenWeaponWheel => m_Wrapper.m_Hunting_OpenWeaponWheel;
@@ -916,6 +960,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnInteract;
+                @Sprint.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnSprint;
+                @Sprint.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnSprint;
+                @Sprint.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnSprint;
                 @Crouch.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
@@ -971,6 +1018,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
@@ -1025,6 +1075,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_House_OpenShop;
     private readonly InputAction m_House_Crouch;
     private readonly InputAction m_House_Pause;
+    private readonly InputAction m_House_Sprint;
     public struct HouseActions
     {
         private @PlayerInput m_Wrapper;
@@ -1036,6 +1087,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @OpenShop => m_Wrapper.m_House_OpenShop;
         public InputAction @Crouch => m_Wrapper.m_House_Crouch;
         public InputAction @Pause => m_Wrapper.m_House_Pause;
+        public InputAction @Sprint => m_Wrapper.m_House_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_House; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1066,6 +1118,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Pause.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnPause;
+                @Sprint.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnSprint;
+                @Sprint.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnSprint;
+                @Sprint.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnSprint;
             }
             m_Wrapper.m_HouseActionsCallbackInterface = instance;
             if (instance != null)
@@ -1091,6 +1146,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
             }
         }
     }
@@ -1158,6 +1216,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnOpenWeaponWheel(InputAction.CallbackContext context);
@@ -1181,6 +1240,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnOpenShop(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
     public interface IDecorateActions
     {

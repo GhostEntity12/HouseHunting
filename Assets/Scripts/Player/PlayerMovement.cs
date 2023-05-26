@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 playerVelocity;
     private float jumpSpeed = 15f;
     public bool isSneaking;
+    public bool isSprinting;
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -21,7 +22,15 @@ public class PlayerMovement : MonoBehaviour
         Vector3 moveDirection = new(input.x, 0, input.y);
 
         // Slow down the movement if the player is not sprinting
-        float currentSpeed = isSneaking ? speed / 2 : speed;
+        //float currentSpeed = isSneaking ? speed / 2 : speed;
+
+        float currentSpeed = speed;
+        if(isSprinting) {
+            currentSpeed = 10f;
+        } 
+        if (isSneaking) {
+            currentSpeed = speed / 2;
+        }
 
         controller.Move(transform.TransformDirection(moveDirection) * currentSpeed * Time.deltaTime);
 
@@ -67,8 +76,23 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void Sprint(float input)
+    {
+        if (input > 0) {
+            Sprinting(true);
+        } 
+        else {
+            Sprinting(false);
+        }
+    }
+
     public void Sneak(bool input)
     {
         isSneaking = input;
+    }
+
+    public void Sprinting(bool input)
+    {
+        isSprinting = input;
     }
 }

@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Sprint",
+                    "type": "Button",
+                    "id": "2ec92dad-eb30-4d05-8632-c7166be9528b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Crouch",
                     "type": "Button",
                     "id": "0e16a203-14d2-43a3-8939-70129b7ad8e9",
@@ -251,7 +260,7 @@
                 {
                     "name": "",
                     "id": "04a4e74c-e3f9-40d5-a660-0fc5c04106d2",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -412,6 +421,17 @@
                     "action": "DebugAmmo",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "4ef95762-bab2-40ba-b6d5-7d42c1277e38",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -477,6 +497,15 @@
                     "name": "Pause",
                     "type": "Button",
                     "id": "7040fe47-d6d5-4dba-8f45-1bb56b93bb45",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Sprint",
+                    "type": "Button",
+                    "id": "b6db9991-ae16-42b9-bd78-b4d99eee5e9a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -586,7 +615,7 @@
                 {
                     "name": "",
                     "id": "12efbce1-649b-41bc-b977-2bfec8e5f722",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -602,6 +631,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8d78ad43-d3e3-453b-83e8-5721c0e56d31",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
