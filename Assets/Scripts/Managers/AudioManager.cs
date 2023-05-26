@@ -10,9 +10,9 @@ public class AudioManager : Singleton<AudioManager>
     public AudioMixerGroup sfxMixerGroup;
     public Sound[] sounds;
 
-    void Awake()
+    protected override void Awake()
     {
-
+        base.Awake();
         Setup();
     }
 
