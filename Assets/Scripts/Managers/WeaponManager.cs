@@ -8,6 +8,7 @@ public class WeaponManager : Singleton<WeaponManager>
     private Gun currentGun;
     private int currentGunIndex = 0;
     private List<GunShopItem> ownedGuns = new();
+    private SoundAlerter soundAlerter;
 
     public int CurrentGunIndex => currentGunIndex;
     public Gun CurrentGun => currentGun;
@@ -42,6 +43,7 @@ public class WeaponManager : Singleton<WeaponManager>
     private void Start()
     {
         if (HuntingManager.Instance == null) return;
+        soundAlerter = GameObject.Find("Player").GetComponent<SoundAlerter>();
 
         ownedGuns = GameManager.Instance.PermanentInventory.BoughtItems.Where(x => x is GunShopItem).Cast<GunShopItem>().ToList();
         Gun firstOwnedGun = allGuns.Find(x => x.GunSO.id == ownedGuns[0].id);
@@ -50,6 +52,8 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public void SelectItem(int index)
     {
+        if (index >= allGuns.Count)
+            return;
         //TODO: make this compatible with other items than guns with interface
         Gun selectedGun = allGuns.Find(x => x.GunSO.id == ownedGuns[index].id);
         if (selectedGun != null && selectedGun != currentGun)
@@ -57,9 +61,18 @@ public class WeaponManager : Singleton<WeaponManager>
             Destroy(currentGun.gameObject);
             currentGun = Instantiate(selectedGun, transform);
             currentGunIndex = index;
+            soundAlerter.MakeSound(10, transform.position);
         }
 
         HuntingUIManager.Instance.SetAmmoCounterText(BulletsInMag / currentGun.GunSO.bulletsPerTap +  " / " + BulletsInInventory / currentGun.GunSO.bulletsPerTap);
+    }
+
+ 
+    // function which gives the player ammo
+    public void GiveAmmo(int number)
+    {
+        BulletsInInventory += number;
+        HuntingUIManager.Instance.SetAmmoCounterText(BulletsInMag / currentGun.GunSO.bulletsPerTap + " / " + BulletsInInventory / currentGun.GunSO.bulletsPerTap);
     }
 
     public void Reload()

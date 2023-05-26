@@ -1,17 +1,19 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController controller;
+    private SoundAlerter soundAlerter;
     [SerializeField] private float speed = 5.0f;
     private readonly float gravity = -9.81f;
     private Vector3 playerVelocity;
     private float jumpSpeed = 15f;
     public bool isSneaking;
-    public bool isMoving;
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+        soundAlerter = GetComponent<SoundAlerter>();
     }
 
     public void Move(Vector2 input)
@@ -23,8 +25,6 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(transform.TransformDirection(moveDirection) * currentSpeed * Time.deltaTime);
 
-        Movement(moveDirection.magnitude);
-
         playerVelocity.y += gravity * Time.deltaTime;
 
         if (controller.isGrounded && playerVelocity.y < 0)
@@ -33,7 +33,16 @@ public class PlayerMovement : MonoBehaviour
         }
 
         controller.Move(playerVelocity * Time.deltaTime);
-        
+
+        if (isSneaking)
+        {
+            soundAlerter.MakeSound(Time.deltaTime * 2, transform.position, 2);
+        }
+        else
+        {
+            soundAlerter.MakeSound(Time.deltaTime * 5, transform.position, 5);
+        }
+
     }
 
     public void Jump()
@@ -61,17 +70,5 @@ public class PlayerMovement : MonoBehaviour
     public void Sneak(bool input)
     {
         isSneaking = input;
-    }
-
-    public void Movement(float input)
-    {
-        if (input < 0.1)
-        {
-            isMoving = false;
-        }
-        else
-        {
-            isMoving = true;
-        }
     }
 }

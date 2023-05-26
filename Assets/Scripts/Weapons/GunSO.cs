@@ -11,6 +11,7 @@ public class GunSO : ScriptableObject
     public float timeBetweenShots;
     public float spread;
     public float reloadTime;
+    public float volume;
     public int magSize;
     public int bulletsPerTap;
     public ShopItemSO bulletShopItem;
