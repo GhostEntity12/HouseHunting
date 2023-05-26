@@ -31,8 +31,7 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
     {
         huntingTimerText.text = FormatTime(huntingDurationSeconds);
 
-        audioManager = FindObjectOfType<AudioManager>();
-		audioManager.Play("Ambience");
+	AudioManager.Instance.Play("Ambience");
     }
 
     private void Update() 
