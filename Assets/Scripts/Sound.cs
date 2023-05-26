@@ -13,14 +13,14 @@ public class Sound
     public AudioType audioType;
 
     public string name;
-    public AudioClip clip;
-    public bool loop;
-    public bool playOnAwake;
+    [SerializeField] private AudioClip clip;
+    [SerializeField] private bool loop;
+    [SerializeField] private bool playOnAwake;
 
     [Range(0f, 1f)] 
-    public float volume;
+    [SerializeField] private float volume;
     [Range(.1f, 3f)] 
-    public float pitch;
+    [SerializeField] private float pitch;
 
     // public AudioMixerGroup mixerGroup;
 
