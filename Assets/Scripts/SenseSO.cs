@@ -9,4 +9,8 @@ public class SenseSO : ScriptableObject
     public Color debugIdleColor;
     public Color debugDetectedColor;
     public SenseCategory senseCategory;
+
+    // For gizmos
+	protected Collider[] playerHits = new Collider[1];
+	public virtual void DrawGizmo(Transform furniture) { }
 }

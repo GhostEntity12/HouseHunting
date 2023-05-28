@@ -15,7 +15,7 @@ public class WanderAI : MonoBehaviour
     private float timeSinceLastAttack = 0f;
     private float alertness = 0; // between 0 and 100
     private SState stressState = SState.Relaxing;
-    private GameObject subject;
+    private GameObject player;
     private IState investigate = IState.Idle;
     
     public PlayerMovement playerMovement;
@@ -29,126 +29,22 @@ public class WanderAI : MonoBehaviour
         shootable = GetComponent<Shootable>();
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         alertCanvas = GetComponentInChildren<Canvas>();
-        subject = GameObject.FindWithTag("Player");
+        player = GameObject.FindWithTag("Player");
 
         senses = shootable.FurnitureSO.senses;
         agent.speed = shootable.FurnitureSO.speed;
         xray = shootable.FurnitureSO.xray;
         playerMovement = FindObjectOfType<PlayerMovement>();
     }
-    /*
-    private void OnEnable() 
-    {
-        SoundAlerter.OnSoundEmitEvent += OnSoundDetect;
-    }
-
-    private void OnDisable() 
-    {
-        SoundAlerter.OnSoundEmitEvent += OnSoundDetect;
-    }
-    */
     private void OnDrawGizmos()
     {
-        if (senses == null)
-        {
-            return;
-        }
+        if (senses == null) return;
+
         foreach (SenseSO sense in senses)
         {
-            bool unused = false;
-            switch (sense.senseCategory)
-            {
-                case SenseCategory.Stealth:
-                    if (!IsPlayerSneaking())
-                    {
-                        unused = true;
-                    }
-                    break;
-                case SenseCategory.Normal:
-                    if (IsPlayerSneaking())
-                    {
-                        unused = true;
-                    }
-                    break;
-                default:
-                    break;
-            }
-            if (unused)
-            {
-                continue;
-            }
+			if ((sense.senseCategory == SenseCategory.Stealth && !IsPlayerSneaking()) || (sense.senseCategory == SenseCategory.Normal && IsPlayerSneaking())) continue;
 
-            Vector3 senseDir = Quaternion.Euler(sense.rotOffset) * transform.forward;
-            Vector3 sensePos = transform.localToWorldMatrix.MultiplyPoint3x4(sense.offset);
-
-            Gizmos.color = sense.debugIdleColor; // Default Color
-
-            if (sense is SenseSphereSO sphereSense)
-            {
-                if (subject != null)
-                {
-                    Collider[] hitColliders = Physics.OverlapSphere(sensePos, sphereSense.radius);
-
-                    bool detected = false;
-
-                    foreach (Collider hitCollider in hitColliders)
-                    {
-                        if (hitCollider.CompareTag("Player"))
-                        {
-                            detected = true;
-                            break;
-                        }
-                    }
-
-                    if (detected)
-                    {
-                        Gizmos.color = sphereSense.debugDetectedColor;
-                    }
-                    Gizmos.DrawWireSphere(sensePos, sphereSense.radius);
-                }
-            }
-            else if (sense is SenseConeSO coneSense)
-            {
-                if (subject != null)
-                {
-                    Vector3 toPosition = (subject.transform.position - sensePos).normalized;
-                    float dist = (subject.transform.position - sensePos).magnitude;
-                    float angleToPosition = Vector3.Angle(senseDir, toPosition);
-
-                    if (angleToPosition <= coneSense.maxAngle && dist <= coneSense.range) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
-                    {
-                        Gizmos.color = Color.red;
-                        Gizmos.DrawRay(sensePos, toPosition);
-                        Gizmos.color = coneSense.debugDetectedColor;
-                    }
-                    else
-                    {
-                        Gizmos.color = Color.black;
-                        Gizmos.DrawRay(sensePos, toPosition);
-                        Gizmos.color = coneSense.debugIdleColor;
-                    }
-                }
-
-                Quaternion leftRayRotation = Quaternion.AngleAxis(-coneSense.maxAngle, Vector3.up);
-                Quaternion rightRayRotation = Quaternion.AngleAxis(coneSense.maxAngle, Vector3.up);
-
-                Vector3 leftRayDirection = leftRayRotation * (senseDir) * coneSense.range;
-                Vector3 rightRayDirection = rightRayRotation * (senseDir) * coneSense.range;
-                Vector3 forwardDirection = Vector3.Lerp(leftRayDirection, rightRayDirection, 0.5f);
-
-                float gapLength = (leftRayDirection - rightRayDirection).magnitude;
-
-                Vector3 upRayDirection = forwardDirection + new Vector3(0, gapLength / 2, 0);
-                Vector3 downRayDirection = forwardDirection + new Vector3(0, gapLength / -2, 0);
-
-                Gizmos.DrawRay(sensePos, upRayDirection);
-                Gizmos.DrawRay(sensePos, downRayDirection);
-                Gizmos.DrawRay(sensePos, leftRayDirection);
-                Gizmos.DrawRay(sensePos, rightRayDirection);
-                Gizmos.DrawLine(sensePos + downRayDirection, sensePos + upRayDirection);
-                Gizmos.DrawLine(sensePos + leftRayDirection, sensePos + rightRayDirection);
-
-            }
+            sense.DrawGizmo(transform);
         }
     }
 
@@ -160,27 +56,20 @@ public class WanderAI : MonoBehaviour
             return;
         }
 
-        /*
-        if (IsPlayerSneaking())
-        {
-            Debug.Log("player is sneaking");
-        }
-        else {
-            Debug.Log("player is not sneaking");
-        }
-        */
-
         if (agent.remainingDistance <= agent.stoppingDistance && alertness < 50) //done with path
         {
-            if (RandomPoint(transform.position, wanderRadius, out Vector3 point)) //pass in our centre point and radius of area
+            if (RandomPoint(transform.position, wanderRadius, out Vector3 point))
+            {
+                //pass in our centre point and radius of area
                 agent.SetDestination(point);
+            }
         }
         else
         {
             if ((agent.remainingDistance <= agent.stoppingDistance || investigate == IState.Alert) && alertness < 75)
             {
                 investigate = IState.Searching;
-                if (RandomPoint(subject.transform.position, 3, out Vector3 point)) //pass in our centre point and radius of area
+                if (RandomPoint(player.transform.position, 3, out Vector3 point)) //pass in our centre point and radius of area
                     agent.SetDestination(point);
             }
         }
@@ -192,38 +81,16 @@ public class WanderAI : MonoBehaviour
 
         foreach (SenseSO sense in senses)
         {
-            bool unused = false;
-            switch (sense.senseCategory)
-            {
-                case SenseCategory.Stealth:
-                    if (!IsPlayerSneaking())
-                    {
-                        unused = true;
-                    }
-                    break;
-                case SenseCategory.Normal:
-                    if (IsPlayerSneaking())
-                    {
-                        unused = true;
-                    }
-                    break;
-                default:
-                    unused = true;
-                    break;
-            }
-            if (unused)
-            {
-                continue;
-            }
+			if ((sense.senseCategory == SenseCategory.Stealth && !IsPlayerSneaking()) || (sense.senseCategory == SenseCategory.Normal && IsPlayerSneaking())) continue;
 
-            Vector3 senseDir = Quaternion.Euler(sense.rotOffset) * transform.forward;
+			Vector3 senseDir = Quaternion.Euler(sense.rotOffset) * transform.forward;
             Vector3 sensePos = transform.localToWorldMatrix.MultiplyPoint3x4(sense.offset);
 
             bool inRange = false;
 
             if (sense is SenseSphereSO sphereSense)
             {
-                if (subject != null)
+                if (player != null)
                 {
                     Collider[] hitColliders = Physics.OverlapSphere(sensePos, sphereSense.radius);
 
@@ -252,10 +119,10 @@ public class WanderAI : MonoBehaviour
             }
             else if (sense is SenseConeSO coneSense)
             {
-                if (subject != null)
+                if (player != null)
                 {
-                    Vector3 toPosition = (subject.transform.position - sensePos).normalized;
-                    float dist = (subject.transform.position - sensePos).magnitude;
+                    Vector3 toPosition = (player.transform.position - sensePos).normalized;
+                    float dist = (player.transform.position - sensePos).magnitude;
                     float angleToPosition = Vector3.Angle(senseDir, toPosition);
 
                     if (angleToPosition <= coneSense.maxAngle && dist <= coneSense.range) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
@@ -285,14 +152,14 @@ public class WanderAI : MonoBehaviour
         
         alertness = Mathf.Clamp(alertness, 0, 100);
         
-        if (alertness >= 75 && subject != null)
+        if (alertness >= 75 && player != null)
         {
             alertCanvas.enabled = true;
             if (isPredator)
             {
                 //meshRenderer.material.color = Color.red;
 
-                float distance = Vector3.Distance(transform.position, subject.transform.position);
+                float distance = Vector3.Distance(transform.position, player.transform.position);
 
                 if (distance <= 2f)
                 {
@@ -305,19 +172,19 @@ public class WanderAI : MonoBehaviour
                 else
                 {
                     agent.isStopped = false;
-                    agent.SetDestination(subject.transform.position);
+                    agent.SetDestination(player.transform.position);
                 }
             }
             else
             {
                 //meshRenderer.material.color = Color.green;
-                Vector3 playerDirection = subject.transform.position - (transform.position);
+                Vector3 playerDirection = player.transform.position - (transform.position);
                 Vector3 destination = (transform.position) - playerDirection;
                 if (NavMesh.SamplePosition(destination, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
                     agent.SetDestination(hit.position);
             }
         }
-        else if (alertness >= 50 && subject != null && investigate == IState.Idle)
+        else if (alertness >= 50 && player != null && investigate == IState.Idle)
         {
             investigate = IState.Alert;
         }
