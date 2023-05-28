@@ -4,34 +4,33 @@ using UnityEngine;
 
 public class FrameCounter : MonoBehaviour
 {
-	float[] frameRates;
-	int counter = 0;
-	TextMeshProUGUI m_Text;
+	private float[] frameRates;
+	private int counter = 0;
+	private TextMeshProUGUI text;
+	private bool warmingUp = true;
+	private Color defaultColor;
 
-	bool m_WarmingUp = true;
-
-	public float m_Smoothing = 1;
-	private Color m_DefaultColor;
+	public float smoothing = 1;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		frameRates = new float[Mathf.FloorToInt(m_Smoothing * 60)];
-		m_Text = GetComponent<TextMeshProUGUI>();
-		m_DefaultColor = m_Text.color;
-		m_Text.color = Color.red;
+		frameRates = new float[Mathf.FloorToInt(smoothing * 60)];
+		text = GetComponent<TextMeshProUGUI>();
+		defaultColor = text.color;
+		text.color = Color.red;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (m_WarmingUp && counter == frameRates.Length - 1)
+		if (warmingUp && counter == frameRates.Length - 1)
 		{
-			m_Text.color = m_DefaultColor;
-			m_WarmingUp = false;
+			text.color = defaultColor;
+			warmingUp = false;
 		}
 		frameRates[counter] = 1 / Time.deltaTime;
 		counter = (counter + 1) % frameRates.Length;
-		m_Text.text = Mathf.Floor(frameRates.ToList().Average()).ToString() + " FPS";
+		text.text = Mathf.Floor(frameRates.ToList().Average()).ToString() + " FPS";
 	}
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class WeaponManager : Singleton<WeaponManager>
 {
     [SerializeField] private List<Gun> guns;
+
     private Gun currentGun;
     private int currentGunIndex = 0;
     private List<WeaponInventoryItem> gunAmmo = new();
@@ -12,13 +13,12 @@ public class WeaponManager : Singleton<WeaponManager>
     public List<Gun> Guns => guns;
     public int CurrentGunIndex => currentGunIndex;
     public Gun CurrentGun => currentGun;
+    public int BulletsInInventory => gunAmmo[currentGunIndex].totalBulletsLeft;
     public int BulletsInMag 
     {
         get => gunAmmo[currentGunIndex].bulletsInMag;
         set => gunAmmo[currentGunIndex] = new WeaponInventoryItem(gunAmmo[currentGunIndex].id, value, gunAmmo[currentGunIndex].totalBulletsLeft);
     }
-
-    public int BulletsInInventory => gunAmmo[currentGunIndex].totalBulletsLeft;
 
     protected override void Awake()
     {
@@ -57,7 +57,6 @@ public class WeaponManager : Singleton<WeaponManager>
 
         HuntingUIManager.Instance.SetAmmoCounterText(BulletsInMag / currentGun.GunSO.bulletsPerTap +  " / " + BulletsInInventory / currentGun.GunSO.bulletsPerTap);
     }
-
  
     // function which gives the player ammo
     public void GiveAmmo(int number)

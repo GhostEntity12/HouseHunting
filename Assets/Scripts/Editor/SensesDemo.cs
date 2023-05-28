@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -17,7 +16,8 @@ public class SensesDemo : MonoBehaviour
 		Draw(0f);
 
 	}
-	void Draw(float transparency)
+
+	private void Draw(float transparency)
 	{
 		foreach (SenseSphere sphere in spheres)
 		{

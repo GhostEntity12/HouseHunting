@@ -1,15 +1,17 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private float speed = 5.0f;
+
     private CharacterController controller;
     private SoundAlerter soundAlerter;
-    [SerializeField] private float speed = 5.0f;
     private readonly float gravity = -9.81f;
     private Vector3 playerVelocity;
     private float jumpSpeed = 15f;
+
     public bool isSneaking;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();

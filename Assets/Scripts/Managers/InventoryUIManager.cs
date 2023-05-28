@@ -1,20 +1,8 @@
 using UnityEngine;
 
-public class InventoryUIManager : MonoBehaviour
+public class InventoryUIManager : Singleton<InventoryUIManager>
 {
     [SerializeField] private ItemThumbnailUI inventoryItemsUIPrefab;
-
-    private static InventoryUIManager instance;
-
-    public static InventoryUIManager Instance { get; private set; }
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-            Destroy(this.gameObject);
-        else
-            Instance = this;
-    }
 
     private void Start()
     {

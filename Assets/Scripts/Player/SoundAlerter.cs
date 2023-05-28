@@ -12,22 +12,19 @@ public class SoundAlerter : MonoBehaviour
         //OnSoundEmitEvent?.Invoke(volume, transform.position);
         HashSet<WanderAI> furnitureInRange = new HashSet<WanderAI>();
         Collider[] hitColliders;
+
         if (rangeOverride != null)
-        {
             hitColliders = Physics.OverlapSphere(source, (float)rangeOverride);
-        }
         else
-        {
             hitColliders = Physics.OverlapSphere(source, volume);
-        }
+
         foreach (Collider hitCollider in hitColliders)
         {
             WanderAI ai = hitCollider.transform.GetComponent<WanderAI>();
             if (ai != null) 
-            {
                 furnitureInRange.Add(ai);
-            }
         }
+
         foreach (WanderAI ai in furnitureInRange)
         {
             ai.IncrementAlertness(volume);

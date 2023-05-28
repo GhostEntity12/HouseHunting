@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class WeaponWheel : MonoBehaviour
 {
-    // [SerializeField] GameObject weaponWheelItem;
     [SerializeField] private Image weaponWheelItemPrefab;
     [SerializeField] private Image insideWheel;
+
     private List<Image> weaponWheelItems = new List<Image>();
     private int selectedIndex = 0;
 
@@ -60,55 +60,6 @@ public class WeaponWheel : MonoBehaviour
 
         CloseWeaponWheel();
     }
-
-    // private void Update()
-    // {
-    //     switch (weaponID)
-    //     {
-    //         case 0: //no weapon selected
-    //             // selectedItem.sprite = noImage;
-    //             break;
-
-    //         case 1: //SSG
-    //             SSG.SetActive(true);
-    //             LAR.SetActive(false);
-    //             Xbow.SetActive(false);
-    //             recoil.recoilX = 1;
-    //             recoil.recoilY = 1;
-    //             recoil.recoilZ = 1;
-    //             recoil.snappiness = 3;
-    //             recoil.returnSpeed = 2;
-    //             CloseWeaponWheel();
-    //             weaponID = 0;
-    //             break;
-
-    //         case 2: //LAR
-    //             SSG.SetActive(false);
-    //             LAR.SetActive(true);
-    //             Xbow.SetActive(false);
-    //             recoil.recoilX = 14;
-    //             recoil.recoilY = 14;
-    //             recoil.recoilZ = 14;
-    //             recoil.snappiness = 25;
-    //             recoil.returnSpeed = 5;
-    //             CloseWeaponWheel();
-    //             weaponID = 0;
-    //             break;
-            
-    //         case 3: //Xbow
-    //             SSG.SetActive(false);
-    //             LAR.SetActive(false);
-    //             Xbow.SetActive(true);
-    //             recoil.recoilX = 1;
-    //             recoil.recoilY = 1;
-    //             recoil.recoilZ = 1;
-    //             recoil.snappiness = 1;
-    //             recoil.returnSpeed = 2;
-    //             CloseWeaponWheel();
-    //             weaponID = 0;
-    //             break;
-    //     }
-    // }
 
     private void Update()
     {
