@@ -12,15 +12,6 @@ public abstract class Shootable : MonoBehaviour, IInteractable
     private int price;
     private int materialIndex;
     private float scaleFactor;
-
-    [System.Serializable]
-    public struct Hitbox
-    {
-        public Collider collider;
-        public float multiplier;
-    }
-
-    public Hitbox[] Hitboxes;
     public bool IsDead => isDead;
     public FurnitureSO FurnitureSO => furnitureSO;
 
@@ -49,23 +40,11 @@ public abstract class Shootable : MonoBehaviour, IInteractable
         meshRenderer.material.color = Color.blue; // Here we just change the material to the dead material for testing purposes, this can be changed to whatever logic to handle death
     }
 
-    public void TakeDamage(int damage, Collider hitbox)
+    public void TakeDamage(int damage)
     {
         if (isDead) return;
 
-        float damageMult = 1f;
-
-        foreach (Hitbox hit in Hitboxes)
-        {
-            if (hit.collider == hitbox)
-            {
-                damageMult = hit.multiplier;
-            }
-        }
-
-        int finalDamage = (int)(damage * damageMult);
-
-        currentHealth -= finalDamage;
+        currentHealth -= damage;
 
         if (currentHealth <= 0) Die();
     }
