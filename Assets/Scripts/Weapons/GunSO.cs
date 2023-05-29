@@ -14,5 +14,5 @@ public class GunSO : ScriptableObject
     public float volume;
     public int magSize;
     public int bulletsPerTap;
-    public bool allowButtonHold;
+    public ShopItemSO bulletShopItem;
 }

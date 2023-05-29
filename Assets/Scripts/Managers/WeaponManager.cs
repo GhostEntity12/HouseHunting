@@ -1,52 +1,61 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WeaponManager : Singleton<WeaponManager>
 {
-    [SerializeField] private List<Gun> guns;
+    [SerializeField] private List<Gun> allGuns;
     private Gun currentGun;
     private int currentGunIndex = 0;
-    private List<WeaponInventoryItem> gunAmmo = new();
+    private List<GunShopItem> ownedGuns = new();
     private SoundAlerter soundAlerter;
 
-    public List<Gun> Guns => guns;
     public int CurrentGunIndex => currentGunIndex;
     public Gun CurrentGun => currentGun;
+    public List<Gun> AllGuns => allGuns;
     public int BulletsInMag 
     {
-        get => gunAmmo[currentGunIndex].bulletsInMag;
-        set => gunAmmo[currentGunIndex] = new WeaponInventoryItem(gunAmmo[currentGunIndex].id, value, gunAmmo[currentGunIndex].totalBulletsLeft);
+        get => ownedGuns[currentGunIndex].bulletsInMag;
+        set => ownedGuns[currentGunIndex].bulletsInMag = value;
     }
-
-    public int BulletsInInventory => gunAmmo[currentGunIndex].totalBulletsLeft;
-
-    protected override void Awake()
+    public int BulletsInInventory
     {
-        base.Awake();
-
-        currentGun = Instantiate(guns[0], transform);
+        get
+        {
+            ShopItem bulletShopItem = GameManager.Instance.PermanentInventory.BoughtItems.Find(x => x.id == currentGun.GunSO.bulletShopItem.id);
+            if (bulletShopItem == null) return 0;
+            return bulletShopItem.quantity;
+        }
+        set
+        {
+            ShopItem bulletShopItem = GameManager.Instance.PermanentInventory.BoughtItems.Find(x => x.id == currentGun.GunSO.bulletShopItem.id);
+            // if null then the player doesn't have any bullets of this type and we need to add it to the inventory
+            if (bulletShopItem == null)
+            {
+                bulletShopItem = new ShopItem(currentGun.GunSO.bulletShopItem.id, value);
+                GameManager.Instance.PermanentInventory.BoughtItems.Add(bulletShopItem);
+                return;
+            }
+            bulletShopItem.quantity = value;
+        }
     }
 
     private void Start()
     {
-        gunAmmo = GameManager.Instance.PermanentInventory.GunAmmo;
+        if (HuntingManager.Instance == null) return;
         soundAlerter = GameObject.Find("Player").GetComponent<SoundAlerter>();
 
-        foreach (Gun gun in guns)
-        {
-            // if the gun is not in the inventory, add it
-            if (string.IsNullOrEmpty(gunAmmo.Find(x => x.id == gun.GunSO.id).id))
-            {
-                gunAmmo.Add(new WeaponInventoryItem(gun.GunSO.id));
-            }
-        }
+        ownedGuns = GameManager.Instance.PermanentInventory.BoughtItems.Where(x => x is GunShopItem).Cast<GunShopItem>().ToList();
+        Gun firstOwnedGun = allGuns.Find(x => x.GunSO.id == ownedGuns[0].id);
+        currentGun = Instantiate(firstOwnedGun, transform);
     }
 
-    public void SelectGun(int index)
+    public void SelectItem(int index)
     {
-        if (index >= Guns.Count)
+        if (index >= allGuns.Count)
             return;
-        Gun selectedGun = guns[index];
+        //TODO: make this compatible with other items than guns with interface
+        Gun selectedGun = allGuns.Find(x => x.GunSO.id == ownedGuns[index].id);
         if (selectedGun != null && selectedGun != currentGun)
         {
             Destroy(currentGun.gameObject);
@@ -62,7 +71,7 @@ public class WeaponManager : Singleton<WeaponManager>
     // function which gives the player ammo
     public void GiveAmmo(int number)
     {
-        gunAmmo[currentGunIndex] = new WeaponInventoryItem(gunAmmo[currentGunIndex].id, gunAmmo[currentGunIndex].bulletsInMag, gunAmmo[currentGunIndex].totalBulletsLeft + number);
+        BulletsInInventory += number;
         HuntingUIManager.Instance.SetAmmoCounterText(BulletsInMag / currentGun.GunSO.bulletsPerTap + " / " + BulletsInInventory / currentGun.GunSO.bulletsPerTap);
     }
 
@@ -74,7 +83,8 @@ public class WeaponManager : Singleton<WeaponManager>
         int bulletsToReload = currentGun.GunSO.magSize - BulletsInMag;
         if (bulletsToReload > BulletsInInventory) bulletsToReload = BulletsInInventory;
 
-        gunAmmo[currentGunIndex] = new WeaponInventoryItem(gunAmmo[currentGunIndex].id, gunAmmo[currentGunIndex].bulletsInMag + bulletsToReload, gunAmmo[currentGunIndex].totalBulletsLeft - bulletsToReload);
+        ownedGuns[currentGunIndex].bulletsInMag += bulletsToReload;
+        BulletsInInventory -= bulletsToReload;
 
         HuntingUIManager.Instance.SetAmmoCounterText(BulletsInMag / currentGun.GunSO.bulletsPerTap +  " / " + BulletsInInventory / currentGun.GunSO.bulletsPerTap);
     }
