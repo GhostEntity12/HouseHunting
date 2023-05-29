@@ -18,9 +18,9 @@ public class Sound
     [SerializeField] private bool playOnAwake;
 
     [Range(0f, 1f)] 
-    [SerializeField] private float volume;
+    [SerializeField] private float volume = 0.8f;
     [Range(.1f, 3f)] 
-    [SerializeField] private float pitch;
+    [SerializeField] private float pitch = 1f;
 
     // public AudioMixerGroup mixerGroup;
 

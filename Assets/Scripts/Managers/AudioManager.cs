@@ -1,11 +1,9 @@
 using UnityEngine.Audio;
-using System;
 using UnityEngine;
 
 
 public class AudioManager : Singleton<AudioManager>
 {
-    public static AudioManager Instance;
     public AudioMixerGroup musicMixerGroup;
     public AudioMixerGroup sfxMixerGroup;
     public Sound[] sounds;
@@ -41,7 +39,7 @@ public class AudioManager : Singleton<AudioManager>
         Sound s = System.Array.Find(sounds, sound => sound.name == name);
         if (s == null) 
         {
-            Debug.LogWarning("Sound: " + name + " not found!");
+            Debug.LogWarning($"Sound: {name} not found!");
             return;
         }
         s.source.Play();
@@ -52,7 +50,7 @@ public class AudioManager : Singleton<AudioManager>
         Sound s = System.Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            Debug.LogWarning("Sound: " + name + " not found!");
+            Debug.LogWarning($"Sound: {name} not found!");
             return;
         }
         s.source.Stop();
@@ -63,7 +61,7 @@ public class AudioManager : Singleton<AudioManager>
         Sound s = System.Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            Debug.LogWarning("Sound: " + name + " not found!");
+            Debug.LogWarning($"Sound: {name} not found!");
             return;
         }
         s.source.Pause();
