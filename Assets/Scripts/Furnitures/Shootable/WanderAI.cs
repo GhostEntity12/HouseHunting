@@ -50,9 +50,8 @@ public class WanderAI : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (senses == null)
-        {
             return;
-        }
+
         foreach (SenseSO sense in senses)
         {
             bool unused = false;
@@ -60,15 +59,11 @@ public class WanderAI : MonoBehaviour
             {
                 case SenseCategory.Stealth:
                     if (!IsPlayerSneaking())
-                    {
                         unused = true;
-                    }
                     break;
                 case SenseCategory.Normal:
                     if (IsPlayerSneaking())
-                    {
                         unused = true;
-                    }
                     break;
                 default:
                     break;
@@ -101,9 +96,8 @@ public class WanderAI : MonoBehaviour
                     }
 
                     if (detected)
-                    {
                         Gizmos.color = sphereSense.debugDetectedColor;
-                    }
+
                     Gizmos.DrawWireSphere(sensePos, sphereSense.radius);
                 }
             }
@@ -197,24 +191,19 @@ public class WanderAI : MonoBehaviour
             {
                 case SenseCategory.Stealth:
                     if (!IsPlayerSneaking())
-                    {
                         unused = true;
-                    }
                     break;
                 case SenseCategory.Normal:
                     if (IsPlayerSneaking())
-                    {
                         unused = true;
-                    }
                     break;
                 default:
                     unused = true;
                     break;
             }
+
             if (unused)
-            {
                 continue;
-            }
 
             Vector3 senseDir = Quaternion.Euler(sense.rotOffset) * transform.forward;
             Vector3 sensePos = transform.localToWorldMatrix.MultiplyPoint3x4(sense.offset);
@@ -240,13 +229,9 @@ public class WanderAI : MonoBehaviour
                     {
                             detected = true;
                             if (sphereSense.senseCategory == SenseCategory.Stealth)
-                            {
                                 IncrementAlertness(Time.deltaTime * 50);
-                            }
                             else
-                            {
                                 IncrementAlertness(Time.deltaTime * 100);
-                            }
                     }
                 }
             }
@@ -262,22 +247,20 @@ public class WanderAI : MonoBehaviour
                     {
                             detected = true;
                             if (coneSense.senseCategory == SenseCategory.Stealth)
-                            {
                                 IncrementAlertness(Time.deltaTime * 50);
-                            }
                             else
-                            {
                                 IncrementAlertness(Time.deltaTime * 100);
-                            }
                     }
                 }
             }
         }
+
         if (!detected && stressState == SState.Stressed)
         {
             stressState = SState.CanRelax;
             StartCoroutine("RelaxTimer");
         }
+
         if (stressState == SState.Relaxing)
         {
             alertness -= Time.deltaTime * 10;
@@ -340,12 +323,6 @@ public class WanderAI : MonoBehaviour
         }
     }
 
-    private IEnumerator RelaxTimer()
-    {
-        yield return new WaitForSeconds(2);
-        stressState = SState.Relaxing;
-    }
-
     private void OnSoundDetect(float volume, Vector3 source)
     {
         if ((source - transform.position).magnitude <= volume)
@@ -357,9 +334,7 @@ public class WanderAI : MonoBehaviour
     private bool IsPlayerSneaking()
     {
         if (playerMovement != null)
-        {
             return playerMovement.isSneaking;
-        }
 
         return false;
     }
@@ -390,5 +365,11 @@ public class WanderAI : MonoBehaviour
 
 		result = Vector3.zero;
         return false;
+    }
+
+    private IEnumerator RelaxTimer()
+    {
+        yield return new WaitForSeconds(2);
+        stressState = SState.Relaxing;
     }
 }

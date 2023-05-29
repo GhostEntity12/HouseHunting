@@ -6,10 +6,10 @@ namespace Ghost
 {
 	public class AssetPrefabRestorer : MonoBehaviour
 	{
-		public GameObject[] m_SourcePrefabs;
+		public GameObject[] sourcePrefabs;
 
 		[ContextMenu("Fix Prefabs")]
-		void FixPrefabs()
+		private void FixPrefabs()
 		{
 			List<GameObject> failedObjects = new List<GameObject>();
 
@@ -22,7 +22,7 @@ namespace Ghost
 
 			foreach (Transform child in transform)
 			{
-				GameObject[] matchingPrefab = m_SourcePrefabs.ToList().Where(prefab => prefab.name == child.name).ToArray();
+				GameObject[] matchingPrefab = sourcePrefabs.ToList().Where(prefab => prefab.name == child.name).ToArray();
 
 				if (matchingPrefab.Length > 0)
 				{

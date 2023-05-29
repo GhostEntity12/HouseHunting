@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] List<Shootable> spawnableFurniture;
+    [SerializeField] private List<Shootable> spawnableFurniture;
 
     public bool Spawn()
     {

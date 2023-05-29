@@ -75,10 +75,8 @@ public class ShopUIManager : Singleton<ShopUIManager>
         foreach (FurnitureItem item in inventory.Items)
         {
             // add a tab for this item if it doesn't exist
-            if (!tabs.Contains(item.id))
-            {
+            if (!tabs.Contains(item.id)) 
                 tabs.Add(item.id);
-            }
         }
 
         tabs.Sort();

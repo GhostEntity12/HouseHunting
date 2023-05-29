@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class HouseInputManager : Singleton<HouseInputManager>
 {
-	private PlayerInput playerInput;
-
 	[Header("Explore Mode")]
 	[SerializeField] private PlayerMovement movement;
 	[SerializeField] private PlayerLook look;
@@ -17,13 +15,15 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	[SerializeField] private ScrollRect inventoryScrollView;
 	[SerializeField] private float decorateCameraSpeed = 20f;
 	[SerializeField] private MeshRenderer floorMeshRenderer;
+
+	private PlayerInput playerInput;
 	private bool isDraggingPlaceable = false;
 	private bool isDraggingCamera = false;
 	private bool isSelectingPlaceable = false;
 	private (Vector3 position, float angle) placeableInitialState = (Vector3.zero, 0f);
 	private Bounds cameraBounds;
-	public Placeable SelectedPlaceable { get; private set; }
 
+	public Placeable SelectedPlaceable { get; private set; }
 
 	protected override void Awake()
 	{
@@ -57,14 +57,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		playerInput.House.Enable();
 	}
 
-	private void OnDestroy()
-	{
-		// Unsubscribe the listener and deactivate inputs
-		HouseManager.ModeChanged -= SetInput;
-		playerInput.House.Disable();
-		playerInput.Decorate.Disable();
-	}
-
 	private void FixedUpdate()
 	{
 		// Different moves for different modes
@@ -89,18 +81,23 @@ public class HouseInputManager : Singleton<HouseInputManager>
 			look.Look(playerInput.House.Look.ReadValue<Vector2>());
 	}
 
+	private void OnDestroy()
+	{
+		// Unsubscribe the listener and deactivate inputs
+		HouseManager.ModeChanged -= SetInput;
+		playerInput.House.Disable();
+		playerInput.Decorate.Disable();
+	}
+
 	/// <summary>
 	/// Handles uses of the interation key when in explore mode
 	/// </summary>
 	private void ExploreInteract()
 	{
-		Debug.Log("Pressed Interact");
 		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, out RaycastHit hit, playerReach))
 		{
-			Debug.Log($"Hit {hit.transform.name}");
 			if (hit.transform.TryGetComponent(out IInteractable interactable))
 			{
-				Debug.Log("Interact");
 				interactable.Interact();
 			}
 		}
@@ -309,15 +306,11 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
 		if (savePosition)
 		{
-			if (SelectedPlaceable.IsValidPosition)
-			{
-				inventoryScrollView.gameObject.SetActive(true);
-			}
 			//If position of placeable is not valid, put it back in the inventory
+			if (SelectedPlaceable.IsValidPosition)
+				inventoryScrollView.gameObject.SetActive(true);
 			else
-			{
 				RemoveSelectedPlaceable();
-			}
 		}
 		else
 		{

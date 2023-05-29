@@ -39,6 +39,4 @@ public class Placeable : MonoBehaviour
     {
         Mesh.transform.rotation = Quaternion.Euler(0, angle, 0);
     }
-
-
 }

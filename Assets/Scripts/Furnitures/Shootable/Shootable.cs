@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public abstract class Shootable : MonoBehaviour, IInteractable
 {
     [SerializeField] private FurnitureSO furnitureSO;
@@ -12,6 +11,7 @@ public abstract class Shootable : MonoBehaviour, IInteractable
     private int price;
     private int materialIndex;
     private float scaleFactor;
+
     public bool IsDead => isDead;
     public FurnitureSO FurnitureSO => furnitureSO;
 
@@ -54,7 +54,6 @@ public abstract class Shootable : MonoBehaviour, IInteractable
         int[] healthStatus = { currentHealth, furnitureSO.maxHealth };
         return healthStatus;
     }
-        
 
     public FurnitureItem GetInventoryItem()
     {

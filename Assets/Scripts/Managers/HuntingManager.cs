@@ -13,6 +13,7 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 	private int currentHealth;
 	private Inventory huntingInventory;
 	private float huntingTimerSeconds;
+
 	public Inventory HuntingInventory => huntingInventory;
 
 	protected override void Awake()

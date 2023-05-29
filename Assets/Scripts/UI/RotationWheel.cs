@@ -3,10 +3,10 @@ using UnityEngine.EventSystems;
 
 public class RotationWheel : MonoBehaviour
 {
+    [SerializeField] private Canvas canvas;
+
     private float radius = 0f;
     private Transform parentPlaceableTransform;
-
-    [SerializeField] private Canvas canvas;
 
     public bool IsRotating { get; private set; }
 

@@ -15,19 +15,17 @@ public class AssetSorter : MonoBehaviour
 		zPosNegative,
 	}
 
-	public SortType m_SortType;
+	public SortType sortType;
 
-	public bool m_AlsoFixNames;
+	public bool alsoFixNames;
 
-	public string m_NameCulling;
+	public string nameCulling;
 
 	[ContextMenu("Sort Children")]
 	public void SortChildren()
 	{
-		if (m_AlsoFixNames)
-		{
+		if (alsoFixNames)
 			FixNames();
-		}
 
 		// Get the index of this object
 		int startingIndex = transform.GetSiblingIndex() + 1;
@@ -43,7 +41,7 @@ public class AssetSorter : MonoBehaviour
 		assetsToSort.Remove(transform);
 
 		// Sort
-		switch (m_SortType)
+		switch (sortType)
 		{
 			case SortType.Name:
 				assetsToSort = assetsToSort.OrderBy(go => go.name).ToList();
@@ -76,7 +74,7 @@ public class AssetSorter : MonoBehaviour
 			assetsToSort[i].SetSiblingIndex(startingIndex + i);
 		}
 
-		Debug.Log($"AssetSorter on GameObject <b>{gameObject.name}</b> sorted <b>{assetsToSort.Count}</b> children by sort type <b>{m_SortType}</b>");
+		Debug.Log($"AssetSorter on GameObject <b>{gameObject.name}</b> sorted <b>{assetsToSort.Count}</b> children by sort type <b>{sortType}</b>");
 	}
 
 	void FixNames()
@@ -87,9 +85,9 @@ public class AssetSorter : MonoBehaviour
 			{
 				child.name = child.name.Substring(0, child.name.IndexOf("(") - 1).Trim();
 			}
-			if (!string.IsNullOrWhiteSpace(m_NameCulling))
+			if (!string.IsNullOrWhiteSpace(nameCulling))
 			{
-				child.name = child.name.Replace(m_NameCulling, "");
+				child.name = child.name.Replace(nameCulling, "");
 			}
 		}
 	}

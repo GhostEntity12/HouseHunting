@@ -6,24 +6,23 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	public enum HouseMode { Explore, Decorate }
 	public HouseMode Mode { get; private set; }
 
-	public delegate void OnModeChange(HouseMode mode);
-	public static event OnModeChange ModeChanged;
-
 	[SerializeField] private CanvasGroup decorateUI;
 	[SerializeField] private MeshFilter playerModel;
 	[field: SerializeField] public Camera ExploreCamera { get; private set; }
 	[field: SerializeField] public Camera DecorateCamera { get; private set; }
 
-
 	private List<HouseItem> houseItems;
 	private float houseValue = 0;
+
+	public delegate void OnModeChange(HouseMode mode);
+	public static event OnModeChange ModeChanged;
 
 	private void Start()
 	{
 		SpawnSerializedPlaceables();
 		houseValue = CalculateHouseRating(houseItems); // assign total value here
 
-        Debug.Log("HouseRating: "+houseValue);
+        Debug.Log("HouseRating: " + houseValue);
 		SetHouseMode(HouseMode.Explore);
 
 		AudioManager.Instance.Play("Building");
@@ -37,10 +36,22 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		{
 			tValue += item.inventoryItem.Value;
 		}
+
 		// can be changed in future
 		if (tValue > 9000)
 			UnlockTier("D"); // dummy function for now
+
 		return tValue;
+	}
+
+	private void SpawnSerializedPlaceables()
+	{
+		foreach (HouseItem item in houseItems)
+		{
+			Placeable spawnedPlaceable = Instantiate(DataPersistenceManager.Instance.GetPlaceablePrefabById(item.inventoryItem.id));
+			spawnedPlaceable.SetTransforms(item.position, item.rotationAngle);
+			spawnedPlaceable.InventoryItem = item.inventoryItem;
+		}
 	}
 
 	public void UnlockTier(string tier)
@@ -52,19 +63,10 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	{
 		houseItems = data.houseItems;
 	}
+
 	public void SaveData(GameData data)
 	{
 		data.houseItems = houseItems;
-	}
-
-	void SpawnSerializedPlaceables()
-	{
-		foreach (HouseItem item in houseItems)
-		{
-			Placeable spawnedPlaceable = Instantiate(DataPersistenceManager.Instance.GetPlaceablePrefabById(item.inventoryItem.id));
-			spawnedPlaceable.SetTransforms(item.position, item.rotationAngle);
-			spawnedPlaceable.InventoryItem = item.inventoryItem;
-		}
 	}
 
 	public void SavePlaceables()

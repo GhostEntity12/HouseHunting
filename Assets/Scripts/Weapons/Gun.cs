@@ -14,7 +14,7 @@ public class Gun : MonoBehaviour
     private Recoil recoil;
     private SoundAlerter soundAlerter;
 
-    public GunSO GunSO { get => gunSO; }
+    public GunSO GunSO => gunSO;
 
     public delegate void OnGunShoot();
     public static event OnGunShoot OnGunShootEvent;

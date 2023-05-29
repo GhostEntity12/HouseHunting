@@ -13,11 +13,11 @@ public class Hitbox : MonoBehaviour
 	}
 #endif
 
-	Shootable shootable;
 	[SerializeField] float damageModifier = 1f;
 
-	// Start is called before the first frame update
-	void Start()
+	private Shootable shootable;
+
+	private void Start()
 	{
 		// Disable the script if there is no collider on the object or if there is no parent shootable
 		shootable = transform.GetComponentInParent<Shootable>();
@@ -35,16 +35,9 @@ public class Hitbox : MonoBehaviour
 		}
 	}
 
-	public void Damage(int baseDamage)
-	{
-		// Cast to int, truncates and takes whole number.
-		shootable.TakeDamage((int)(baseDamage * damageModifier));
-	}
-
 #if UNITY_EDITOR
 	private void OnDrawGizmos()
 	{
-
 		if (showHitbox)
 		{   // Get appropriate color
 			Color[] colors = { Color.blue, Color.green, Color.red };
@@ -68,4 +61,10 @@ public class Hitbox : MonoBehaviour
 		}
 	}
 #endif
+
+	public void Damage(int baseDamage)
+	{
+		// Cast to int, truncates and takes whole number.
+		shootable.TakeDamage((int)(baseDamage * damageModifier));
+	}
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Ghost
 {
-
 	public class Lawnmower : MonoBehaviour
 	{
 		public LayerMask m_MowArea;
@@ -12,7 +11,7 @@ namespace Ghost
 		public float m_MowSensitivity = 0.05f;
 
 		[ContextMenu("Mow The Lawn")]
-		void Mow()
+		private void Mow()
 		{
 			List<GameObject> markedForDestroy = new List<GameObject>();
 			foreach (Transform item in transform)
@@ -35,7 +34,7 @@ namespace Ghost
 		}
 
 		[ContextMenu("ChildCount")]
-		void GetChildren()
+		private void GetChildren()
 		{
 			print(transform.childCount);
 		}

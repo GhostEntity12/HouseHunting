@@ -3,13 +3,16 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private float speed = 5.0f;
+
     private CharacterController controller;
     private SoundAlerter soundAlerter;
-    [SerializeField] private float speed = 5.0f;
-    private readonly float gravity = -9.81f;
+    private const float gravity = -9.81f;
     private Vector3 playerVelocity;
     private float jumpSpeed = 15f;
+
     public bool isSneaking;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -28,21 +31,14 @@ public class PlayerMovement : MonoBehaviour
         playerVelocity.y += gravity * Time.deltaTime;
 
         if (controller.isGrounded && playerVelocity.y < 0)
-        {
             playerVelocity.y = -2f;
-        }
 
         controller.Move(playerVelocity * Time.deltaTime);
 
         if (isSneaking)
-        {
             soundAlerter.MakeSound(Time.deltaTime * 2, transform.position, 2);
-        }
         else
-        {
             soundAlerter.MakeSound(Time.deltaTime * 5, transform.position, 5);
-        }
-
     }
 
     public void Jump()

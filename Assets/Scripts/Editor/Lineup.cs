@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Lineup : MonoBehaviour
 {
-    [SerializeField] float spacing;
+    [SerializeField] private float spacing;
     
 	private void OnValidate()
 	{

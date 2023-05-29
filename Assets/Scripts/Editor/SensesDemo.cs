@@ -1,13 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
 public class SensesDemo : MonoBehaviour
 {
-	[SerializeField] float opacity = 0.5f;
-	[SerializeField] List<SenseSphere> spheres;
-	[SerializeField] List<SenseCone> cones;
+	[SerializeField] private float opacity = 0.5f;
+	[SerializeField] private List<SenseSphere> spheres;
+	[SerializeField] private List<SenseCone> cones;
 
 	private void OnDrawGizmos()
 	{
@@ -17,7 +16,8 @@ public class SensesDemo : MonoBehaviour
 		Draw(0f);
 
 	}
-	void Draw(float transparency)
+
+	private void Draw(float transparency)
 	{
 		foreach (SenseSphere sphere in spheres)
 		{

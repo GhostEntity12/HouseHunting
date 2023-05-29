@@ -11,7 +11,9 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 	protected override void Awake()
 	{
-		playerInput = new PlayerInput();
+        base.Awake();
+
+        playerInput = new PlayerInput();
 
 		movement = GetComponent<PlayerMovement>();
 		look = GetComponent<PlayerLook>();
@@ -48,6 +50,11 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput.Hunting.DebugAmmo.performed += ctx => WeaponManager.Instance.GiveAmmo(100);
     }
 
+	private void OnEnable()
+	{
+		playerInput.Hunting.Enable();
+	}
+
 	private void FixedUpdate()
 	{
 		if (ShopUIManager.Instance.IsShopOpen) return;
@@ -63,11 +70,6 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		if (ShopUIManager.Instance.IsShopOpen) return;
 		if (!weaponWheelController.gameObject.activeInHierarchy)
 			look.Look(playerInput.Hunting.Look.ReadValue<Vector2>());
-	}
-
-	private void OnEnable()
-	{
-		playerInput.Hunting.Enable();
 	}
 
 	private void OnDisable()

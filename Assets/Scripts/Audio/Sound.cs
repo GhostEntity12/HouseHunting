@@ -10,9 +10,7 @@ public class Sound
         soundEffect,
         music,
     }
-    public AudioType audioType;
 
-    public string name;
     [SerializeField] private AudioClip clip;
     [SerializeField] private bool loop;
     [SerializeField] private bool playOnAwake;
@@ -22,10 +20,14 @@ public class Sound
     [Range(.1f, 3f)] 
     [SerializeField] private float pitch = 1f;
 
-    // public AudioMixerGroup mixerGroup;
+    private string name;
+    private AudioType audioType;
 
     [HideInInspector]
     public AudioSource source;
+
+    public string Name => name;
+    public AudioType Type => audioType;
 
     public void Setup()
     {
@@ -35,5 +37,4 @@ public class Sound
         source.volume = volume;
         source.pitch = pitch;
     }
-
 }

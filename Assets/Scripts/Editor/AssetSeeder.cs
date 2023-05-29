@@ -4,15 +4,18 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class AssetSeeder : MonoBehaviour
 {
+	private int prefabCount;
+	private GameObject parentObject;
+
 	public bool instantiateAsPrefab;
 
 	public string parentName;
 	public List<GameObject> prefab;
-	private Bounds _spawnBounds;
+	private Bounds spawnBounds;
 	public float yHeight;
 	public int maxObjects = 5000;
 
-	public LayerMask m_GroundMask;
+	public LayerMask groundMask;
 
 	[Min(0)]
 	public int maxTries;
@@ -21,26 +24,25 @@ public class AssetSeeder : MonoBehaviour
 
 	public LayerMask layerMask;
 
-	int prefabCount;
-	GameObject parentObject;
-
 	[ContextMenu("Seed Object")]
 	public void SeedObject()
 	{
 		if (prefab.Count == 0) { Debug.LogError("Missing a prefab to seed!"); return; }
-		_spawnBounds = GetComponent<Collider>().bounds;
+
+		spawnBounds = GetComponent<Collider>().bounds;
+
 		if (spacing == 0)
 		{
 			Debug.LogError("Spacing cannot be zero!");
 			return;
 		}
-		prefabCount = Mathf.Min(Mathf.FloorToInt(_spawnBounds.extents.x * _spawnBounds.extents.z / (spacing * 3)), maxObjects);
+		prefabCount = Mathf.Min(Mathf.FloorToInt(spawnBounds.extents.x * spawnBounds.extents.z / (spacing * 3)), maxObjects);
 		if (parentObject)
 			DestroyImmediate(parentObject);
 
 
 		parentObject = new GameObject(string.IsNullOrWhiteSpace(parentName) ? $"{prefab[0].name}Parent" : parentName);
-		parentObject.transform.position = _spawnBounds.center;
+		parentObject.transform.position = spawnBounds.center;
 		for (int i = 0; i < prefabCount; i++)
 		{
 			int tries = 0;
@@ -49,11 +51,11 @@ public class AssetSeeder : MonoBehaviour
 			do
 			{
 				randPoint = new Vector3(
-					Random.Range(_spawnBounds.min.x, _spawnBounds.max.x),
+					Random.Range(spawnBounds.min.x, spawnBounds.max.x),
 					yHeight,
-					Random.Range(_spawnBounds.min.z, _spawnBounds.max.z)
+					Random.Range(spawnBounds.min.z, spawnBounds.max.z)
 				);
-				if (Physics.Raycast(randPoint + Vector3.up * 10, Vector3.down, out RaycastHit hit, 15, m_GroundMask))
+				if (Physics.Raycast(randPoint + Vector3.up * 10, Vector3.down, out RaycastHit hit, 15, groundMask))
 				{
 					Debug.DrawLine(randPoint + Vector3.up * 10, hit.point, Color.red, 10);
 					randPoint = hit.point;

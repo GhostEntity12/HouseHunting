@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponManager : Singleton<WeaponManager>
 {
     [SerializeField] private List<Gun> allGuns;
+
     private Gun currentGun;
     private int currentGunIndex = 0;
     private List<GunShopItem> ownedGuns = new();
