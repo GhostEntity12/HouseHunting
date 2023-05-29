@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -39,14 +41,25 @@ public class GameManager : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         permanentInventory.Items = data.permanentInventory;
-        permanentInventory.GunAmmo = data.gunAmmo;
+        permanentInventory.BoughtItems = data.boughtItems;
         Currency = data.currency;
     }
 
     public void SaveData(GameData data)
     {
         data.permanentInventory = permanentInventory.Items;
-        data.gunAmmo = permanentInventory.GunAmmo;
+        List<ShopItem> boughtItems = permanentInventory.BoughtItems;
+        // if a gun is a ShopItem instead of a GunShopItem, convert it to GunShopItem
+        for (int i = 0; i < boughtItems.Count; i++)
+        {
+            if (boughtItems[i] is GunShopItem) continue;
+            if (WeaponManager.Instance.AllGuns.Any(x => x.GunSO.id == boughtItems[i].id))
+            {
+                GunShopItem gunShopItem = new GunShopItem(boughtItems[i].id, boughtItems[i].quantity, 0);
+                boughtItems[i] = gunShopItem;
+            }
+        }
+        data.boughtItems = permanentInventory.BoughtItems;
         data.currency = Currency;
     }
 

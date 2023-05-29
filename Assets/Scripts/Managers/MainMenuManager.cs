@@ -6,7 +6,7 @@ public class MainMenuManager : Singleton<MainMenuManager>
     public void NewGame()
     {
         DataPersistenceManager.Instance.NewGame();
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
     }
 
     public void Continue()

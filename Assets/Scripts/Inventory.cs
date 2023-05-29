@@ -2,56 +2,60 @@ using System.Collections.Generic;
 
 public class Inventory
 {
-    private List<InventoryItem> items;
-    private List<WeaponInventoryItem> gunAmmo = new List<WeaponInventoryItem>();
+    private List<FurnitureItem> furnitures;
+    private List<ShopItem> boughtItems = new List<ShopItem>();
 
-	public List<InventoryItem> Items { 
-        get { return items; } 
-        set { items = value; } 
-    }
-    public List<WeaponInventoryItem> GunAmmo { get; set; }
+	public List<FurnitureItem> Items { get { return furnitures; } set { furnitures = value; } }
+    public List<ShopItem> BoughtItems { get { return boughtItems; } set { boughtItems = value; } }
 
     public Inventory()
     {
-        items = new List<InventoryItem>();
-        gunAmmo = new List<WeaponInventoryItem>();
+        furnitures = new List<FurnitureItem>();
+        boughtItems = new List<ShopItem>();
     }
 
-    public void AddItem(InventoryItem newItem)
+    public void AddItem(FurnitureItem newItem)
     {
-        items.Add(newItem);
+        furnitures.Add(newItem);
     }
 
-    public void RemoveItem(InventoryItem itemToRemove)
+    public void RemoveItem(FurnitureItem itemToRemove)
     {
-        items.Remove(itemToRemove);
+        furnitures.Remove(itemToRemove);
     }
 
     public void MergeInventory(Inventory other)
     {
-        items.AddRange(other.Items);
+        furnitures.AddRange(other.Items);
 
         other.ClearInventory();
     }
 
     public void ClearInventory()
     {
-        items.Clear();
+        furnitures.Clear();
     }
 
-    public void AddGun(string id)
+    public void SetBuyableQuantity(string id, int quantity)
     {
-        gunAmmo.Add(new WeaponInventoryItem(id));
+        foreach (ShopItem item in boughtItems)
+        {
+            if (item.id == id)
+            {
+                item.quantity = quantity;
+                return;
+            }
+        }
     }
 
     public override string ToString()
     {
-        if (items.Count == 0)
+        if (furnitures.Count == 0)
             return "Empty inventory";
 
         string result = "";
 
-        foreach (var item in items)
+        foreach (var item in furnitures)
         {
             result += $"{item.id}, {item.scaleFactor}, {item.materialIndex}, {item.price}\n";
         }

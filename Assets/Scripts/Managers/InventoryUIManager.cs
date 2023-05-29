@@ -18,7 +18,7 @@ public class InventoryUIManager : MonoBehaviour
 
     private void Start()
     {
-        foreach (InventoryItem item in GameManager.Instance.PermanentInventory.Items)
+        foreach (FurnitureItem item in GameManager.Instance.PermanentInventory.Items)
         {
             ItemThumbnailUI inventoryItem = Instantiate(inventoryItemsUIPrefab, transform);
             inventoryItem.SetItem(item);
@@ -34,7 +34,7 @@ public class InventoryUIManager : MonoBehaviour
         }
 
         //add all items UI from the inventory
-        foreach (InventoryItem item in GameManager.Instance.PermanentInventory.Items)
+        foreach (FurnitureItem item in GameManager.Instance.PermanentInventory.Items)
         {
             ItemThumbnailUI inventoryItem = Instantiate(inventoryItemsUIPrefab, transform);
             inventoryItem.SetItem(item);
