@@ -3,13 +3,12 @@ using UnityEngine;
 
 public class SpawnerManager : MonoBehaviour
 {
-	List<Spawner> spawners = new();
-
 	// This can be swapped with the percentageOfSpawnersToTrigger below if wanted
-	[SerializeField] int numToSpawn;
-
+	[SerializeField] private int numToSpawn;
 	[Range(0, 1)]
 	[SerializeField] float percentageOfSpawnersToTrigger;
+
+	private List<Spawner> spawners = new();
 
 	private void Awake()
 	{

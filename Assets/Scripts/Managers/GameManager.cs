@@ -3,24 +3,20 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour, IDataPersistence
+public class GameManager : Singleton<GameManager>, IDataPersistence
 {
     [SerializeField] private Canvas pauseMenuCanvas;
 
     private static GameManager instance;
     private Inventory permanentInventory;
 
-    public static GameManager Instance => instance;
     public Inventory PermanentInventory { get => permanentInventory; }
     public int Currency { get; set; }
     public bool IsPaused { get => pauseMenuCanvas.enabled; }
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance != null && instance != this)
-            Destroy(this.gameObject);
-        else
-            instance = this;
+        base.Awake();
 
         HideCursor();
         permanentInventory = new Inventory();

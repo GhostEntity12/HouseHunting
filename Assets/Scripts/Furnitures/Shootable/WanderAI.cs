@@ -4,8 +4,8 @@ using UnityEngine.AI;
 
 public class WanderAI : MonoBehaviour 
 {
-    enum IState { Idle, Alert, Searching };
-    enum SState { Stressed, CanRelax, Relaxing}
+    enum IState { Idle, Alert, Searching }
+    enum SState { Stressed, CanRelax, Relaxing }
 
     private Shootable shootable;
     private MeshRenderer meshRenderer;
@@ -36,13 +36,9 @@ public class WanderAI : MonoBehaviour
         xray = shootable.FurnitureSO.xray;
         playerMovement = FindObjectOfType<PlayerMovement>();
     }
+
     /*
     private void OnEnable() 
-    {
-        SoundAlerter.OnSoundEmitEvent += OnSoundDetect;
-    }
-
-    private void OnDisable() 
     {
         SoundAlerter.OnSoundEmitEvent += OnSoundDetect;
     }

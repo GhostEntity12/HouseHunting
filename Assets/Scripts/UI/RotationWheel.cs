@@ -35,7 +35,13 @@ public class RotationWheel : MonoBehaviour
         radius = Vector2.Distance(new Vector2(transform.localPosition.x, transform.localPosition.z), new Vector2());
     }
 
-    public void OnDrag(PointerEventData data)
+    private void Update() 
+    {
+        if (!IsRotating)
+            RotateToCamera();
+    }
+
+    private void OnDrag(PointerEventData data)
     {
         IsRotating = true;
 
@@ -54,7 +60,7 @@ public class RotationWheel : MonoBehaviour
         parentPlaceableTransform.GetComponent<Placeable>().RotateToAngle(-angle);
     }
 
-    public void OnDragEnd()
+    private void OnDragEnd()
     {
         IsRotating = false;
         transform.localPosition = GetOriginalFixedPoint();
@@ -80,12 +86,6 @@ public class RotationWheel : MonoBehaviour
         float angleDegrees = angleRadians * 180 / Mathf.PI;
 
         return angleDegrees;
-    }
-
-    private void Update() 
-    {
-        if (!IsRotating)
-            RotateToCamera();
     }
 
     private void RotateToCamera()

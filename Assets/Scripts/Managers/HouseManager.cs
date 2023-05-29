@@ -23,6 +23,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		houseValue = CalculateHouseRating(houseItems); // assign total value here
 
         Debug.Log("HouseRating: " + houseValue);
+        Debug.Log("HouseRating: " + houseValue);
 		SetHouseMode(HouseMode.Explore);
 
 		AudioManager.Instance.Play("Building");
@@ -32,14 +33,17 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	private float CalculateHouseRating(List<HouseItem> houseItems)
 	{
 		float tValue = 0;
+
 		foreach (HouseItem item in houseItems)
 		{
 			tValue += item.inventoryItem.Value;
 		}
 
+
 		// can be changed in future
 		if (tValue > 9000)
 			UnlockTier("D"); // dummy function for now
+
 
 		return tValue;
 	}
@@ -63,6 +67,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	{
 		houseItems = data.houseItems;
 	}
+
 
 	public void SaveData(GameData data)
 	{

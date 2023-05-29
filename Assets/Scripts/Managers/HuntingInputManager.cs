@@ -46,7 +46,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
         playerInput.Hunting.Quick5.performed += ctx => WeaponManager.Instance.SelectItem(4);
         playerInput.Hunting.Quick6.performed += ctx => WeaponManager.Instance.SelectItem(5);
 
-		//debug
+		// debug
 		playerInput.Hunting.DebugAmmo.performed += ctx => WeaponManager.Instance.GiveAmmo(100);
     }
 
@@ -59,8 +59,6 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	{
 		if (ShopUIManager.Instance.IsShopOpen) return;
 
-        Debug.Log(movement);
-        Debug.Log(playerInput.Hunting.Movement.ReadValue<Vector2>());
         movement.Move(playerInput.Hunting.Movement.ReadValue<Vector2>());
 		movement.Crouch(playerInput.Hunting.Crouch.ReadValue<float>());
 	}

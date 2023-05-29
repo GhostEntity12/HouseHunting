@@ -6,7 +6,7 @@ public class AudioManager : Singleton<AudioManager>
 {
     private AudioMixerGroup musicMixerGroup;
     private AudioMixerGroup sfxMixerGroup;
-    private Sound[] sounds;
+    public Sound[] sounds;
 
     protected override void Awake()
     {

@@ -22,5 +22,5 @@ public class AssetKitPlacer : MonoBehaviour
 			position = newObject.transform.position;
 		}
 	}
-# endif
+	# endif
 }

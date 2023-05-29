@@ -68,4 +68,11 @@ public abstract class Shootable : MonoBehaviour, IInteractable
             Destroy(gameObject);
         }
     }
+
+    [System.Serializable]
+    public struct Hitbox
+    {
+        public Collider collider;
+        public float multiplier;
+    }
 }

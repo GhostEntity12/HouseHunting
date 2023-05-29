@@ -8,7 +8,6 @@ public class AssetSeeder : MonoBehaviour
 	private GameObject parentObject;
 
 	public bool instantiateAsPrefab;
-
 	public string parentName;
 	public List<GameObject> prefab;
 	private Bounds spawnBounds;
@@ -40,7 +39,6 @@ public class AssetSeeder : MonoBehaviour
 		if (parentObject)
 			DestroyImmediate(parentObject);
 
-
 		parentObject = new GameObject(string.IsNullOrWhiteSpace(parentName) ? $"{prefab[0].name}Parent" : parentName);
 		parentObject.transform.position = spawnBounds.center;
 		for (int i = 0; i < prefabCount; i++)
@@ -68,7 +66,7 @@ public class AssetSeeder : MonoBehaviour
 			if (tries <= maxTries)
 			{
 
-#if UNITY_EDITOR
+				#if UNITY_EDITOR
 				if (instantiateAsPrefab)
 				{
 					GameObject obj = (GameObject)UnityEditor.PrefabUtility.InstantiatePrefab(prefab[randPrefab], parentObject.transform);
@@ -79,7 +77,7 @@ public class AssetSeeder : MonoBehaviour
 				{
 					Instantiate(prefab[randPrefab], randPoint, Quaternion.Euler(0, Random.Range(-180f, 180f), 0), parentObject.transform);
 				}
-#endif
+				#endif
 			}
 			else
 			{

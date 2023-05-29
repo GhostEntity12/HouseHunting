@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-public class DataPersistenceManager : MonoBehaviour
+public class DataPersistenceManager : Singleton<DataPersistenceManager>
 {
     [SerializeField] private List<FurnitureSO> allFurnitureSOs; // this list stores all the placeable scriptable objects in the game, every time a new one is created, it must be added to this list via the Unity editor
     [SerializeField] private List<ShopItemSO> allShopItems; // this list stores all the buyable items in the game, every time a new one is created, it must be added to this list via the Unity editor
@@ -13,17 +13,12 @@ public class DataPersistenceManager : MonoBehaviour
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler fileDataHandler;
 
-    public static DataPersistenceManager Instance { get; private set; }
-
     public List<FurnitureSO> AllFurnitureSO { get => allFurnitureSOs; }
     public List<ShopItemSO> AllShopItems { get => allShopItems; }
 
-    private void Awake() 
+    protected override void Awake() 
     {
-        if (Instance != null && Instance != this)
-            Destroy(this.gameObject);
-        else
-            Instance = this;
+        base.Awake();
 
         DontDestroyOnLoad(gameObject);
         fileDataHandler = new FileDataHandler(Application.persistentDataPath, savedFileName);

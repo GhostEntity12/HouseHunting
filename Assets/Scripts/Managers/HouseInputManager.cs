@@ -1,7 +1,5 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HouseInputManager : Singleton<HouseInputManager>
@@ -22,6 +20,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	private bool isSelectingPlaceable = false;
 	private (Vector3 position, float angle) placeableInitialState = (Vector3.zero, 0f);
 	private Bounds cameraBounds;
+
 
 	public Placeable SelectedPlaceable { get; private set; }
 
@@ -124,9 +123,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		}
 	}
 
-
-	//=============================================
-
 	// Triggers on mouse down
 	private void DecorateMouseDownStarted()
 	{
@@ -152,50 +148,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		isDraggingCamera = false;
 		isDraggingPlaceable = false;
 		isSelectingPlaceable = false;
-	}
-
-	private void Update()
-	{
-		// Only execute the following in decorate mode
-		if (HouseManager.Instance.Mode != HouseManager.HouseMode.Decorate) return;
-
-		// If is dragging furniture (this variable is set in DecorateMouseDownStarted):
-		// 1. Raycast from mouse to floor
-		// 2. If raycast hits floor, set furniture position to raycast hit position
-		if (isDraggingPlaceable)
-		{
-			RaycastHit hitFloor = CastRayFromMouseToFloor();
-			if (hitFloor.transform && SelectedPlaceable)
-			{
-				Vector3 position = new(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), HouseManager.Instance.DecorateCamera.WorldToScreenPoint(SelectedPlaceable.transform.position).z);
-				Vector3 worldPosition = HouseManager.Instance.DecorateCamera.ScreenToWorldPoint(position);
-				SelectedPlaceable.transform.position = new Vector3(worldPosition.x, 0, worldPosition.z);
-			}
-		}
-		// If a placeable is selected, set the OK button's visibility and the mesh's color based on if the position is valid
-		if (SelectedPlaceable)
-		{
-			DecorateButtonGroupUIManager.Instance.OkButtonInteractable(SelectedPlaceable.IsValidPosition);
-			SelectedPlaceable.Mesh.material.color = SelectedPlaceable.IsValidPosition ? Color.green : Color.red;
-		}
-		//check if mouse is over UI, if not, drag camera
-		if (Mouse.current.leftButton.wasPressedThisFrame)
-		{
-			isDraggingCamera =
-				!(EventSystem.current.IsPointerOverGameObject(PointerInputModule.kMouseLeftId) ||
-				isDraggingPlaceable ||
-				isSelectingPlaceable);
-		}
-
-		if (isDraggingCamera)
-		{
-			// this check must be inside the if statement, because we want the camera to rotate if:
-			// 1. we are not selecting a placeable
-			// 2. we are selecting a placeable, but we are not rotating it
-			if (SelectedPlaceable != null)
-				if (SelectedPlaceable.RotationWheel.IsRotating) return;
-			RotateDecorateCamera(playerInput.Decorate.MouseMove.ReadValue<Vector2>());
-		}
 	}
 
 	/// <summary>
@@ -306,6 +258,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
 		if (savePosition)
 		{
+			//If position of placeable is not valid, put it back in the inventory
 			//If position of placeable is not valid, put it back in the inventory
 			if (SelectedPlaceable.IsValidPosition)
 				inventoryScrollView.gameObject.SetActive(true);

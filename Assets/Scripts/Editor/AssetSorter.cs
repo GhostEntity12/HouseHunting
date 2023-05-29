@@ -77,18 +77,14 @@ public class AssetSorter : MonoBehaviour
 		Debug.Log($"AssetSorter on GameObject <b>{gameObject.name}</b> sorted <b>{assetsToSort.Count}</b> children by sort type <b>{sortType}</b>");
 	}
 
-	void FixNames()
+	private void FixNames()
 	{
 		foreach (Transform child in transform)
 		{
 			if (child.name.Contains("(") && child.name.Contains(")"))
-			{
 				child.name = child.name.Substring(0, child.name.IndexOf("(") - 1).Trim();
-			}
 			if (!string.IsNullOrWhiteSpace(nameCulling))
-			{
 				child.name = child.name.Replace(nameCulling, "");
-			}
 		}
 	}
 }
