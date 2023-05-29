@@ -460,7 +460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9183740533133080826, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0000012314457
+      value: 0.00003306896
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -562,30 +562,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d899c20cec6325642be2b2b75ee559a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicMixerGroup: {fileID: 0}
+  sfxMixerGroup: {fileID: 0}
   sounds:
   - clip: {fileID: 8300000, guid: 2155b06e3e5f39a4b90769ef8ef23ef4, type: 3}
-    loop: 0
+    loop: 1
     playOnAwake: 0
-    volume: 0
-    pitch: 0
-    source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: 1031a364098ef3340bc568331ac01b53, type: 3}
-    loop: 0
-    playOnAwake: 0
-    volume: 0
-    pitch: 0
-    source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: c079757f96d9f8844867534b2b460fc5, type: 3}
-    loop: 0
-    playOnAwake: 0
-    volume: 0
-    pitch: 0
-    source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: add67e703414c8047afd5623cf6da5be, type: 3}
-    loop: 0
-    playOnAwake: 0
-    volume: 0
-    pitch: 0
+    volume: 0.8
+    pitch: 1
     source: {fileID: 0}
 --- !u!4 &222020176
 Transform:

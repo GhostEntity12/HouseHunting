@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    private AudioMixerGroup musicMixerGroup;
-    private AudioMixerGroup sfxMixerGroup;
-    public Sound[] sounds;
+    [SerializeField] private AudioMixerGroup musicMixerGroup;
+    [SerializeField] private AudioMixerGroup sfxMixerGroup;
+    [SerializeField] public Sound[] sounds;
 
     protected override void Awake()
     {
