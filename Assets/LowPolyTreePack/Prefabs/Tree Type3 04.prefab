@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2336884}
   - component: {fileID: -4888041590581651527}
   - component: {fileID: -5786812080158048027}
+  - component: {fileID: 6774573962027192633}
+  - component: {fileID: 7310700228418940866}
   m_Layer: 0
   m_Name: Tree Type3 04
   m_TagString: Untagged
@@ -104,10 +106,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.24367057
-  m_Height: 1.2926404
+  m_Radius: 0.17108706
+  m_Height: 1.0476979
   m_Direction: 1
-  m_Center: {x: 0.04367058, y: 0.5353049, z: -7.513178e-16}
+  m_Center: {x: 0.043670535, y: 0.4773261, z: 0.061542004}
 --- !u!208 &-5786812080158048027
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -124,3 +126,49 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.025, y: 5.038, z: -0.016}
   m_TimeToStationary: 0.5
+--- !u!136 &6774573962027192633
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115084}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1982002
+  m_Height: 0.458488
+  m_Direction: 1
+  m_Center: {x: 0.14527883, y: 1.2106841, z: 0.17173591}
+--- !u!136 &7310700228418940866
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115084}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.14044958
+  m_Height: 1.3750343
+  m_Direction: 1
+  m_Center: {x: 0.19014949, y: 2.1320753, z: 0.25656307}
