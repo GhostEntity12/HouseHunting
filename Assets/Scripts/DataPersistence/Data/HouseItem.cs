@@ -5,9 +5,9 @@ public struct HouseItem
     public Vector3 position;
     public float rotationAngle;
 
-    public InventoryItem inventoryItem;
+    public FurnitureItem inventoryItem;
 
-    public HouseItem(InventoryItem inventoryItem, Vector3 position, float rotationAngle)
+    public HouseItem(FurnitureItem inventoryItem, Vector3 position, float rotationAngle)
     {
         this.inventoryItem = inventoryItem;
         this.position = position;

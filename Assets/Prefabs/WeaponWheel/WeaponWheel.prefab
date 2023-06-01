@@ -804,6 +804,7 @@ GameObject:
   - component: {fileID: 4845014787856280157}
   - component: {fileID: 4845014787856280155}
   - component: {fileID: 4845014787856280156}
+  - component: {fileID: 669478569715881457}
   m_Layer: 5
   m_Name: WeaponWheel
   m_TagString: Untagged
@@ -871,6 +872,22 @@ MonoBehaviour:
   weaponWheelSelected: 0
   selectedItem: {fileID: 0}
   noImage: {fileID: 21300000, guid: 91b46027adc9f8d438bb08d8a69e0bc2, type: 3}
+  weaponHolder: {fileID: 0}
+  SSG: {fileID: 0}
+  LAR: {fileID: 0}
+  Xbow: {fileID: 0}
+--- !u!114 &669478569715881457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4845014787856280158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eab3b8a8951b7e43a98e783c59ee939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4845014787988108748
 GameObject:
   m_ObjectHideFlags: 0

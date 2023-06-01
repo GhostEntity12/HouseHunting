@@ -6,24 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
+    path: Assets/Scenes/00_MainMenu.unity
     guid: ec00f7f05c8564147aa0cc49b07becfc
   - enabled: 1
-    path: Assets/Scenes/ForestTestingEthan.unity
-    guid: 5d514ee2f3e97ac46b032f71a724873b
+    path: Assets/Scenes/01_House.unity
+    guid: 653e6c7f897353b4bb72c6e1685db15d
   - enabled: 1
-    path: Assets/Scenes/House.unity
-    guid: c83cc74f26cba794abc8775a7b1fe01b
-  - enabled: 0
-    path: Assets/Scenes/ForestTestingKai.unity
-    guid: 73ff48469bbcd6749a2ca929b61a8f60
-  - enabled: 0
-    path: Assets/Scenes/ForestTesting.unity
-    guid: 8250290cf17d54b48b23e658914bc090
-  - enabled: 0
-    path: Assets/Scenes/ForestDecorated.unity
-    guid: f6e5f005b004d964d89d69855814e350
-  - enabled: 0
-    path: Assets/Scenes/WeaponWheelTest.unity
-    guid: e9e66ea33b90fce4898380f2e519683d
+    path: Assets/Scenes/02_Hunting.unity
+    guid: 86e1557a43596ad41967061712b16cbc
   m_configObjects: {}

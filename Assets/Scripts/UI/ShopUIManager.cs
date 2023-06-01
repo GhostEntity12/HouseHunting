@@ -12,10 +12,12 @@ public class ShopUIManager : Singleton<ShopUIManager>
     [SerializeField] private GameObject furnitureDetailsPanel;
     [SerializeField] private ShopTabItem shopTabItemPrefab;
     [SerializeField] private TextMeshProUGUI noItemsText;
+    [SerializeField] private TextMeshProUGUI currencyText;
 
-    private (FurnitureSO so, InventoryItem inventoryItem)? selectedFurniture;
+    private (FurnitureSO so, FurnitureItem inventoryItem)? selectedFurniture;
     private List<string> tabs;
-    private List<InventoryItem> currentDisplayedItems;
+    private List<FurnitureItem> currentDisplayedItems;
+    private Inventory inventory;
 
     public bool IsShopOpen => shopCanvas.enabled;
 
@@ -26,32 +28,18 @@ public class ShopUIManager : Singleton<ShopUIManager>
 
         SelectItem(null);
         tabs = new List<string>();
-        currentDisplayedItems = new List<InventoryItem>();
+        currentDisplayedItems = new List<FurnitureItem>();
     }
 
     private void Start()
     {
-        foreach (InventoryItem item in GameManager.Instance.PermanentInventory.Items)
-        {
-            // add a tab for this item if it doesn't exist
-            if (!tabs.Contains(item.id))
-            {
-                tabs.Add(item.id);
-                ShopTabItem shopTab = Instantiate(shopTabItemPrefab, tabGroup.transform);
-                shopTab.SetItem(item);
-            }
-        }
-
-        tabs.Sort();
-
-        if (tabs.Count > 0)
-            SetTab(tabs[0]);
-
-        RepaintShop();
+        inventory = HuntingManager.Instance != null ? HuntingManager.Instance.HuntingInventory : GameManager.Instance.PermanentInventory;
     }
 
     private void RepaintShop()
     {
+        noItemsText.gameObject.SetActive(false);
+
         foreach (Transform child in gridLayoutGroup.transform)
         {
             Destroy(child.gameObject);
@@ -64,12 +52,15 @@ public class ShopUIManager : Singleton<ShopUIManager>
         else
         {
             noItemsText.gameObject.SetActive(false);
-            foreach (InventoryItem item in currentDisplayedItems)
+            foreach (FurnitureItem item in currentDisplayedItems)
             {
                 ShopFurnitureItem itemThumbnailUI = Instantiate(shopFurnitureItemPrefab, gridLayoutGroup.transform);
                 itemThumbnailUI.SetItem(item);
             }
         }
+
+        if (currencyText != null)
+            currencyText.text = "$" + GameManager.Instance.Currency.ToString();
     }
 
     private void RepaintTab()
@@ -79,13 +70,24 @@ public class ShopUIManager : Singleton<ShopUIManager>
             Destroy(child.gameObject);
         }
 
-        foreach (string tab in tabs)
+        tabs.Clear();
+
+        foreach (FurnitureItem item in inventory.Items)
         {
-            ShopTabItem shopTab = Instantiate(shopTabItemPrefab, tabGroup.transform);
-            shopTab.SetItem(GameManager.Instance.PermanentInventory.Items.Find(x => x.id == tab));
+            // add a tab for this item if it doesn't exist
+            if (!tabs.Contains(item.id))
+            {
+                tabs.Add(item.id);
+            }
         }
 
         tabs.Sort();
+
+        foreach (string tab in tabs)
+        {
+            ShopTabItem shopTab = Instantiate(shopTabItemPrefab, tabGroup.transform);
+            shopTab.SetItem(inventory.Items.Find(x => x.id == tab));
+        }
 
         if (tabs.Count > 0)
             SetTab(tabs[0]);
@@ -98,9 +100,8 @@ public class ShopUIManager : Singleton<ShopUIManager>
         shopCanvas.enabled = !shopCanvas.enabled;
         if (IsShopOpen)
         {
-            Debug.Log(GameManager.Instance.Currency);
             GameManager.Instance.ShowCursor();
-            RepaintShop();
+            RepaintTab();
         }
         else
         {
@@ -109,7 +110,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
         }
     }
 
-    public void SelectItem((FurnitureSO so, InventoryItem inventoryItem)? selectedInventoryItem)
+    public void SelectItem((FurnitureSO so, FurnitureItem inventoryItem)? selectedInventoryItem)
     {
         if (selectedInventoryItem is null)
         {
@@ -123,9 +124,10 @@ public class ShopUIManager : Singleton<ShopUIManager>
 
     public void SetTab(string tabName)
     {
-        currentDisplayedItems = GameManager.Instance.PermanentInventory.Items.FindAll(x => x.id == tabName);
-        RepaintShop();
+        currentDisplayedItems = inventory.Items.FindAll(x => x.id == tabName);
+        BuyMenuUIManager.Instance.ToggleBuyMenu(false);
         SelectItem(null);
+        RepaintShop();
     }
 
     public void SellItem()
@@ -133,11 +135,27 @@ public class ShopUIManager : Singleton<ShopUIManager>
         if (selectedFurniture is null) return;
 
         GameManager.Instance.Currency += (int)selectedFurniture?.inventoryItem.price;
-        GameManager.Instance.PermanentInventory.RemoveItem((InventoryItem)selectedFurniture?.inventoryItem);
+        inventory.RemoveItem((FurnitureItem)selectedFurniture?.inventoryItem);
         SetTab(selectedFurniture?.inventoryItem.id);
+        RepaintTab();
         SelectItem(null);
         InventoryUIManager.Instance.RepaintInventory();
+    }
 
-        Debug.Log(GameManager.Instance.Currency);
+    public void DropItem()
+    {
+        if (selectedFurniture is null) return;
+
+        inventory.RemoveItem((FurnitureItem)selectedFurniture?.inventoryItem);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        // i wanted to use HuntingInputManager. which is attached to the player but it's null for some reason
+        Shootable shootable = Instantiate(selectedFurniture?.so.shootablePrefab, player.transform.position + player.transform.forward * 2, Quaternion.identity);
+        shootable.Die();
+        SetTab(selectedFurniture?.inventoryItem.id);
+        RepaintTab();
+        SelectItem(null);
+        // uncomment this if you want the shop to close after dropping an item, its better to keep it open if you want to drop multiple items
+        // otherwise its better to close it if the player is only dropping one item.
+        // ToggleShop();
     }
 }

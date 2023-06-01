@@ -12,15 +12,6 @@ public abstract class Shootable : MonoBehaviour, IInteractable
     private int price;
     private int materialIndex;
     private float scaleFactor;
-
-    [System.Serializable]
-    public struct Hitbox
-    {
-        public Collider collider;
-        public float multiplier;
-    }
-
-    public Hitbox[] Hitboxes;
     public bool IsDead => isDead;
     public FurnitureSO FurnitureSO => furnitureSO;
 
@@ -31,39 +22,33 @@ public abstract class Shootable : MonoBehaviour, IInteractable
         alertCanvas = GetComponentInChildren<Canvas>();
 
         price = Mathf.RoundToInt(furnitureSO.basePrice * Random.Range(0.5f, 1.5f));
-        materialIndex = Random.Range(0, meshRenderer.materials.Length);
+        materialIndex = Random.Range(0, furnitureSO.materials.Length);
         scaleFactor = Random.Range(0.95f, 1.05f);
 
         meshRenderer.material = furnitureSO.materials[materialIndex];
     }
 
-    private void Die()
+    private void Start()
+    {
+        transform.localScale *= scaleFactor;
+    }
+
+    public void Die()
     {
         isDead = true;
         alertCanvas.enabled = false;
         meshRenderer.material.color = Color.blue; // Here we just change the material to the dead material for testing purposes, this can be changed to whatever logic to handle death
     }
 
-    public void TakeDamage(int damage, Collider hitbox)
+    public void TakeDamage(int damage)
     {
         if (isDead) return;
 
-        float damageMult = 1f;
-
-        foreach (Hitbox hit in Hitboxes)
-        {
-            if (hit.collider == hitbox)
-            {
-                damageMult = hit.multiplier;
-            }
-        }
-
-        int finalDamage = (int)(damage * damageMult);
-
-        currentHealth -= finalDamage;
+        currentHealth -= damage;
 
         if (currentHealth <= 0) Die();
     }
+
     public int[] GetHealth()
     {
         int[] healthStatus = { currentHealth, furnitureSO.maxHealth };
@@ -71,9 +56,9 @@ public abstract class Shootable : MonoBehaviour, IInteractable
     }
         
 
-    public InventoryItem GetInventoryItem()
+    public FurnitureItem GetInventoryItem()
     {
-        return new InventoryItem(furnitureSO.id, scaleFactor, materialIndex, price);
+        return new FurnitureItem(furnitureSO.id, scaleFactor, materialIndex, price);
     }
 
     public void Interact()

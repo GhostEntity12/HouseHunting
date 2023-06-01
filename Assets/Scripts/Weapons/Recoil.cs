@@ -7,16 +7,13 @@ public class Recoil : MonoBehaviour
     private Vector3 targetRotation;
 
     //Recoil
-    public float recoilX;
-    public float recoilY;
-    public float recoilZ;
-
+    private float recoilX;
+    private float recoilY;
+    private float recoilZ;
 
     //Settings
-    public float snappiness;
-    public float returnSpeed;
-
-
+    private float snappiness;
+    private float returnSpeed;
 
     // Start is called before the first frame update
     void Start()
