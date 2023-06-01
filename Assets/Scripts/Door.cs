@@ -3,8 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour, IInteractable
 {
-    [SerializeField] private Object sceneToLoad;
-
     public void Interact()
 	{
 		Debug.Log("InteractedWithDoor");

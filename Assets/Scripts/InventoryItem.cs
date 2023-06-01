@@ -1,4 +1,4 @@
-public struct InventoryItem
+public struct FurnitureItem
 {
     public string id;
     public float scaleFactor;
@@ -7,7 +7,7 @@ public struct InventoryItem
 
     public float Value => price * scaleFactor;
 
-    public InventoryItem(string id, float scaleFactor, int materialIndex, int price)
+    public FurnitureItem(string id, float scaleFactor, int materialIndex, int price)
     {
         this.id = id;
         this.scaleFactor = scaleFactor;

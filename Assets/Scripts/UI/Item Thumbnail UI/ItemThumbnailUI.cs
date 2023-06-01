@@ -5,10 +5,10 @@ public class ItemThumbnailUI : MonoBehaviour
 {
     [SerializeField] private Image image;
 
-    protected InventoryItem inventoryItem;
+    protected FurnitureItem inventoryItem;
     protected FurnitureSO furnitureSO;
 
-    public void SetItem(InventoryItem inventoryItem)
+    public void SetItem(FurnitureItem inventoryItem)
     {
         this.inventoryItem = inventoryItem;
         furnitureSO = DataPersistenceManager.Instance.AllFurnitureSO.Find(x => x.id == inventoryItem.id);

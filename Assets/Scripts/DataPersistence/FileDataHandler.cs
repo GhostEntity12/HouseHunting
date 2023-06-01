@@ -32,7 +32,10 @@ public class FileDataHandler
                     }
                 }
 
-                loadedData = JsonConvert.DeserializeObject<GameData>(dataToLoad);
+                loadedData = JsonConvert.DeserializeObject<GameData>(dataToLoad, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto,
+                });
             }
             catch (Exception e)
             {
@@ -53,7 +56,8 @@ public class FileDataHandler
             //serialize data
             string dataToStore = JsonConvert.SerializeObject(data, Formatting.None, new JsonSerializerSettings
             {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                TypeNameHandling = TypeNameHandling.Auto,
             });
 
             //write data to file
