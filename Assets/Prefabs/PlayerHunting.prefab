@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d6f362199acc941b311d63496bae92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guns:
+  allGuns:
   - {fileID: 2932757771291123352, guid: ceff132106ef38140bee93ace2b7aa97, type: 3}
   - {fileID: 9044442938559451673, guid: 3387f283955c7f6449c60a21db593378, type: 3}
   - {fileID: 7744787206299875300, guid: b564367a31bf57d40ac12e86b95962e7, type: 3}

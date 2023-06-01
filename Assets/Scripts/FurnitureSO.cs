@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Shootable_Furniture", menuName = "Furniture")]
+[CreateAssetMenu(fileName = "Furniture")]
 public class FurnitureSO : ScriptableObject
 {
     public string id;

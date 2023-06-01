@@ -22,4 +22,4 @@ MonoBehaviour:
   reloadTime: 1
   magSize: 1
   bulletsPerTap: 1
-  allowButtonHold: 0
+  bulletShopItem: {fileID: 11400000, guid: ac32ce9003e40184f97d9aff33164b16, type: 2}

@@ -3,36 +3,31 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public int damage;
-    public GameObject bulletHole;
+    public GameObject bulletHolePrefab;
     public float lifespan;
 
     void OnCollisionEnter(Collision collision)
     {
-        // on collision with shootable furniture, take damage
-        Shootable shootableTarget = collision.transform.GetComponentInParent<Shootable>();
-        if (shootableTarget != null)
+        if (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Player"))
         {
-            shootableTarget.TakeDamage(damage, collision.collider);
-            //bullet hole
-            ContactPoint contact = collision.contacts[0];
+            Destroy(gameObject);
+            return;
+        }
+
+        if (collision.transform.TryGetComponent(out Hitbox hitbox))
+        {
+            hitbox.Damage(damage);
+
+            // Instantiate bullet hole
+            ContactPoint contact = collision.GetContact(0);
             Quaternion rotation = Quaternion.FromToRotation(Vector3.up, contact.normal);
-            Vector3 position = contact.point;
-            GameObject obj = Instantiate(bulletHole, contact.point, rotation);
-            obj.transform.position += obj.transform.forward/1000;
+            GameObject bulletHole = Instantiate(bulletHolePrefab, contact.point, rotation);
+            bulletHole.transform.position += bulletHole.transform.forward / 1000;
             Destroy(gameObject);
+            return;
         }
 
-        if (collision.gameObject.tag == "floor")
-        {
-            Destroy(gameObject);
-        }
-
-        if (collision.gameObject.tag == "Player")
-        {
-            Destroy(gameObject);
-        }
-
-        //DeSpawn bullet
+        //Despawn bullet
         Destroy(gameObject, lifespan); 
     }
     
