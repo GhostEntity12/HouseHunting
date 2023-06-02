@@ -16,10 +16,11 @@ MonoBehaviour:
   name: Shotgun
   bulletPrefab: {fileID: 3790431006243065009, guid: 5ff316bf07ef7cf42a70ce61b97da412, type: 3}
   icon: {fileID: 21300000, guid: d79a92fb90dd48841b06e145213af236, type: 3}
-  shootForce: 50
+  shootForce: 75
   timeBetweenShots: 1
   spread: 0.2
   reloadTime: 1
+  volume: 0
   magSize: 24
   bulletsPerTap: 12
   bulletShopItem: {fileID: 11400000, guid: 15d8281f422fcd944866716b67ec1f56, type: 2}
