@@ -14,6 +14,7 @@ public class Placeable : MonoBehaviour
     private void Start()
     {
         Mesh.transform.localScale *= InventoryItem.scaleFactor;
+        //Debug.Log(DataPersistenceManager.Instance.AllFurnitureSO.Find(x => x.id == InventoryItem.id));
         Material = DataPersistenceManager.Instance.AllFurnitureSO.Find(x => x.id == InventoryItem.id).materials[InventoryItem.materialIndex];
         Mesh.material = Material;
     }

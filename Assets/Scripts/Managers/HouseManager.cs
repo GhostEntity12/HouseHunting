@@ -11,6 +11,8 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
 	[SerializeField] private CanvasGroup decorateUI;
 	[SerializeField] private MeshFilter playerModel;
+	[SerializeField] private GameObject playerGameObject;
+
 	[field: SerializeField] public Camera ExploreCamera { get; private set; }
 	[field: SerializeField] public Camera DecorateCamera { get; private set; }
 
@@ -29,8 +31,13 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		AudioManager.Instance.Play("Building");
 	}
 
-	// function to calculate house rating, on certain threseholds (to be determined later), unlockTier is called to unlock that tier.
-	private float CalculateHouseRating(List<HouseItem> houseItems)
+    private void Update()
+    {
+		// cast ray from center of the screen to 5 units away, project the selected furniture to the point
+    }
+
+    // function to calculate house rating, on certain threseholds (to be determined later), unlockTier is called to unlock that tier.
+    private float CalculateHouseRating(List<HouseItem> houseItems)
 	{
 		float tValue = 0;
 		foreach (HouseItem item in houseItems)
@@ -118,5 +125,23 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		}
 
 		ModeChanged?.Invoke(mode);
+	}
+
+	public void SelectFurnitureToPlace()
+	{
+		if (ShopUIManager.Instance.SelectedFurniture?.so == null) return;
+		(FurnitureSO so, FurnitureItem item) selectedFurniture = ShopUIManager.Instance.SelectedFurniture.Value;
+		// cast ray from camera to 3 units away
+		Placeable spawnedPlaceable = Instantiate(selectedFurniture.so.placeablePrefab);
+		
+		spawnedPlaceable.transform.position = playerGameObject.transform.forward * 3;
+		// clamp the position so that the y index is always on ground level
+		spawnedPlaceable.transform.position = new Vector3(spawnedPlaceable.transform.position.x, 0, spawnedPlaceable.transform.position.z);
+		// rotate the furniture so that it faces the player
+		spawnedPlaceable.transform.LookAt(ExploreCamera.transform.position);
+		spawnedPlaceable.transform.rotation = Quaternion.Euler(spawnedPlaceable.transform.rotation.eulerAngles.x, 0, spawnedPlaceable.transform.rotation.eulerAngles.z);
+		spawnedPlaceable.InventoryItem = selectedFurniture.item;
+
+		ShopUIManager.Instance.ToggleShop();
 	}
 }

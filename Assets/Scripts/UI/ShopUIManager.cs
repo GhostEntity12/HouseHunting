@@ -20,6 +20,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
     private Inventory inventory;
 
     public bool IsShopOpen => shopCanvas.enabled;
+    public (FurnitureSO so, FurnitureItem inventoryItem)? SelectedFurniture => selectedFurniture;
 
     protected override void Awake()
     {
