@@ -4,6 +4,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] List<Shootable> spawnableFurniture;
+    public int amountToSpawn;
 
     public bool Spawn()
     {
@@ -12,8 +13,11 @@ public class Spawner : MonoBehaviour
             Debug.LogError("Spawner is empty!", this);
             return false;
         }
-
-        Instantiate(spawnableFurniture[Random.Range(0, spawnableFurniture.Count)]);
+        for(int i = 0; i < amountToSpawn; i++)
+        {
+            Instantiate(spawnableFurniture[Random.Range(0, spawnableFurniture.Count)], transform);
+            Debug.Log($"Spawn location: {transform.position}");
+        }
         return true;
     }
 }
