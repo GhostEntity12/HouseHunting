@@ -6,19 +6,20 @@ public class ButtonAnimator : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 {
     public Image outlineImage; // Drag your outline image here in the Inspector
     private bool isHovering = false;
+    private bool isAnimating = false;
+    private float scaleRange = 1.05f;
 
     void Update()
     {
-        if (isHovering)
-        {
-            float jitterAmount = 0.02f; // Change this to adjust the intensity of the jitter
-            outlineImage.rectTransform.localScale = new Vector3(1 + Random.Range(-jitterAmount, jitterAmount), 1 + Random.Range(-jitterAmount, jitterAmount), 1f);
-        }
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        isHovering = true;
+        LeanTween.scale(outlineImage.gameObject, Vector3.one * scaleRange, 0.2f)
+            .setLoopPingPong()
+            .setEase(LeanTweenType.easeInOutSine)
+            .setIgnoreTimeScale(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -28,8 +29,8 @@ public class ButtonAnimator : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void StopAnimation()
     {
-        isHovering = false;
         // Reset the outline image scale
-        outlineImage.rectTransform.localScale = new Vector3(1f, 1f, 1f);
+        LeanTween.cancel(outlineImage.gameObject);
+        outlineImage.rectTransform.localScale = new Vector3(1f, 1.15f, 1f);
     }
 }
