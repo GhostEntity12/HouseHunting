@@ -42,15 +42,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Sprint",
-                    "type": "Button",
-                    "id": "2ec92dad-eb30-4d05-8632-c7166be9528b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Crouch",
                     "type": "Button",
                     "id": "0e16a203-14d2-43a3-8939-70129b7ad8e9",
@@ -162,6 +153,15 @@
                     "name": "DebugAmmo",
                     "type": "Button",
                     "id": "76d1ac6f-d949-4ece-aa0c-fd32fb6bdbdb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "22c3732d-8bb3-4529-b69d-73f0ea88a18c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -424,12 +424,12 @@
                 },
                 {
                     "name": "",
-                    "id": "4ef95762-bab2-40ba-b6d5-7d42c1277e38",
-                    "path": "<Keyboard>/shift",
+                    "id": "f11cc6d9-0701-4f4e-9c26-c9d9d6aba860",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Sprint",
+                    "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

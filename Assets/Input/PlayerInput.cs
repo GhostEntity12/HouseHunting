@@ -64,15 +64,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Sprint"",
-                    ""type"": ""Button"",
-                    ""id"": ""2ec92dad-eb30-4d05-8632-c7166be9528b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Crouch"",
                     ""type"": ""Button"",
                     ""id"": ""0e16a203-14d2-43a3-8939-70129b7ad8e9"",
@@ -184,6 +175,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""name"": ""DebugAmmo"",
                     ""type"": ""Button"",
                     ""id"": ""76d1ac6f-d949-4ece-aa0c-fd32fb6bdbdb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""22c3732d-8bb3-4529-b69d-73f0ea88a18c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -446,12 +446,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4ef95762-bab2-40ba-b6d5-7d42c1277e38"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""id"": ""f11cc6d9-0701-4f4e-9c26-c9d9d6aba860"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Sprint"",
+                    ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -810,7 +810,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Hunting_Look = m_Hunting.FindAction("Look", throwIfNotFound: true);
         m_Hunting_Shoot = m_Hunting.FindAction("Shoot", throwIfNotFound: true);
         m_Hunting_Interact = m_Hunting.FindAction("Interact", throwIfNotFound: true);
-        m_Hunting_Sprint = m_Hunting.FindAction("Sprint", throwIfNotFound: true);
         m_Hunting_Crouch = m_Hunting.FindAction("Crouch", throwIfNotFound: true);
         m_Hunting_Jump = m_Hunting.FindAction("Jump", throwIfNotFound: true);
         m_Hunting_OpenWeaponWheel = m_Hunting.FindAction("OpenWeaponWheel", throwIfNotFound: true);
@@ -824,6 +823,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Hunting_Quick5 = m_Hunting.FindAction("Quick5", throwIfNotFound: true);
         m_Hunting_Quick6 = m_Hunting.FindAction("Quick6", throwIfNotFound: true);
         m_Hunting_DebugAmmo = m_Hunting.FindAction("DebugAmmo", throwIfNotFound: true);
+        m_Hunting_Run = m_Hunting.FindAction("Run", throwIfNotFound: true);
         // House
         m_House = asset.FindActionMap("House", throwIfNotFound: true);
         m_House_Movement = m_House.FindAction("Movement", throwIfNotFound: true);
@@ -903,7 +903,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_Look;
     private readonly InputAction m_Hunting_Shoot;
     private readonly InputAction m_Hunting_Interact;
-    private readonly InputAction m_Hunting_Sprint;
     private readonly InputAction m_Hunting_Crouch;
     private readonly InputAction m_Hunting_Jump;
     private readonly InputAction m_Hunting_OpenWeaponWheel;
@@ -917,6 +916,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_Quick5;
     private readonly InputAction m_Hunting_Quick6;
     private readonly InputAction m_Hunting_DebugAmmo;
+    private readonly InputAction m_Hunting_Run;
     public struct HuntingActions
     {
         private @PlayerInput m_Wrapper;
@@ -925,7 +925,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Hunting_Look;
         public InputAction @Shoot => m_Wrapper.m_Hunting_Shoot;
         public InputAction @Interact => m_Wrapper.m_Hunting_Interact;
-        public InputAction @Sprint => m_Wrapper.m_Hunting_Sprint;
         public InputAction @Crouch => m_Wrapper.m_Hunting_Crouch;
         public InputAction @Jump => m_Wrapper.m_Hunting_Jump;
         public InputAction @OpenWeaponWheel => m_Wrapper.m_Hunting_OpenWeaponWheel;
@@ -939,6 +938,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Quick5 => m_Wrapper.m_Hunting_Quick5;
         public InputAction @Quick6 => m_Wrapper.m_Hunting_Quick6;
         public InputAction @DebugAmmo => m_Wrapper.m_Hunting_DebugAmmo;
+        public InputAction @Run => m_Wrapper.m_Hunting_Run;
         public InputActionMap Get() { return m_Wrapper.m_Hunting; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -960,9 +960,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnInteract;
-                @Sprint.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnSprint;
-                @Sprint.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnSprint;
-                @Sprint.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnSprint;
                 @Crouch.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnCrouch;
@@ -1002,6 +999,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @DebugAmmo.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnDebugAmmo;
                 @DebugAmmo.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnDebugAmmo;
                 @DebugAmmo.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnDebugAmmo;
+                @Run.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnRun;
+                @Run.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnRun;
+                @Run.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnRun;
             }
             m_Wrapper.m_HuntingActionsCallbackInterface = instance;
             if (instance != null)
@@ -1018,9 +1018,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
-                @Sprint.started += instance.OnSprint;
-                @Sprint.performed += instance.OnSprint;
-                @Sprint.canceled += instance.OnSprint;
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
@@ -1060,6 +1057,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @DebugAmmo.started += instance.OnDebugAmmo;
                 @DebugAmmo.performed += instance.OnDebugAmmo;
                 @DebugAmmo.canceled += instance.OnDebugAmmo;
+                @Run.started += instance.OnRun;
+                @Run.performed += instance.OnRun;
+                @Run.canceled += instance.OnRun;
             }
         }
     }
@@ -1216,7 +1216,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnSprint(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnOpenWeaponWheel(InputAction.CallbackContext context);
@@ -1230,6 +1229,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnQuick5(InputAction.CallbackContext context);
         void OnQuick6(InputAction.CallbackContext context);
         void OnDebugAmmo(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
     }
     public interface IHouseActions
     {

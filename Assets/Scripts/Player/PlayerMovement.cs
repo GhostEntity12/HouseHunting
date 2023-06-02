@@ -25,12 +25,17 @@ public class PlayerMovement : MonoBehaviour
         //float currentSpeed = isSneaking ? speed / 2 : speed;
 
         float currentSpeed = speed;
-        if(isSprinting) {
-            currentSpeed = 10f;
-        } 
-        if (isSneaking) {
+
+        if (isSneaking)
+        {
             currentSpeed = speed / 2;
         }
+        else if (isSprinting)
+        {
+            currentSpeed = speed * 2;
+        }
+        
+        Debug.Log("currentSpeed: " + currentSpeed + isSprinting);
 
         controller.Move(transform.TransformDirection(moveDirection) * currentSpeed * Time.deltaTime);
 
@@ -76,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void Sprint(float input)
+    public void Run(float input)
     {
         if (input > 0) {
             Sprinting(true);
