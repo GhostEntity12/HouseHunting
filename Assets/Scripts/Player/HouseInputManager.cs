@@ -40,6 +40,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		playerInput.House.Decorate.performed += ctx => HouseManager.Instance.SetHouseMode(HouseManager.HouseMode.Decorate);
 		playerInput.House.OpenShop.performed += ctx => ShopUIManager.Instance.ToggleShop();
 		playerInput.House.Pause.performed += ctx => PausePressed();
+		playerInput.House.PlaceFurniture.performed += ctx => HouseManager.Instance.PlaceHoldingPlaceable();
 
 		playerInput.Decorate.MouseDown.started += ctx => DecorateMouseDownStarted();
 		playerInput.Decorate.MouseDown.canceled += ctx => DecorateMouseDownCanceled();
@@ -85,8 +86,15 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	private void LateUpdate()
 	{
 		// 1st person camera movement for exploration mode
-		if (!ShopUIManager.Instance.IsShopOpen)
-			look.Look(playerInput.House.Look.ReadValue<Vector2>());
+		if (ShopUIManager.Instance.IsShopOpen) return;
+		
+		look.Look(playerInput.House.Look.ReadValue<Vector2>());
+
+		float scroll = playerInput.House.RotateFurniture.ReadValue<float>();
+		if (scroll > 0f)
+			HouseManager.Instance.RotateHoldingPlaceable(30f);
+		else if (scroll < 0f)
+			HouseManager.Instance.RotateHoldingPlaceable(-30f);
 	}
 
 	/// <summary>

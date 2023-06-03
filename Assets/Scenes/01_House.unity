@@ -1234,7 +1234,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -503.7495, y: 887.53}
+  m_AnchoredPosition: {x: -503.7495, y: 975}
   m_SizeDelta: {x: 612.501, y: 69.995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &314827858
@@ -2958,6 +2958,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 652775013}
   m_CullTransparentMesh: 1
+--- !u!1 &719891489 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5657111898024006285, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
+  m_PrefabInstance: {fileID: 1076144355}
+  m_PrefabAsset: {fileID: 0}
 --- !u!20 &752826643 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 306865349511134642, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
@@ -4717,7 +4722,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6098993039830378882, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
   m_PrefabInstance: {fileID: 1076144355}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 719891489}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 717d965a1d0dbd249970df9374f57702, type: 3}
@@ -4728,7 +4733,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4108439072987583472, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
   m_PrefabInstance: {fileID: 1076144355}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 719891489}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdaae8ed31e34b242b0ac34ef11cedb8, type: 3}
@@ -5549,7 +5554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4601691607219831867, guid: 396b3cdaa6a728f42a8254d6cd681587, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 887.53
+      value: 975
       objectReference: {fileID: 0}
     - target: {fileID: 4601691607219831867, guid: 396b3cdaa6a728f42a8254d6cd681587, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6787,6 +6792,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   decorateUI: {fileID: 821138248}
   playerModel: {fileID: 76634036}
+  playerGameObject: {fileID: 719891489}
   <ExploreCamera>k__BackingField: {fileID: 752826643}
   <DecorateCamera>k__BackingField: {fileID: 1118677756}
 --- !u!4 &1966112609

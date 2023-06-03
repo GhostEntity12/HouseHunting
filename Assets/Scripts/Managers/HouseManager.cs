@@ -6,26 +6,31 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	public enum HouseMode { Explore, Decorate }
 	public HouseMode Mode { get; private set; }
 
-	public delegate void OnModeChange(HouseMode mode);
-	public static event OnModeChange ModeChanged;
-
 	[SerializeField] private CanvasGroup decorateUI;
 	[SerializeField] private MeshFilter playerModel;
 	[SerializeField] private GameObject playerGameObject;
-
-	[field: SerializeField] public Camera ExploreCamera { get; private set; }
+    [field: SerializeField] public Camera ExploreCamera { get; private set; }
 	[field: SerializeField] public Camera DecorateCamera { get; private set; }
 
 
+	private Placeable holdingPlaceable;
+    private float holdingPlaceableRotation = 0;
 	private List<HouseItem> houseItems;
 	private float houseValue = 0;
+
+    public Placeable HoldingPlaceable { get => holdingPlaceable; set => holdingPlaceable = value; }
+	public float HoldingPlaceableRotation { get => holdingPlaceableRotation; set => holdingPlaceableRotation = value; }
+
+    public delegate void OnModeChange(HouseMode mode);
+	public static event OnModeChange ModeChanged;
+
 
 	private void Start()
 	{
 		SpawnSerializedPlaceables();
 		houseValue = CalculateHouseRating(houseItems); // assign total value here
 
-        Debug.Log("HouseRating: "+houseValue);
+        Debug.Log("HouseRating: " + houseValue);
 		SetHouseMode(HouseMode.Explore);
 
 		AudioManager.Instance.Play("Building");
@@ -33,7 +38,12 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
     private void Update()
     {
-		// cast ray from center of the screen to 5 units away, project the selected furniture to the point
+        HoldPlaceable();
+    }
+
+	private void OnDestroy()
+	{
+        SavePlaceables();
     }
 
     // function to calculate house rating, on certain threseholds (to be determined later), unlockTier is called to unlock that tier.
@@ -59,12 +69,13 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	{
 		houseItems = data.houseItems;
 	}
+
 	public void SaveData(GameData data)
 	{
-		data.houseItems = houseItems;
+        data.houseItems = houseItems;
 	}
 
-	void SpawnSerializedPlaceables()
+	private void SpawnSerializedPlaceables()
 	{
 		foreach (HouseItem item in houseItems)
 		{
@@ -74,10 +85,25 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		}
 	}
 
+	private void HoldPlaceable()
+	{
+		if (holdingPlaceable == null) return;
+
+		// set the position of the furniture to be 3 units in front of the player
+		holdingPlaceable.transform.position = playerGameObject.transform.position + playerGameObject.transform.forward * 3;
+		// clamp the position so that the y index is always on ground level
+		holdingPlaceable.transform.position = new Vector3(holdingPlaceable.transform.position.x, 0, holdingPlaceable.transform.position.z);
+		// rotate the furniture so that it faces the player
+		holdingPlaceable.transform.LookAt(ExploreCamera.transform.position);
+		holdingPlaceable.transform.rotation = Quaternion.Euler(0, holdingPlaceable.transform.rotation.eulerAngles.y + holdingPlaceableRotation, 0);
+
+		holdingPlaceable.Mesh.material.color = holdingPlaceable.IsValidPosition ? Color.green : Color.red;
+	}
+
 	public void SavePlaceables()
 	{
 		Placeable[] allPlaceables = FindObjectsOfType<Placeable>();
-		houseItems.Clear();
+        houseItems.Clear();
 		foreach (Placeable placeable in allPlaceables)
 		{
 			MeshRenderer meshRenderer = placeable.GetComponentInChildren<MeshRenderer>();
@@ -133,15 +159,30 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		(FurnitureSO so, FurnitureItem item) selectedFurniture = ShopUIManager.Instance.SelectedFurniture.Value;
 		// cast ray from camera to 3 units away
 		Placeable spawnedPlaceable = Instantiate(selectedFurniture.so.placeablePrefab);
-		
-		spawnedPlaceable.transform.position = playerGameObject.transform.forward * 3;
-		// clamp the position so that the y index is always on ground level
-		spawnedPlaceable.transform.position = new Vector3(spawnedPlaceable.transform.position.x, 0, spawnedPlaceable.transform.position.z);
-		// rotate the furniture so that it faces the player
-		spawnedPlaceable.transform.LookAt(ExploreCamera.transform.position);
-		spawnedPlaceable.transform.rotation = Quaternion.Euler(spawnedPlaceable.transform.rotation.eulerAngles.x, 0, spawnedPlaceable.transform.rotation.eulerAngles.z);
-		spawnedPlaceable.InventoryItem = selectedFurniture.item;
+
+		holdingPlaceable = spawnedPlaceable;
+        HoldPlaceable();
+
+        spawnedPlaceable.InventoryItem = selectedFurniture.item;
 
 		ShopUIManager.Instance.ToggleShop();
 	}
+
+	public void RotateHoldingPlaceable(float angle)
+	{
+		if (holdingPlaceable == null) return;
+
+		holdingPlaceableRotation += angle;
+	}
+
+	public void PlaceHoldingPlaceable()
+	{
+		if (holdingPlaceable == null || !holdingPlaceable.IsValidPosition) return;
+
+        GameManager.Instance.PermanentInventory.RemoveItem(holdingPlaceable.InventoryItem);
+
+		holdingPlaceable.Mesh.material = holdingPlaceable.Material;
+		holdingPlaceable = null;
+		holdingPlaceableRotation = 0;
+    }
 }

@@ -92,6 +92,8 @@ public class ShopUIManager : Singleton<ShopUIManager>
 
         if (tabs.Count > 0)
             SetTab(tabs[0]);
+        else
+            currentDisplayedItems.Clear();
 
         RepaintShop();
     }

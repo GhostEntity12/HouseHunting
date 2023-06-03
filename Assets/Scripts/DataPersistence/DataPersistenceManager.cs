@@ -49,6 +49,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void OnSceneUnloaded(Scene scene)
     {
+        Debug.Log("Scene unloaded");
         SaveGame();
     }
 
