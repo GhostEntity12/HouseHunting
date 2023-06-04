@@ -38,5 +38,5 @@ public class SpawnerManager : MonoBehaviour
 				i--;
 			}
 		}
-	}
+		}
 }

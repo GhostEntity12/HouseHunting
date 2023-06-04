@@ -105,9 +105,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.21724232
-  m_Height: 1.1268322
+  m_Height: 6.5625043
   m_Direction: 1
-  m_Center: {x: 0.015279129, y: 0.55484736, z: -0.00021855533}
+  m_Center: {x: 0.015279129, y: 3.2726834, z: -0.00021855533}
 --- !u!208 &-2641682955429240122
 NavMeshObstacle:
   m_ObjectHideFlags: 0
