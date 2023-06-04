@@ -661,9 +661,9 @@ MonoBehaviour:
   - clip: {fileID: 8300000, guid: c079757f96d9f8844867534b2b460fc5, type: 3}
     loop: 1
     playOnAwake: 0
-    volume: 0.8
+    volume: 0.03
     pitch: 1
-    name: 
+    name: Building
     source: {fileID: 0}
 --- !u!1 &192894319
 GameObject:

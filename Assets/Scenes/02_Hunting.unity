@@ -464,7 +464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9183740533133080826, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0001301766
+      value: 0.0007555166
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -572,9 +572,9 @@ MonoBehaviour:
   - clip: {fileID: 8300000, guid: 2155b06e3e5f39a4b90769ef8ef23ef4, type: 3}
     loop: 1
     playOnAwake: 0
-    volume: 0.8
+    volume: 0.03
     pitch: 1
-    name: 
+    name: Ambience
     source: {fileID: 0}
 --- !u!4 &222020176
 Transform:
