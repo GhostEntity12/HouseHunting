@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1124,7 +1124,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5093405572136734449, guid: fc1508b594816424683a2f0bfade27a9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: -10.149
       objectReference: {fileID: 0}
     - target: {fileID: 5093405572136734449, guid: fc1508b594816424683a2f0bfade27a9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1162,6 +1162,10 @@ PrefabInstance:
       propertyPath: sceneToLoad
       value: 
       objectReference: {fileID: 102900000, guid: 5d514ee2f3e97ac46b032f71a724873b, type: 3}
+    - target: {fileID: 6018167466328828813, guid: fc1508b594816424683a2f0bfade27a9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 059247a974702554b824f4e9a8ee6798, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2979,7 +2983,7 @@ GameObject:
   - component: {fileID: 779811693}
   - component: {fileID: 779811692}
   m_Layer: 0
-  m_Name: Plane (4)
+  m_Name: Roof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3913,7 +3917,7 @@ GameObject:
   - component: {fileID: 845813857}
   - component: {fileID: 845813856}
   m_Layer: 0
-  m_Name: Plane (5)
+  m_Name: Note
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4475,7 +4479,7 @@ GameObject:
   - component: {fileID: 1026374786}
   - component: {fileID: 1026374785}
   m_Layer: 0
-  m_Name: Plane (2)
+  m_Name: RightWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6233,7 +6237,7 @@ GameObject:
   - component: {fileID: 1608999836}
   - component: {fileID: 1608999835}
   m_Layer: 0
-  m_Name: Plane (1)
+  m_Name: BackWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7309,7 +7313,7 @@ GameObject:
   - component: {fileID: 2094119498}
   - component: {fileID: 2094119497}
   m_Layer: 0
-  m_Name: Plane (3)
+  m_Name: LeftWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
