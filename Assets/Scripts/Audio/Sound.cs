@@ -36,5 +36,6 @@ public class Sound
         source.playOnAwake = playOnAwake;
         source.volume = volume;
         source.pitch = pitch;
+        //name = source.name;
     }
 }

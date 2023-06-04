@@ -161,7 +161,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
 		Vector3 idealPosition = cameraBounds.ClosestPoint(HouseManager.Instance.DecorateCamera.transform.position + decorateCameraSpeed * Time.deltaTime * direction.normalized);
 
-		HouseManager.Instance.DecorateCamera.transform.position = new(idealPosition.x, HouseManager.Instance.DecorateCamera.transform.position.y, idealPosition.z);
+		HouseManager.Instance.DecorateCamera.transform.position = new Vector3 (idealPosition.x, HouseManager.Instance.DecorateCamera.transform.position.y, idealPosition.z);
 	}
 
 	/// <summary>

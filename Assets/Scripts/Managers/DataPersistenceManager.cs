@@ -61,7 +61,7 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
     public void NewGame()
     {
         gameData = new GameData();
-        gameData.boughtItems.Add(new GunShopItem("crossbow", 1, 0));
+        gameData.boughtItems.Add(new GunShopItem("crossbow", 1, 10));
     }
 
     public void LoadGame()
