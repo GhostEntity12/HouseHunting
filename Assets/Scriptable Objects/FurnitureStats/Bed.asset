@@ -25,6 +25,6 @@ MonoBehaviour:
   materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   basePrice: 200
-  thumbnail: {fileID: 0}
+  thumbnail: {fileID: 21300000, guid: 7be0f92b9e7bb1744bfe3af8adc18fd2, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: ab69939ac05fb64439de73fbe8c0afb0, type: 3}
   shootablePrefab: {fileID: 6366392969304530097, guid: e8539187ac50cf744a5e6e54af7a9808, type: 3}
