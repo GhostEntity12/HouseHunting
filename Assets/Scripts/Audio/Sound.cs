@@ -20,7 +20,7 @@ public class Sound
     [Range(.1f, 3f)] 
     [SerializeField] private float pitch = 1f;
 
-    private string name;
+    [SerializeField] private string name;
     private AudioType audioType;
 
     [HideInInspector]
