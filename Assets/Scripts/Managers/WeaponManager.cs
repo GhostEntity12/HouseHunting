@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponManager : Singleton<WeaponManager>
 {
     [SerializeField] private List<Gun> allGuns;
+
     private Gun currentGun;
     private int currentGunIndex = 0;
     private List<GunShopItem> ownedGuns = new();
@@ -54,6 +55,7 @@ public class WeaponManager : Singleton<WeaponManager>
     {
         if (index >= allGuns.Count)
             return;
+
         //TODO: make this compatible with other items than guns with interface
         Gun selectedGun = allGuns.Find(x => x.GunSO.id == ownedGuns[index].id);
         if (selectedGun != null && selectedGun != currentGun)
@@ -66,7 +68,6 @@ public class WeaponManager : Singleton<WeaponManager>
 
         HuntingUIManager.Instance.SetAmmoCounterText(BulletsInMag / currentGun.GunSO.bulletsPerTap +  " / " + BulletsInInventory / currentGun.GunSO.bulletsPerTap);
     }
-
  
     // function which gives the player ammo
     public void GiveAmmo(int number)

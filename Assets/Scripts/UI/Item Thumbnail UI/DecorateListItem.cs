@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class DecorateListItem : ItemThumbnailUI
 {
     public void SpawnPlaceable()

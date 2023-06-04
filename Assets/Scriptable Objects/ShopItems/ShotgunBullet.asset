@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43309e89d2687d24a907ad13d27c82ce, type: 3}
   m_Name: ShotgunBullet
   m_EditorClassIdentifier: 
-  id: shotgun_bullet
+  id: shotgun_icon
   price: 10
   maxQuantity: 100000
-  icon: {fileID: 21300000, guid: f09eae8c0ea04254b90c5386a034a225, type: 3}
+  icon: {fileID: 21300000, guid: 9c0d6ec706e01ce448aea81584af092b, type: 3}

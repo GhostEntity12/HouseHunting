@@ -3,11 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : Singleton<MainMenuManager>
 {
-    
     private void Start() 
     {
 		AudioManager.Instance.Play("Ambience02");
     }
+
     public void NewGame()
     {
         DataPersistenceManager.Instance.NewGame();
@@ -23,8 +23,8 @@ public class MainMenuManager : Singleton<MainMenuManager>
     public void QuitGame()
     {
         Application.Quit();
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+#endif
     }
 }
