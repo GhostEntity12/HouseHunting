@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
+  m_Name: Shelf
+  m_EditorClassIdentifier: 
+  id: shelf
+  name: Shelf
+  maxHealth: 80
+  damage: 3
+  speed: 3
+  attackInterval: 1
+  xray: 0
+  senses:
+  - {fileID: 11400000, guid: b1e25f516c768da4296a4c5bf6551fed, type: 2}
+  - {fileID: 11400000, guid: c925e0707a43bfd47a76c43a1c11547f, type: 2}
+  materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  basePrice: 150
+  thumbnail: {fileID: 0}
+  placeablePrefab: {fileID: 2350306671234011157, guid: 7a92c28976aba0b44be987812d247a7d, type: 3}
+  shootablePrefab: {fileID: 6900452092522998625, guid: b59a9dd65c1947b4eb388d089f4a19e5, type: 3}
