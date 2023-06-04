@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -915,7 +915,7 @@ GameObject:
   m_Component:
   - component: {fileID: 57861896}
   - component: {fileID: 57861897}
-  m_Layer: 31
+  m_Layer: 4
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1993,7 +1993,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9183740533133080826, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000022037399
+      value: 0.0004693792
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2058,7 +2058,7 @@ GameObject:
   m_Component:
   - component: {fileID: 149367596}
   - component: {fileID: 149367597}
-  m_Layer: 31
+  m_Layer: 4
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2593,7 +2593,7 @@ GameObject:
   m_Component:
   - component: {fileID: 185414755}
   - component: {fileID: 185414756}
-  m_Layer: 31
+  m_Layer: 4
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5776,7 +5776,7 @@ GameObject:
   m_Component:
   - component: {fileID: 428582156}
   - component: {fileID: 428582157}
-  m_Layer: 31
+  m_Layer: 4
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8295,7 +8295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 671382371}
   - component: {fileID: 671382372}
-  m_Layer: 31
+  m_Layer: 4
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13165,7 +13165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 993674291}
   - component: {fileID: 993674292}
-  m_Layer: 31
+  m_Layer: 4
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14882,7 +14882,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1106682245}
   - component: {fileID: 1106682246}
-  m_Layer: 31
+  m_Layer: 4
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15905,7 +15905,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1192606112}
   - component: {fileID: 1192606113}
-  m_Layer: 31
+  m_Layer: 4
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26869,7 +26869,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2076647478}
   - component: {fileID: 2076647479}
-  m_Layer: 31
+  m_Layer: 4
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
