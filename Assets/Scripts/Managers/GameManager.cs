@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private Canvas pauseMenuCanvas;
+    public GameObject player;
 
     private static GameManager instance;
     private Inventory permanentInventory;
