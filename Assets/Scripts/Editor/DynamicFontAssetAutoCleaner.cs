@@ -8,7 +8,6 @@
 // saved, which prevents that data from ever polluting the version control.
 //
 // For more information, see this post by @cxode: https://forum.unity.com/threads/tmpro-dynamic-font-asset-constantly-changes-in-source-control.1227831/#post-8934711
-
 using System;
 using TMPro;
 using UnityEditor;

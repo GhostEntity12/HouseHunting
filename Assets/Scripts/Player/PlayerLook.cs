@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerLook : MonoBehaviour
 {
     [SerializeField] private new Camera camera;
-    [SerializeField] private float xSensitivity = 20f;
-    [SerializeField] private float ySensitivity = 20f;
+    [SerializeField] public float xSensitivity = 20f;
+    [SerializeField] public float ySensitivity = 20f;
 
     private float xRotation = 0f;
 
@@ -16,5 +17,11 @@ public class PlayerLook : MonoBehaviour
         camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         transform.Rotate(Vector3.up * (input.x * Time.deltaTime) * xSensitivity);
+    }
+
+    public void ChangeSensitivity(Slider slider)
+    {
+        xSensitivity = slider.value;
+        ySensitivity = slider.value;
     }
 }
