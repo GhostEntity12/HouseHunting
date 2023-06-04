@@ -485,7 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2d6e7026333a04e8c5046bbbb65650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  furnitureSO: {fileID: 0}
+  furnitureSO: {fileID: 11400000, guid: 2d9675b2fd54ef344b9c7e4ceed87213, type: 2}
 --- !u!1001 &4859907334531339358
 PrefabInstance:
   m_ObjectHideFlags: 0

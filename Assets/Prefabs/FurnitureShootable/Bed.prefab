@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4625a2ad0570b747a131c0a1a573429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  furnitureSO: {fileID: 0}
+  furnitureSO: {fileID: 11400000, guid: 0cdac4930d953e543a59711da068dbcf, type: 2}
 --- !u!1001 &2734695467730187719
 PrefabInstance:
   m_ObjectHideFlags: 0

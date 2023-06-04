@@ -66,8 +66,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.9, y: 0.61595505, z: 0.20782392}
-  m_Center: {x: 0.0005129576, y: 0.3279775, z: 0.015591554}
+  m_Size: {x: 0.9, y: 0.61595505, z: 0.05091337}
+  m_Center: {x: 0.0005129576, y: 0.3279775, z: 0.015770089}
 --- !u!1 &8449543960141253293
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,8 +195,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Size: {x: 1, y: 0.6706792, z: 0.124824956}
+  m_Center: {x: 0, y: 0.3353396, z: 0.017591923}
 --- !u!114 &5670009076271129424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613aa298519fff84ebd5ead6fa06590c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  furnitureSO: {fileID: 0}
+  furnitureSO: {fileID: 11400000, guid: cdedef21e3f841b428cb71cb08e6a8db, type: 2}
 --- !u!1001 &4859907334531339358
 PrefabInstance:
   m_ObjectHideFlags: 0
