@@ -2,7 +2,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 
 [JsonObject(MemberSerialization.OptIn)]
-public class Placeable : MonoBehaviour
+public class Placeable : MonoBehaviour, IInteractable
 {
     [field: SerializeField] public MeshRenderer Mesh { get; private set; }
     [field: SerializeField] public RotationWheel RotationWheel { get; private set; }
@@ -25,7 +25,7 @@ public class Placeable : MonoBehaviour
 
     private void OnTriggerStay(Collider other) 
     {
-        if (other.TryGetComponent(out Placeable _) && HouseInputManager.Instance.SelectedPlaceable == this)
+        if (other.TryGetComponent(out Placeable _) && HouseManager.Instance.HoldingPlaceable == this)
             IsValidPosition = false;
     }
 
@@ -38,5 +38,15 @@ public class Placeable : MonoBehaviour
 	public void RotateToAngle(float angle)
     {
         Mesh.transform.rotation = Quaternion.Euler(0, angle, 0);
+    }
+
+    public void Interact()
+    {
+        // cannot pick up a placeable if already holding one
+        if (HouseManager.Instance.HoldingPlaceable != null) return;
+
+        GameManager.Instance.PermanentInventory.AddItem(InventoryItem);
+        HouseManager.Instance.HoldingPlaceable = this;
+        HouseManager.Instance.HoldingPlaceableRotation = 0;
     }
 }

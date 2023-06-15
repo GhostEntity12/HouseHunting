@@ -75,6 +75,21 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		}
 	}
 
+	private void HoldPlaceable()
+	{
+		if (holdingPlaceable == null) return;
+
+		// set the position of the furniture to be 3 units in front of the player
+		holdingPlaceable.transform.position = playerGameObject.transform.position + playerGameObject.transform.forward * 3;
+		// clamp the position so that the y index is always on ground level
+		holdingPlaceable.transform.position = new Vector3(holdingPlaceable.transform.position.x, 0, holdingPlaceable.transform.position.z);
+		// rotate the furniture so that it faces the player
+		holdingPlaceable.transform.LookAt(ExploreCamera.transform.position);
+		holdingPlaceable.transform.rotation = Quaternion.Euler(0, holdingPlaceable.transform.rotation.eulerAngles.y + holdingPlaceableRotation, 0);
+
+		holdingPlaceable.Mesh.material.color = holdingPlaceable.IsValidPosition ? Color.green : Color.red;
+	}
+
 	public void UnlockTier(string tier)
 	{
 		// do nothing
@@ -90,16 +105,6 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
         data.houseItems = houseItems;
 	}
 
-	void SpawnSerializedPlaceables()
-	{
-		foreach (HouseItem item in houseItems)
-		{
-			Placeable spawnedPlaceable = Instantiate(DataPersistenceManager.Instance.GetPlaceablePrefabById(item.inventoryItem.id));
-			spawnedPlaceable.SetTransforms(item.position, item.rotationAngle);
-			spawnedPlaceable.InventoryItem = item.inventoryItem;
-		}
-	}
-
 	public void SavePlaceables()
 	{
 		Placeable[] allPlaceables = FindObjectsOfType<Placeable>();
@@ -109,7 +114,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 			MeshRenderer meshRenderer = placeable.GetComponentInChildren<MeshRenderer>();
 			houseItems.Add(new HouseItem(placeable.InventoryItem, placeable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
 		}
-	}
+    }
 
 	/// <summary>
 	/// Changes the mode the house is in from decorate to explore and vice versa
