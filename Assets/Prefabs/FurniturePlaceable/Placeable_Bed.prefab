@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6130737722407600114}
   - component: {fileID: 2350306671234011157}
-  - component: {fileID: 8397737973995697679}
   - component: {fileID: 1214324994855059596}
   m_Layer: 6
   m_Name: Placeable_Bed
@@ -28,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 4408006311470859530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1881498738827691164}
@@ -50,27 +49,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Mesh>k__BackingField: {fileID: 745136825906266099}
   <RotationWheel>k__BackingField: {fileID: 1187489145735782959}
---- !u!65 &8397737973995697679
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408006311470859530}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 0.5, z: 2}
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!54 &1214324994855059596
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -191,8 +169,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.96046126, y: 0.63881135, z: 2.0602527}
-  m_Center: {x: 0.00023064017, y: 0.32098073, z: 0.001126349}
+  m_Size: {x: 2, y: 1.6214976, z: 4.317988}
+  m_Center: {x: 0, y: 0.62, z: 0.009037137}
 --- !u!4 &1881498738827691164 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 27c9356bf9a33634d95b47eb2dd83705, type: 3}

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6130737722407600114}
   - component: {fileID: 2350306671234011157}
-  - component: {fileID: 8397737973995697679}
   - component: {fileID: 1214324994855059596}
   m_Layer: 6
   m_Name: Placeable_CoatRack
@@ -50,27 +49,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Mesh>k__BackingField: {fileID: 2646266269406180392}
   <RotationWheel>k__BackingField: {fileID: 1187489145735782959}
---- !u!65 &8397737973995697679
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408006311470859530}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.6742299, y: 0.57820064, z: 0.53909576}
-  m_Center: {x: 0.33711493, y: 0.28910032, z: -0.23045212}
 --- !u!54 &1214324994855059596
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -229,23 +207,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 217ce9bcc0df2d64184969f7e3b1c709, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.34999987
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 217ce9bcc0df2d64184969f7e3b1c709, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.014641108
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 217ce9bcc0df2d64184969f7e3b1c709, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0064391736
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 217ce9bcc0df2d64184969f7e3b1c709, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071067
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 217ce9bcc0df2d64184969f7e3b1c709, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 217ce9bcc0df2d64184969f7e3b1c709, type: 3}
       propertyPath: m_LocalRotation.y
@@ -309,9 +287,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6144142, y: 0.51256496, z: 0.61408246}
-  m_Center: {x: 0.69416606, y: 0.20679265, z: 0.27771103}
+  m_Size: {x: 1.4644029, y: 0.51, z: 0.61}
+  m_Center: {x: 0.74, y: 0.23, z: 0.24}
