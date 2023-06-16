@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8987057357527107057}
   - component: {fileID: 1539234630903234798}
-  - component: {fileID: 187715261468328272}
   - component: {fileID: 1997609439009725848}
   m_Layer: 6
   m_Name: Placeable_Chair
@@ -50,29 +49,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Mesh>k__BackingField: {fileID: 8259404367529973424}
   <RotationWheel>k__BackingField: {fileID: 1330771250707429528}
---- !u!136 &187715261468328272
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6687055942871566689}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.50316393
-  m_Height: 2.211717
-  m_Direction: 1
-  m_Center: {x: -0.0031638145, y: 1.1521913, z: 0}
 --- !u!54 &1997609439009725848
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -292,6 +268,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5f7c436e0c8f5df428481e48cd856b7d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4909784911073763673}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5f7c436e0c8f5df428481e48cd856b7d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4103303115955535445}
   m_SourcePrefab: {fileID: 100100000, guid: 5f7c436e0c8f5df428481e48cd856b7d, type: 3}
 --- !u!4 &7121422875054108127 stripped
 Transform:
@@ -325,6 +304,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4493585093827132993, guid: 5f7c436e0c8f5df428481e48cd856b7d, type: 3}
+--- !u!65 &4103303115955535445
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7610996453544081253}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.1738533, y: 1.9897314, z: 1.2940836}
+  m_Center: {x: 0.13156563, y: 0.95577973, z: 0.1470418}
 --- !u!23 &8259404367529973424 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5f7c436e0c8f5df428481e48cd856b7d, type: 3}

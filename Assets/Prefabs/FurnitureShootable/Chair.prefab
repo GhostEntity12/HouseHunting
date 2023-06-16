@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864ea15222862dc4da2166d924038db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showHitbox: 0
+  showHitbox: 1
   damageModifier: 1
 --- !u!65 &2040926132473123112
 BoxCollider:
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864ea15222862dc4da2166d924038db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showHitbox: 0
+  showHitbox: 1
   damageModifier: 2
 --- !u!65 &3090386700864915618
 BoxCollider:
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864ea15222862dc4da2166d924038db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showHitbox: 0
+  showHitbox: 1
   damageModifier: 2
 --- !u!65 &2486928630498788002
 BoxCollider:
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864ea15222862dc4da2166d924038db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showHitbox: 0
+  showHitbox: 1
   damageModifier: 2
 --- !u!65 &6884290564210124775
 BoxCollider:
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864ea15222862dc4da2166d924038db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showHitbox: 0
+  showHitbox: 1
   damageModifier: 2
 --- !u!65 &7186413390683857188
 BoxCollider:
@@ -385,7 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864ea15222862dc4da2166d924038db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showHitbox: 0
+  showHitbox: 1
   damageModifier: 1.03
 --- !u!65 &8435291213220389697
 BoxCollider:
@@ -457,7 +457,7 @@ GameObject:
   - component: {fileID: 3685072443934080641}
   - component: {fileID: 3520433945217684714}
   - component: {fileID: 6779599493470380603}
-  - component: {fileID: 503247438058236889}
+  - component: {fileID: 2676805215291020394}
   m_Layer: 0
   m_Name: Chair
   m_TagString: Untagged
@@ -534,8 +534,8 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!136 &503247438058236889
-CapsuleCollider:
+--- !u!65 &2676805215291020394
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -552,11 +552,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  serializedVersion: 3
+  m_Size: {x: 1.0586952, y: 2.1741042, z: 1.2940836}
+  m_Center: {x: -0.029347599, y: 0.9568863, z: 0.1470418}
 --- !u!1001 &219300992422720598
 PrefabInstance:
   m_ObjectHideFlags: 0

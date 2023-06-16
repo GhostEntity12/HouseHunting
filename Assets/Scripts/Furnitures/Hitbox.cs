@@ -50,7 +50,7 @@ public class Hitbox : MonoBehaviour
 			// Render
 			switch (hitbox) {
 				case BoxCollider bc:
-					Gizmos.DrawCube(bc.center, bc.size);
+					Gizmos.DrawCube(bc.center + GetComponentInParent<Transform>().position, bc.size);
 					break;
 				case SphereCollider sc:
 					Gizmos.DrawSphere(sc.center, sc.radius);
