@@ -18,6 +18,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	private List<HouseItem> houseItems;
 	private float houseValue = 0;
 
+	public List<HouseItem> HouseItems => houseItems;
     public Placeable HoldingPlaceable { get => holdingPlaceable; set => holdingPlaceable = value; }
 	public float HoldingPlaceableRotation { get => holdingPlaceableRotation; set => holdingPlaceableRotation = value; }
 
@@ -43,8 +44,8 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
 	private void OnDestroy()
 	{
-        SavePlaceables();
-    }
+		//UpdatePlaceablesInHouse();
+	}
 
     // function to calculate house rating, on certain threseholds (to be determined later), unlockTier is called to unlock that tier.
     private float CalculateHouseRating(List<HouseItem> houseItems)
@@ -105,9 +106,10 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
         data.houseItems = houseItems;
 	}
 
-	public void SavePlaceables()
+	public void UpdatePlaceablesInHouse()
 	{
 		Placeable[] allPlaceables = FindObjectsOfType<Placeable>();
+		Debug.Log(allPlaceables.Length);
         houseItems.Clear();
 		foreach (Placeable placeable in allPlaceables)
 		{
@@ -186,8 +188,12 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
         GameManager.Instance.PermanentInventory.RemoveItem(holdingPlaceable.InventoryItem);
 
+        MeshRenderer meshRenderer = holdingPlaceable.GetComponentInChildren<MeshRenderer>();
+        houseItems.Add(new HouseItem(holdingPlaceable.InventoryItem, holdingPlaceable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
+
 		holdingPlaceable.Mesh.material = holdingPlaceable.Material;
 		holdingPlaceable = null;
 		holdingPlaceableRotation = 0;
+
     }
 }

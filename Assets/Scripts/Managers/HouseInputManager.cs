@@ -45,7 +45,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		playerInput.Decorate.MouseDown.canceled += ctx => DecorateMouseDownCanceled();
 		playerInput.Decorate.ExitToHouse.performed += ctx =>
 		{
-			HouseManager.Instance.SavePlaceables();
+			HouseManager.Instance.UpdatePlaceablesInHouse();
 			HouseManager.Instance.SetHouseMode(HouseManager.HouseMode.Explore);
 		};
 

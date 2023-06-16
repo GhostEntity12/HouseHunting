@@ -44,7 +44,6 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
 
     private void OnSceneUnloaded(Scene scene)
     {
-        Debug.Log("Scene unloaded");
         SaveGame();
     }
 

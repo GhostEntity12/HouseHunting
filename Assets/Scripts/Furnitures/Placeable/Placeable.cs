@@ -18,7 +18,7 @@ public class Placeable : MonoBehaviour, IInteractable
         Mesh.material = Material;
     }
 
-	private void OnTriggerExit(Collider other) 
+    private void OnTriggerExit(Collider other) 
     {
         IsValidPosition = true;
     }
