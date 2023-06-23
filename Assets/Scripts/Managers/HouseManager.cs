@@ -75,14 +75,13 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	{
 		if (holdingPlaceable == null) return;
 
-        // set the position of the furniture to be 3 units in front of the player
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
 
         // Create a RaycastHit variable to store information about the hit
         RaycastHit hit;
 
-        // Perform the raycast and check if it hits something within the specified distance
-        if (Physics.Raycast(ray, out hit, 3))
+		// Perform the raycast and check if it hits something within the specified distance
+		if (Physics.Raycast(ray, out hit, 3, ~LayerMask.GetMask("Placeable")))
 			holdingPlaceable.transform.position = new Vector3(hit.point.x,hit.point.y, hit.point.z);
 		else
 			holdingPlaceable.transform.position = playerGameObject.transform.position + playerGameObject.transform.forward * 3;
@@ -198,7 +197,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
 		holdingPlaceable.Mesh.material = holdingPlaceable.Material;
 		MeshCollider meshCollider = holdingPlaceable.GetComponentInChildren<MeshCollider>();
-		meshCollider.convex = false;
+		meshCollider.enabled = true;
 		holdingPlaceable = null;
 		holdingPlaceableRotation = 0;
     }

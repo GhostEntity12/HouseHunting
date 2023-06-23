@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6130737722407600114}
   - component: {fileID: 2350306671234011157}
   - component: {fileID: 9040521999022133318}
+  - component: {fileID: 8026612961890344070}
   m_Layer: 6
   m_Name: Placeable_Table
   m_TagString: Untagged
@@ -64,12 +65,39 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.3286722, y: 0.877816, z: 1}
   m_Center: {x: 0.02420652, y: 0.38210544, z: 0}
+--- !u!54 &8026612961890344070
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408006311470859530}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1712278571965309304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -132,7 +160,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 925783320337248959}
+      addedObject: {fileID: 642689231044833892}
   m_SourcePrefab: {fileID: 100100000, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
 --- !u!23 &749780294958588 stripped
 MeshRenderer:
@@ -149,7 +177,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
   m_PrefabInstance: {fileID: 1712278571965309304}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &925783320337248959
+--- !u!64 &642689231044833892
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

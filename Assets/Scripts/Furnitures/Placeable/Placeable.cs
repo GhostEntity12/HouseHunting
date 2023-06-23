@@ -53,8 +53,9 @@ public class Placeable : MonoBehaviour, IInteractable
 
         // find mesh collider in children and change to is trigger to prevent furniture from moving the player when positioning it
         MeshCollider meshCollider = GetComponentInChildren<MeshCollider>();
-        meshCollider.convex= true;
-        meshCollider.isTrigger= true;
+        meshCollider.enabled = false;
+        //meshCollider.convex= true;
+        //meshCollider.isTrigger= true;
 
         // reset the holding placeable rotation
         HouseManager.Instance.HoldingPlaceableRotation = 0;

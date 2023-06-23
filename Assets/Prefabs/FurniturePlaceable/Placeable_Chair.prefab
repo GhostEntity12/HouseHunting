@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8987057357527107057}
   - component: {fileID: 1539234630903234798}
   - component: {fileID: 3940959360564968218}
+  - component: {fileID: -9055675998014348997}
   m_Layer: 6
   m_Name: Placeable_Chair
   m_TagString: Untagged
@@ -64,12 +65,39 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1.9563454, z: 1.0704786}
   m_Center: {x: 0, y: 0.9564877, z: 0.16489498}
+--- !u!54 &-9055675998014348997
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6687055942871566689}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &3425478433589989981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -261,7 +289,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5f7c436e0c8f5df428481e48cd856b7d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4909784911073763673}
+      addedObject: {fileID: 2562802931955291511}
   m_SourcePrefab: {fileID: 100100000, guid: 5f7c436e0c8f5df428481e48cd856b7d, type: 3}
 --- !u!4 &7121422875054108127 stripped
 Transform:
@@ -273,7 +301,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5f7c436e0c8f5df428481e48cd856b7d, type: 3}
   m_PrefabInstance: {fileID: 7304514388987054644}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &4909784911073763673
+--- !u!64 &2562802931955291511
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
