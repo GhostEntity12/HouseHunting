@@ -13,7 +13,7 @@ public class WanderAI : MonoBehaviour
     private SenseSO[] senses;
     private bool xray;
     private float timeSinceLastAttack = 0f;
-    private float alertness = 0; // between 0 and 100
+    public float alertness = 0; // between 0 and 100
     private SState stressState = SState.Relaxing;
     private GameObject subject;
     private IState investigate = IState.Idle;
@@ -263,10 +263,16 @@ public class WanderAI : MonoBehaviour
         }
         
         alertness = Mathf.Clamp(alertness, 0, 100);
-        
-        if (alertness >= 75 && subject != null)
+        if(alertness != 0)
         {
             alertCanvas.enabled = true;
+        } else
+        {
+            alertCanvas.enabled = false;
+        }
+        if (alertness >= 75 && subject != null)
+        {
+            
             if (isPredator)
             {
                 //meshRenderer.material.color = Color.red;
@@ -302,7 +308,6 @@ public class WanderAI : MonoBehaviour
         }
         else
         {
-            alertCanvas.enabled = false;
             //meshRenderer.material.color = Color.white;
             agent.isStopped = false;
             investigate = IState.Idle;

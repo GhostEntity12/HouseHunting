@@ -29,7 +29,8 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 		// pause
         playerInput.Hunting.Pause.performed += ctx => GameManager.Instance.SetGamePause(!GameManager.Instance.IsPaused);
-		playerInput.Hunting.OpenInventory.performed += ctx => ShopUIManager.Instance.ToggleShop();
+		//removed for alpha
+		//playerInput.Hunting.OpenInventory.performed += ctx => ShopUIManager.Instance.ToggleShop();
 		playerInput.Hunting.Jump.performed += ctx => movement.Jump();
 
 		// shoot
