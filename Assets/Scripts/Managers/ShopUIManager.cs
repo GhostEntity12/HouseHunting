@@ -20,6 +20,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
     private Inventory inventory;
 
     public bool IsShopOpen => shopCanvas.enabled;
+    public (FurnitureSO so, FurnitureItem inventoryItem)? SelectedFurniture => selectedFurniture;
 
     protected override void Awake()
     {
@@ -89,6 +90,8 @@ public class ShopUIManager : Singleton<ShopUIManager>
 
         if (tabs.Count > 0)
             SetTab(tabs[0]);
+        else
+            currentDisplayedItems.Clear();
 
         RepaintShop();
     }
