@@ -96,16 +96,6 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
 
     public ShopItemSO GetShopItemById(string id)
     {
-        Debug.Log($"Seraching for {id}");
-        Debug.Log($"Search size: {allShopItems.Count}");
-        foreach (var item in allFurnitureSOs)
-        {
-            Debug.Log(item);
-            Debug.Log(item.id);
-        }
-
-        Debug.Log($"Search options: {string.Join(", ", allShopItems.Select(shopItem => shopItem.id))}");
-
         return allShopItems.Find(x => x.id == id);
     }
 }

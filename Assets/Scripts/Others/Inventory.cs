@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 
 public class Inventory
 {
@@ -63,10 +61,5 @@ public class Inventory
         }
 
         return result;
-    }
-
-    public void PrintBoughtItems()
-    {
-        UnityEngine.Debug.Log(string.Join(", ", BoughtItems.Select(item => item.id)));
     }
 }
