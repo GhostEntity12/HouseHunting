@@ -24,7 +24,6 @@ public abstract class Shootable : MonoBehaviour, IInteractable
         price = Mathf.RoundToInt(furnitureSO.basePrice * Random.Range(0.5f, 1.5f));
         materialIndex = Random.Range(0, furnitureSO.materials.Length);
         scaleFactor = Random.Range(0.95f, 1.05f);
-
         meshRenderer.material = furnitureSO.materials[materialIndex];
     }
 
