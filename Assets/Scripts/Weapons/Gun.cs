@@ -82,6 +82,7 @@ public class Gun : MonoBehaviour
 
         reloading = true;
         StartCoroutine(ResetReload(gunSO.reloadTime));
+
     }
 
     private IEnumerator ResetReload(float delay)
