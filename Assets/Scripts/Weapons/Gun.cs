@@ -82,7 +82,7 @@ public class Gun : MonoBehaviour
 
         reloading = true;
         StartCoroutine(ResetReload(gunSO.reloadTime));
-
+        HuntingUIManager.Instance.ReloadBarAnimation(gunSO.reloadTime);
     }
 
     private IEnumerator ResetReload(float delay)
