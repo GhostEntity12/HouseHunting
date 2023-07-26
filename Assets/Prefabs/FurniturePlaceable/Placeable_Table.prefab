@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6130737722407600114}
   - component: {fileID: 2350306671234011157}
+  - component: {fileID: 905075401597722463}
   m_Layer: 6
   m_Name: Placeable_Table
   m_TagString: Untagged
@@ -48,6 +49,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Mesh>k__BackingField: {fileID: 749780294958588}
   <RotationWheel>k__BackingField: {fileID: 1187489145735782959}
+--- !u!65 &905075401597722463
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408006311470859530}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.0698187, y: 1.1841803, z: 1.3806629}
+  m_Center: {x: 0.0023077726, y: 0.73750925, z: 0.0022651255}
 --- !u!1001 &1712278571965309304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101,12 +123,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
+
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3a4048ab9f2f3b047be9f5cb302efdb0, type: 2}
+
     - target: {fileID: 919132149155446097, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
       propertyPath: m_Name
       value: Table
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
