@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2099,7 +2099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9183740533133080826, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000026530926
+      value: 0.000022301185
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10329,6 +10329,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 747769104}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &756329107 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4653416869453149233, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+  m_PrefabInstance: {fileID: 4683046851424238251}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &784048947
 GameObject:
   m_ObjectHideFlags: 0
@@ -17647,6 +17658,17 @@ MonoBehaviour:
   spawnableFurniture:
   - {fileID: 4520007949729603114, guid: ba44497b1ba814d438e59de2bc65c4df, type: 3}
   amountToSpawn: 3
+--- !u!114 &1252325453 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5407933046944673343, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+  m_PrefabInstance: {fileID: 4683046851424238251}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1257281545
 GameObject:
   m_ObjectHideFlags: 0
@@ -18098,6 +18120,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311994535}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1324402770 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 891610944688933939, guid: fc1508b594816424683a2f0bfade27a9, type: 3}
+  m_PrefabInstance: {fileID: 201790932}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d39f1c2a3fb519847b1b6527d56ef124, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1329361314
 GameObject:
   m_ObjectHideFlags: 0
@@ -27964,11 +27997,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da1a63cb70cefa54db7990d958ad6bf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20000
-  player: {fileID: 0}
+  maxHealth: 100
+  player: {fileID: 2143258219}
   gameOverUI: {fileID: 1310588880}
   huntingDurationSeconds: 300
   huntingTimerText: {fileID: 1287129091}
+  hurtOverlay: {fileID: 1252325453}
+  healthFill: {fileID: 2128593740}
+  healthText: {fileID: 756329107}
 --- !u!4 &2067825355
 Transform:
   m_ObjectHideFlags: 0
@@ -28434,6 +28470,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091585100}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2128593740 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9066061438372088896, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+  m_PrefabInstance: {fileID: 4683046851424238251}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2133443445
 GameObject:
   m_ObjectHideFlags: 0
@@ -28857,6 +28904,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139073326}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2143258219 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9012773343971696061, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
+  m_PrefabInstance: {fileID: 1344009821}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4683046851424238251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28953,6 +29005,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: HuntingUICanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6343340407057344155, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2143258219}
+    - target: {fileID: 6343340407057344155, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: houseMarker
+      value: 
+      objectReference: {fileID: 1324402770}
+    - target: {fileID: 6343340407057344155, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: markerPrefab
+      value: 
+      objectReference: {fileID: 3065085429191710885, guid: 8042c9e39fc691842a46cb9e888d388a, type: 3}
+    - target: {fileID: 6343340407057344155, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: markers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343340407057344155, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: markers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1324402770}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
