@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6130737722407600114}
   - component: {fileID: 2350306671234011157}
   - component: {fileID: 6110382493120862698}
+  - component: {fileID: 6529451891392266391}
   m_Layer: 6
   m_Name: Placeable_Shelf
   m_TagString: Untagged
@@ -71,6 +72,33 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1255793958470623724, guid: 09e87d08a93f10943a795fef0c082bf9, type: 3}
+--- !u!54 &6529451891392266391
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408006311470859530}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &3279931200179128554
 PrefabInstance:
   m_ObjectHideFlags: 0
