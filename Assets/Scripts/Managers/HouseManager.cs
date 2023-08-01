@@ -195,8 +195,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
         houseItems.Add(new HouseItem(holdingPlaceable.InventoryItem, holdingPlaceable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
 
 		holdingPlaceable.Mesh.material = holdingPlaceable.Material;
-		MeshCollider meshCollider = holdingPlaceable.GetComponentInChildren<MeshCollider>();
-		meshCollider.enabled = true;
+		holdingPlaceable.ChildMeshCollider.enabled = true;
 		holdingPlaceable = null;
 		holdingPlaceableRotation = 0;
     }
