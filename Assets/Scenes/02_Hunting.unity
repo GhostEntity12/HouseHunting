@@ -5253,7 +5253,6 @@ GameObject:
   m_Component:
   - component: {fileID: 354612096}
   - component: {fileID: 354612098}
-  - component: {fileID: 354612097}
   m_Layer: 10
   m_Name: Wepon Camera
   m_TagString: Untagged
@@ -5276,14 +5275,6 @@ Transform:
   m_Father: {fileID: 1479003186}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &354612097
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 354612095}
-  m_Enabled: 1
 --- !u!20 &354612098
 Camera:
   m_ObjectHideFlags: 0
