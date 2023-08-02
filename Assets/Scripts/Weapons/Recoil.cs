@@ -15,8 +15,7 @@ public class Recoil : MonoBehaviour
     private float snappiness;
     private float returnSpeed;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         recoilX = 1;
         recoilY = 1;
@@ -25,8 +24,7 @@ public class Recoil : MonoBehaviour
         returnSpeed = 2;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.fixedDeltaTime);
@@ -37,5 +35,4 @@ public class Recoil : MonoBehaviour
     {
         targetRotation += new Vector3(recoilX, Random.Range(-recoilY, recoilY), Random.Range(-recoilZ, recoilZ));
     }
-
 }

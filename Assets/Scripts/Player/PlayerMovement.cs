@@ -1,16 +1,17 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private float speed = 5.0f;
+
     private CharacterController controller;
     private SoundAlerter soundAlerter;
-    [SerializeField] private float speed = 5.0f;
-    private readonly float gravity = -9.81f;
+    private const float gravity = -9.81f;
     private Vector3 playerVelocity;
     private float jumpSpeed = 15f;
+
     public bool isSneaking;
-    public bool isSprinting;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -22,41 +23,21 @@ public class PlayerMovement : MonoBehaviour
         Vector3 moveDirection = new(input.x, 0, input.y);
 
         // Slow down the movement if the player is not sprinting
-        //float currentSpeed = isSneaking ? speed / 2 : speed;
-
-        float currentSpeed = speed;
-
-        if (isSneaking)
-        {
-            currentSpeed = speed / 2;
-        }
-        else if (isSprinting)
-        {
-            currentSpeed = speed * 2;
-        }
-        
-        Debug.Log("currentSpeed: " + currentSpeed + isSprinting);
+        float currentSpeed = isSneaking ? speed / 2 : speed;
 
         controller.Move(transform.TransformDirection(moveDirection) * currentSpeed * Time.deltaTime);
 
         playerVelocity.y += gravity * Time.deltaTime;
 
         if (controller.isGrounded && playerVelocity.y < 0)
-        {
             playerVelocity.y = -2f;
-        }
 
         controller.Move(playerVelocity * Time.deltaTime);
 
         if (isSneaking)
-        {
             soundAlerter.MakeSound(Time.deltaTime * 2, transform.position, 2);
-        }
         else
-        {
             soundAlerter.MakeSound(Time.deltaTime * 5, transform.position, 5);
-        }
-
     }
 
     public void Jump()
@@ -81,23 +62,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void Run(float input)
-    {
-        if (input > 0) {
-            Sprinting(true);
-        } 
-        else {
-            Sprinting(false);
-        }
-    }
-
     public void Sneak(bool input)
     {
         isSneaking = input;
-    }
-
-    public void Sprinting(bool input)
-    {
-        isSprinting = input;
     }
 }

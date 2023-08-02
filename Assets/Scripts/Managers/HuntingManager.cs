@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 {
@@ -10,9 +11,15 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 	[SerializeField] private float huntingDurationSeconds;
 	[SerializeField] private TextMeshProUGUI huntingTimerText;
 
+	[SerializeField] private Image hurtOverlay;
+
+	[SerializeField] private Image healthFill;
+	[SerializeField] private TextMeshProUGUI healthText;
+
 	private int currentHealth;
 	private Inventory huntingInventory;
 	private float huntingTimerSeconds;
+
 	public Inventory HuntingInventory => huntingInventory;
 
 	protected override void Awake()
@@ -33,6 +40,10 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 
 	private void Update()
 	{
+		//health UI
+		healthText.text = currentHealth.ToString();
+		healthFill.fillAmount = (float)currentHealth / (float)maxHealth;
+
 		if (huntingTimerSeconds > 0)
 		{
 			huntingTimerSeconds -= Time.deltaTime;
@@ -74,6 +85,17 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 
 	public void DealDamageToPlayer(int damage)
 	{
+		// Set initial alpha to 0.5
+		hurtOverlay.color = new Color(hurtOverlay.color.r, hurtOverlay.color.g, hurtOverlay.color.b, 0.5f);
+
+		// Tween the alpha to 0 over the hurtDuration
+		LeanTween.alpha(hurtOverlay.rectTransform, 0f, 0.5f).setOnComplete(() =>
+		{
+			// After the tween completes, ensure the alpha is set to 0
+			Color c = hurtOverlay.color;
+			hurtOverlay.color = new Color(c.r, c.g, c.b, 0f);
+		});
+
 		currentHealth -= damage;
 		Debug.Log("Player took " + damage + " damage. Current health: " + currentHealth);
 		if (currentHealth <= 0) Die();

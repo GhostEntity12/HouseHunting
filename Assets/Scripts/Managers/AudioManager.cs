@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    public AudioMixerGroup musicMixerGroup;
-    public AudioMixerGroup sfxMixerGroup;
-    public Sound[] sounds;
+    [SerializeField] private AudioMixerGroup musicMixerGroup;
+    [SerializeField] private AudioMixerGroup sfxMixerGroup;
+    [SerializeField] public Sound[] sounds;
 
     protected override void Awake()
     {
@@ -21,22 +21,22 @@ public class AudioManager : Singleton<AudioManager>
             s.source = gameObject.AddComponent<AudioSource>();
             s.Setup();
             
-            switch (s.audioType)
+            switch (s.Type)
             {
                 case Sound.AudioType.music:
                     s.source.outputAudioMixerGroup = musicMixerGroup;
                     break;
-
                 case Sound.AudioType.soundEffect:
                     s.source.outputAudioMixerGroup = sfxMixerGroup;
                     break;
             }
         }
     }
-    // Update is called once per frame
+
     public void Play(string name)
     {
-        Sound s = System.Array.Find(sounds, sound => sound.name == name);
+        Sound s = System.Array.Find(sounds, sound => sound.Name == name);
+        Debug.Log($"{sounds[0].Name}");
         if (s == null) 
         {
             Debug.LogWarning($"Sound: {name} not found!");
@@ -47,7 +47,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void Stop(string name)
     {
-        Sound s = System.Array.Find(sounds, sound => sound.name == name);
+        Sound s = System.Array.Find(sounds, sound => sound.Name == name);
         if (s == null)
         {
             Debug.LogWarning($"Sound: {name} not found!");
@@ -58,7 +58,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void Pause(string name)
     {
-        Sound s = System.Array.Find(sounds, sound => sound.name == name);
+        Sound s = System.Array.Find(sounds, sound => sound.Name == name);
         if (s == null)
         {
             Debug.LogWarning($"Sound: {name} not found!");

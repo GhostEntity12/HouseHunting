@@ -14,7 +14,7 @@ public class Gun : MonoBehaviour
     private Recoil recoil;
     private SoundAlerter soundAlerter;
 
-    public GunSO GunSO { get => gunSO; }
+    public GunSO GunSO => gunSO;
 
     public delegate void OnGunShoot();
     public static event OnGunShoot OnGunShootEvent;
@@ -34,9 +34,8 @@ public class Gun : MonoBehaviour
         if ( !readyToShoot || WeaponManager.Instance.BulletsInMag <= 0 || reloading) return;
 
         if (firstShot)
-        {
             soundAlerter.MakeSound(GunSO.volume, transform.position);
-        }
+
         readyToShoot = false;
 
         for (int i = 0; i < gunSO.bulletsPerTap; i++)
@@ -63,6 +62,8 @@ public class Gun : MonoBehaviour
             currentBullet.GetComponent<Rigidbody>().AddForce(direction.normalized * gunSO.shootForce, ForceMode.Impulse);
         }
 
+        OnGunShootEvent?.Invoke();
+
         //Muzzle flash
         Instantiate(muzzleFlashPrefab, muzzlePoint.position, Quaternion.identity);
 
@@ -81,6 +82,7 @@ public class Gun : MonoBehaviour
 
         reloading = true;
         StartCoroutine(ResetReload(gunSO.reloadTime));
+        HuntingUIManager.Instance.ReloadBarAnimation(gunSO.reloadTime);
     }
 
     private IEnumerator ResetReload(float delay)
