@@ -8,7 +8,6 @@ public class Placeable : MonoBehaviour, IInteractable
     private MeshCollider childMeshCollider;
 
     [field: SerializeField] public MeshRenderer Mesh { get; private set; }
-    [field: SerializeField] public RotationWheel RotationWheel { get; private set; }
 
     public bool IsValidPosition { get; private set; } = true;
 	public FurnitureItem InventoryItem { get; set; }
