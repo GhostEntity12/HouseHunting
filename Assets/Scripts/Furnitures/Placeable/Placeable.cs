@@ -60,6 +60,9 @@ public class Placeable : MonoBehaviour, IInteractable
         childMeshCollider.enabled = false;
 
         // reset the holding placeable rotation
-        HouseManager.Instance.HoldingPlaceableRotation = 0;
+        Quaternion originalRotation = transform.rotation;
+        transform.LookAt(HouseManager.Instance.ExploreCamera.transform.position);
+        float rotationDifference = transform.rotation.eulerAngles.y - originalRotation.eulerAngles.y;
+        HouseManager.Instance.HoldingPlaceableRotation = -rotationDifference;
     }
 }
