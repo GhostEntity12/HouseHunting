@@ -35,12 +35,14 @@ public class AudioOptionsManager : MonoBehaviour
     {
         float volume = masterVolumeSlider.value;
         myMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
+        masterVolumeText.text = ((int)(volume * 100)).ToString();
         PlayerPrefs.SetFloat("MasterVolume", volume);
     }
     public void SetMusicVolume()
     {
         float volume = musicVolumeSlider.value;
         myMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
+        musicVolumeText.text = ((int)(volume * 100)).ToString();
         PlayerPrefs.SetFloat("MusicVolume", volume);
     }
 
@@ -48,6 +50,7 @@ public class AudioOptionsManager : MonoBehaviour
     {
         float volume = effectsVolumeSlider.value;
         myMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
+        effectsVolumeText.text = ((int)(volume * 100)).ToString();
         PlayerPrefs.SetFloat("SFXVolume", volume);
     }
 
