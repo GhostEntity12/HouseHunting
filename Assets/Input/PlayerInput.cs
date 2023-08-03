@@ -179,15 +179,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Run"",
-                    ""type"": ""Button"",
-                    ""id"": ""22c3732d-8bb3-4529-b69d-73f0ea88a18c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -282,7 +273,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""04a4e74c-e3f9-40d5-a660-0fc5c04106d2"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -443,17 +434,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""DebugAmmo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f11cc6d9-0701-4f4e-9c26-c9d9d6aba860"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Run"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -525,9 +505,18 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Sprint"",
+                    ""name"": ""RotateFurniture"",
+                    ""type"": ""Value"",
+                    ""id"": ""d53f6ebf-6b2a-4cff-a2cf-b515f2886284"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""PlaceFurniture"",
                     ""type"": ""Button"",
-                    ""id"": ""b6db9991-ae16-42b9-bd78-b4d99eee5e9a"",
+                    ""id"": ""fd1574a3-773f-413f-a57c-6f4a84434b6e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -637,7 +626,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""12efbce1-649b-41bc-b977-2bfec8e5f722"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -657,13 +646,46 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""8d78ad43-d3e3-453b-83e8-5721c0e56d31"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""name"": ""1D Axis"",
+                    ""id"": ""18d94958-3ca4-421e-9051-e4abf3b86319"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Sprint"",
+                    ""action"": ""RotateFurniture"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""0f1edf83-2e50-4f95-ac66-6e133745300a"",
+                    ""path"": ""<Mouse>/scroll/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateFurniture"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""e6a5d823-53a6-4947-9b44-efb440446346"",
+                    ""path"": ""<Mouse>/scroll/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateFurniture"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1474ca4a-7698-4a56-8046-5dc12ba9eda3"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlaceFurniture"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -823,7 +845,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Hunting_Quick5 = m_Hunting.FindAction("Quick5", throwIfNotFound: true);
         m_Hunting_Quick6 = m_Hunting.FindAction("Quick6", throwIfNotFound: true);
         m_Hunting_DebugAmmo = m_Hunting.FindAction("DebugAmmo", throwIfNotFound: true);
-        m_Hunting_Run = m_Hunting.FindAction("Run", throwIfNotFound: true);
         // House
         m_House = asset.FindActionMap("House", throwIfNotFound: true);
         m_House_Movement = m_House.FindAction("Movement", throwIfNotFound: true);
@@ -833,7 +854,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_House_OpenShop = m_House.FindAction("OpenShop", throwIfNotFound: true);
         m_House_Crouch = m_House.FindAction("Crouch", throwIfNotFound: true);
         m_House_Pause = m_House.FindAction("Pause", throwIfNotFound: true);
-        m_House_Sprint = m_House.FindAction("Sprint", throwIfNotFound: true);
+        m_House_RotateFurniture = m_House.FindAction("RotateFurniture", throwIfNotFound: true);
+        m_House_PlaceFurniture = m_House.FindAction("PlaceFurniture", throwIfNotFound: true);
         // Decorate
         m_Decorate = asset.FindActionMap("Decorate", throwIfNotFound: true);
         m_Decorate_ExitToHouse = m_Decorate.FindAction("ExitToHouse", throwIfNotFound: true);
@@ -916,7 +938,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_Quick5;
     private readonly InputAction m_Hunting_Quick6;
     private readonly InputAction m_Hunting_DebugAmmo;
-    private readonly InputAction m_Hunting_Run;
     public struct HuntingActions
     {
         private @PlayerInput m_Wrapper;
@@ -938,7 +959,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Quick5 => m_Wrapper.m_Hunting_Quick5;
         public InputAction @Quick6 => m_Wrapper.m_Hunting_Quick6;
         public InputAction @DebugAmmo => m_Wrapper.m_Hunting_DebugAmmo;
-        public InputAction @Run => m_Wrapper.m_Hunting_Run;
         public InputActionMap Get() { return m_Wrapper.m_Hunting; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -999,9 +1019,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @DebugAmmo.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnDebugAmmo;
                 @DebugAmmo.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnDebugAmmo;
                 @DebugAmmo.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnDebugAmmo;
-                @Run.started -= m_Wrapper.m_HuntingActionsCallbackInterface.OnRun;
-                @Run.performed -= m_Wrapper.m_HuntingActionsCallbackInterface.OnRun;
-                @Run.canceled -= m_Wrapper.m_HuntingActionsCallbackInterface.OnRun;
             }
             m_Wrapper.m_HuntingActionsCallbackInterface = instance;
             if (instance != null)
@@ -1057,9 +1074,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @DebugAmmo.started += instance.OnDebugAmmo;
                 @DebugAmmo.performed += instance.OnDebugAmmo;
                 @DebugAmmo.canceled += instance.OnDebugAmmo;
-                @Run.started += instance.OnRun;
-                @Run.performed += instance.OnRun;
-                @Run.canceled += instance.OnRun;
             }
         }
     }
@@ -1075,7 +1089,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_House_OpenShop;
     private readonly InputAction m_House_Crouch;
     private readonly InputAction m_House_Pause;
-    private readonly InputAction m_House_Sprint;
+    private readonly InputAction m_House_RotateFurniture;
+    private readonly InputAction m_House_PlaceFurniture;
     public struct HouseActions
     {
         private @PlayerInput m_Wrapper;
@@ -1087,7 +1102,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @OpenShop => m_Wrapper.m_House_OpenShop;
         public InputAction @Crouch => m_Wrapper.m_House_Crouch;
         public InputAction @Pause => m_Wrapper.m_House_Pause;
-        public InputAction @Sprint => m_Wrapper.m_House_Sprint;
+        public InputAction @RotateFurniture => m_Wrapper.m_House_RotateFurniture;
+        public InputAction @PlaceFurniture => m_Wrapper.m_House_PlaceFurniture;
         public InputActionMap Get() { return m_Wrapper.m_House; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1118,9 +1134,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Pause.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnPause;
-                @Sprint.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnSprint;
-                @Sprint.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnSprint;
-                @Sprint.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnSprint;
+                @RotateFurniture.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnRotateFurniture;
+                @RotateFurniture.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnRotateFurniture;
+                @RotateFurniture.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnRotateFurniture;
+                @PlaceFurniture.started -= m_Wrapper.m_HouseActionsCallbackInterface.OnPlaceFurniture;
+                @PlaceFurniture.performed -= m_Wrapper.m_HouseActionsCallbackInterface.OnPlaceFurniture;
+                @PlaceFurniture.canceled -= m_Wrapper.m_HouseActionsCallbackInterface.OnPlaceFurniture;
             }
             m_Wrapper.m_HouseActionsCallbackInterface = instance;
             if (instance != null)
@@ -1146,9 +1165,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
-                @Sprint.started += instance.OnSprint;
-                @Sprint.performed += instance.OnSprint;
-                @Sprint.canceled += instance.OnSprint;
+                @RotateFurniture.started += instance.OnRotateFurniture;
+                @RotateFurniture.performed += instance.OnRotateFurniture;
+                @RotateFurniture.canceled += instance.OnRotateFurniture;
+                @PlaceFurniture.started += instance.OnPlaceFurniture;
+                @PlaceFurniture.performed += instance.OnPlaceFurniture;
+                @PlaceFurniture.canceled += instance.OnPlaceFurniture;
             }
         }
     }
@@ -1229,7 +1251,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnQuick5(InputAction.CallbackContext context);
         void OnQuick6(InputAction.CallbackContext context);
         void OnDebugAmmo(InputAction.CallbackContext context);
-        void OnRun(InputAction.CallbackContext context);
     }
     public interface IHouseActions
     {
@@ -1240,7 +1261,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnOpenShop(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-        void OnSprint(InputAction.CallbackContext context);
+        void OnRotateFurniture(InputAction.CallbackContext context);
+        void OnPlaceFurniture(InputAction.CallbackContext context);
     }
     public interface IDecorateActions
     {

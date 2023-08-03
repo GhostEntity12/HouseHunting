@@ -157,15 +157,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Run",
-                    "type": "Button",
-                    "id": "22c3732d-8bb3-4529-b69d-73f0ea88a18c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -260,7 +251,7 @@
                 {
                     "name": "",
                     "id": "04a4e74c-e3f9-40d5-a660-0fc5c04106d2",
-                    "path": "<Keyboard>/leftCtrl",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -421,17 +412,6 @@
                     "action": "DebugAmmo",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "f11cc6d9-0701-4f4e-9c26-c9d9d6aba860",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Run",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -503,9 +483,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Sprint",
+                    "name": "RotateFurniture",
+                    "type": "Value",
+                    "id": "d53f6ebf-6b2a-4cff-a2cf-b515f2886284",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "PlaceFurniture",
                     "type": "Button",
-                    "id": "b6db9991-ae16-42b9-bd78-b4d99eee5e9a",
+                    "id": "fd1574a3-773f-413f-a57c-6f4a84434b6e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -615,7 +604,7 @@
                 {
                     "name": "",
                     "id": "12efbce1-649b-41bc-b977-2bfec8e5f722",
-                    "path": "<Keyboard>/leftCtrl",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -635,13 +624,46 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "8d78ad43-d3e3-453b-83e8-5721c0e56d31",
-                    "path": "<Keyboard>/leftShift",
+                    "name": "1D Axis",
+                    "id": "18d94958-3ca4-421e-9051-e4abf3b86319",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Sprint",
+                    "action": "RotateFurniture",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "0f1edf83-2e50-4f95-ac66-6e133745300a",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateFurniture",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "e6a5d823-53a6-4947-9b44-efb440446346",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateFurniture",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "1474ca4a-7698-4a56-8046-5dc12ba9eda3",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlaceFurniture",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
