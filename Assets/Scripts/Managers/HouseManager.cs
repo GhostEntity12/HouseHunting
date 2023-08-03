@@ -8,14 +8,23 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
 	[SerializeField] private CanvasGroup decorateUI;
 	[SerializeField] private MeshFilter playerModel;
-	[field: SerializeField] public Camera ExploreCamera { get; private set; }
+	[SerializeField] private GameObject playerGameObject;
+    [field: SerializeField] public Camera ExploreCamera { get; private set; }
 	[field: SerializeField] public Camera DecorateCamera { get; private set; }
 
+
+	private Placeable holdingPlaceable;
+    private float holdingPlaceableRotation = 0;
 	private List<HouseItem> houseItems;
 	private float houseValue = 0;
 
-	public delegate void OnModeChange(HouseMode mode);
+	public List<HouseItem> HouseItems => houseItems;
+    public Placeable HoldingPlaceable { get => holdingPlaceable; set => holdingPlaceable = value; }
+	public float HoldingPlaceableRotation { get => holdingPlaceableRotation; set => holdingPlaceableRotation = value; }
+
+    public delegate void OnModeChange(HouseMode mode);
 	public static event OnModeChange ModeChanged;
+
 
 	private void Start()
 	{
@@ -23,14 +32,18 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		houseValue = CalculateHouseRating(houseItems); // assign total value here
 
         Debug.Log("HouseRating: " + houseValue);
-        Debug.Log("HouseRating: " + houseValue);
 		SetHouseMode(HouseMode.Explore);
 
 		AudioManager.Instance.Play("Building");
 	}
 
-	// function to calculate house rating, on certain threseholds (to be determined later), unlockTier is called to unlock that tier.
-	private float CalculateHouseRating(List<HouseItem> houseItems)
+    private void Update()
+    {
+        HoldPlaceable();
+    }
+
+    // function to calculate house rating, on certain threseholds (to be determined later), unlockTier is called to unlock that tier.
+    private float CalculateHouseRating(List<HouseItem> houseItems)
 	{
 		float tValue = 0;
 
@@ -58,6 +71,30 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		}
 	}
 
+	private void HoldPlaceable()
+	{
+		if (holdingPlaceable == null) return;
+
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+
+        // Create a RaycastHit variable to store information about the hit
+        RaycastHit hit;
+
+		// Perform the raycast and check if it hits something within the specified distance
+		if (Physics.Raycast(ray, out hit, 3, ~LayerMask.GetMask("Placeable")))
+			holdingPlaceable.transform.position = new Vector3(hit.point.x,hit.point.y, hit.point.z);
+		else
+			holdingPlaceable.transform.position = playerGameObject.transform.position + playerGameObject.transform.forward * 3;
+
+        // clamp the position so that the y index is always on ground level
+        holdingPlaceable.transform.position = new Vector3(holdingPlaceable.transform.position.x, 0, holdingPlaceable.transform.position.z);
+		// rotate the furniture so that it faces the player
+		holdingPlaceable.transform.LookAt(ExploreCamera.transform.position);
+		holdingPlaceable.transform.rotation = Quaternion.Euler(0, holdingPlaceable.transform.rotation.eulerAngles.y + holdingPlaceableRotation, 0);
+
+		holdingPlaceable.Mesh.material.color = holdingPlaceable.IsValidPosition ? Color.green : Color.red;
+	}
+
 	public void UnlockTier(string tier)
 	{
 		// do nothing
@@ -68,22 +105,21 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		houseItems = data.houseItems;
 	}
 
-
 	public void SaveData(GameData data)
 	{
-		data.houseItems = houseItems;
+        data.houseItems = houseItems;
 	}
 
-	public void SavePlaceables()
+	public void UpdatePlaceablesInHouse()
 	{
 		Placeable[] allPlaceables = FindObjectsOfType<Placeable>();
-		houseItems.Clear();
+        houseItems.Clear();
 		foreach (Placeable placeable in allPlaceables)
 		{
 			MeshRenderer meshRenderer = placeable.GetComponentInChildren<MeshRenderer>();
 			houseItems.Add(new HouseItem(placeable.InventoryItem, placeable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
 		}
-	}
+    }
 
 	/// <summary>
 	/// Changes the mode the house is in from decorate to explore and vice versa
@@ -126,4 +162,42 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
 		ModeChanged?.Invoke(mode);
 	}
+
+	public void SelectFurnitureToPlace()
+	{
+		if (ShopUIManager.Instance.SelectedFurniture?.so == null) return;
+		(FurnitureSO so, FurnitureItem item) selectedFurniture = ShopUIManager.Instance.SelectedFurniture.Value;
+		// cast ray from camera to 3 units away
+		Placeable spawnedPlaceable = Instantiate(selectedFurniture.so.placeablePrefab);
+
+		holdingPlaceable = spawnedPlaceable;
+        HoldPlaceable();
+
+        spawnedPlaceable.InventoryItem = selectedFurniture.item;
+
+		ShopUIManager.Instance.ToggleShop();
+	}
+
+	public void RotateHoldingPlaceable(float angle)
+	{
+		if (holdingPlaceable == null) return;
+
+		holdingPlaceableRotation += angle;
+	}
+
+	public void PlaceHoldingPlaceable()
+	{
+		if (holdingPlaceable == null || !holdingPlaceable.IsValidPosition) return;
+
+        GameManager.Instance.PermanentInventory.RemoveItem(holdingPlaceable.InventoryItem);
+
+        MeshRenderer meshRenderer = holdingPlaceable.GetComponentInChildren<MeshRenderer>();
+        houseItems.Add(new HouseItem(holdingPlaceable.InventoryItem, holdingPlaceable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
+
+		holdingPlaceable.Mesh.material = holdingPlaceable.Material;
+		MeshCollider meshCollider = holdingPlaceable.GetComponentInChildren<MeshCollider>();
+		meshCollider.enabled = true;
+		holdingPlaceable = null;
+		holdingPlaceableRotation = 0;
+    }
 }
