@@ -31,8 +31,11 @@ public class Gun : MonoBehaviour
     public void Shoot(bool firstShot = false)
     {
         if (GameManager.Instance.IsPaused) return;
-        if ( !readyToShoot || WeaponManager.Instance.BulletsInMag <= 0 || reloading) return;
-
+        if ( !readyToShoot || WeaponManager.Instance.BulletsInMag <= 0 || reloading) 
+            return;
+        else 
+            AudioManager.Instance.Play(GunSO.name);
+    
         if (firstShot)
             soundAlerter.MakeSound(GunSO.volume, transform.position);
 

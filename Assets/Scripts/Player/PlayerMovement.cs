@@ -81,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
         if (input > 0) {
             Sprint(true);
             Debug.Log("Run");
+            
         }
         else {
             Sprint(false);
