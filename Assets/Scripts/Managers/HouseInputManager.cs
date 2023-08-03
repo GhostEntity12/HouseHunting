@@ -8,8 +8,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
 	private PlayerInput playerInput;
 
-	public Placeable SelectedPlaceable { get; private set; }
-
 	protected override void Awake()
 	{
 		// Singleton setup
@@ -18,16 +16,20 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		// Generate inputs and subscribe
 		playerInput = new PlayerInput();
 
-		playerInput.House.Interact.performed += ctx => ExploreInteract();
+		playerInput.House.Interact.performed += ctx => Interact();
 		//removed for alpha
 		playerInput.House.OpenShop.performed += ctx => ShopUIManager.Instance.ToggleShop();
 		playerInput.House.Pause.performed += ctx => PausePressed();
 		playerInput.House.PlaceFurniture.performed += ctx => HouseManager.Instance.PlaceHoldingPlaceable();
-
-		playerInput.House.Enable();
+		playerInput.House.RemoveFurniture.performed += ctx => RemoveHoldingPlaceable();
 	}
 
-	private void FixedUpdate()
+    private void OnEnable()
+    {
+		playerInput.House.Enable();
+    }
+
+    private void FixedUpdate()
 	{
         if (!ShopUIManager.Instance.IsShopOpen)
             movement.Move(playerInput.House.Movement.ReadValue<Vector2>());
@@ -47,16 +49,15 @@ public class HouseInputManager : Singleton<HouseInputManager>
 			HouseManager.Instance.RotateHoldingPlaceable(-30f);
 	}
 
-	private void OnDestroy()
+	private void OnDisable()
 	{
-		// Unsubscribe the listener and deactivate inputs
 		playerInput.House.Disable();
 	}
 
 	/// <summary>
 	/// Handles uses of the interation key when in explore mode
 	/// </summary>
-	private void ExploreInteract()
+	private void Interact()
 	{
 		if (Physics.Raycast(HouseManager.Instance.ExploreCamera.transform.position, HouseManager.Instance.ExploreCamera.transform.forward, out RaycastHit hit, playerReach))
 		{
@@ -78,12 +79,11 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	/// <summary>
 	/// Removes the selected placeable from the scene and returns it to the inventory
 	/// </summary>
-	public void RemoveSelectedPlaceable()
+	public void RemoveHoldingPlaceable()
 	{
-		if (!SelectedPlaceable) return;
+		if (!HouseManager.Instance.HoldingPlaceable) return;
 
-		GameManager.Instance.PermanentInventory.AddItem(SelectedPlaceable.InventoryItem);
-		InventoryUIManager.Instance.RepaintInventory();
-		Destroy(SelectedPlaceable.gameObject);
+		GameManager.Instance.PermanentInventory.AddItem(HouseManager.Instance.HoldingPlaceable.InventoryItem);
+		Destroy(HouseManager.Instance.HoldingPlaceable.gameObject);
 	}
 }

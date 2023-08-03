@@ -469,7 +469,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Decorate"",
+                    ""name"": ""RemoveFurniture"",
                     ""type"": ""Button"",
                     ""id"": ""7e9746d0-f0cf-4e6c-9be9-4b73937d77a3"",
                     ""expectedControlType"": ""Button"",
@@ -608,7 +608,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Decorate"",
+                    ""action"": ""RemoveFurniture"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -850,7 +850,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_House_Movement = m_House.FindAction("Movement", throwIfNotFound: true);
         m_House_Interact = m_House.FindAction("Interact", throwIfNotFound: true);
         m_House_Look = m_House.FindAction("Look", throwIfNotFound: true);
-        m_House_Decorate = m_House.FindAction("Decorate", throwIfNotFound: true);
+        m_House_RemoveFurniture = m_House.FindAction("RemoveFurniture", throwIfNotFound: true);
         m_House_OpenShop = m_House.FindAction("OpenShop", throwIfNotFound: true);
         m_House_Crouch = m_House.FindAction("Crouch", throwIfNotFound: true);
         m_House_Pause = m_House.FindAction("Pause", throwIfNotFound: true);
@@ -1100,7 +1100,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_House_Movement;
     private readonly InputAction m_House_Interact;
     private readonly InputAction m_House_Look;
-    private readonly InputAction m_House_Decorate;
+    private readonly InputAction m_House_RemoveFurniture;
     private readonly InputAction m_House_OpenShop;
     private readonly InputAction m_House_Crouch;
     private readonly InputAction m_House_Pause;
@@ -1113,7 +1113,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_House_Movement;
         public InputAction @Interact => m_Wrapper.m_House_Interact;
         public InputAction @Look => m_Wrapper.m_House_Look;
-        public InputAction @Decorate => m_Wrapper.m_House_Decorate;
+        public InputAction @RemoveFurniture => m_Wrapper.m_House_RemoveFurniture;
         public InputAction @OpenShop => m_Wrapper.m_House_OpenShop;
         public InputAction @Crouch => m_Wrapper.m_House_Crouch;
         public InputAction @Pause => m_Wrapper.m_House_Pause;
@@ -1137,9 +1137,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
-            @Decorate.started += instance.OnDecorate;
-            @Decorate.performed += instance.OnDecorate;
-            @Decorate.canceled += instance.OnDecorate;
+            @RemoveFurniture.started += instance.OnRemoveFurniture;
+            @RemoveFurniture.performed += instance.OnRemoveFurniture;
+            @RemoveFurniture.canceled += instance.OnRemoveFurniture;
             @OpenShop.started += instance.OnOpenShop;
             @OpenShop.performed += instance.OnOpenShop;
             @OpenShop.canceled += instance.OnOpenShop;
@@ -1168,9 +1168,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
-            @Decorate.started -= instance.OnDecorate;
-            @Decorate.performed -= instance.OnDecorate;
-            @Decorate.canceled -= instance.OnDecorate;
+            @RemoveFurniture.started -= instance.OnRemoveFurniture;
+            @RemoveFurniture.performed -= instance.OnRemoveFurniture;
+            @RemoveFurniture.canceled -= instance.OnRemoveFurniture;
             @OpenShop.started -= instance.OnOpenShop;
             @OpenShop.performed -= instance.OnOpenShop;
             @OpenShop.canceled -= instance.OnOpenShop;
@@ -1298,7 +1298,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnDecorate(InputAction.CallbackContext context);
+        void OnRemoveFurniture(InputAction.CallbackContext context);
         void OnOpenShop(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
