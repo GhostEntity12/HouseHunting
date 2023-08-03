@@ -32,6 +32,7 @@ public class Gun : MonoBehaviour
     {
         if (GameManager.Instance.IsPaused) return;
         if ( !readyToShoot || WeaponManager.Instance.BulletsInMag <= 0 || reloading) return;
+        if (HuntingInputManager.Instance.WeaponWheelisOpen()) return; // dont shoot when weapon wheel is open
 
         if (firstShot)
             soundAlerter.MakeSound(GunSO.volume, transform.position);
@@ -79,6 +80,8 @@ public class Gun : MonoBehaviour
     public void Reload()
     {
         if (reloading) return;
+        if (HuntingInputManager.Instance.WeaponWheelisOpen()) return; // dont reload while weapon wheel is open
+        if (gunSO.magSize == WeaponManager.Instance.BulletsInMag) return; // dont reload when mag is full
 
         reloading = true;
         StartCoroutine(ResetReload(gunSO.reloadTime));

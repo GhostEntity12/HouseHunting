@@ -110,4 +110,9 @@ public class WeaponWheel : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         WeaponManager.Instance.SelectItem(selectedIndex);
     }
+
+    public bool getOpen()
+    {
+        return gameObject.activeSelf;
+    }
 }
