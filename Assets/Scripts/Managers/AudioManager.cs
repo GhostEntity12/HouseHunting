@@ -45,6 +45,17 @@ public class AudioManager : Singleton<AudioManager>
         s.source.Play();
     }
 
+    public void PlaySFX(string name)
+    {
+        Sound s = System.Array.Find(sounds, sound => sound.Name == name);
+        if (s == null)
+        {
+            Debug.LogWarning($"Sound: {name} not found!");
+            return;
+        }
+        s.source.PlayOneShot(s.source.clip);
+    }
+
     public void Stop(string name)
     {
         Sound s = System.Array.Find(sounds, sound => sound.Name == name);
