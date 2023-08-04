@@ -110,8 +110,7 @@ public class WeaponManager : Singleton<WeaponManager>
         // if there are no bullets left, don't reload
         if (bulletsInv <= 0) return;
 
-        int bulletsToReload = gun.GunSO.magSize - mag;
-        if (bulletsToReload > bulletsInv) bulletsToReload = bulletsInv;
+        int bulletsToReload = Mathf.Min(gun.GunSO.magSize - mag, bulletsInv);
 
         ownedGuns.Find(x => x.id == gun.GunSO.id).bulletsInMag += bulletsToReload;
 
