@@ -42,7 +42,7 @@ public class HuntingUIManager : Singleton<HuntingUIManager>
         }
     }
 
-    public void Awake()
+    protected override void Awake()
     {
         base.Awake();
         reloadBar.gameObject.SetActive(false);
