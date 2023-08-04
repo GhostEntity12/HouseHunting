@@ -5,14 +5,9 @@ using UnityEngine.EventSystems;
 public class ButtonAnimator : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Image outlineImage; // Drag your outline image here in the Inspector
-    private bool isHovering = false;
-    private bool isAnimating = false;
+    //private bool isHovering = false;
+    //private bool isAnimating = false;
     private float scaleRange = 1.05f;
-
-    void Update()
-    {
-
-    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
