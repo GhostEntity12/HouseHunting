@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4837449634722742522}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bone_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5814330791418812083}
   - component: {fileID: 9176654386063057209}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u5F29"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4435063020158085133}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bone_003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2493051187131196971}
   - component: {fileID: 5583386250181062473}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u5F26"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3483412039636198377}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +277,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5069900285511552952}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bone_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,7 +309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5602686714305863734}
   - component: {fileID: 7569345369178007144}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u6273\u673A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ GameObject:
   - component: {fileID: 2105975402056762075}
   - component: {fileID: 5881727287344065269}
   - component: {fileID: 7744787206299875300}
-  m_Layer: 31
+  m_Layer: 10
   m_Name: Gun_Crossbow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -458,10 +458,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunSO: {fileID: 11400000, guid: 260cd78f5b7281843b0c646b1f74255c, type: 2}
-  ammoInventory: {fileID: 0}
   muzzlePoint: {fileID: 406708720872090986}
   muzzleFlashPrefab: {fileID: 1000010254994808, guid: 849b008210656a542b75ecfdc722a116, type: 3}
-  ammoType: 2
 --- !u!1 &5030455133972718382
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,7 +469,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 406708720872090986}
-  m_Layer: 31
+  m_Layer: 10
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -503,7 +501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3344299349568673453}
   - component: {fileID: 964153524185258139}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: "\u7BAD"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -588,7 +586,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2420658265620597077}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
