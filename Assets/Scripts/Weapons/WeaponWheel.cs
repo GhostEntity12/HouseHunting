@@ -111,8 +111,5 @@ public class WeaponWheel : MonoBehaviour
         WeaponManager.Instance.SelectItem(selectedIndex);
     }
 
-    public bool getOpen()
-    {
-        return gameObject.activeSelf;
-    }
+    public bool GetOpen() => gameObject.activeSelf;
 }
