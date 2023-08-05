@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1539234630903234798}
   - component: {fileID: 1863450889832947481}
   - component: {fileID: 3045520997839687616}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Placeable_Chair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304f65a922a1c7e419427ba953ffe214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canPlaceOnSurface: 0
   <Mesh>k__BackingField: {fileID: 8301608726232889003}
-  <RotationWheel>k__BackingField: {fileID: 0}
 --- !u!64 &1863450889832947481
 MeshCollider:
   m_ObjectHideFlags: 0

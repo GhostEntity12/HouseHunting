@@ -5,6 +5,8 @@ using System.Linq;
 [JsonObject(MemberSerialization.OptIn)]
 public class Placeable : MonoBehaviour, IInteractable
 {
+    [SerializeField] private bool canPlaceOnSurface;
+
     private MeshCollider childMeshCollider;
 
     [field: SerializeField] public MeshRenderer Mesh { get; private set; }
@@ -13,6 +15,7 @@ public class Placeable : MonoBehaviour, IInteractable
 	public FurnitureItem InventoryItem { get; set; }
     public Material Material { get; set; }
     public MeshCollider ChildMeshCollider => childMeshCollider;
+    public bool CanPlaceOnSurface => canPlaceOnSurface;
 
     private void Start()
     {
@@ -20,7 +23,7 @@ public class Placeable : MonoBehaviour, IInteractable
         Material = DataPersistenceManager.Instance.AllFurnitureSO.Find(x => x.id == InventoryItem.id).materials[InventoryItem.materialIndex];
         Mesh.material = Material;
 
-        childMeshCollider = GetComponentsInChildren<MeshCollider>().Skip(1).ToArray()[0];
+        childMeshCollider = GetComponentInChildren<MeshCollider>();
     }
 
     private void OnTriggerExit(Collider other) 
