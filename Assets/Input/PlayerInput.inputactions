@@ -467,7 +467,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Decorate",
+                    "name": "RemoveFurniture",
                     "type": "Button",
                     "id": "7e9746d0-f0cf-4e6c-9be9-4b73937d77a3",
                     "expectedControlType": "Button",
@@ -606,7 +606,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Decorate",
+                    "action": "RemoveFurniture",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
