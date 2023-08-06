@@ -179,6 +179,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""9d288a96-fe55-4d70-abc9-8f73411d46b1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -273,7 +282,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""04a4e74c-e3f9-40d5-a660-0fc5c04106d2"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/ctrl"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -434,6 +443,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""DebugAmmo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""153179bc-c59e-4f57-a9a7-ac5294aa020c"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -865,6 +885,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Hunting_Quick5 = m_Hunting.FindAction("Quick5", throwIfNotFound: true);
         m_Hunting_Quick6 = m_Hunting.FindAction("Quick6", throwIfNotFound: true);
         m_Hunting_DebugAmmo = m_Hunting.FindAction("DebugAmmo", throwIfNotFound: true);
+        m_Hunting_Run = m_Hunting.FindAction("Run", throwIfNotFound: true);
         // House
         m_House = asset.FindActionMap("House", throwIfNotFound: true);
         m_House_Movement = m_House.FindAction("Movement", throwIfNotFound: true);
@@ -961,6 +982,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_Quick5;
     private readonly InputAction m_Hunting_Quick6;
     private readonly InputAction m_Hunting_DebugAmmo;
+    private readonly InputAction m_Hunting_Run;
     public struct HuntingActions
     {
         private @PlayerInput m_Wrapper;
@@ -982,6 +1004,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Quick5 => m_Wrapper.m_Hunting_Quick5;
         public InputAction @Quick6 => m_Wrapper.m_Hunting_Quick6;
         public InputAction @DebugAmmo => m_Wrapper.m_Hunting_DebugAmmo;
+        public InputAction @Run => m_Wrapper.m_Hunting_Run;
         public InputActionMap Get() { return m_Wrapper.m_Hunting; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1327,6 +1350,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnQuick5(InputAction.CallbackContext context);
         void OnQuick6(InputAction.CallbackContext context);
         void OnDebugAmmo(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
     }
     public interface IHouseActions
     {
