@@ -1,21 +1,26 @@
 using UnityEngine;
 using Newtonsoft.Json;
+using System.Linq;
 
 [JsonObject(MemberSerialization.OptIn)]
 public class Placeable : MonoBehaviour, IInteractable
 {
+    private MeshCollider childMeshCollider;
+
     [field: SerializeField] public MeshRenderer Mesh { get; private set; }
-    [field: SerializeField] public RotationWheel RotationWheel { get; private set; }
 
     public bool IsValidPosition { get; private set; } = true;
 	public FurnitureItem InventoryItem { get; set; }
     public Material Material { get; set; }
+    public MeshCollider ChildMeshCollider => childMeshCollider;
 
     private void Start()
     {
         Mesh.transform.localScale *= InventoryItem.scaleFactor;
         Material = DataPersistenceManager.Instance.AllFurnitureSO.Find(x => x.id == InventoryItem.id).materials[InventoryItem.materialIndex];
         Mesh.material = Material;
+
+        childMeshCollider = GetComponentsInChildren<MeshCollider>().Skip(1).ToArray()[0];
     }
 
     private void OnTriggerExit(Collider other) 
@@ -25,7 +30,6 @@ public class Placeable : MonoBehaviour, IInteractable
 
     private void OnTriggerStay(Collider other) 
     {
-        Debug.Log(other.name);
         if (other.TryGetComponent(out Placeable _) && HouseManager.Instance.HoldingPlaceable == this)
             IsValidPosition = false;
     }
@@ -52,13 +56,12 @@ public class Placeable : MonoBehaviour, IInteractable
         int thisHouseItemIndex = HouseManager.Instance.HouseItems.FindIndex(f => f.position == transform.position);
         HouseManager.Instance.HouseItems.RemoveAt(thisHouseItemIndex);
 
-        // find mesh collider in children and change to is trigger to prevent furniture from moving the player when positioning it
-        MeshCollider meshCollider = GetComponentInChildren<MeshCollider>();
-        meshCollider.enabled = false;
-        //meshCollider.convex= true;
-        //meshCollider.isTrigger= true;
+        childMeshCollider.enabled = false;
 
         // reset the holding placeable rotation
-        HouseManager.Instance.HoldingPlaceableRotation = 0;
+        Quaternion originalRotation = transform.rotation;
+        transform.LookAt(HouseManager.Instance.ExploreCamera.transform.position);
+        float rotationDifference = transform.rotation.eulerAngles.y - originalRotation.eulerAngles.y;
+        HouseManager.Instance.HoldingPlaceableRotation = -rotationDifference;
     }
 }
