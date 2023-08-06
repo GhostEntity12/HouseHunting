@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7171902755210420919}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Trigger_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3019479690349581822}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Rifle_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7501404167868141657}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bolt_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4417410922395136108}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LoadFlick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1664331432279431598}
   - component: {fileID: 9044442938559451673}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Gun_Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,10 +173,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunSO: {fileID: 11400000, guid: 32118748925db9a45a9281c1d16cd3f7, type: 2}
-  ammoInventory: {fileID: 0}
   muzzlePoint: {fileID: 9044442938445331869}
   muzzleFlashPrefab: {fileID: 1000010254994808, guid: 849b008210656a542b75ecfdc722a116, type: 3}
-  ammoType: 1
 --- !u!1 &2418816163705883090
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +184,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5155245546163831859}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BulletHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3661087491323421201}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +248,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 228788197455065795}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Loader_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +279,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6127584351703625535}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Rifle 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,7 +311,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8711837109862135741}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Loader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +343,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4734096968064599639}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BulletEntrence_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -376,7 +374,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 513300369005003456}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BulletEntrence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +407,7 @@ GameObject:
   m_Component:
   - component: {fileID: 784034552123454761}
   - component: {fileID: 4449492284218120317}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -500,7 +498,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7679916184539089196}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LoadFlick_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -531,7 +529,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1497182316952134889}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +561,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7757505111850715440}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -601,7 +599,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7171894487270458381}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BulletHolder_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -632,7 +630,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9044442938445331869}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

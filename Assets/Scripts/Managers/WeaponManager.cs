@@ -49,6 +49,12 @@ public class WeaponManager : Singleton<WeaponManager>
         ownedGuns = GameManager.Instance.PermanentInventory.BoughtItems.Where(x => x is GunShopItem).Cast<GunShopItem>().ToList();
         Gun firstOwnedGun = allGuns.Find(x => x.GunSO.id == ownedGuns[0].id);
         currentGun = Instantiate(firstOwnedGun, transform);
+
+        // reload each gun on start up.
+        ownedGuns.ForEach((ownGun) =>
+        {
+            ReloadNoUI(allGuns.Find(x => x.GunSO.id == ownGun.id));
+        });
     }
 
     public void SelectItem(int index)
@@ -75,18 +81,49 @@ public class WeaponManager : Singleton<WeaponManager>
         BulletsInInventory += number;
         HuntingUIManager.Instance.SetAmmoCounterText(BulletsInMag / currentGun.GunSO.bulletsPerTap + " / " + BulletsInInventory / currentGun.GunSO.bulletsPerTap);
     }
-
+    
+    // reloads current gun, interacts with UI
     public void Reload()
     {
-        // if there are no bullets left, don't reload
+        /*// if there are no bullets left, don't reload
         if (BulletsInInventory <= 0) return;
 
         int bulletsToReload = currentGun.GunSO.magSize - BulletsInMag;
         if (bulletsToReload > BulletsInInventory) bulletsToReload = BulletsInInventory;
 
         ownedGuns[currentGunIndex].bulletsInMag += bulletsToReload;
-        BulletsInInventory -= bulletsToReload;
+        BulletsInInventory -= bulletsToReload;*/
+
+        ReloadNoUI(currentGun);
 
         HuntingUIManager.Instance.SetAmmoCounterText(BulletsInMag / currentGun.GunSO.bulletsPerTap +  " / " + BulletsInInventory / currentGun.GunSO.bulletsPerTap);
+    }
+
+    // copy of old reload function but takes a gun as a param and skips anything to do with UI.
+    private void ReloadNoUI(Gun gun)
+    {
+        if (gun == null) return;
+
+        int bulletsInv = GameManager.Instance.PermanentInventory.BoughtItems.Find(x => x.id == gun.GunSO.bulletShopItem.id).quantity;
+        int mag = ownedGuns.Find(x => x.id == gun.GunSO.id).bulletsInMag;
+
+        // if there are no bullets left, don't reload
+        if (bulletsInv <= 0) return;
+
+        int bulletsToReload = Mathf.Min(gun.GunSO.magSize - mag, bulletsInv);
+
+        ownedGuns.Find(x => x.id == gun.GunSO.id).bulletsInMag += bulletsToReload;
+
+        // adjust bullets in inventory, copy of the setter
+
+        ShopItem bulletShopItem = GameManager.Instance.PermanentInventory.BoughtItems.Find(x => x.id == gun.GunSO.bulletShopItem.id);
+        // if null then the player doesn't have any bullets of this type and we need to add it to the inventory
+        if (bulletShopItem == null)
+        {
+            bulletShopItem = new ShopItem(gun.GunSO.bulletShopItem.id, bulletsToReload);
+            GameManager.Instance.PermanentInventory.BoughtItems.Add(bulletShopItem);
+            return;
+        }
+        bulletShopItem.quantity -= bulletsToReload;
     }
 }

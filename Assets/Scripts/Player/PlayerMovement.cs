@@ -58,7 +58,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (controller.isGrounded)
         {
-            playerVelocity.y = jumpSpeed;
+            float jump = jumpSpeed + gravity;
+
+            playerVelocity.Set(playerVelocity.x, jump, playerVelocity.z);
+
+            controller.Move(playerVelocity * Time.deltaTime);
+
+            soundAlerter.MakeSound(1, transform.position, 1);
         }
     }
 

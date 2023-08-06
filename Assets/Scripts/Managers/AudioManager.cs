@@ -21,12 +21,12 @@ public class AudioManager : Singleton<AudioManager>
             s.source = gameObject.AddComponent<AudioSource>();
             s.Setup();
             
-            switch (s.Type)
+            switch (s.audioType)
             {
-                case Sound.AudioType.music:
+                case Sound.AudioTypes.music:
                     s.source.outputAudioMixerGroup = musicMixerGroup;
                     break;
-                case Sound.AudioType.soundEffect:
+                case Sound.AudioTypes.soundEffect:
                     s.source.outputAudioMixerGroup = sfxMixerGroup;
                     break;
             }
