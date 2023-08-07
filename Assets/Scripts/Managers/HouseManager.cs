@@ -81,10 +81,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		int layerMask = holdingPlaceable.CanPlaceOnSurface ? LayerMask.GetMask("Floor") | LayerMask.GetMask("PlaceableSurface") : LayerMask.GetMask("Floor");
 
 		if (Physics.Raycast(ray, out RaycastHit hit, 3, layerMask))
-		{
             holdingPlaceable.transform.position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
-			Debug.Log(hit.transform.name);
-		}
         else
             holdingPlaceable.transform.position = playerGameObject.transform.position + playerGameObject.transform.forward * 3;
 

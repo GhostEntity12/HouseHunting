@@ -53,6 +53,14 @@ public class Placeable : MonoBehaviour, IInteractable
         // cannot pick up a placeable if already holding one
         if (HouseManager.Instance.HoldingPlaceable != null) return;
 
+        // cannot pick up a placeable if something else is on top of it
+        PlaceableSurface? surface = GetComponentInChildren<PlaceableSurface>();
+        if (surface != null && surface.HasFurnitureOnThisSurface)
+        {
+            Debug.Log("Cannot pickup this furniture because something is on top of it.");
+            return;
+        }
+
         HouseManager.Instance.HoldingPlaceable = this;
 
         // when picking up, remove the furniture from the list of house items
