@@ -54,11 +54,15 @@ public class Placeable : MonoBehaviour, IInteractable
         if (HouseManager.Instance.HoldingPlaceable != null) return;
 
         // cannot pick up a placeable if something else is on top of it
-        PlaceableSurface? surface = GetComponentInChildren<PlaceableSurface>();
-        if (surface != null && surface.HasFurnitureOnThisSurface)
+        PlaceableSurface[] placeableSurfaces = GetComponentsInChildren<PlaceableSurface>();
+        foreach (PlaceableSurface placeableSurface in placeableSurfaces)
         {
-            Debug.Log("Cannot pickup this furniture because something is on top of it.");
-            return;
+            if (placeableSurface.HasFurnitureOnThisSurface)
+            {
+                // TODO: either change this behavior or notify player instead of logging
+                Debug.Log("Cannot pickup this furniture because something is on top of it.");
+                return;
+            }
         }
 
         HouseManager.Instance.HoldingPlaceable = this;
