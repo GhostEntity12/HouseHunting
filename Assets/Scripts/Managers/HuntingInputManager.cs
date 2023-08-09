@@ -96,6 +96,6 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 	public bool WeaponWheelIsOpen()
 	{
-		return weaponWheelController.getOpen();
+		return weaponWheelController.GetOpen();
 	}
 }
