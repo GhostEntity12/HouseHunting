@@ -4,15 +4,47 @@ using UnityEngine;
 
 public class PlayerFootsteps : MonoBehaviour
 {
+    private CharacterController controller;
+    private bool isWalking;
+    private bool keysPressed;
+    private void Start()
+    {
+        controller = GetComponent<CharacterController>();
+        isWalking = false;
+        keysPressed = false;
+    }
 
     void Update()
+    {   
+        HandleFootsteps();
+        HandleAudio();
+    }
+
+    private void HandleFootsteps()
     {
-        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)))
+        keysPressed = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
+    }
+
+    private void HandleAudio()
+    {
+        if (controller.isGrounded)
         {
-            AudioManager.Instance.Play("WalkOnGrass");
-        } else if ((Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D)))
+            if (!isWalking && keysPressed)
+            {
+                isWalking = true;
+                AudioManager.Instance.Play("WalkOnGrass");
+            }
+            else if (isWalking && !keysPressed)
+            {
+                isWalking = false;
+                AudioManager.Instance.Stop("WalkOnGrass");
+            } 
+        }
+        else if (!controller.isGrounded)
         {
-            AudioManager.Instance.Stop("WalkOnGrass");
+            isWalking = false;
+            AudioManager.Instance.Pause("WalkOnGrass");
+            
         }
     }
 }

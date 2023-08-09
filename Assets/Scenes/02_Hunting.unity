@@ -2099,7 +2099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9183740533133080826, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00002406523
+      value: 0.00002451104
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10622,6 +10622,18 @@ PrefabInstance:
     - target: {fileID: 2320999884146223388, guid: 6a6eecbfa282b2f4bb980dd5ede9b606, type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2320999884146223389, guid: 6a6eecbfa282b2f4bb980dd5ede9b606, type: 3}
+      propertyPath: sounds.Array.data[0].audioType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2320999884146223389, guid: 6a6eecbfa282b2f4bb980dd5ede9b606, type: 3}
+      propertyPath: sounds.Array.data[1].audioType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2320999884146223389, guid: 6a6eecbfa282b2f4bb980dd5ede9b606, type: 3}
+      propertyPath: sounds.Array.data[3].audioType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4096926207107223717, guid: 6a6eecbfa282b2f4bb980dd5ede9b606, type: 3}
       propertyPath: myMixer
@@ -29256,6 +29268,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4683046851554983665, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 57.100098
+      objectReference: {fileID: 0}
     - target: {fileID: 5236336954374965659, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_Pivot.x
       value: 0

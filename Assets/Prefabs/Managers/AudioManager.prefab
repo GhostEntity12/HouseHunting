@@ -48,61 +48,93 @@ MonoBehaviour:
   musicMixerGroup: {fileID: -1077163521897211069, guid: e8a21494f77d0a345b323aea9a2b7600, type: 2}
   sfxMixerGroup: {fileID: 3179759924742685604, guid: e8a21494f77d0a345b323aea9a2b7600, type: 2}
   sounds:
-  - clip: {fileID: 8300000, guid: 2155b06e3e5f39a4b90769ef8ef23ef4, type: 3}
-    loop: 0
+  - audioType: 1
+    clip: {fileID: 8300000, guid: 2155b06e3e5f39a4b90769ef8ef23ef4, type: 3}
+    loop: 1
     playOnAwake: 0
     volume: 0.3
     pitch: 1
     name: Ambience
     source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: 1031a364098ef3340bc568331ac01b53, type: 3}
-    loop: 0
+  - audioType: 1
+    clip: {fileID: 8300000, guid: 1031a364098ef3340bc568331ac01b53, type: 3}
+    loop: 1
     playOnAwake: 0
     volume: 0.02
     pitch: 1
     name: Ambience02
     source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: c079757f96d9f8844867534b2b460fc5, type: 3}
+  - audioType: 0
+    clip: {fileID: 8300000, guid: c079757f96d9f8844867534b2b460fc5, type: 3}
     loop: 0
     playOnAwake: 0
     volume: 0.3
     pitch: 1
     name: Building
     source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: add67e703414c8047afd5623cf6da5be, type: 3}
-    loop: 0
+  - audioType: 1
+    clip: {fileID: 8300000, guid: add67e703414c8047afd5623cf6da5be, type: 3}
+    loop: 1
     playOnAwake: 0
     volume: 1
     pitch: 1
     name: Combat
     source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: 10a9f12121a120b46a09c287cb0eb571, type: 3}
+  - audioType: 0
+    clip: {fileID: 8300000, guid: 10a9f12121a120b46a09c287cb0eb571, type: 3}
     loop: 0
     playOnAwake: 0
     volume: 1
     pitch: 1
     name: WalkOnGrass
     source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: f2abe9a4b6a6dfb4286888bdb491fbe9, type: 3}
+  - audioType: 0
+    clip: {fileID: 8300000, guid: f2abe9a4b6a6dfb4286888bdb491fbe9, type: 3}
     loop: 0
     playOnAwake: 0
     volume: 1
     pitch: 1
     name: Shotgun
     source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: 4c2fe1c3ab67e27409fc307cd5c09fca, type: 3}
+  - audioType: 0
+    clip: {fileID: 8300000, guid: 4c2fe1c3ab67e27409fc307cd5c09fca, type: 3}
     loop: 0
     playOnAwake: 0
     volume: 1
     pitch: 1
     name: Crossbow
     source: {fileID: 0}
-  - clip: {fileID: 8300000, guid: 875dbac83c328d54fb55d3ff36dd92bd, type: 3}
+  - audioType: 0
+    clip: {fileID: 8300000, guid: 875dbac83c328d54fb55d3ff36dd92bd, type: 3}
     loop: 0
     playOnAwake: 0
     volume: 1
     pitch: 1
     name: Rifle
+    source: {fileID: 0}
+  - audioType: 0
+    clip: {fileID: 8300000, guid: 5298d738667323446b4cdaafda6c5dc7, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 1
+    pitch: 1
+    name: Shotgun Reload
+    source: {fileID: 0}
+  - audioType: 0
+    clip: {fileID: 8300000, guid: 7f4d72437d418f4438c83966b8f1de30, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 1
+    pitch: 1
+    name: Rifle Reload
+    source: {fileID: 0}
+  - audioType: 0
+    clip: {fileID: 8300000, guid: 936bca1b4fdad924980c73024cd77c51, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 0.19
+    pitch: 1
+    name: Landing
     source: {fileID: 0}
 --- !u!114 &4096926207107223717
 MonoBehaviour:

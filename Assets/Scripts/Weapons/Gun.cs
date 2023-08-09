@@ -81,7 +81,10 @@ public class Gun : MonoBehaviour
 
     public void Reload()
     {
-        if (reloading) return;
+        if (reloading) 
+            return;
+        else 
+            AudioManager.Instance.Play(GunSO.name + " Reload");
 
         reloading = true;
         StartCoroutine(ResetReload(gunSO.reloadTime));
