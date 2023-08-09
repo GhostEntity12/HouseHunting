@@ -33,6 +33,8 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	{
         if (!ShopUIManager.Instance.IsShopOpen)
             movement.Move(playerInput.House.Movement.ReadValue<Vector2>());
+			movement.Crouch(playerInput.Hunting.Crouch.ReadValue<float>());
+			movement.Run(playerInput.Hunting.Run.ReadValue<float>());
 	}
 
 	private void LateUpdate()
