@@ -1,11 +1,13 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Inventory
 {
     private List<FurnitureItem> furnitures;
     private List<ShopItem> boughtItems = new List<ShopItem>();
+    private const int maxInventorySize = 10; // Set the maximum inventory size to 10
 
-	public List<FurnitureItem> Items { get { return furnitures; } set { furnitures = value; } }
+    public List<FurnitureItem> Items { get { return furnitures; } set { furnitures = value; } }
     public List<ShopItem> BoughtItems { get { return boughtItems; } set { boughtItems = value; } }
 
     public Inventory()
@@ -16,7 +18,17 @@ public class Inventory
 
     public void AddItem(FurnitureItem newItem)
     {
-        furnitures.Add(newItem);
+        if (furnitures.Count < maxInventorySize)
+        {
+            furnitures.Add(newItem);
+        }
+        else
+        {
+            // Handle the case when the inventory is already full
+            // You can throw an exception, display an error message, or simply ignore the addition.
+            // For this example, we'll ignore the addition.
+            Debug.Log("Inventory is already full. Cannot add more items.");
+        }
     }
 
     public void RemoveItem(FurnitureItem itemToRemove)
