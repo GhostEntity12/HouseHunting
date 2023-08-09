@@ -1,11 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections.Generic;
 
-public class WanderAI : MonoBehaviour 
+public class WanderAI : MonoBehaviour
 {
-    enum IState { Idle, Alert, Searching }
-    enum SState { Stressed, CanRelax, Relaxing }
+    enum PathfindingState { Fleeing, Chasing, Searching, Wandering }
+    enum StressState { Stressed, CanRelax, Relaxing }
 
     private Shootable shootable;
     private MeshRenderer meshRenderer;
@@ -14,10 +15,14 @@ public class WanderAI : MonoBehaviour
     private bool xray;
     private float timeSinceLastAttack = 0f;
     public float alertness = 0; // between 0 and 100
-    private SState stressState = SState.Relaxing;
+    private StressState stressState = StressState.Relaxing;
     private GameObject subject;
-    private IState investigate = IState.Idle;
-    
+    private PathfindingState pathfindingState = PathfindingState.Wandering;
+    private float pathfindingSearchRange = 1.0f;
+    private float investigateRadius = 2f;
+    private float timeSinceLastBump = 0f;
+    private float timePerBump = 1f; // This is used to determine if the AI pathfinding should recalculate itself, so that it can properly escape the player.
+
     public PlayerMovement playerMovement;
     public NavMeshAgent agent;
     public float wanderRadius = 15f; // how far the AI can wander
@@ -141,7 +146,46 @@ public class WanderAI : MonoBehaviour
             }
         }
     }
+    private float GetFleeingDist()
+    {
+        float senseDist = 0f;
+        List<float> availableSenses = new List<float>();
+        foreach (SenseSO sense in senses)
+        {
+            bool skip = false;
+            switch (sense.senseCategory)
+            {
+                case SenseCategory.Stealth:
+                    skip = true;
+                    break;
+                case SenseCategory.Normal:
+                    break;
+                default:
+                    skip = true;
+                    break;
+            }
 
+            if (skip)
+                continue;
+            if (sense is SenseSphereSO sphereSense)
+            {
+                availableSenses.Add(sphereSense.radius);
+            }
+            if (sense is SenseConeSO coneSense)
+            {
+                availableSenses.Add(coneSense.range);
+            }
+        }
+        if (availableSenses.Count > 0)
+        {
+            foreach (float usableSense in availableSenses)
+            {
+                senseDist += usableSense;
+            }
+            senseDist /= availableSenses.Count;
+        }
+        return senseDist;
+    }
     private void Update()
     {
         if (shootable.IsDead)
@@ -149,7 +193,10 @@ public class WanderAI : MonoBehaviour
             agent.isStopped = true;
             return;
         }
-
+        if (Time.deltaTime > 0.2f)
+        {
+            Debug.LogWarning("Warning: DeltaTime is at:" + Time.deltaTime);
+        }
         /*
         if (IsPlayerSneaking())
         {
@@ -163,15 +210,20 @@ public class WanderAI : MonoBehaviour
         if (agent.remainingDistance <= agent.stoppingDistance && alertness < 50) //done with path
         {
             if (RandomPoint(transform.position, wanderRadius, out Vector3 point)) //pass in our centre point and radius of area
+            { 
                 agent.SetDestination(point);
+                pathfindingState = PathfindingState.Wandering;
+            }
         }
         else
         {
-            if ((agent.remainingDistance <= agent.stoppingDistance || investigate == IState.Alert) && alertness < 75)
+            if ((agent.remainingDistance <= agent.stoppingDistance || pathfindingState != PathfindingState.Searching) && alertness < 75)
             {
-                investigate = IState.Searching;
-                if (RandomPoint(subject.transform.position, 3, out Vector3 point)) //pass in our centre point and radius of area
+                if (RandomPoint(subject.transform.position, investigateRadius, out Vector3 point)) //pass in our centre point and radius of area
+                {
                     agent.SetDestination(point);
+                    pathfindingState = PathfindingState.Searching;
+                }
             }
         }
 
@@ -251,13 +303,13 @@ public class WanderAI : MonoBehaviour
             }
         }
 
-        if (!detected && stressState == SState.Stressed)
+        if (!detected && stressState == StressState.Stressed)
         {
-            stressState = SState.CanRelax;
+            stressState = StressState.CanRelax;
             StartCoroutine("RelaxTimer");
         }
 
-        if (stressState == SState.Relaxing)
+        if (stressState == StressState.Relaxing)
         {
             alertness -= Time.deltaTime * 10;
         }
@@ -291,36 +343,112 @@ public class WanderAI : MonoBehaviour
                 {
                     agent.isStopped = false;
                     agent.SetDestination(subject.transform.position);
+                    pathfindingState = PathfindingState.Chasing;
                 }
             }
             else
             {
-                //meshRenderer.material.color = Color.green;
-                Vector3 playerDirection = subject.transform.position - (transform.position);
-                Vector3 destination = (transform.position) - playerDirection;
-                if (NavMesh.SamplePosition(destination, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
-                    agent.SetDestination(hit.position);
+                timeSinceLastBump += Time.deltaTime;
+                bool hasBumped = false;
+                if (timeSinceLastBump > timePerBump && (subject.transform.position - transform.position).magnitude < agent.radius * 3)
+                {
+                    hasBumped = true;
+                    timeSinceLastBump = 0f;
+                    Debug.Log("A Human just touched me!");
+                }
+                // Keep fleeing if you're at the last pathfinding destination, or start fleeing if you weren't, or rethink your escape plan because you just bumped into a human!
+                if (agent.remainingDistance <= agent.stoppingDistance || pathfindingState != PathfindingState.Fleeing || hasBumped)
+                {
+                    // Plan A of escaping the dreadful human: Run directly away from the human!
+                    Debug.Log("Human Detected! Initiate Escape Plan A!");
+                    Vector3 playerDirection = (subject.transform.position - transform.position).normalized;
+                    Vector3 destination = transform.position - (playerDirection * (GetFleeingDist() + pathfindingSearchRange));
+                    if (NavMesh.SamplePosition(destination, out NavMeshHit hit, pathfindingSearchRange, NavMesh.AllAreas))
+                    {
+                        agent.SetDestination(hit.position);
+                        pathfindingState = PathfindingState.Fleeing;
+                    }
+                    else
+                    {
+                        // If that's impossible to do without staying in-range, enter Plan B of escaping the dreadful human: Run sideways away from the human!
+                        Debug.Log("Plan A Failed! Initiate Escape Plan B!");
+                        Vector3 leftDirection = Quaternion.AngleAxis(90, Vector3.up) * playerDirection;
+                        Vector3 leftDestination = transform.position - (leftDirection * (GetFleeingDist() + pathfindingSearchRange));
+                        Vector3 rightDirection = Quaternion.AngleAxis(-90, Vector3.up) * playerDirection;
+                        Vector3 rightDestination = transform.position - (rightDirection * (GetFleeingDist() + pathfindingSearchRange));
+                        // Choose the most ideal direction to get far away from the human!
+                        if ((subject.transform.position - leftDestination).magnitude < (subject.transform.position - rightDestination).magnitude)
+                        {
+                            destination = leftDestination;
+                        }
+                        else
+                        {
+                            destination = rightDestination;
+                        }
+                        if (NavMesh.SamplePosition(destination, out NavMeshHit hit1, pathfindingSearchRange, NavMesh.AllAreas))
+                        {
+                            agent.SetDestination(hit1.position);
+                            pathfindingState = PathfindingState.Fleeing;
+                        }
+                        else
+                        {
+                            // If that direction cannot get far enough, try the other direction!
+                            Debug.Log("That direction didn't work! Go the other way!");
+                            if (destination == leftDestination)
+                            {
+                                destination = rightDestination;
+                            }
+                            else
+                            {
+                                destination = leftDestination;
+                            }
+                            if (NavMesh.SamplePosition(destination, out NavMeshHit hit2, pathfindingSearchRange, NavMesh.AllAreas))
+                            {
+                                agent.SetDestination(hit2.position);
+                                pathfindingState = PathfindingState.Fleeing;
+                            }
+                            else
+                            {
+                                // You're getting cornered over here! Get as close to the wall as you can!
+                                Debug.Log("Quick! Into that corner!");
+                                Vector3 crammingDestination = transform.position - playerDirection * pathfindingSearchRange;
+                                if (NavMesh.SamplePosition(crammingDestination, out NavMeshHit hit3, pathfindingSearchRange, NavMesh.AllAreas))
+                                {
+                                    agent.SetDestination(hit3.position);
+                                    pathfindingState = PathfindingState.Fleeing;
+                                }
+                                else
+                                {
+                                    Debug.Log("Break through!!!");
+                                    // If you're already cornered, make a run for it and break through!
+                                    Vector3 finalDirection = Quaternion.AngleAxis(180 + Random.Range(-30,31), Vector3.up) * playerDirection;
+                                    Vector3 finalDestination = transform.position - (finalDirection * (GetFleeingDist() + pathfindingSearchRange));
+                                    if (NavMesh.SamplePosition(finalDestination, out NavMeshHit hit4, pathfindingSearchRange, NavMesh.AllAreas))
+                                    {
+                                        agent.SetDestination(hit4.position);
+                                        pathfindingState = PathfindingState.Fleeing;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-        }
-        else if (alertness >= 50 && subject != null && investigate == IState.Idle)
-        {
-            investigate = IState.Alert;
         }
         else
         {
             //meshRenderer.material.color = Color.white;
             agent.isStopped = false;
-            investigate = IState.Idle;
         }
     }
 
     public void IncrementAlertness(float gain)
     {
         alertness += gain;
-        if (stressState != SState.Stressed)
+        if (stressState != StressState.Stressed)
         {
             StopCoroutine("RelaxTimer");
-            stressState = SState.Stressed;
+            stressState = StressState.Stressed;
         }
     }
 
@@ -371,6 +499,6 @@ public class WanderAI : MonoBehaviour
     private IEnumerator RelaxTimer()
     {
         yield return new WaitForSeconds(2);
-        stressState = SState.Relaxing;
+        stressState = StressState.Relaxing;
     }
 }
