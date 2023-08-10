@@ -4452,11 +4452,11 @@ ParticleSystem:
     randomizePerFrame: 0
   ExternalForcesModule:
     serializedVersion: 2
-    enabled: 0
+    enabled: 1
     multiplierCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 50
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4509,7 +4509,7 @@ ParticleSystem:
     influenceFilter: 0
     influenceMask:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 768
     influenceList: []
   ClampVelocityModule:
     enabled: 0
@@ -7020,7 +7020,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9183740533133080826, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00047092483
+      value: 0.00052335265
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12549,11 +12549,11 @@ ParticleSystem:
     randomizePerFrame: 0
   ExternalForcesModule:
     serializedVersion: 2
-    enabled: 0
+    enabled: 1
     multiplierCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 50
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -12606,7 +12606,7 @@ ParticleSystem:
     influenceFilter: 0
     influenceMask:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 768
     influenceList: []
   ClampVelocityModule:
     enabled: 0
@@ -32280,7 +32280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6098993039830378882, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
       propertyPath: speed
-      value: 8
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 9012773343971696061, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
       propertyPath: m_RootOrder
@@ -32959,7 +32959,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 223.43121, y: 0}
+  m_AnchoredPosition: {x: 223.43121, y: 93}
   m_SizeDelta: {x: 446.8625, y: 137.4415}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1406349317
@@ -38766,11 +38766,11 @@ ParticleSystem:
     randomizePerFrame: 0
   ExternalForcesModule:
     serializedVersion: 2
-    enabled: 0
+    enabled: 1
     multiplierCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 50
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -38823,7 +38823,7 @@ ParticleSystem:
     influenceFilter: 0
     influenceMask:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 768
     influenceList: []
   ClampVelocityModule:
     enabled: 0
@@ -50027,12 +50027,56 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1432584188688666622, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432584188688666622, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432584188688666622, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 236
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432584188688666622, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 164
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432584188688666622, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432584188688666622, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432584188688666622, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432584188688666622, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432584188688666622, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432584188688666622, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 617.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432584188688666622, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -444
+      value: -551
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432584188688666622, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4683046851554983665, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 70.5
       objectReference: {fileID: 0}
     - target: {fileID: 4683046852287738537, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -50126,6 +50170,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HuntingUICanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7215104302657445543, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 541ad17c89bcb194993deeb1333d6693, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
