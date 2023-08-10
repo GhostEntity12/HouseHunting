@@ -16,9 +16,6 @@ public class Gun : MonoBehaviour
 
     public GunSO GunSO => gunSO;
 
-    public delegate void OnGunShoot();
-    public static event OnGunShoot OnGunShootEvent;
-
     public void Awake()
     {
         recoil = GetComponentInParent<Recoil>();
@@ -56,14 +53,14 @@ public class Gun : MonoBehaviour
 
             //Spawn bullet at attack point
             Bullet currentBullet = Instantiate(gunSO.bulletPrefab, muzzlePoint.position, Quaternion.identity);
-            
+            currentBullet.Damage = gunSO.damagePerBullet;
+            currentBullet.CanBounce = GunSO.id.ToLower() == "crossbow";
+
             currentBullet.transform.forward = direction.normalized;
 
             //Add force to bullet
             currentBullet.GetComponent<Rigidbody>().AddForce(direction.normalized * gunSO.shootForce, ForceMode.Impulse);
         }
-
-        OnGunShootEvent?.Invoke();
 
         //Muzzle flash
         Instantiate(muzzleFlashPrefab, muzzlePoint.position, Quaternion.identity);
