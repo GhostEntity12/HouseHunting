@@ -4,24 +4,23 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     [SerializeField] private GunSO gunSO;
-    [SerializeField] public Transform muzzlePoint;
-    [SerializeField] public GameObject muzzleFlashPrefab;
+    [SerializeField] private Transform muzzlePoint;
+    [SerializeField] private GameObject muzzleFlashPrefab;
 
     //bools
-    private bool shooting, readyToShoot, reloading, aiming;
+    private bool readyToShoot, reloading, aiming;
 
-    private Animator anim;
     private Recoil recoil;
     private SoundAlerter soundAlerter;
 
     public GunSO GunSO => gunSO;
+    public Recoil Recoil => recoil;
 
     public void Awake()
     {
         recoil = GetComponentInParent<Recoil>();
         soundAlerter = GameObject.Find("Player").GetComponent<SoundAlerter>();
         readyToShoot = true;
-        anim = GetComponent<Animator>();
         aiming = false;
     }
 

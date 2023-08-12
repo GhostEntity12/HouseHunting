@@ -73,6 +73,7 @@ public class WeaponManager : Singleton<WeaponManager>
         }
 
         HuntingUIManager.Instance.SetAmmoCounterText(BulletsInMag / currentGun.GunSO.bulletsPerTap +  " / " + BulletsInInventory / currentGun.GunSO.bulletsPerTap);
+        //currentGun.Recoil.InitialPosition = currentGun.transform.position;
     }
  
     // function which gives the player ammo
@@ -115,8 +116,8 @@ public class WeaponManager : Singleton<WeaponManager>
         ownedGuns.Find(x => x.id == gun.GunSO.id).bulletsInMag += bulletsToReload;
 
         // adjust bullets in inventory, copy of the setter
-
         ShopItem bulletShopItem = GameManager.Instance.PermanentInventory.BoughtItems.Find(x => x.id == gun.GunSO.bulletShopItem.id);
+
         // if null then the player doesn't have any bullets of this type and we need to add it to the inventory
         if (bulletShopItem == null)
         {
