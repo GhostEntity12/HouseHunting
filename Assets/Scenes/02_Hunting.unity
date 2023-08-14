@@ -2099,7 +2099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9183740533133080826, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.749873
+      value: 0.00024056436
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18936,6 +18936,14 @@ PrefabInstance:
     - target: {fileID: 308473700475232681, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
       propertyPath: m_Name
       value: Shotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 3752051249222547482, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 3752051249222547482, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.4
       objectReference: {fileID: 0}
     - target: {fileID: 3752051249222547483, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
       propertyPath: m_Layer

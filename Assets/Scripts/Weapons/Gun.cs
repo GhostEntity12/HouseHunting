@@ -8,20 +8,35 @@ public class Gun : MonoBehaviour
     [SerializeField] private GameObject muzzleFlashPrefab;
 
     //bools
-    private bool readyToShoot, reloading, aiming;
+    private bool readyToShoot, reloading, ads;
+    private float elapsedTime; // for lerping ads
 
+    private Vector3 initialPosition;
     private Recoil recoil;
     private SoundAlerter soundAlerter;
 
     public GunSO GunSO => gunSO;
     public Recoil Recoil => recoil;
 
-    public void Awake()
+    private void Awake()
     {
         recoil = GetComponentInParent<Recoil>();
         soundAlerter = GameObject.Find("Player").GetComponent<SoundAlerter>();
         readyToShoot = true;
-        aiming = false;
+        ads = false;
+        elapsedTime = 1;
+        initialPosition = transform.localPosition;
+    }
+
+    private void Update()
+    {
+        // for ADS animation
+        elapsedTime += Time.deltaTime;
+        Vector3 adsPosition = new Vector3(initialPosition.x - 0.45f, initialPosition.y, initialPosition.z);
+        Vector3 targetPosition = ads ? adsPosition : initialPosition;
+        float cameraFov = ads ? 40 : 60;
+        transform.localPosition = Vector3.Lerp(ads ? initialPosition: adsPosition, targetPosition, elapsedTime / 0.2f);
+        Camera.main.fieldOfView = Mathf.Lerp(ads ? 60 : 40, cameraFov, elapsedTime / 0.2f);
     }
 
     public void Shoot(bool firstShot = false)
@@ -42,7 +57,7 @@ public class Gun : MonoBehaviour
             float y = Random.Range(-gunSO.spread, gunSO.spread);
 
             //calculate direction with spread
-            if (aiming)
+            if (ads)
             {
                 x = x/4;
                 y = y/4;
@@ -82,6 +97,11 @@ public class Gun : MonoBehaviour
         reloading = true;
         StartCoroutine(ResetReload(gunSO.reloadTime));
         HuntingUIManager.Instance.ReloadBarAnimation(gunSO.reloadTime);
+    }
+    public void ToggleADS()
+    {
+        ads = !ads;
+        elapsedTime = 0;
     }
 
     private IEnumerator ResetReload(float delay)
