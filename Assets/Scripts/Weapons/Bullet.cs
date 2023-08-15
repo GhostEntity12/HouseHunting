@@ -19,8 +19,7 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, CanBounce ? 1.5f : 0);
         // Instantiate bullet hole
         ContactPoint contact = collision.GetContact(0);
-        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, contact.normal);
-        GameObject bulletHole = Instantiate(bulletHolePrefab, contact.point, rotation);
+        GameObject bulletHole = Instantiate(bulletHolePrefab, contact.point, Quaternion.LookRotation(contact.normal));
         bulletHole.transform.position += bulletHole.transform.forward / 500;
         Destroy(bulletHole, 1.5f);
     }

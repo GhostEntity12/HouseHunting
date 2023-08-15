@@ -53,19 +53,14 @@ public class Gun : MonoBehaviour
         for (int i = 0; i < gunSO.bulletsPerTap; i++)
         {
             //Spread
-            float x = Random.Range(-gunSO.spread, gunSO.spread);
-            float y = Random.Range(-gunSO.spread, gunSO.spread);
+            float spread = Random.Range(-gunSO.spread, gunSO.spread);
 
             //calculate direction with spread
-            if (ads)
-            {
-                x = x/4;
-                y = y/4;
-            }
+            if (ads) spread /= 4;
 
-            Vector3 direction = Camera.main.transform.forward + new Vector3(x, y, 0);
+            Vector3 direction = Camera.main.transform.forward + new Vector3(spread, spread, 0);
 
-            //Spawn bullet at attack point
+            //Spawn bullet at muzzle point
             Bullet currentBullet = Instantiate(gunSO.bulletPrefab, muzzlePoint.position, Quaternion.identity);
             currentBullet.Damage = gunSO.damagePerBullet;
             currentBullet.CanBounce = GunSO.id.ToLower() == "crossbow";
