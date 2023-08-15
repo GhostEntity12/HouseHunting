@@ -1,16 +1,13 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class HouseManager : Singleton<HouseManager>, IDataPersistence
 {
-	public enum HouseMode { Explore, Decorate }
-	public HouseMode Mode { get; private set; }
-
 	[SerializeField] private CanvasGroup decorateUI;
-	[SerializeField] private MeshFilter playerModel;
 	[SerializeField] private GameObject playerGameObject;
+	[SerializeField] private TMP_Text furnitureDecorateTooltipText;
     [field: SerializeField] public Camera ExploreCamera { get; private set; }
-	[field: SerializeField] public Camera DecorateCamera { get; private set; }
 
 
 	private Placeable holdingPlaceable;
@@ -22,17 +19,10 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
     public Placeable HoldingPlaceable { get => holdingPlaceable; set => holdingPlaceable = value; }
 	public float HoldingPlaceableRotation { get => holdingPlaceableRotation; set => holdingPlaceableRotation = value; }
 
-    public delegate void OnModeChange(HouseMode mode);
-	public static event OnModeChange ModeChanged;
-
-
 	private void Start()
 	{
 		SpawnSerializedPlaceables();
 		houseValue = CalculateHouseRating(houseItems); // assign total value here
-
-        Debug.Log("HouseRating: " + houseValue);
-		SetHouseMode(HouseMode.Explore);
 
 		AudioManager.Instance.Play("Building");
 	}
@@ -52,7 +42,6 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 			tValue += item.inventoryItem.Value;
 		}
 
-
 		// can be changed in future
 		if (tValue > 9000)
 			UnlockTier("D"); // dummy function for now
@@ -71,20 +60,28 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		}
 	}
 
+	/// <summary>
+	/// This should run every frame to make the held furniture follow the player
+	/// </summary>
 	private void HoldPlaceable()
 	{
-		if (holdingPlaceable == null) return;
+		if (holdingPlaceable == null)
+		{
+			furnitureDecorateTooltipText.enabled = false;
+			return;
+		}
+		else
+		{
+			furnitureDecorateTooltipText.enabled = true;
+		}
 
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
 
-        // Create a RaycastHit variable to store information about the hit
-        RaycastHit hit;
-
-		// Perform the raycast and check if it hits something within the specified distance
-		if (Physics.Raycast(ray, out hit, 3, ~LayerMask.GetMask("Placeable")))
-			holdingPlaceable.transform.position = new Vector3(hit.point.x,hit.point.y, hit.point.z);
-		else
-			holdingPlaceable.transform.position = playerGameObject.transform.position + playerGameObject.transform.forward * 3;
+        // Perform the raycast and check if it hits something within the specified distance
+        if (Physics.Raycast(ray, out RaycastHit hit, 3, ~LayerMask.GetMask("Placeable")))
+            holdingPlaceable.transform.position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+        else
+            holdingPlaceable.transform.position = playerGameObject.transform.position + playerGameObject.transform.forward * 3;
 
         // clamp the position so that the y index is always on ground level
         holdingPlaceable.transform.position = new Vector3(holdingPlaceable.transform.position.x, 0, holdingPlaceable.transform.position.z);
@@ -110,69 +107,13 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
         data.houseItems = houseItems;
 	}
 
-	public void UpdatePlaceablesInHouse()
-	{
-		Placeable[] allPlaceables = FindObjectsOfType<Placeable>();
-        houseItems.Clear();
-		foreach (Placeable placeable in allPlaceables)
-		{
-			MeshRenderer meshRenderer = placeable.GetComponentInChildren<MeshRenderer>();
-			houseItems.Add(new HouseItem(placeable.InventoryItem, placeable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
-		}
-    }
-
-	/// <summary>
-	/// Changes the mode the house is in from decorate to explore and vice versa
-	/// </summary>
-	/// <param name="mode"></param>
-	public void SetHouseMode(HouseMode mode)
-	{
-		// dont allow to switch mode if the shop is opened
-		if (ShopUIManager.Instance.IsShopOpen) return;
-		// Need to:
-		// - Swap camera
-		// - Set cursor visibility
-		// - Enable UI
-		// - Hide/Show player model
-		Mode = mode;
-		switch (mode)
-		{
-			case HouseMode.Explore:
-				ExploreCamera.enabled = true;
-				DecorateCamera.enabled = false;
-				Cursor.lockState = CursorLockMode.Locked;
-				Cursor.visible = false;
-				decorateUI.alpha = 0;
-				decorateUI.interactable = decorateUI.blocksRaycasts = false;
-				playerModel.gameObject.SetActive(true);
-				break;
-			case HouseMode.Decorate:
-				DecorateCamera.enabled = true;
-				ExploreCamera.enabled = false;
-				Cursor.lockState = CursorLockMode.Confined;
-				Cursor.visible = true;
-				decorateUI.alpha = 1;
-				decorateUI.interactable = decorateUI.blocksRaycasts = true;
-				playerModel.gameObject.SetActive(false);
-				DecorateButtonGroupUIManager.Instance.ButtonGroupVisibility(false); // this is set to false because we only want to see the decorate button group when a furniture is selected
-				break;
-			default:
-				break;
-		}
-
-		ModeChanged?.Invoke(mode);
-	}
-
 	public void SelectFurnitureToPlace()
 	{
 		if (ShopUIManager.Instance.SelectedFurniture?.so == null) return;
 		(FurnitureSO so, FurnitureItem item) selectedFurniture = ShopUIManager.Instance.SelectedFurniture.Value;
-		// cast ray from camera to 3 units away
 		Placeable spawnedPlaceable = Instantiate(selectedFurniture.so.placeablePrefab);
 
 		holdingPlaceable = spawnedPlaceable;
-        HoldPlaceable();
-
         spawnedPlaceable.InventoryItem = selectedFurniture.item;
 
 		ShopUIManager.Instance.ToggleShop();
@@ -195,8 +136,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
         houseItems.Add(new HouseItem(holdingPlaceable.InventoryItem, holdingPlaceable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
 
 		holdingPlaceable.Mesh.material = holdingPlaceable.Material;
-		MeshCollider meshCollider = holdingPlaceable.GetComponentInChildren<MeshCollider>();
-		meshCollider.enabled = true;
+		holdingPlaceable.ChildMeshCollider.enabled = true;
 		holdingPlaceable = null;
 		holdingPlaceableRotation = 0;
     }

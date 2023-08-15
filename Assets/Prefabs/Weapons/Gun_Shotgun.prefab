@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2927933999833445698}
   - component: {fileID: 2938035115427614600}
   - component: {fileID: 2945390199504159404}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: double_barreled_gun2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2932757772645225930}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 2928399052249008052}
   - component: {fileID: 2932757771291123352}
   - component: {fileID: 3351585357718188523}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Gun_Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunSO: {fileID: 11400000, guid: 8fe96e106545c50498bb3b14c76c014e, type: 2}
-  ammoInventory: {fileID: 0}
   muzzlePoint: {fileID: 2932757772645225930}
   muzzleFlashPrefab: {fileID: 1000010254994808, guid: 849b008210656a542b75ecfdc722a116, type: 3}
 --- !u!95 &3351585357718188523

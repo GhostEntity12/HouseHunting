@@ -5,11 +5,8 @@ using System;
 [System.Serializable]
 public class Sound
 {
-    public enum AudioType
-    {
-        soundEffect,
-        music,
-    }
+    public enum AudioTypes { soundEffect, music }
+    public AudioTypes audioType;
 
     [SerializeField] private AudioClip clip;
     [SerializeField] private bool loop;
@@ -21,13 +18,13 @@ public class Sound
     [SerializeField] private float pitch = 1f;
 
     [SerializeField] private string name;
-    private AudioType audioType;
+    private AudioTypes audioTypes;
 
     [HideInInspector]
     public AudioSource source;
 
     public string Name => name;
-    public AudioType Type => audioType;
+    public AudioTypes Type => audioTypes;
 
     public void Setup()
     {
