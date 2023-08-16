@@ -7,7 +7,7 @@ public class Campfire : MonoBehaviour, IInteractable
 
 	[SerializeField] private Sprite icon;
 	[SerializeField] private string campfireID;
-	[SerializeField] private Transform player;
+
 	public (string id, Sprite icon) CampfireInfo => (campfireID, icon);
 
 	private void Awake()
@@ -23,7 +23,7 @@ public class Campfire : MonoBehaviour, IInteractable
 
 	public void Interact()
 	{
-		SceneManager.LoadScene(2);
+		SceneManager.LoadScene(1);
 	}
 
 }
