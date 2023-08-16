@@ -157,6 +157,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "9d288a96-fe55-4d70-abc9-8f73411d46b1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -251,7 +260,7 @@
                 {
                     "name": "",
                     "id": "04a4e74c-e3f9-40d5-a660-0fc5c04106d2",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -412,6 +421,17 @@
                     "action": "DebugAmmo",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "153179bc-c59e-4f57-a9a7-ac5294aa020c",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -447,7 +467,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Decorate",
+                    "name": "RemoveFurniture",
                     "type": "Button",
                     "id": "7e9746d0-f0cf-4e6c-9be9-4b73937d77a3",
                     "expectedControlType": "Button",
@@ -477,6 +497,33 @@
                     "name": "Pause",
                     "type": "Button",
                     "id": "7040fe47-d6d5-4dba-8f45-1bb56b93bb45",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotateFurniture",
+                    "type": "Value",
+                    "id": "d53f6ebf-6b2a-4cff-a2cf-b515f2886284",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "PlaceFurniture",
+                    "type": "Button",
+                    "id": "fd1574a3-773f-413f-a57c-6f4a84434b6e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "761337e5-884b-4a5c-8408-860ba24429e3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -568,7 +615,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Decorate",
+                    "action": "RemoveFurniture",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -586,7 +633,7 @@
                 {
                     "name": "",
                     "id": "12efbce1-649b-41bc-b977-2bfec8e5f722",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -602,6 +649,61 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "18d94958-3ca4-421e-9051-e4abf3b86319",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateFurniture",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "0f1edf83-2e50-4f95-ac66-6e133745300a",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateFurniture",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "e6a5d823-53a6-4947-9b44-efb440446346",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateFurniture",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "1474ca4a-7698-4a56-8046-5dc12ba9eda3",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlaceFurniture",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0f11d4a6-1bea-4b2c-b888-758e05090842",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
