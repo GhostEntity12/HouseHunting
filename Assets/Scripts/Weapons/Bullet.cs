@@ -1,12 +1,20 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Bullet : MonoBehaviour
 {
-    public int damage;
-    public GameObject bulletHolePrefab;
-    public float lifespan;
+    [SerializeField] int damage;
+    [SerializeField] GameObject bulletHolePrefab;
+    [SerializeField] float lifespan;
 
-    void OnCollisionEnter(Collision collision)
+    public Rigidbody Rigidbody { get; private set; }
+
+	private void Awake()
+	{
+		Rigidbody = GetComponent<Rigidbody>();
+	}
+
+	void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Player"))
         {

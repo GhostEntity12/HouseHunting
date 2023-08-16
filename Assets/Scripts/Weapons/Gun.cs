@@ -3,98 +3,96 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField] private GunSO gunSO;
-    [SerializeField] public Transform muzzlePoint;
-    [SerializeField] public GameObject muzzleFlashPrefab;
+	enum GunState { Ready, Shooting, Reloading }
+	
+	[SerializeField] private Transform muzzlePoint;
+	[SerializeField] private GameObject muzzleFlashPrefab;
+	[SerializeField] private float adsFactor = 4;
 
-    //bools
-    private bool shooting, readyToShoot, reloading, aiming;
+	private GunState state = GunState.Ready;
+	private bool usingADS = false;
+	private Animator anim;
+	private Recoil recoil;
+	private SoundAlerter soundAlerter;
 
-    private Animator anim;
-    private Recoil recoil;
-    private SoundAlerter soundAlerter;
+	[field: SerializeField] public GunSO GunSO { get; private set; }
+	public int LoadedAmmunition {get; private set;}
 
-    public GunSO GunSO => gunSO;
+	public delegate void OnGunShoot();
+	public static event OnGunShoot OnGunShootEvent;
 
-    public delegate void OnGunShoot();
-    public static event OnGunShoot OnGunShootEvent;
+	public void Awake()
+	{
+		recoil = GetComponentInParent<Recoil>();
+		soundAlerter = GameObject.Find("Player").GetComponent<SoundAlerter>();
+		anim = GetComponent<Animator>();
+	}
 
-    public void Awake()
-    {
-        recoil = GetComponentInParent<Recoil>();
-        soundAlerter = GameObject.Find("Player").GetComponent<SoundAlerter>();
-        readyToShoot = true;
-        anim = GetComponent<Animator>();
-        aiming = false;
-    }
+	private void ReenableGun() => state = GunState.Ready;
 
-    public void Shoot(bool firstShot = false)
-    {
-        if (GameManager.Instance.IsPaused) return;
-        if ( !readyToShoot || WeaponManager.Instance.BulletsInMag <= 0 || reloading) return;
+	public void Shoot()
+	{
+		if (GameManager.Instance.IsPaused) return;
+		if (state != GunState.Ready || LoadedAmmunition <= 0) return; // WeaponManager.Instance.BulletsInMag <= 0) return;
 
-        if (firstShot)
-            soundAlerter.MakeSound(GunSO.volume, transform.position);
+		// Set state to shooting
+		state = GunState.Shooting;
 
-        readyToShoot = false;
+		// Call event
+		OnGunShootEvent?.Invoke();
 
-        for (int i = 0; i < gunSO.bulletsPerTap; i++)
-        {
-            //Spread
-            float x = Random.Range(-gunSO.spread, gunSO.spread);
-            float y = Random.Range(-gunSO.spread, gunSO.spread);
+		int bulletsToFire = Mathf.Max(GunSO.bulletsPerTap, LoadedAmmunition);
+		// Instantiate bullets
+		for (int i = 0; i < bulletsToFire; i++)
+		{
+			// Add local inaccuracy
+			Vector3 spread = new(Random.Range(-GunSO.spread, GunSO.spread), Random.Range(-GunSO.spread, GunSO.spread), 0);
 
-            //calculate direction with spread
-            if (aiming)
-            {
-                x = x/4;
-                y = y/4;
-            }
+			// If using ADS, reduce inaccuracy
+			if (usingADS)
+				spread /= adsFactor;
 
-            Vector3 direction = Camera.main.transform.forward + new Vector3(x, y, 0);
+			// Calculate world direction 
+			Vector3 direction = Camera.main.transform.forward + spread;
 
-            //Spawn bullet at attack point
-            Bullet currentBullet = Instantiate(gunSO.bulletPrefab, muzzlePoint.position, Quaternion.identity);
-            
-            currentBullet.transform.forward = direction.normalized;
+			// Instantiate at muzzle point
+			Bullet currentBullet = Instantiate(GunSO.bulletPrefab, muzzlePoint.position, Quaternion.identity);
+			currentBullet.transform.forward = direction.normalized;
 
-            //Add force to bullet
-            currentBullet.GetComponent<Rigidbody>().AddForce(direction.normalized * gunSO.shootForce, ForceMode.Impulse);
-        }
+			// Add force to bullet
+			currentBullet.Rigidbody.AddForce(direction.normalized * GunSO.shootForce, ForceMode.Impulse);
+		}
+		// Remove bullets
+		LoadedAmmunition -= bulletsToFire;
 
-        OnGunShootEvent?.Invoke();
+		// Update UI
+		HuntingUIManager.Instance.SetAmmoCounterText($"{bulletsToFire / GunSO.bulletsPerTap} / {WeaponManager.Instance.BulletsInInventory / GunSO.bulletsPerTap}");
 
-        //Muzzle flash
-        Instantiate(muzzleFlashPrefab, muzzlePoint.position, Quaternion.identity);
+		//Muzzle flash
+		Instantiate(muzzleFlashPrefab, muzzlePoint.position, Quaternion.identity);
 
-        //recoil
-        recoil.RecoilFire();
+		// Recoil
+		recoil.RecoilFire();
 
-        WeaponManager.Instance.BulletsInMag -= gunSO.bulletsPerTap;
-        HuntingUIManager.Instance.SetAmmoCounterText(WeaponManager.Instance.BulletsInMag / gunSO.bulletsPerTap +  " / " + WeaponManager.Instance.BulletsInInventory / gunSO.bulletsPerTap);
+		// Make noise
+		soundAlerter.MakeSound(GunSO.volume, transform.position);
 
-        StartCoroutine(ResetShot(gunSO.timeBetweenShots));
-    }
+		// Reenable gun after wait
+		Invoke(nameof(ReenableGun), GunSO.timeBetweenShots);
+	}
 
-    public void Reload()
-    {
-        if (reloading) return;
+	public void Reload()
+	{
+		// Skip if the gun can't be fired yet or if already at max ammo
+		if (state != GunState.Ready || LoadedAmmunition == GunSO.magSize) return;
 
-        reloading = true;
-        StartCoroutine(ResetReload(gunSO.reloadTime));
-        HuntingUIManager.Instance.ReloadBarAnimation(gunSO.reloadTime);
-    }
+		// Set the state to reloading and reenable it after a wait
+		state = GunState.Reloading;
+		Invoke(nameof(ReenableGun), GunSO.reloadTime);
 
-    private IEnumerator ResetReload(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        WeaponManager.Instance.Reload();
-        reloading = false;
-    }
-
-    private IEnumerator ResetShot(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        readyToShoot = true;
-    }
+		// Reload the gun
+		LoadedAmmunition = WeaponManager.Instance.GetAmmoForReload(this);
+		// Update UI
+		HuntingUIManager.Instance.SetAmmoCounterText($"{LoadedAmmunition / GunSO.bulletsPerTap} / {WeaponManager.Instance.BulletsInInventory / GunSO.bulletsPerTap}");
+	}
 }
