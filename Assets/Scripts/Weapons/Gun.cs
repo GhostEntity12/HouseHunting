@@ -37,6 +37,7 @@ public class Gun : MonoBehaviour
         float cameraFov = ads ? 40 : 60;
         transform.localPosition = Vector3.Lerp(ads ? initialPosition: adsPosition, targetPosition, elapsedTime / 0.2f);
         Camera.main.fieldOfView = Mathf.Lerp(ads ? 60 : 40, cameraFov, elapsedTime / 0.2f);
+
     }
 
     public void Shoot(bool firstShot = false)
@@ -66,9 +67,18 @@ public class Gun : MonoBehaviour
             currentBullet.CanBounce = GunSO.id.ToLower() == "crossbow";
 
             currentBullet.transform.forward = direction.normalized;
+            
+            // cast ray to crosshair, if the ray hits something, means that there are something in range that should be aimed that, otherwise, the direction can be slightly off
+            // currently, this change still does not fix the problem completely because the colliders on trees are weird
+            // so if you aim at a spot where there are no colliders present on the tree (such as very high up), the bullet will still not go to where the crosshair aims at because the raycast could not find a target
+            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                currentBullet.transform.LookAt(hit.point);
+            }
 
             //Add force to bullet
-            currentBullet.GetComponent<Rigidbody>().AddForce(direction.normalized * gunSO.shootForce, ForceMode.Impulse);
+            currentBullet.GetComponent<Rigidbody>().AddForce(currentBullet.transform.forward.normalized * gunSO.shootForce, ForceMode.Impulse);
         }
 
         //Muzzle flash
