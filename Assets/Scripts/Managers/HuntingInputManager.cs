@@ -62,6 +62,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
         movement.Move(playerInput.Hunting.Movement.ReadValue<Vector2>());
 		movement.Crouch(playerInput.Hunting.Crouch.ReadValue<float>());
+		movement.Run(playerInput.Hunting.Run.ReadValue<float>());
 	}
 
 	private void LateUpdate()
@@ -92,5 +93,10 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	private void CloseWeaponWheel()
 	{
 		weaponWheelController.CloseWeaponWheel();
+	}
+
+	public bool WeaponWheelIsOpen()
+	{
+		return weaponWheelController.GetOpen();
 	}
 }
