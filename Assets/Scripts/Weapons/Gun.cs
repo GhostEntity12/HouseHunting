@@ -92,7 +92,10 @@ public class Gun : MonoBehaviour
         if (HuntingInputManager.Instance.WeaponWheelIsOpen()) return; // dont reload while weapon wheel is open
         if (gunSO.magSize == WeaponManager.Instance.BulletsInMag) return; // dont reload when mag is full
 
+        AnimationTrigger("Reload");
+
         reloading = true;
+        anim.SetBool("Reload", reloading);
         StartCoroutine(ResetReload(gunSO.reloadTime));
         HuntingUIManager.Instance.ReloadBarAnimation(gunSO.reloadTime);
     }
@@ -102,6 +105,7 @@ public class Gun : MonoBehaviour
         yield return new WaitForSeconds(delay);
         WeaponManager.Instance.Reload();
         reloading = false;
+        anim.SetBool("Reload", reloading);
     }
 
     private IEnumerator ResetShot(float delay)
