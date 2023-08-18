@@ -10,7 +10,7 @@ public class FurnitureDetailsUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI materialText;
     [SerializeField] private TextMeshProUGUI priceText;
 
-    public void SetFurniture((FurnitureSO so, FurnitureItem inventoryItem) furniture)
+    public void SetFurniture((FurnitureSO so, SaveDataFurniture inventoryItem) furniture)
     {
         thumbnail.sprite = furniture.so.thumbnail;
         nameText.text = furniture.so.name;

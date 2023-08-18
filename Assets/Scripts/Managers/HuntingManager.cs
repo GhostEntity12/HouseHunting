@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 
-public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
+public class HuntingManager : Singleton<HuntingManager>
 {
 	[SerializeField] private int maxHealth;
 	[SerializeField] private Transform player;
@@ -17,10 +17,10 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 	[SerializeField] private TextMeshProUGUI healthText;
 
 	private int currentHealth;
-	private Inventory huntingInventory;
+	private FurnitureInventory huntingInventory;
 	private float huntingTimerSeconds;
 
-	public Inventory HuntingInventory => huntingInventory;
+	public FurnitureInventory HuntingInventory => huntingInventory;
 
 	protected override void Awake()
 	{
@@ -29,7 +29,7 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 		currentHealth = maxHealth;
 		huntingTimerSeconds = huntingDurationSeconds;
 
-		huntingInventory = new Inventory();
+		huntingInventory = new FurnitureInventory();
 	}
 
 	private void Start()
@@ -113,15 +113,5 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 		gameOverUI.SetActive(false);
 		GameManager.Instance.HideCursor();
 		SceneManager.LoadScene(1);
-	}
-
-	public void LoadData(GameData data)
-	{
-		huntingInventory.Items = data.huntingInventory;
-	}
-
-	public void SaveData(GameData data)
-	{
-		data.huntingInventory = huntingInventory.Items;
 	}
 }

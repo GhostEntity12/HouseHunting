@@ -14,10 +14,13 @@ public class ShopItemDetailsUI : MonoBehaviour
         itemImage.sprite = item.icon;
         itemNameText.text = item.name;
 
-        ShopItem itemInInventory = GameManager.Instance.PermanentInventory.BoughtItems.Find(x => x.id == item.id);
-        int quantity = itemInInventory != null ? itemInInventory.quantity : 0;
-        itemDescriptionText.text = $"Price: ${item.price}\n{quantity}/{item.maxQuantity}";
+        Debug.LogError("Tried to access the shop, currently disabled.");
+        return;
 
-        buyButton.interactable = quantity < item.maxQuantity && GameManager.Instance.Currency >= item.price;
+        //ShopItem itemInInventory = GameManager.Instance.PermanentInventory.BoughtItems.Find(x => x.id == item.id);
+        //int quantity = itemInInventory != null ? itemInInventory.quantity : 0;
+        //itemDescriptionText.text = $"Price: ${item.price}\n{quantity}/{item.maxQuantity}";
+        //
+        //buyButton.interactable = quantity < item.maxQuantity && GameManager.Instance.Currency >= item.price;
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -16,10 +15,9 @@ public class Gun : MonoBehaviour
 	private SoundAlerter soundAlerter;
 
 	[field: SerializeField] public GunSO GunSO { get; private set; }
-	public int LoadedAmmunition {get; private set;}
+	[field: SerializeField] public AmmoPouch AmmoPouch { get; private set; } = new();
 
-	public delegate void OnGunShoot();
-	public static event OnGunShoot OnGunShootEvent;
+	public string AmmoInfo => $"{AmmoPouch.AmmoInGun / GunSO.bulletsPerTap} / {AmmoPouch.AmmoStored / GunSO.bulletsPerTap}";
 
 	public void Awake()
 	{
@@ -33,15 +31,14 @@ public class Gun : MonoBehaviour
 	public void Shoot()
 	{
 		if (GameManager.Instance.IsPaused) return;
-		if (state != GunState.Ready || LoadedAmmunition <= 0) return; // WeaponManager.Instance.BulletsInMag <= 0) return;
+		if (state != GunState.Ready || AmmoPouch.AmmoInGun <= 0) return;
 
 		// Set state to shooting
 		state = GunState.Shooting;
 
-		// Call event
-		OnGunShootEvent?.Invoke();
+		// If gun is not fuly loaded, only fire bullets in gun
+		int bulletsToFire = Mathf.Min(GunSO.bulletsPerTap, AmmoPouch.AmmoInGun);
 
-		int bulletsToFire = Mathf.Max(GunSO.bulletsPerTap, LoadedAmmunition);
 		// Instantiate bullets
 		for (int i = 0; i < bulletsToFire; i++)
 		{
@@ -63,10 +60,10 @@ public class Gun : MonoBehaviour
 			currentBullet.Rigidbody.AddForce(direction.normalized * GunSO.shootForce, ForceMode.Impulse);
 		}
 		// Remove bullets
-		LoadedAmmunition -= bulletsToFire;
+		AmmoPouch.RemoveAmmo(bulletsToFire);
 
 		// Update UI
-		HuntingUIManager.Instance.SetAmmoCounterText($"{bulletsToFire / GunSO.bulletsPerTap} / {WeaponManager.Instance.BulletsInInventory / GunSO.bulletsPerTap}");
+		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
 
 		//Muzzle flash
 		Instantiate(muzzleFlashPrefab, muzzlePoint.position, Quaternion.identity);
@@ -83,16 +80,18 @@ public class Gun : MonoBehaviour
 
 	public void Reload()
 	{
-		// Skip if the gun can't be fired yet or if already at max ammo
-		if (state != GunState.Ready || LoadedAmmunition == GunSO.magSize) return;
+		// Skip if the gun can't be fired yet, no ammo in pouch or if already at max ammo
+		if (state != GunState.Ready || AmmoPouch.AmmoStored == 0 || AmmoPouch.AmmoInGun == GunSO.magSize) return;
 
 		// Set the state to reloading and reenable it after a wait
 		state = GunState.Reloading;
 		Invoke(nameof(ReenableGun), GunSO.reloadTime);
 
 		// Reload the gun
-		LoadedAmmunition = WeaponManager.Instance.GetAmmoForReload(this);
+		AmmoPouch.LoadGun(GunSO.magSize);
+
 		// Update UI
-		HuntingUIManager.Instance.SetAmmoCounterText($"{LoadedAmmunition / GunSO.bulletsPerTap} / {WeaponManager.Instance.BulletsInInventory / GunSO.bulletsPerTap}");
+		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
 	}
+
 }
