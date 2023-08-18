@@ -92,8 +92,5 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
         return allFurnitureSOs.Find(x => x.id == id).placeablePrefab;
     }
 
-    public ShopItemSO GetShopItemById(string id)
-    {
-        return allShopItems.Find(x => x.id == id);
-    }
+    public GunSO GetGunById(string id) => allGunSOs.Find(x => x.id == id);
 }
