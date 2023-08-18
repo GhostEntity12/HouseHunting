@@ -29,6 +29,7 @@ public class WanderAI : MonoBehaviour
     private float timeSinceLastBump = 0f;
     private float alertDistance = 30f;
     private float timePerBump = 1f; // This is used to determine if the AI pathfinding should recalculate itself, so that it can properly escape the player.
+    private float aiEntityDistance = 100f; // This distance will be used to determine whether or not the AI should run or not.
 
     public PlayerMovement playerMovement;
     public NavMeshAgent agent;
@@ -496,7 +497,12 @@ public class WanderAI : MonoBehaviour
             return;
         }
 
-        if (Time.deltaTime > 0.2f)
+        if (subject == null || Vector3.Distance(subject.transform.position,transform.position) > aiEntityDistance)
+        {
+            return;
+        }
+
+            if (Time.deltaTime > 0.2f)
         {
             Debug.LogWarning("Warning: DeltaTime is at:" + Time.deltaTime);
         }
