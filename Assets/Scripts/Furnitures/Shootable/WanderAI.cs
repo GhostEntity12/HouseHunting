@@ -6,7 +6,7 @@ using System.Linq;
 
 public class WanderAI : MonoBehaviour
 {
-    enum PathfindingState { Fleeing, Chasing, Searching, Wandering }
+    enum PathfindingState { Fleeing, Chasing, Investigating, Looking, Wandering }
     enum StressState { Stressed, CanRelax, Relaxing }
 
     private Shootable shootable;
@@ -27,6 +27,7 @@ public class WanderAI : MonoBehaviour
     private float fleeingSearchRange = 3.0f;
     private float investigateRadius = 2f;
     private float timeSinceLastBump = 0f;
+    private float alertDistance = 30f;
     private float timePerBump = 1f; // This is used to determine if the AI pathfinding should recalculate itself, so that it can properly escape the player.
 
     public PlayerMovement playerMovement;
@@ -59,24 +60,6 @@ public class WanderAI : MonoBehaviour
         bool inRange = false;
         foreach (SenseSO sense in senses)
         {
-            bool unused = false;
-            switch (sense.senseCategory)
-            {
-                case SenseCategory.Stealth:
-                    if (!IsPlayerSneaking())
-                        unused = true;
-                    break;
-                case SenseCategory.Normal:
-                    if (IsPlayerSneaking())
-                        unused = true;
-                    break;
-                default:
-                    break;
-            }
-            if (unused)
-            {
-                continue;
-            }
 
             Vector3 senseDir = Quaternion.Euler(sense.rotOffset) * transform.forward;
             Vector3 sensePos = transform.localToWorldMatrix.MultiplyPoint3x4(sense.offset);
@@ -177,21 +160,6 @@ public class WanderAI : MonoBehaviour
         List<float> availableSenses = new List<float>();
         foreach (SenseSO sense in senses)
         {
-            bool skip = false;
-            switch (sense.senseCategory)
-            {
-                case SenseCategory.Stealth:
-                    skip = true;
-                    break;
-                case SenseCategory.Normal:
-                    break;
-                default:
-                    skip = true;
-                    break;
-            }
-
-            if (skip)
-                continue;
             if (sense is SenseSphereSO sphereSense)
             {
                 availableSenses.Add(sphereSense.radius);
@@ -242,25 +210,6 @@ public class WanderAI : MonoBehaviour
 
         foreach (SenseSO sense in senses)
         {
-            bool unused = false;
-            switch (sense.senseCategory)
-            {
-                case SenseCategory.Stealth:
-                    if (!IsPlayerSneaking())
-                        unused = true;
-                    break;
-                case SenseCategory.Normal:
-                    if (IsPlayerSneaking())
-                        unused = true;
-                    break;
-                default:
-                    unused = true;
-                    break;
-            }
-
-            if (unused)
-                continue;
-
             Vector3 senseDir = Quaternion.Euler(sense.rotOffset) * transform.forward;
             Vector3 sensePos = transform.localToWorldMatrix.MultiplyPoint3x4(sense.offset);
 
@@ -286,10 +235,7 @@ public class WanderAI : MonoBehaviour
                         if (HasLineOfSight())
                         {
                             detected = true;
-                            if (sphereSense.senseCategory == SenseCategory.Stealth)
-                                IncrementAlertness(Time.deltaTime * 50);
-                            else
-                                IncrementAlertness(Time.deltaTime * 100);
+                            IncrementAlertness(Time.deltaTime, true);
                         }
                     }
                 }
@@ -307,10 +253,7 @@ public class WanderAI : MonoBehaviour
                         if (HasLineOfSight())
                         {
                             detected = true;
-                            if (coneSense.senseCategory == SenseCategory.Stealth)
-                                IncrementAlertness(Time.deltaTime * 50);
-                            else
-                                IncrementAlertness(Time.deltaTime * 100);
+                            IncrementAlertness(Time.deltaTime, true);
                         }
                     }
                 }
@@ -342,7 +285,7 @@ public class WanderAI : MonoBehaviour
             alertCanvas.enabled = false;
         }
 
-        if (alertness >= alertnessThreshold2 && subject != null)
+        if (alertness >= alertnessThreshold3 && subject != null)
         {
             UpdateAlertAI();
         }
@@ -380,13 +323,13 @@ public class WanderAI : MonoBehaviour
         {
             hasBumped = true;
             timeSinceLastBump = 0f;
-            Debug.Log("A Human just touched me!");
+            Debug.Log("A Threat just touched me!");
         }
         // Keep fleeing if you're at the last pathfinding destination, or start fleeing if you weren't, or rethink your escape plan because you just bumped into a human!
         if (agent.remainingDistance <= agent.stoppingDistance || pathfindingState != PathfindingState.Fleeing || hasBumped)
         {
             // Plan A of escaping the dreadful human: Run directly away from the human!
-            Debug.Log("Human Detected! Initiate Escape Plan A!");
+            Debug.Log("Threat Detected! Initiate Escape Plan A!");
             Vector3 playerDirection = (subject.transform.position - transform.position).normalized;
             Vector3 destination = transform.position - (playerDirection * (GetFleeingDist() + fleeingSearchRange));
             if (NavMesh.SamplePosition(destination, out NavMeshHit hit, fleeingSearchRange, NavMesh.AllAreas))
@@ -462,6 +405,28 @@ public class WanderAI : MonoBehaviour
     }
     private void UpdateAlertAI()
     {
+        if (specialAbility == Ability.Alert)
+        {
+            HashSet<WanderAI> furnitureInRange = new HashSet<WanderAI>();
+            Collider[] hitColliders;
+
+            hitColliders = Physics.OverlapSphere(transform.position, alertDistance);
+
+            foreach (Collider hitCollider in hitColliders)
+            {
+                WanderAI ai = hitCollider.transform.GetComponent<WanderAI>();
+                if (ai != null)
+                    furnitureInRange.Add(ai);
+            }
+
+            foreach (WanderAI ai in furnitureInRange)
+            { 
+                if (ai.IsAggressive())
+                {
+                    ai.IncrementAlertness(100f);
+                }
+            }
+        }
         switch (behaviorType)
         {
             case AIType.Prey:
@@ -485,6 +450,7 @@ public class WanderAI : MonoBehaviour
     }
     private void UpdateWanderAI()
     {
+        // Non-Alerted Behavior
         if (agent.remainingDistance <= agent.stoppingDistance && alertness < alertnessThreshold1) //done with path
         {
             if (RandomPoint(transform.position, wanderRadius, out Vector3 point)) //pass in our centre point and radius of area
@@ -495,12 +461,29 @@ public class WanderAI : MonoBehaviour
         }
         else
         {
-            if ((agent.remainingDistance <= agent.stoppingDistance || pathfindingState != PathfindingState.Searching) && alertness < alertnessThreshold2)
+            // Stage 1 of Alerted Behavior
+            if ((agent.remainingDistance <= agent.stoppingDistance || pathfindingState != PathfindingState.Looking) && alertness >= alertnessThreshold1 && alertness < alertnessThreshold2)
             {
                 if (RandomPoint(subject.transform.position, investigateRadius, out Vector3 point)) //pass in our centre point and radius of area
                 {
                     agent.SetDestination(point);
-                    pathfindingState = PathfindingState.Searching;
+                    pathfindingState = PathfindingState.Looking;
+                }
+            }
+            else
+            {
+                // Stage 2 of Alerted Behavior behaviorType
+                if ((agent.remainingDistance <= agent.stoppingDistance || (pathfindingState != PathfindingState.Investigating && pathfindingState != PathfindingState.Fleeing)) && alertness >= alertnessThreshold2 && alertness < alertnessThreshold3)
+                {
+                    if (behaviorType == AIType.Prey)
+                    {
+                        PreyAI();
+                    }
+                    else
+                    {
+                        agent.SetDestination(subject.transform.position);
+                        pathfindingState = PathfindingState.Investigating;
+                    }
                 }
             }
         }
@@ -522,13 +505,32 @@ public class WanderAI : MonoBehaviour
 
         int[] status = shootable.GetHealth(); //fetch currentHealth and maxHealth respectfully
         agent.speed = shootable.FurnitureSO.speed * (1 - Mathf.Pow(((status[1] - status[0])/status[1]),3)); //multiplies the speed proportionally to a graph of y = 1 - x^3, where x is ((maxHealth - currentHealth) / maxHealth)
-
+        if (pathfindingState == PathfindingState.Looking) // When looking, slow your speed.
+            agent.speed /= 2;
         UpdateAlertness(UpdateSenses());
     }
 
-    public void IncrementAlertness(float gain)
+    public void IncrementAlertness(float gain, bool isRate = false)
     {
-        alertness += gain;
+        if (isRate)
+        {
+            switch (alertRate)
+            {
+                case AlertRate.Low:
+                    alertness += gain * 5;
+                    break;
+                case AlertRate.Medium:
+                    alertness += gain * 10;
+                    break;
+                case AlertRate.High:
+                    alertness += gain * 20;
+                    break;
+                default:
+                    alertness += gain;
+                    break;
+            }
+        }
+
         if (stressState != StressState.Stressed)
         {
             StopCoroutine("RelaxTimer");
@@ -536,14 +538,17 @@ public class WanderAI : MonoBehaviour
         }
     }
 
-    private bool IsPlayerSneaking()
+    public bool IsAggressive()
     {
-        if (playerMovement != null)
-            return playerMovement.isSneaking;
-
-        return false;
+        if (behaviorType == AIType.Prey)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
-
     private void AttackPlayer()
     {
         if (timeSinceLastAttack >= shootable.FurnitureSO.attackInterval)

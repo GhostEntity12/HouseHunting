@@ -28,15 +28,14 @@ public class Gun : MonoBehaviour
         aiming = false;
     }
 
-    public void Shoot(bool firstShot = false)
+    public void Shoot()
     {
         if (GameManager.Instance.IsPaused) return;
         if ( !readyToShoot || WeaponManager.Instance.BulletsInMag <= 0 || reloading) return;
         if (HuntingInputManager.Instance.WeaponWheelIsOpen()) return; // dont shoot when weapon wheel is open
 
-        if (firstShot)
-            soundAlerter.MakeSound(GunSO.volume, transform.position);
-
+        soundAlerter.MakeSound(GunSO.volume, transform.position);
+            
         readyToShoot = false;
 
         for (int i = 0; i < gunSO.bulletsPerTap; i++)
