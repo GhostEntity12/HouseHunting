@@ -53,20 +53,16 @@ public class Gun : MonoBehaviour
 
         for (int i = 0; i < gunSO.bulletsPerTap; i++)
         {
-            //Spread
+            // calculate random spread
             float spread = Random.Range(-gunSO.spread, gunSO.spread);
 
-            //calculate direction with spread
+            // decrease spread if ads is active
             if (ads) spread /= 4;
-
-            Vector3 direction = Camera.main.transform.forward + new Vector3(spread, spread, 0);
 
             //Spawn bullet at muzzle point
             Bullet currentBullet = Instantiate(gunSO.bulletPrefab, muzzlePoint.position, Quaternion.identity);
             currentBullet.Damage = gunSO.damagePerBullet;
             currentBullet.CanBounce = GunSO.id.ToLower() == "crossbow";
-
-            currentBullet.transform.forward = direction.normalized;
             
             // cast ray to crosshair, if the ray hits something, means that there are something in range that should be aimed that, otherwise, the direction can be slightly off
             // currently, this change still does not fix the problem completely because the colliders on trees are weird
@@ -75,6 +71,12 @@ public class Gun : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 currentBullet.transform.LookAt(hit.point);
+                currentBullet.transform.forward += new Vector3(spread, spread, 0);
+            }
+            else // if the ray doesnt hit anything, means that the target the player is trying to aim is too far away, and will not hit anything anyways. So we could just apply the forward direction of the camera to the bullet.
+            {
+                Vector3 direction = Camera.main.transform.forward + new Vector3(spread, spread, spread);
+                currentBullet.transform.forward = direction.normalized;
             }
 
             //Add force to bullet
