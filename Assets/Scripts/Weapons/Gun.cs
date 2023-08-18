@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -80,30 +81,31 @@ public class Gun : MonoBehaviour
 	}
 
 	// so outside managers can trigger animations if needed
-	public void AnimationTrigger(string animationName)
-	{
-		anim.SetTrigger(animationName);
-	}
+	public void AnimationTrigger(string animationName) => anim.SetTrigger(animationName);
 
 	public void Reload()
 	{
 		// Skip if the gun can't be fired yet, no ammo in pouch or if already at max ammo
 		if (state != GunState.Ready || AmmoPouch.AmmoStored == 0 || AmmoPouch.AmmoInGun == GunSO.magSize) return;
 
-		// Set the state to reloading and reenable it after a wait
+		// Trigger reload
 		state = GunState.Reloading;
 		anim.SetBool("Reload", true);
 		AnimationTrigger("Reload");
-		Invoke(() => {
-			ReenableGun();
-			anim.SetBool("Reload", false);
-		},
-			GunSO.reloadTime);
+		HuntingUIManager.Instance.ReloadBarAnimation(GunSO.reloadTime);
+		HuntingUIManager.OnReloadFinishEvent += OnReloadFinish;
+	}
 
-		// Reload the gun
+	void OnReloadFinish()
+	{
 		AmmoPouch.LoadGun(GunSO.magSize);
-
+		anim.SetBool("Reload", false);
+		
+		// Reload the gun
+		HuntingUIManager.OnReloadFinishEvent -= OnReloadFinish;
 		// Update UI
 		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
+		
+		ReenableGun();
 	}
 }

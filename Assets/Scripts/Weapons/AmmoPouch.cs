@@ -1,3 +1,4 @@
+[System.Serializable]
 public class AmmoPouch
 {
 	public int AmmoStored { get; private set; }

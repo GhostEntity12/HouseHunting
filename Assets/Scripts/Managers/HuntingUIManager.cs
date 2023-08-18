@@ -17,7 +17,10 @@ public class HuntingUIManager : Singleton<HuntingUIManager>
     private float reloadTimer = 0f;
     private float reloadTime; // Time it takes to reload the gun
 
-    private void Update()
+	public delegate void OnReloadFinish();
+	public static event OnReloadFinish OnReloadFinishEvent;
+
+	private void Update()
     {
         if (isReloading)
         {
@@ -38,6 +41,7 @@ public class HuntingUIManager : Singleton<HuntingUIManager>
                 reloadFill.fillAmount = 0; // Reset the bar to empty
                 reloadTimer = 0;
                 reloadBar.gameObject.SetActive(false);
+                OnReloadFinishEvent?.Invoke();
             }
         }
     }

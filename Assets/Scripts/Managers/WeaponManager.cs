@@ -36,8 +36,10 @@ public class WeaponManager : Singleton<WeaponManager>
 				{
 					Debug.Log($" Adding {g.GunSO.id}");
 					ownedGuns.Add(g);
+					// Temp to give 5x ammo at start
 					g.AmmoPouch.AddAmmo(g.GunSO.magSize * 5);
-					g.Reload();
+					// Works as in instant reload
+					g.AmmoPouch.LoadGun(g.GunSO.magSize);
 				}
 				g.gameObject.SetActive(false);
 			}
