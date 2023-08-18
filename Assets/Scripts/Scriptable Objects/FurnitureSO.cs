@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum AIType { Prey, Projectile, Charge, Grapple, Slam };
 public enum Ability { None, Steal, Alert, Reflect };
-public enum AlertRate { Low, Medium, High};
+public enum AlertRate { Low, Medium, High, Instant };
 
 [CreateAssetMenu(fileName = "Furniture")]
 

@@ -13,27 +13,28 @@ public class WanderAI : MonoBehaviour
     private Canvas alertCanvas;
     private SenseSO[] senses;
     private bool xray;
-    private float timeSinceLastAttack = 0f;
-    public float alertness = 0; // between 0 and 100
     private StressState stressState = StressState.Relaxing;
     private GameObject subject;
     private PathfindingState pathfindingState = PathfindingState.Wandering;
     private AIType behaviorType = AIType.Prey;
     private AlertRate alertRate = AlertRate.Low;
     private Ability specialAbility = Ability.None;
+    private float timeSinceLastAttack = 0f;
     private float alertnessThreshold1 = 50f;
     private float alertnessThreshold2 = 75f;
     private float alertnessThreshold3 = 100f;
-    private float fleeingSearchRange = 3.0f;
-    private float investigateRadius = 2f;
     private float timeSinceLastBump = 0f;
-    private float alertDistance = 30f;
-    private float timePerBump = 1f; // This is used to determine if the AI pathfinding should recalculate itself, so that it can properly escape the player.
-    private float aiEntityDistance = 100f; // This distance will be used to determine whether or not the AI should run or not.
-
+    private readonly float fleeingSearchRange = 3.0f;
+    private readonly float investigateRadius = 2f;
+    private readonly float alertDistance = 30f;
+    private readonly float timePerBump = 1f; // This is used to determine if the AI pathfinding should recalculate itself, so that it can properly escape the player.
+    private readonly float aiEntityDistance = 100f; // This distance will be used to determine whether or not the AI should run or not.
+    
     public PlayerMovement playerMovement;
     public NavMeshAgent agent;
     public float wanderRadius = 15f; // how far the AI can wander
+
+    public float Alertness { get; private set; } = 0;
 
     private void Awake()
     {
@@ -52,6 +53,33 @@ public class WanderAI : MonoBehaviour
         agent.speed = shootable.FurnitureSO.speed;
         xray = shootable.FurnitureSO.xray;
         playerMovement = FindObjectOfType<PlayerMovement>();
+    }
+
+    private void Update()
+    {
+        if (shootable.IsDead)
+        {
+            agent.isStopped = true;
+            return;
+        }
+
+        if (subject == null || Vector3.Distance(subject.transform.position, transform.position) > aiEntityDistance)
+        {
+            return;
+        }
+
+        if (Time.deltaTime > 0.2f)
+        {
+            Debug.LogWarning("Warning: DeltaTime is at:" + Time.deltaTime);
+        }
+
+        UpdateWanderAI();
+
+        int[] status = shootable.GetHealth(); //fetch currentHealth and maxHealth respectfully
+        agent.speed = shootable.FurnitureSO.speed * (1 - Mathf.Pow(((status[1] - status[0]) / status[1]), 3)); //multiplies the speed proportionally to a graph of y = 1 - x^3, where x is ((maxHealth - currentHealth) / maxHealth)
+        if (pathfindingState == PathfindingState.Looking) // When looking, slow your speed.
+            agent.speed /= 2;
+        UpdateAlertness(UpdateSenses());
     }
 
     private void OnDrawGizmos()
@@ -96,7 +124,7 @@ public class WanderAI : MonoBehaviour
                 if (subject != null)
                 {
                     Vector3 toPosition = (subject.transform.position - sensePos).normalized;
-                    float dist = (subject.transform.position - sensePos).magnitude;
+                    float dist = Vector3.Distance(subject.transform.position, sensePos);
                     float angleToPosition = Vector3.Angle(senseDir, toPosition);
 
                     if (angleToPosition <= coneSense.maxAngle && dist <= coneSense.range) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
@@ -121,7 +149,7 @@ public class WanderAI : MonoBehaviour
                 Vector3 rightRayDirection = rightRayRotation * (senseDir) * coneSense.range;
                 Vector3 forwardDirection = Vector3.Lerp(leftRayDirection, rightRayDirection, 0.5f);
 
-                float gapLength = (leftRayDirection - rightRayDirection).magnitude;
+                float gapLength = Vector3.Distance(leftRayDirection, rightRayDirection);
 
                 Vector3 upRayDirection = forwardDirection + new Vector3(0, gapLength / 2, 0);
                 Vector3 downRayDirection = forwardDirection + new Vector3(0, gapLength / -2, 0);
@@ -139,7 +167,7 @@ public class WanderAI : MonoBehaviour
         {
             
             Vector3 sightDirection = (subject.transform.position - transform.position).normalized;
-            float sightRange = (subject.transform.position - transform.position).magnitude;
+            float sightRange = Vector3.Distance(subject.transform.position, transform.position);
             RaycastHit[] hits = Physics.RaycastAll(transform.position + new Vector3(0,1,0), sightDirection, sightRange * 1.1f);
             if (hits.Any(x => x.collider.CompareTag("Terrain")) || hits.Any(x => x.collider.CompareTag("Obstacle")))
             {
@@ -155,6 +183,7 @@ public class WanderAI : MonoBehaviour
             }
         }
     }
+
     private float GetFleeingDist()
     {
         float senseDist = 0f;
@@ -191,7 +220,7 @@ public class WanderAI : MonoBehaviour
         if (subject != null)
         {
             Vector3 sightDirection = (subject.transform.position - transform.position).normalized;
-            float sightRange = (subject.transform.position - transform.position).magnitude;
+            float sightRange = Vector3.Distance(subject.transform.position, transform.position);
             RaycastHit[] hits = Physics.RaycastAll(transform.position + new Vector3(0, 1, 0), sightDirection, sightRange * 1.1f);
             if (hits.Any(x => x.collider.CompareTag("Terrain")) || hits.Any(x => x.collider.CompareTag("Obstacle")))
             {
@@ -246,7 +275,7 @@ public class WanderAI : MonoBehaviour
                 if (subject != null)
                 {
                     Vector3 toPosition = (subject.transform.position - sensePos).normalized;
-                    float dist = (subject.transform.position - sensePos).magnitude;
+                    float dist = Vector3.Distance(subject.transform.position, sensePos);
                     float angleToPosition = Vector3.Angle(senseDir, toPosition);
 
                     if (angleToPosition <= coneSense.maxAngle && dist <= coneSense.range) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
@@ -273,11 +302,11 @@ public class WanderAI : MonoBehaviour
 
         if (stressState == StressState.Relaxing)
         {
-            alertness -= Time.deltaTime * 10;
+            Alertness -= Time.deltaTime * 10;
         }
 
-        alertness = Mathf.Clamp(alertness, 0, 100);
-        if (alertness != 0)
+        Alertness = Mathf.Clamp(Alertness, 0, 100);
+        if (Alertness != 0)
         {
             alertCanvas.enabled = true;
         }
@@ -286,7 +315,7 @@ public class WanderAI : MonoBehaviour
             alertCanvas.enabled = false;
         }
 
-        if (alertness >= alertnessThreshold3 && subject != null)
+        if (Alertness >= alertnessThreshold3 && subject != null)
         {
             UpdateAlertAI();
         }
@@ -303,7 +332,7 @@ public class WanderAI : MonoBehaviour
         if (distance <= 2f)
         {
             agent.isStopped = true;
-            if (alertness >= alertnessThreshold3)
+            if (Alertness >= alertnessThreshold3)
             {
                 AttackPlayer();
             }
@@ -320,7 +349,7 @@ public class WanderAI : MonoBehaviour
     {
         timeSinceLastBump += Time.deltaTime;
         bool hasBumped = false;
-        if (timeSinceLastBump > timePerBump && (subject.transform.position - transform.position).magnitude < agent.radius * 4)
+        if (timeSinceLastBump > timePerBump && Vector3.Distance(subject.transform.position, transform.position) < agent.radius * 4)
         {
             hasBumped = true;
             timeSinceLastBump = 0f;
@@ -347,7 +376,7 @@ public class WanderAI : MonoBehaviour
                 Vector3 rightDirection = Quaternion.AngleAxis(-90, Vector3.up) * playerDirection;
                 Vector3 rightDestination = transform.position - (rightDirection * (GetFleeingDist() + fleeingSearchRange));
                 // Choose the most ideal direction to get far away from the human!
-                if ((subject.transform.position - leftDestination).magnitude < (subject.transform.position - rightDestination).magnitude)
+                if (Vector3.Distance(subject.transform.position, leftDestination) < Vector3.Distance(subject.transform.position, rightDestination))
                 {
                     destination = leftDestination;
                 }
@@ -404,6 +433,7 @@ public class WanderAI : MonoBehaviour
             }
         }
     }
+    
     private void UpdateAlertAI()
     {
         if (specialAbility == Ability.Alert)
@@ -449,10 +479,11 @@ public class WanderAI : MonoBehaviour
                 break;
         }
     }
+    
     private void UpdateWanderAI()
     {
         // Non-Alerted Behavior
-        if (agent.remainingDistance <= agent.stoppingDistance && alertness < alertnessThreshold1) //done with path
+        if (agent.remainingDistance <= agent.stoppingDistance && Alertness < alertnessThreshold1) //done with path
         {
             if (RandomPoint(transform.position, wanderRadius, out Vector3 point)) //pass in our centre point and radius of area
             {
@@ -463,7 +494,7 @@ public class WanderAI : MonoBehaviour
         else
         {
             // Stage 1 of Alerted Behavior
-            if ((agent.remainingDistance <= agent.stoppingDistance || pathfindingState != PathfindingState.Looking) && alertness >= alertnessThreshold1 && alertness < alertnessThreshold2)
+            if ((agent.remainingDistance <= agent.stoppingDistance || pathfindingState != PathfindingState.Looking) && Alertness >= alertnessThreshold1 && Alertness < alertnessThreshold2)
             {
                 if (RandomPoint(subject.transform.position, investigateRadius, out Vector3 point)) //pass in our centre point and radius of area
                 {
@@ -474,7 +505,7 @@ public class WanderAI : MonoBehaviour
             else
             {
                 // Stage 2 of Alerted Behavior behaviorType
-                if ((agent.remainingDistance <= agent.stoppingDistance || (pathfindingState != PathfindingState.Investigating && pathfindingState != PathfindingState.Fleeing)) && alertness >= alertnessThreshold2 && alertness < alertnessThreshold3)
+                if ((agent.remainingDistance <= agent.stoppingDistance || (pathfindingState != PathfindingState.Investigating && pathfindingState != PathfindingState.Fleeing)) && Alertness >= alertnessThreshold2 && Alertness < alertnessThreshold3)
                 {
                     if (behaviorType == AIType.Prey)
                     {
@@ -489,53 +520,51 @@ public class WanderAI : MonoBehaviour
             }
         }
     }
-    private void Update()
+
+    private void AttackPlayer()
     {
-        if (shootable.IsDead)
+        if (timeSinceLastAttack >= shootable.FurnitureSO.attackInterval)
         {
-            agent.isStopped = true;
-            return;
+            timeSinceLastAttack = 0f;
+            HuntingManager.Instance.DealDamageToPlayer(shootable.FurnitureSO.damage);
+        }
+        else
+        {
+            timeSinceLastAttack += Time.deltaTime;
+        }
+    }
+
+    private bool RandomPoint(Vector3 center, float range, out Vector3 result)
+    {
+        Vector3 randomPoint = center + Random.insideUnitSphere * range; //random point in a sphere 
+        if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 1.0f, NavMesh.AllAreas)) //documentation: https://docs.unity3d.com/ScriptReference/AI.NavMesh.SamplePosition.html
+        {
+            //the 1.0f is the max distance from the random point to a point on the navmesh, might want to increase if range is big
+            //or add a for loop like in the documentation
+            result = hit.position;
+            return true;
         }
 
-        if (subject == null || Vector3.Distance(subject.transform.position,transform.position) > aiEntityDistance)
-        {
-            return;
-        }
-
-            if (Time.deltaTime > 0.2f)
-        {
-            Debug.LogWarning("Warning: DeltaTime is at:" + Time.deltaTime);
-        }
-
-        UpdateWanderAI();
-
-        int[] status = shootable.GetHealth(); //fetch currentHealth and maxHealth respectfully
-        agent.speed = shootable.FurnitureSO.speed * (1 - Mathf.Pow(((status[1] - status[0])/status[1]),3)); //multiplies the speed proportionally to a graph of y = 1 - x^3, where x is ((maxHealth - currentHealth) / maxHealth)
-        if (pathfindingState == PathfindingState.Looking) // When looking, slow your speed.
-            agent.speed /= 2;
-        UpdateAlertness(UpdateSenses());
+        result = Vector3.zero;
+        return false;
     }
 
     public void IncrementAlertness(float gain, bool isRate = false)
     {
         if (isRate)
         {
-            switch (alertRate)
+            Alertness += alertRate switch
             {
-                case AlertRate.Low:
-                    alertness += gain * 5;
-                    break;
-                case AlertRate.Medium:
-                    alertness += gain * 10;
-                    break;
-                case AlertRate.High:
-                    alertness += gain * 20;
-                    break;
-                default:
-                    alertness += gain;
-                    break;
-            }
+                AlertRate.Low => gain * 5,
+                AlertRate.Medium => gain * 10,
+                AlertRate.High => gain * 20,
+                AlertRate.Instant => 100,
+                _ => gain,
+            };
         }
+
+        // Clamp alertness to the range 0-100
+        Alertness = Mathf.Clamp(Alertness, 0, 100);
 
         if (stressState != StressState.Stressed)
         {
@@ -554,33 +583,6 @@ public class WanderAI : MonoBehaviour
         {
             return true;
         }
-    }
-    private void AttackPlayer()
-    {
-        if (timeSinceLastAttack >= shootable.FurnitureSO.attackInterval)
-        {
-            timeSinceLastAttack = 0f;
-            HuntingManager.Instance.DealDamageToPlayer(shootable.FurnitureSO.damage);
-        }
-        else
-        {
-            timeSinceLastAttack += Time.deltaTime;
-        }
-    }
-
-    private bool RandomPoint(Vector3 center, float range, out Vector3 result)
-    {
-        Vector3 randomPoint = center + Random.insideUnitSphere * range; //random point in a sphere 
-		if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 1.0f, NavMesh.AllAreas)) //documentation: https://docs.unity3d.com/ScriptReference/AI.NavMesh.SamplePosition.html
-		{
-			//the 1.0f is the max distance from the random point to a point on the navmesh, might want to increase if range is big
-			//or add a for loop like in the documentation
-			result = hit.position;
-			return true;
-		}
-
-		result = Vector3.zero;
-        return false;
     }
 
     private IEnumerator RelaxTimer()
