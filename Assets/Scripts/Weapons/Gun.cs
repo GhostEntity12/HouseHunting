@@ -38,6 +38,7 @@ public class Gun : MonoBehaviour
 
 		// If gun is not fuly loaded, only fire bullets in gun
 		int bulletsToFire = Mathf.Min(GunSO.bulletsPerTap, AmmoPouch.AmmoInGun);
+        AnimationTrigger("Shoot"); // fire gun animation
 
 		// Instantiate bullets
 		for (int i = 0; i < bulletsToFire; i++)
@@ -78,6 +79,12 @@ public class Gun : MonoBehaviour
 		Invoke(nameof(ReenableGun), GunSO.timeBetweenShots);
 	}
 
+	// so outside managers can trigger animations if needed
+	public void AnimationTrigger(string animationName)
+	{
+		anim.SetTrigger(animationName);
+	}
+
 	public void Reload()
 	{
 		// Skip if the gun can't be fired yet, no ammo in pouch or if already at max ammo
@@ -85,7 +92,13 @@ public class Gun : MonoBehaviour
 
 		// Set the state to reloading and reenable it after a wait
 		state = GunState.Reloading;
-		Invoke(nameof(ReenableGun), GunSO.reloadTime);
+		anim.SetBool("Reload", true);
+		AnimationTrigger("Reload");
+		Invoke(() => {
+			ReenableGun();
+			anim.SetBool("Reload", false);
+		},
+			GunSO.reloadTime);
 
 		// Reload the gun
 		AmmoPouch.LoadGun(GunSO.magSize);
@@ -93,5 +106,4 @@ public class Gun : MonoBehaviour
 		// Update UI
 		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
 	}
-
 }
