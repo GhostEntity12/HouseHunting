@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -9,14 +10,14 @@ public class Bullet : MonoBehaviour
     public int Damage { get { return damage; } set { damage = value; } }
     public bool CanBounce { get; set; }
 
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.TryGetComponent(out Hitbox hitbox))
         {
             hitbox.Damage(damage);
         }
 
-        Destroy(gameObject, CanBounce ? 1.5f : 0);
+        StartCoroutine(DestroyDelay());
         // Instantiate bullet hole
         ContactPoint contact = collision.GetContact(0);
         GameObject bulletHole = Instantiate(bulletHolePrefab, contact.point, Quaternion.LookRotation(contact.normal));
@@ -24,4 +25,9 @@ public class Bullet : MonoBehaviour
         Destroy(bulletHole, 1.5f);
     }
     
+    private IEnumerator DestroyDelay()
+    {
+        yield return new WaitForSeconds(CanBounce ? 1.5f : 0);
+        gameObject.SetActive(false);
+    }
 }

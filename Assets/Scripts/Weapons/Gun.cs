@@ -26,6 +26,7 @@ public class Gun : MonoBehaviour
         ads = false;
         elapsedTime = 1;
         initialPosition = transform.localPosition;
+        BulletPool.Instance.BulletPrefab = gunSO.bulletPrefab;
     }
 
     private void Update()
@@ -59,8 +60,8 @@ public class Gun : MonoBehaviour
             // decrease spread if ads is active
             if (ads) spread /= 4;
 
-            //Spawn bullet at muzzle point
-            Bullet currentBullet = Instantiate(gunSO.bulletPrefab, muzzlePoint.position, Quaternion.identity);
+            // get bullet at muzzle point
+            Bullet currentBullet = BulletPool.Instance.GetPooledObject(muzzlePoint.position, Quaternion.identity);
             currentBullet.Damage = gunSO.damagePerBullet;
             currentBullet.CanBounce = GunSO.id.ToLower() == "crossbow";
             
