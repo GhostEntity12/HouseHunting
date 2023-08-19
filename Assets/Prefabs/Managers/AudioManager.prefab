@@ -64,11 +64,11 @@ MonoBehaviour:
     pitch: 1
     name: Ambience02
     source: {fileID: 0}
-  - audioType: 0
+  - audioType: 1
     clip: {fileID: 8300000, guid: c079757f96d9f8844867534b2b460fc5, type: 3}
-    loop: 0
+    loop: 1
     playOnAwake: 0
-    volume: 0.3
+    volume: 1
     pitch: 1
     name: Building
     source: {fileID: 0}
@@ -132,8 +132,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 936bca1b4fdad924980c73024cd77c51, type: 3}
     loop: 0
     playOnAwake: 0
-    volume: 0.19
-    pitch: 1
+    volume: 1
+    pitch: 1.2
     name: Landing
     source: {fileID: 0}
 --- !u!114 &4096926207107223717

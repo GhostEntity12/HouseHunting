@@ -14,11 +14,20 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isSneaking;
     public bool isSprinting;
+    public bool isJumping;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         soundAlerter = GetComponent<SoundAlerter>();
+    }
+    public void Update()
+    {
+        if (controller.isGrounded && playerVelocity.y < 0)
+        {
+            playerVelocity.y = -2f;
+            isJumping = false;
+        }
     }
 
     public void Move(Vector2 input)
@@ -41,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (controller.isGrounded && playerVelocity.y < 0)
             playerVelocity.y = -2f;
-
+        
         controller.Move(playerVelocity * Time.deltaTime);
 
         // Adjust sound alert levels based on isSneaking and isSprinting flags
@@ -65,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
             controller.Move(playerVelocity * Time.deltaTime);
 
             soundAlerter.MakeSound(1, transform.position, 1);
+
+            isJumping = true;
         }
     }
 

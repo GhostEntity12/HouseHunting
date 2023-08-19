@@ -7,6 +7,7 @@ public class PlayerFootsteps : MonoBehaviour
     private CharacterController controller;
     private bool isWalking;
     private bool keysPressed;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -15,7 +16,7 @@ public class PlayerFootsteps : MonoBehaviour
     }
 
     void Update()
-    {   
+    {
         HandleFootsteps();
         HandleAudio();
     }
@@ -38,13 +39,12 @@ public class PlayerFootsteps : MonoBehaviour
             {
                 isWalking = false;
                 AudioManager.Instance.Stop("WalkOnGrass");
-            } 
+            }
         }
         else if (!controller.isGrounded)
         {
             isWalking = false;
             AudioManager.Instance.Pause("WalkOnGrass");
-            
         }
     }
 }
