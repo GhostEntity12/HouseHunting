@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Security;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
@@ -50,6 +52,7 @@ public class Gun : MonoBehaviour
             soundAlerter.MakeSound(GunSO.volume, transform.position);
 
         readyToShoot = false;
+        AnimationTrigger("Shoot"); // fire gun animation
 
         for (int i = 0; i < gunSO.bulletsPerTap; i++)
         {
@@ -93,13 +96,22 @@ public class Gun : MonoBehaviour
         StartCoroutine(ResetShot(gunSO.timeBetweenShots));
     }
 
+    // so outside managers can trigger animations if needed
+    public void AnimationTrigger(string animationName)
+    {
+        anim.SetTrigger(animationName);
+    }
+
     public void Reload()
     {
         if (reloading) return;
         if (HuntingInputManager.Instance.WeaponWheelIsOpen()) return; // dont reload while weapon wheel is open
         if (gunSO.magSize == WeaponManager.Instance.BulletsInMag) return; // dont reload when mag is full
 
+        AnimationTrigger("Reload");
+
         reloading = true;
+        anim.SetBool("Reload", reloading);
         StartCoroutine(ResetReload(gunSO.reloadTime));
         HuntingUIManager.Instance.ReloadBarAnimation(gunSO.reloadTime);
     }
@@ -114,6 +126,7 @@ public class Gun : MonoBehaviour
         yield return new WaitForSeconds(delay);
         WeaponManager.Instance.Reload();
         reloading = false;
+        anim.SetBool("Reload", reloading);
     }
 
     private IEnumerator ResetShot(float delay)

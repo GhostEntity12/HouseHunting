@@ -3,6 +3,11 @@ using UnityEngine;
 
 public static class ExtensionMethods
 {
+	/// <summary>
+	/// Shuffles a IList using the Fisher-Yates method
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="list"></param>
 	public static void Shuffle<T>(this IList<T> list)
 	{
 		int n = list.Count;
@@ -10,9 +15,7 @@ public static class ExtensionMethods
 		{
 			n--;
 			int k = Random.Range(0, n + 1);
-			T value = list[k];
-			list[k] = list[n];
-			list[n] = value;
+			(list[n], list[k]) = (list[k], list[n]);
 		}
 	}
 }

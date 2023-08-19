@@ -396,6 +396,7 @@ GameObject:
   - component: {fileID: 2105975402056762075}
   - component: {fileID: 5881727287344065269}
   - component: {fileID: 7744787206299875300}
+  - component: {fileID: 4847469742058228571}
   m_Layer: 10
   m_Name: Gun_Crossbow
   m_TagString: Untagged
@@ -460,6 +461,27 @@ MonoBehaviour:
   gunSO: {fileID: 11400000, guid: 260cd78f5b7281843b0c646b1f74255c, type: 2}
   muzzlePoint: {fileID: 406708720872090986}
   muzzleFlashPrefab: {fileID: 1000010254994808, guid: 849b008210656a542b75ecfdc722a116, type: 3}
+--- !u!95 &4847469742058228571
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3126259693033042120}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 80271185403d2e4409f43066fd6388ac, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5030455133972718382
 GameObject:
   m_ObjectHideFlags: 0
