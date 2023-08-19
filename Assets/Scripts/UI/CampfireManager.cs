@@ -13,12 +13,16 @@ public class CampfireManager : MonoBehaviour
 		campfires.ForEach(c => Instantiate(buttonPrefab, parent).Setup(c, this));
 	}
 
-	public void HideCanvas()
+    private void Start()
+    {
+		GameManager.Instance.ShowCursor();
+    }
+
+    public void HideCanvas()
 	{
 		// replace with fade
 		gameObject.SetActive(false);
-		Cursor.lockState = CursorLockMode.None;
-		Cursor.visible = false;
+		GameManager.Instance.HideCursor();
 	}
 
 	private void Update()
