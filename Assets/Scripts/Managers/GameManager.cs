@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,10 +7,9 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
     [SerializeField] private Canvas pauseMenuCanvas;
     public GameObject player;
 
-    private static GameManager instance;
-    private Inventory permanentInventory;
+    public FurnitureInventory PermanentInventory { get; private set; }
+    public List<SaveDataGun> OwnedGuns { get; private set; }
 
-    public Inventory PermanentInventory { get => permanentInventory; }
     public int Currency { get; set; }
     public bool IsPaused { get => pauseMenuCanvas.enabled; }
 
@@ -20,47 +18,36 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
         base.Awake();
 
         HideCursor();
-        permanentInventory = new Inventory();
+        PermanentInventory = new();
     }
 
-    public void HideCursor()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
+	public void SaveData(GameData data)
+	{
+		data.storedFurniture = PermanentInventory.Furniture;
+        data.gunSaveData = OwnedGuns;
+		data.currency = Currency;
+	}
 
-    public void ShowCursor()
+	public void LoadData(GameData data)
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-
-    public void LoadData(GameData data)
-    {
-        permanentInventory.Items = data.permanentInventory;
-        permanentInventory.BoughtItems = data.boughtItems;
+        PermanentInventory.Furniture = data.storedFurniture;
+        OwnedGuns = data.gunSaveData;
         Currency = data.currency;
     }
+    
 
-    public void SaveData(GameData data)
-    {
-        data.permanentInventory = permanentInventory.Items;
-        List<ShopItem> boughtItems = permanentInventory.BoughtItems;
-        // if a gun is a ShopItem instead of a GunShopItem, convert it to GunShopItem
-        for (int i = 0; i < boughtItems.Count; i++)
-        {
-            if (boughtItems[i] is GunShopItem) continue;
-            if (WeaponManager.Instance.AllGuns.Any(x => x.GunSO.id == boughtItems[i].id))
-            {
-                GunShopItem gunShopItem = new GunShopItem(boughtItems[i].id, boughtItems[i].quantity, 0);
-                boughtItems[i] = gunShopItem;
-            }
-        }
-        data.boughtItems = permanentInventory.BoughtItems;
-        data.currency = Currency;
-    }
+	public void HideCursor()
+	{
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
+	}
 
-    public void SetGamePause(bool pause)
+	public void ShowCursor()
+	{
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+	}
+	public void SetGamePause(bool pause)
     {
         if (pauseMenuCanvas == null) return;
 
