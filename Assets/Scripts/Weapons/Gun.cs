@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Security;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
@@ -16,6 +14,7 @@ public class Gun : MonoBehaviour
     private Vector3 initialPosition;
     private Recoil recoil;
     private SoundAlerter soundAlerter;
+    private Animator anim;
 
     public GunSO GunSO => gunSO;
     public Recoil Recoil => recoil;
@@ -118,6 +117,7 @@ public class Gun : MonoBehaviour
         StartCoroutine(ResetReload(gunSO.reloadTime));
         HuntingUIManager.Instance.ReloadBarAnimation(gunSO.reloadTime);
     }
+
     public void ToggleADS()
     {
         ads = !ads;
