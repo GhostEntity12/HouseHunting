@@ -16,14 +16,8 @@ public class WeaponManager : Singleton<WeaponManager>
 		// Return if not in Hunting scene
 		if (HuntingManager.Instance == null) return;
 
-		soundAlerter = GameObject.Find("Player").GetComponent<SoundAlerter>();
 		// TODO: Swap to this once player is exposed
-		//soundAlerter = HuntingManager.Instance.Player.GetComponent<SoundAlerter>();
-
-		foreach (var item in GameManager.Instance.OwnedGuns.Select(g => g.id))
-		{
-			Debug.Log(item);
-		}
+		soundAlerter = HuntingManager.Instance.Player.GetComponent<SoundAlerter>();
 
 		// Iterating over children
 		foreach (Transform t in transform)

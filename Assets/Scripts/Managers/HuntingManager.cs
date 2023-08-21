@@ -16,11 +16,10 @@ public class HuntingManager : Singleton<HuntingManager>
 	[SerializeField] private TextMeshProUGUI healthText;
 
 	private int currentHealth;
-	private FurnitureInventory huntingInventory;
 	private float huntingTimerSeconds;
 
 	[field: SerializeField] public Transform Player { get; private set; }
-	public Inventory HuntingInventory => huntingInventory;
+	public FurnitureInventory HuntingInventory { get; private set; }
 
 	protected override void Awake()
 	{
@@ -29,7 +28,7 @@ public class HuntingManager : Singleton<HuntingManager>
 		currentHealth = maxHealth;
 		huntingTimerSeconds = huntingDurationSeconds;
 
-		huntingInventory = new FurnitureInventory();
+		HuntingInventory = new FurnitureInventory();
 	}
 
 	private void Start()
@@ -59,7 +58,7 @@ public class HuntingManager : Singleton<HuntingManager>
 	private void Die()
 	{
 		// clear the current hunting session's inventory
-		huntingInventory.ClearInventory();
+		HuntingInventory.ClearInventory();
 
 		// detach the camera from the player
 		Camera camera = Player.GetComponentInChildren<Camera>();
@@ -109,7 +108,7 @@ public class HuntingManager : Singleton<HuntingManager>
 
 	public void RespawnInHouse()
 	{
-		GameManager.Instance.PermanentInventory.MergeInventory(huntingInventory);
+		GameManager.Instance.PermanentInventory.MergeInventory(HuntingInventory);
 		gameOverUI.SetActive(false);
 		GameManager.Instance.HideCursor();
 		SceneManager.LoadScene(1);
