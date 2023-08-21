@@ -1,35 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class FurnitureAlert : MonoBehaviour
 {
-    private WanderAI AI;
     [SerializeField] private Image outline;
     [SerializeField] private Image fill;
     [SerializeField] private Sprite questionMark;
     [SerializeField] private Sprite exclamationMark;
-
+    [SerializeField] private Sprite skull; // currently using placeholder
     [SerializeField] private Camera mainCamera;
+
+    private WanderAI AI;
+    private Shootable shootableComponent;
 
     private Color alertnessLowColor = Color.green;
     private Color alertnessHighColor = Color.red;
 
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         AI = GetComponentInParent<WanderAI>();
         if (mainCamera == null)
-        {
             mainCamera = Camera.main;
-        }
+        shootableComponent = GetComponentInParent<Shootable>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        if (shootableComponent.IsDead) return;
+
         //change icon depending on alertness
         if(AI.Alertness == 100 && fill.sprite != exclamationMark)
         {
@@ -65,5 +65,12 @@ public class FurnitureAlert : MonoBehaviour
         LeanTween.scale(gameObject, new Vector3(1.6f, 1.6f, 1.6f), 0.25f).setEaseInExpo().setDelay(0.5f).setOnComplete(() => {
             LeanTween.scale(gameObject, Vector3.one, 0.25f);
         });
+    }
+
+    public void OnDead()
+    {
+        ChangeIcon(skull);
+        fill.fillAmount = 1;
+        fill.color = Color.white;
     }
 }
