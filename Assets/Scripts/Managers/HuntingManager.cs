@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class HuntingManager : Singleton<HuntingManager>
 {
 	[SerializeField] private int maxHealth;
-	[SerializeField] private Transform player;
 	[SerializeField] private GameObject gameOverUI;
 	[SerializeField] private float huntingDurationSeconds;
 	[SerializeField] private TextMeshProUGUI huntingTimerText;
@@ -20,7 +19,8 @@ public class HuntingManager : Singleton<HuntingManager>
 	private FurnitureInventory huntingInventory;
 	private float huntingTimerSeconds;
 
-	public FurnitureInventory HuntingInventory => huntingInventory;
+	[field: SerializeField] public Transform Player { get; private set; }
+	public Inventory HuntingInventory => huntingInventory;
 
 	protected override void Awake()
 	{
@@ -62,7 +62,7 @@ public class HuntingManager : Singleton<HuntingManager>
 		huntingInventory.ClearInventory();
 
 		// detach the camera from the player
-		Camera camera = player.GetComponentInChildren<Camera>();
+		Camera camera = Player.GetComponentInChildren<Camera>();
 		camera.transform.parent = null;
 
 		// destroy all children of the camera
@@ -70,7 +70,7 @@ public class HuntingManager : Singleton<HuntingManager>
 			Destroy(child.gameObject);
 
 		// destroy the player object
-		Destroy(player.gameObject);
+		Destroy(Player.gameObject);
 
 		GameOver();
 	}
