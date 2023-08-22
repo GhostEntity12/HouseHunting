@@ -102,4 +102,11 @@ public class PlayerMovement : MonoBehaviour
         isSprinting = input;
         Debug.Log("Sprint");
     }
+
+    public void Warp(Transform warpPoint)
+    {
+        controller.enabled = false;
+        transform.SetPositionAndRotation(warpPoint.position, warpPoint.rotation);
+		controller.enabled = true;
+    }
 }

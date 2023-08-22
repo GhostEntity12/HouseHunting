@@ -22,6 +22,7 @@ public class Gun : MonoBehaviour
     private void Awake()
     {
         recoil = GetComponentInParent<Recoil>();
+        anim = GetComponent<Animator>();
         soundAlerter = GameObject.Find("Player").GetComponent<SoundAlerter>();
         readyToShoot = true;
         ads = false;
