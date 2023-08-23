@@ -47,6 +47,7 @@ public class WeaponManager : Singleton<WeaponManager>
         soundAlerter = GameObject.Find("Player").GetComponent<SoundAlerter>();
 
         ownedGuns = GameManager.Instance.PermanentInventory.BoughtItems.Where(x => x is GunShopItem).Cast<GunShopItem>().ToList();
+        Debug.Log("Owned Guns Count: " + ownedGuns.Count);
         Gun firstOwnedGun = allGuns.Find(x => x.GunSO.id == ownedGuns[0].id);
         currentGun = Instantiate(firstOwnedGun, transform);
 

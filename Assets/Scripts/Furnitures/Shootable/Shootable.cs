@@ -7,10 +7,10 @@ public abstract class Shootable : MonoBehaviour, IInteractable
     private MeshRenderer meshRenderer;
     private int currentHealth;
     private bool isDead = false;
-    private Canvas alertCanvas;
     private int price;
     private int materialIndex;
     private float scaleFactor;
+    private FurnitureAlert furnitureAlert;
 
     public bool IsDead => isDead;
     public FurnitureSO FurnitureSO => furnitureSO;
@@ -19,7 +19,7 @@ public abstract class Shootable : MonoBehaviour, IInteractable
     {
         currentHealth = furnitureSO.maxHealth;
         meshRenderer = GetComponentInChildren<MeshRenderer>();
-        alertCanvas = GetComponentInChildren<Canvas>();
+        furnitureAlert = GetComponentInChildren<FurnitureAlert>();
 
         price = Mathf.RoundToInt(furnitureSO.basePrice * Random.Range(0.5f, 1.5f));
         materialIndex = Random.Range(0, furnitureSO.materials.Length);
@@ -35,8 +35,7 @@ public abstract class Shootable : MonoBehaviour, IInteractable
     public void Die()
     {
         isDead = true;
-        alertCanvas.enabled = false;
-        meshRenderer.material.color = Color.blue; // Here we just change the material to the dead material for testing purposes, this can be changed to whatever logic to handle death
+        furnitureAlert.OnDead();
     }
 
     public void TakeDamage(int damage)
