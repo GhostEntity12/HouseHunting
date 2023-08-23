@@ -64,7 +64,7 @@ public class WeaponManager : Singleton<WeaponManager>
 
         //TODO: make this compatible with other items than guns with interface
         Gun selectedGun = allGuns.Find(x => x.GunSO.id == ownedGuns[index].id);
-        if (selectedGun != null && selectedGun != currentGun)
+        if (selectedGun != null && selectedGun.GunSO.id != currentGun.GunSO.id)
         {
             Destroy(currentGun.gameObject);
             currentGun = Instantiate(selectedGun, transform);
