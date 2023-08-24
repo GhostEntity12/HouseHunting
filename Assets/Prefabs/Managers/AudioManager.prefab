@@ -136,6 +136,14 @@ MonoBehaviour:
     pitch: 1.2
     name: Landing
     source: {fileID: 0}
+  - audioType: 0
+    clip: {fileID: 8300000, guid: 4df049b3635370b44921e3b6d49d1104, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 1
+    pitch: 1
+    name: Crossbow Impact
+    source: {fileID: 0}
 --- !u!114 &4096926207107223717
 MonoBehaviour:
   m_ObjectHideFlags: 0
