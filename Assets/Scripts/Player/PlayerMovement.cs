@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isSneaking;
     public bool isSprinting;
-    public bool isJumping;
 
     private void Start()
     {
@@ -26,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
         if (controller.isGrounded && playerVelocity.y < 0)
         {
             playerVelocity.y = -2f;
-            isJumping = false;
         }
     }
 
@@ -74,8 +72,6 @@ public class PlayerMovement : MonoBehaviour
             controller.Move(playerVelocity * Time.deltaTime);
 
             soundAlerter.MakeSound(1, transform.position, 1);
-
-            isJumping = true;
         }
     }
 
