@@ -29,7 +29,6 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 		// pause
         playerInput.Hunting.Pause.performed += ctx => GameManager.Instance.SetGamePause(!GameManager.Instance.IsPaused);
-
 		//removed for alpha
 		//playerInput.Hunting.OpenInventory.performed += ctx => ShopUIManager.Instance.ToggleShop();
 		playerInput.Hunting.Jump.performed += ctx => movement.Jump();
@@ -50,9 +49,6 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 		// debug
 		playerInput.Hunting.DebugAmmo.performed += ctx => WeaponManager.Instance.GiveAmmo(100);
-
-		// ADS
-		playerInput.Hunting.ADS.performed += ctx => WeaponManager.Instance.CurrentGun.ToggleADS();
     }
 
 	private void OnEnable()

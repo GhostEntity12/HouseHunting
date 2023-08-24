@@ -188,15 +188,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ADS"",
-                    ""type"": ""Button"",
-                    ""id"": ""ee67add1-c8de-4b4f-a68e-9b519ae2d573"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -461,17 +452,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Run"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""81a2a85d-4a85-47a5-9b35-287ff356b669"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ADS"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -906,7 +886,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Hunting_Quick6 = m_Hunting.FindAction("Quick6", throwIfNotFound: true);
         m_Hunting_DebugAmmo = m_Hunting.FindAction("DebugAmmo", throwIfNotFound: true);
         m_Hunting_Run = m_Hunting.FindAction("Run", throwIfNotFound: true);
-        m_Hunting_ADS = m_Hunting.FindAction("ADS", throwIfNotFound: true);
         // House
         m_House = asset.FindActionMap("House", throwIfNotFound: true);
         m_House_Movement = m_House.FindAction("Movement", throwIfNotFound: true);
@@ -1004,7 +983,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_Quick6;
     private readonly InputAction m_Hunting_DebugAmmo;
     private readonly InputAction m_Hunting_Run;
-    private readonly InputAction m_Hunting_ADS;
     public struct HuntingActions
     {
         private @PlayerInput m_Wrapper;
@@ -1027,7 +1005,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Quick6 => m_Wrapper.m_Hunting_Quick6;
         public InputAction @DebugAmmo => m_Wrapper.m_Hunting_DebugAmmo;
         public InputAction @Run => m_Wrapper.m_Hunting_Run;
-        public InputAction @ADS => m_Wrapper.m_Hunting_ADS;
         public InputActionMap Get() { return m_Wrapper.m_Hunting; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1091,9 +1068,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Run.started += instance.OnRun;
             @Run.performed += instance.OnRun;
             @Run.canceled += instance.OnRun;
-            @ADS.started += instance.OnADS;
-            @ADS.performed += instance.OnADS;
-            @ADS.canceled += instance.OnADS;
         }
 
         private void UnregisterCallbacks(IHuntingActions instance)
@@ -1152,9 +1126,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Run.started -= instance.OnRun;
             @Run.performed -= instance.OnRun;
             @Run.canceled -= instance.OnRun;
-            @ADS.started -= instance.OnADS;
-            @ADS.performed -= instance.OnADS;
-            @ADS.canceled -= instance.OnADS;
         }
 
         public void RemoveCallbacks(IHuntingActions instance)
@@ -1380,7 +1351,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnQuick6(InputAction.CallbackContext context);
         void OnDebugAmmo(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
-        void OnADS(InputAction.CallbackContext context);
     }
     public interface IHouseActions
     {

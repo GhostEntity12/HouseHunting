@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class WeaponWheel : Singleton<WeaponWheel>
+public class WeaponWheel : MonoBehaviour
 {
     [SerializeField] private Image weaponWheelItemPrefab;
     [SerializeField] private Image insideWheel;
@@ -41,7 +41,7 @@ public class WeaponWheel : Singleton<WeaponWheel>
             Image icon = new GameObject("Icon").AddComponent<Image>();
             icon.transform.SetParent(transform);
             // set the icon's sprite to the weapon's icon
-			icon.sprite = DataPersistenceManager.Instance.GetShopItemById(GameManager.Instance.PermanentInventory.BoughtItems.FindAll(i => i is GunShopItem).Cast<GunShopItem>().ToArray()[i].id).icon;
+			icon.sprite = DataPersistenceManager.Instance.GetShopItemById(GameManager.Instance.PermanentInventory.BoughtItems[i].id).icon;
 
             // calculate the angle of the icon based on the index of the weapon, i.e., which segment of the wheel it is in
             float angleInDegrees = 360 / DistinctItemCount * i;
