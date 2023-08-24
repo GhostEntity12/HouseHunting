@@ -35,8 +35,6 @@ public class Gun : MonoBehaviour
         if (GameManager.Instance.IsPaused) return;
         if ( !readyToShoot || WeaponManager.Instance.BulletsInMag <= 0 || reloading)
             return;
-        else
-            AudioManager.Instance.Play(GunSO.name);
 
         if (HuntingInputManager.Instance.WeaponWheelIsOpen()) return; // dont shoot when weapon wheel is open
 
@@ -71,7 +69,9 @@ public class Gun : MonoBehaviour
         }
 
         OnGunShootEvent?.Invoke();
-
+        
+        AudioManager.Instance.Play(GunSO.name);
+        
         //Muzzle flash
         Instantiate(muzzleFlashPrefab, muzzlePoint.position, Quaternion.identity);
 
@@ -94,12 +94,12 @@ public class Gun : MonoBehaviour
     {
         if (reloading)
             return;
-        else
-            AudioManager.Instance.Play(GunSO.name + " Reload");
             
         if (HuntingInputManager.Instance.WeaponWheelIsOpen()) return; // dont reload while weapon wheel is open
         if (gunSO.magSize == WeaponManager.Instance.BulletsInMag) return; // dont reload when mag is full
 
+        AudioManager.Instance.Play(GunSO.name + " Reload");
+        
         AnimationTrigger("Reload");
 
         reloading = true;
