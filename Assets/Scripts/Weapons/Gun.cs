@@ -15,9 +15,11 @@ public class Gun : MonoBehaviour
     private Recoil recoil;
     private SoundAlerter soundAlerter;
     private Animator anim;
+    private Vector3 adsPosition;
 
     public GunSO GunSO => gunSO;
     public Recoil Recoil => recoil;
+
 
     private void Awake()
     {
@@ -27,19 +29,19 @@ public class Gun : MonoBehaviour
         readyToShoot = true;
         ads = false;
         elapsedTime = 1;
-        initialPosition = transform.localPosition;
         BulletPool.Instance.BulletPrefab = gunSO.bulletPrefab;
+        initialPosition = transform.localPosition;
+        adsPosition = new Vector3(initialPosition.x - 0.45f, initialPosition.y, initialPosition.z);
     }
 
     private void Update()
     {
         // for ADS animation
-        elapsedTime += Time.deltaTime;
-        Vector3 adsPosition = new Vector3(initialPosition.x - 0.45f, initialPosition.y, initialPosition.z);
-        Vector3 targetPosition = ads ? adsPosition : initialPosition;
+        elapsedTime += Time.deltaTime * 5;
+        //Vector3 targetPosition = ads ? adsPosition : initialPosition;
         float cameraFov = ads ? 40 : 60;
-        transform.localPosition = Vector3.Lerp(ads ? initialPosition: adsPosition, targetPosition, elapsedTime / 0.2f);
-        Camera.main.fieldOfView = Mathf.Lerp(ads ? 60 : 40, cameraFov, elapsedTime / 0.2f);
+        //transform.localPosition = Vector3.Lerp(ads ? initialPosition: adsPosition, targetPosition, elapsedTime);
+        Camera.main.fieldOfView = Mathf.Lerp(ads ? 60 : 40, cameraFov, elapsedTime);
 
     }
 
@@ -53,7 +55,7 @@ public class Gun : MonoBehaviour
             soundAlerter.MakeSound(GunSO.volume, transform.position);
 
         readyToShoot = false;
-        AnimationTrigger("Shoot"); // fire gun animation
+        //AnimationTrigger("Shoot"); // fire gun animation
 
         for (int i = 0; i < gunSO.bulletsPerTap; i++)
         {
@@ -113,7 +115,9 @@ public class Gun : MonoBehaviour
 
         AnimationTrigger("Reload");
 
+        
         reloading = true;
+        ToggleADS(false);
         anim.SetBool("Reload", reloading);
         StartCoroutine(ResetReload(gunSO.reloadTime));
         HuntingUIManager.Instance.ReloadBarAnimation(gunSO.reloadTime);
@@ -121,8 +125,14 @@ public class Gun : MonoBehaviour
 
     public void ToggleADS()
     {
-        ads = !ads;
+        ToggleADS(!ads);
+    }
+
+    public void ToggleADS(bool isAds)
+    {
+        ads = isAds;
         elapsedTime = 0;
+        anim.SetBool("Aiming", ads);
     }
 
     private IEnumerator ResetReload(float delay)

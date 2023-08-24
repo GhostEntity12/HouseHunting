@@ -2119,7 +2119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9183740533133080826, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3.846202
+      value: 0.00061337196
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19156,6 +19156,10 @@ PrefabInstance:
       propertyPath: weaponWheelController
       value: 
       objectReference: {fileID: 1866911721}
+    - target: {fileID: 306865349511134642, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 15351
+      objectReference: {fileID: 0}
     - target: {fileID: 5657111898024006285, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
       propertyPath: m_Name
       value: Player
