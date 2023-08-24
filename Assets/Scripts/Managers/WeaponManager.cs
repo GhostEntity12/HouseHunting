@@ -64,7 +64,7 @@ public class WeaponManager : Singleton<WeaponManager>
 
         //TODO: make this compatible with other items than guns with interface
         Gun selectedGun = allGuns.Find(x => x.GunSO.id == ownedGuns[index].id);
-        if (selectedGun != null && selectedGun != currentGun)
+        if (selectedGun != null && selectedGun.GunSO.id != currentGun.GunSO.id)
         {
             Destroy(currentGun.gameObject);
             currentGun = Instantiate(selectedGun, transform);
@@ -73,6 +73,7 @@ public class WeaponManager : Singleton<WeaponManager>
         }
 
         HuntingUIManager.Instance.SetAmmoCounterText(BulletsInMag / currentGun.GunSO.bulletsPerTap +  " / " + BulletsInInventory / currentGun.GunSO.bulletsPerTap);
+        //currentGun.Recoil.InitialPosition = currentGun.transform.position;
     }
  
     // function which gives the player ammo
@@ -115,8 +116,8 @@ public class WeaponManager : Singleton<WeaponManager>
         ownedGuns.Find(x => x.id == gun.GunSO.id).bulletsInMag += bulletsToReload;
 
         // adjust bullets in inventory, copy of the setter
-
         ShopItem bulletShopItem = GameManager.Instance.PermanentInventory.BoughtItems.Find(x => x.id == gun.GunSO.bulletShopItem.id);
+
         // if null then the player doesn't have any bullets of this type and we need to add it to the inventory
         if (bulletShopItem == null)
         {
