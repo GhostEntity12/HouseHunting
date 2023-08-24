@@ -395,11 +395,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ef869d15b37e324caf475cbfb024897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recoilX: 5
-  recoilY: 5
-  recoilZ: 5
-  snappiness: 5
-  returnSpeed: 1
 --- !u!1 &8337428779502255245
 GameObject:
   m_ObjectHideFlags: 0
