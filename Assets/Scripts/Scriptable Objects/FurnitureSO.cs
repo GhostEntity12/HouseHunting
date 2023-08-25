@@ -14,6 +14,7 @@ public class FurnitureSO : ScriptableObject
     public int damage;
     public float speed;
     public float attackInterval;
+    public float attackRange;
     public bool xray; //can the furniture see the player through obstructions?
     public AIType behavior;
     public float alertnessThreshold1;

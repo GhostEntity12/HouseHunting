@@ -6,7 +6,7 @@ using System.Linq;
 
 public class WanderAI : MonoBehaviour
 {
-    enum PathfindingState { Fleeing, Chasing, Investigating, Looking, Wandering }
+    enum PathfindingState { Fleeing, Chasing, Charging, Investigating, Looking, Wandering }
     enum StressState { Stressed, CanRelax, Relaxing }
 
     private Shootable shootable;
@@ -24,7 +24,12 @@ public class WanderAI : MonoBehaviour
     private float alertnessThreshold2 = 75f;
     private float alertnessThreshold3 = 100f;
     private float timeSinceLastBump = 0f;
+    private float timeSinceLastCharge = 0f;
+    private float attackRange = 2f;
+    private Collider hitbox;
+    private readonly float timePerCharge = 2.0f;
     private readonly float fleeingSearchRange = 3.0f;
+    private readonly float chargingRange = 3.0f;
     private readonly float investigateRadius = 2f;
     private readonly float alertDistance = 30f;
     private readonly float timePerBump = 1f; // This is used to determine if the AI pathfinding should recalculate itself, so that it can properly escape the player.
@@ -42,6 +47,7 @@ public class WanderAI : MonoBehaviour
         shootable = GetComponent<Shootable>();
         alertCanvas = GetComponentInChildren<Canvas>();
         subject = GameObject.FindWithTag("Player");
+        hitbox = transform.GetComponent<Collider>();
 
         behaviorType = shootable.FurnitureSO.behavior;
         specialAbility = shootable.FurnitureSO.special;
@@ -52,6 +58,7 @@ public class WanderAI : MonoBehaviour
         senses = shootable.FurnitureSO.senses;
         agent.speed = shootable.FurnitureSO.speed;
         xray = shootable.FurnitureSO.xray;
+        attackRange = shootable.FurnitureSO.attackRange;
         playerMovement = FindObjectOfType<PlayerMovement>();
     }
 
@@ -79,11 +86,27 @@ public class WanderAI : MonoBehaviour
         agent.speed = shootable.FurnitureSO.speed * (1 - Mathf.Pow(((status[1] - status[0]) / status[1]), 3)); //multiplies the speed proportionally to a graph of y = 1 - x^3, where x is ((maxHealth - currentHealth) / maxHealth)
         if (pathfindingState == PathfindingState.Looking) // When looking, slow your speed.
             agent.speed /= 2;
+        if (pathfindingState == PathfindingState.Charging || pathfindingState == PathfindingState.Fleeing) // When charging or fleeing, double your speed!
+            agent.speed *= 2;
         UpdateAlertness(UpdateSenses());
     }
 
     private void OnDrawGizmos()
     {
+        if (hitbox != null)
+        {
+            Gizmos.color = Color.green;
+            Collider[] hitColliders = Physics.OverlapBox(hitbox.bounds.center, hitbox.bounds.size + new Vector3(attackRange, attackRange, attackRange), transform.rotation);
+            foreach (Collider hitCollider in hitColliders)
+            {
+                if (hitCollider.CompareTag("Player"))
+                {
+                    Gizmos.color = Color.red;
+                    break;
+                }
+            }
+            Gizmos.DrawWireCube(hitbox.bounds.center, hitbox.bounds.size + new Vector3(attackRange, attackRange, attackRange));
+        }
         if (senses == null)
             return;
         bool inRange = false;
@@ -130,13 +153,11 @@ public class WanderAI : MonoBehaviour
                     if (angleToPosition <= coneSense.maxAngle && dist <= coneSense.range) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
                     {
                         inRange = true;
-                        Gizmos.color = Color.red;
                         Gizmos.DrawRay(sensePos, toPosition);
                         Gizmos.color = coneSense.debugDetectedColor;
                     }
                     else
                     {
-                        Gizmos.color = Color.black;
                         Gizmos.DrawRay(sensePos, toPosition);
                         Gizmos.color = coneSense.debugIdleColor;
                     }
@@ -329,7 +350,7 @@ public class WanderAI : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position, subject.transform.position);
 
-        if (distance <= 2f)
+        if (distance <= attackRange)
         {
             agent.isStopped = true;
             if (Alertness >= alertnessThreshold3)
@@ -342,6 +363,52 @@ public class WanderAI : MonoBehaviour
             agent.isStopped = false;
             agent.SetDestination(subject.transform.position);
             pathfindingState = PathfindingState.Chasing;
+        }
+    }
+
+    private void ChargeAI()
+    {
+        if(pathfindingState == PathfindingState.Charging)
+        {
+            agent.isStopped = false;
+            Collider[] hitColliders = Physics.OverlapBox(hitbox.bounds.center, hitbox.bounds.size + new Vector3(attackRange, attackRange, attackRange),transform.rotation);
+
+            foreach (Collider hitCollider in hitColliders)
+            {
+                if (hitCollider.CompareTag("Player"))
+                {
+                    Debug.Log("Bonk!");
+                    AttackPlayer();
+                    break;
+                }
+            }
+            if (agent.remainingDistance <= agent.stoppingDistance)
+            {
+                pathfindingState = PathfindingState.Chasing;
+            }
+        } 
+        else
+        {
+            agent.isStopped = true;
+            Quaternion lookRotation = Quaternion.LookRotation((new Vector3(subject.transform.position.x, transform.position.y, subject.transform.position.z) - transform.position).normalized);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5);
+            timeSinceLastCharge += Time.deltaTime;
+            if (timeSinceLastCharge >= timePerCharge)
+            {
+                agent.isStopped = false;
+                pathfindingState = PathfindingState.Charging;
+                timeSinceLastCharge = 0;
+                Vector3 direction = Quaternion.AngleAxis(180, Vector3.up) * (subject.transform.position - transform.position).normalized;
+                Vector3 destination = transform.position - (direction * (GetFleeingDist() + (2f * chargingRange)));
+                if (NavMesh.SamplePosition(destination, out NavMeshHit hit, chargingRange, NavMesh.AllAreas))
+                {
+                    agent.SetDestination(hit.position);
+                }
+                else
+                {
+                    agent.SetDestination(subject.transform.position);
+                }
+            }
         }
     }
 
@@ -467,7 +534,7 @@ public class WanderAI : MonoBehaviour
                 PredatorAI(); //TEMP
                 break;
             case AIType.Charge:
-                PredatorAI(); //TEMP
+                ChargeAI(); //TEMP
                 break;
             case AIType.Grapple:
                 PredatorAI(); //TEMP
