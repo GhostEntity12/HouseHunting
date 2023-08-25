@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class WeaponWheel : MonoBehaviour
+public class WeaponWheel : Singleton<WeaponWheel>
 {
     [SerializeField] private Image weaponWheelItemPrefab;
     [SerializeField] private Image insideWheel;

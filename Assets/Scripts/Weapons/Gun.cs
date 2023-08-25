@@ -1,4 +1,5 @@
 using UnityEditor;
+using System.Collections;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -8,59 +9,100 @@ public class Gun : MonoBehaviour
 	[SerializeField] private Transform muzzlePoint;
 	[SerializeField] private GameObject muzzleFlashPrefab;
 	[SerializeField] private float adsFactor = 4;
+    [SerializeField] private GunSO gunSO;
+
+    //bools
+    private bool readyToShoot, reloading, ads;
+    private float elapsedTime; // for lerping ads
 
 	private GunState state = GunState.Ready;
 	private bool usingADS = false;
 	private Animator anim;
 	private Recoil recoil;
 	private SoundAlerter soundAlerter;
+    private Vector3 initialPosition;
+    private Vector3 adsPosition;
 
 	[field: SerializeField] public GunSO GunSO { get; private set; }
 	[field: SerializeField] public AmmoPouch AmmoPouch { get; private set; } = new();
+    public Recoil Recoil => recoil;
 
 	public string AmmoInfo => $"{AmmoPouch.AmmoInGun / GunSO.bulletsPerTap} / {AmmoPouch.AmmoStored / GunSO.bulletsPerTap}";
 
-	public void Awake()
-	{
-		recoil = GetComponentInParent<Recoil>();
-		soundAlerter = GameObject.Find("Player").GetComponent<SoundAlerter>();
-		anim = GetComponent<Animator>();
-	}
+    private void Awake()
+    {
+        recoil = GetComponentInParent<Recoil>();
+        anim = GetComponent<Animator>();
+        soundAlerter = GameObject.Find("Player").GetComponent<SoundAlerter>();
+        readyToShoot = true;
+        ads = false;
+        elapsedTime = 1;
+        initialPosition = transform.localPosition;
+        adsPosition = new Vector3(initialPosition.x - 0.45f, initialPosition.y, initialPosition.z);
+    }
 
 	private void ReenableGun() => state = GunState.Ready;
 
-	public void Shoot()
-	{
-		if (GameManager.Instance.IsPaused) return;
+    private void Update()
+    {
+        // for ADS animation
+        elapsedTime += Time.deltaTime * 5;
+        //Vector3 targetPosition = ads ? adsPosition : initialPosition;
+        float cameraFov = ads ? 40 : 60;
+        //transform.localPosition = Vector3.Lerp(ads ? initialPosition: adsPosition, targetPosition, elapsedTime);
+        Camera.main.fieldOfView = Mathf.Lerp(ads ? 60 : 40, cameraFov, elapsedTime);
+    }
+
+    public void Shoot()
+    {
+        if (GameManager.Instance.IsPaused) return;
 		if (state != GunState.Ready || AmmoPouch.AmmoInGun <= 0) return;
+        if (HuntingInputManager.Instance.WeaponWheelIsOpen()) return; // dont shoot when weapon wheel is open
+        if (BulletPool.Instance.BulletPrefab == null) return; // if bullet prefab in bullet pool is not set, do not shoot
 
 		// Set state to shooting
 		state = GunState.Shooting;
 
 		// If gun is not fuly loaded, only fire bullets in gun
 		int bulletsToFire = Mathf.Min(GunSO.bulletsPerTap, AmmoPouch.AmmoInGun);
-        AnimationTrigger("Shoot"); // fire gun animation
+        //AnimationTrigger("Shoot"); // fire gun animation
+        soundAlerter.MakeSound(GunSO.volume, transform.position);
+            
+        readyToShoot = false;
+        //AnimationTrigger("Shoot"); // fire gun animation
 
-		// Instantiate bullets
-		for (int i = 0; i < bulletsToFire; i++)
-		{
-			// Add local inaccuracy
-			Vector3 spread = new(Random.Range(-GunSO.spread, GunSO.spread), Random.Range(-GunSO.spread, GunSO.spread), 0);
+        for (int i = 0; i < gunSO.bulletsPerTap; i++)
+        {
+            // calculate random spread
+            float spread = Random.Range(-gunSO.spread, gunSO.spread);
 
-			// If using ADS, reduce inaccuracy
-			if (usingADS)
-				spread /= adsFactor;
+            // decrease spread if ads is active
+            if (ads) spread /= 4;
 
-			// Calculate world direction 
-			Vector3 direction = Camera.main.transform.forward + spread;
+            // get bullet at muzzle point
+            Bullet currentBullet = BulletPool.Instance.GetPooledObject(muzzlePoint.position, Quaternion.identity);
+            currentBullet.Damage = gunSO.damagePerBullet;
+            currentBullet.CanBounce = GunSO.id.ToLower() == "crossbow";
 
-			// Instantiate at muzzle point
-			Bullet currentBullet = Instantiate(GunSO.bulletPrefab, muzzlePoint.position, Quaternion.identity);
-			currentBullet.transform.forward = direction.normalized;
+            // cast ray to crosshair, if the ray hits something, means that there are something in range that should be aimed that, otherwise, the direction can be slightly off
+            // currently, this change still does not fix the problem completely because the colliders on trees are weird
+            // so if you aim at a spot where there are no colliders present on the tree (such as very high up), the bullet will still not go to where the crosshair aims at because the raycast could not find a target
+            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                currentBullet.transform.LookAt(hit.point);
+                currentBullet.transform.forward += new Vector3(spread, spread, 0);
+            }
+            else // if the ray doesnt hit anything, means that the target the player is trying to aim is too far away, and will not hit anything anyways. So we could just apply the forward direction of the camera to the bullet.
+            {
+                Vector3 direction = Camera.main.transform.forward + new Vector3(spread, spread, spread);
+                currentBullet.transform.forward = direction.normalized;
+            }
 
-			// Add force to bullet
-			currentBullet.Rigidbody.AddForce(direction.normalized * GunSO.shootForce, ForceMode.Impulse);
-		}
+            // Add force to bullet
+            currentBullet.Rigidbody.AddForce(currentBullet.transform.forward.normalized * GunSO.shootForce, ForceMode.Impulse);
+        }
+
 		// Remove bullets
 		AmmoPouch.RemoveAmmo(bulletsToFire);
 
@@ -68,7 +110,7 @@ public class Gun : MonoBehaviour
 		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
 
 		//Muzzle flash
-		Instantiate(muzzleFlashPrefab, muzzlePoint.position, Quaternion.identity);
+        Instantiate(muzzleFlashPrefab, muzzlePoint.position, Quaternion.identity);
 
 		// Recoil
 		recoil.RecoilFire();
@@ -90,13 +132,26 @@ public class Gun : MonoBehaviour
 
 		// Trigger reload
 		state = GunState.Reloading;
+        ToggleADS(false);
 		anim.SetBool("Reload", true);
 		AnimationTrigger("Reload");
 		HuntingUIManager.Instance.ReloadBarAnimation(GunSO.reloadTime);
 		HuntingUIManager.OnReloadFinishEvent += OnReloadFinish;
 	}
 
-	void OnReloadFinish()
+    public void ToggleADS()
+    {
+        ToggleADS(!ads);
+    }
+
+    public void ToggleADS(bool isAds)
+    {
+        ads = isAds;
+        elapsedTime = 0;
+        anim.SetBool("Aiming", ads);
+    }
+
+	private void OnReloadFinish()
 	{
 		AmmoPouch.LoadGun(GunSO.magSize);
 		anim.SetBool("Reload", false);

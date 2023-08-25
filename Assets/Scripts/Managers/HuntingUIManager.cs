@@ -29,7 +29,6 @@ public class HuntingUIManager : Singleton<HuntingUIManager>
 
             // Calculate the current reload progress as a percentage
             float progress = reloadTimer / reloadTime;
-            Debug.Log($"Time: {reloadTime} Progress: {progress}");
 
             // Update the reload bar fill amount
             reloadFill.fillAmount = progress;
