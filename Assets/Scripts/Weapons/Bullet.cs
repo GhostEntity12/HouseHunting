@@ -20,7 +20,6 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.transform.name);
         if (collision.transform.TryGetComponent(out Hitbox hitbox))
         {
             hitbox.Damage(damage);
