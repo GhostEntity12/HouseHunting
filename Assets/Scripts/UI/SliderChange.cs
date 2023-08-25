@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Rendering;
+using System;
 
 public class SliderChange : MonoBehaviour
 {
@@ -12,6 +14,6 @@ public class SliderChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        sliderText.text = slider.value.ToString();
+        sliderText.text = Math.Round(slider.value * 100, 0).ToString();
     }
 }
