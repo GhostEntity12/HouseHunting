@@ -88,6 +88,8 @@ public class Gun : MonoBehaviour
             currentBullet.GetComponent<Rigidbody>().AddForce(currentBullet.transform.forward.normalized * gunSO.shootForce, ForceMode.Impulse);
         }
 
+        AudioManager.Instance.Play(GunSO.name);
+        
         //Muzzle flash
         Instantiate(muzzleFlashPrefab, muzzlePoint.position, Quaternion.identity);
 
@@ -112,8 +114,9 @@ public class Gun : MonoBehaviour
         if (HuntingInputManager.Instance.WeaponWheelIsOpen()) return; // dont reload while weapon wheel is open
         if (gunSO.magSize == WeaponManager.Instance.BulletsInMag) return; // dont reload when mag is full
 
-        AnimationTrigger("Reload");
+        AudioManager.Instance.Play(GunSO.name + " Reload");
 
+        AnimationTrigger("Reload");
         
         reloading = true;
         ToggleADS(false);
