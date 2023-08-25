@@ -19,14 +19,9 @@ MonoBehaviour:
   speed: 4
   attackInterval: 2
   xray: 0
-  behavior: 0
-  alertnessThreshold1: 35
-  alertnessThreshold2: 70
-  alertnessThreshold3: 100
-  alertRate: 0
-  special: 0
   senses:
   - {fileID: 11400000, guid: b1e25f516c768da4296a4c5bf6551fed, type: 2}
+  - {fileID: 11400000, guid: c925e0707a43bfd47a76c43a1c11547f, type: 2}
   materials:
   - {fileID: 2100000, guid: dc9a266ec49130e4c9b55f5329b7e48f, type: 2}
   - {fileID: 2100000, guid: e86089b7200e35043a5cdf794f97fbc5, type: 2}

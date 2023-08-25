@@ -30,7 +30,7 @@ public class Gun : MonoBehaviour
         aiming = false;
     }
 
-    public void Shoot()
+    public void Shoot(bool firstShot = false)
     {
         if (GameManager.Instance.IsPaused) return;
         if ( !readyToShoot || WeaponManager.Instance.BulletsInMag <= 0 || reloading)
@@ -38,8 +38,9 @@ public class Gun : MonoBehaviour
 
         if (HuntingInputManager.Instance.WeaponWheelIsOpen()) return; // dont shoot when weapon wheel is open
 
-        soundAlerter.MakeSound(GunSO.volume, transform.position);
-            
+        if (firstShot)
+            soundAlerter.MakeSound(GunSO.volume, transform.position);
+
         readyToShoot = false;
         AnimationTrigger("Shoot"); // fire gun animation
 

@@ -61,10 +61,8 @@ public class WeaponWheel : MonoBehaviour
 
         insideWheel.fillAmount = 1f / DistinctItemCount;
 
-        // Not calling CloseWeaponWheel() to avoid hiding the cursor for the CampfireManager
-        gameObject.SetActive(false);
-        WeaponManager.Instance.SelectItem(selectedIndex);
-	}
+        CloseWeaponWheel();
+    }
 
     private void Update()
     {
