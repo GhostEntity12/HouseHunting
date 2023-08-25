@@ -34,9 +34,6 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		//playerInput.Hunting.OpenInventory.performed += ctx => ShopUIManager.Instance.ToggleShop();
 		playerInput.Hunting.Jump.performed += ctx => movement.Jump();
 
-		// shoot
-		playerInput.Hunting.Shoot.performed += ctx => WeaponManager.Instance.CurrentGun.Shoot();
-
 		// reload
 		playerInput.Hunting.Reload.performed += ctx => WeaponManager.Instance.CurrentGun.Reload();
 
@@ -103,4 +100,9 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	{
 		return weaponWheelController.GetOpen();
 	}
+
+	/// <summary>
+	/// Enables firing of the gun. Not done in awake to allow for setup (campfires) without firing weapon.
+	/// </summary>
+	public void EnableShooting() => playerInput.Hunting.Shoot.performed += ctx => WeaponManager.Instance.CurrentGun.Shoot();
 }

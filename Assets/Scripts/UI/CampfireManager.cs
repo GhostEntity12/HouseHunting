@@ -23,14 +23,6 @@ public class CampfireManager : MonoBehaviour
 		// replace with fade
 		gameObject.SetActive(false);
 		GameManager.Instance.HideCursor();
-	}
-
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.P))
-		{
-			Cursor.lockState = CursorLockMode.Confined;
-			Cursor.visible = true;
-		}
+		HuntingInputManager.Instance.EnableShooting();
 	}
 }
