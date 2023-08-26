@@ -21,7 +21,7 @@ MonoBehaviour:
   timeBetweenShots: 0.5
   spread: 0
   reloadTime: 1
-  volume: 0
+  volume: 50
   magSize: 7
   bulletsPerTap: 1
   bulletShopItem: {fileID: 11400000, guid: 25da7d02a6ecd914ca4753afc0b9d7d9, type: 2}
