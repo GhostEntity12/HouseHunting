@@ -103,4 +103,9 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	{
 		return weaponWheelController.GetOpen();
 	}
+
+	/// <summary>
+	/// Enables firing of the gun. Not done in awake to allow for setup (campfires) without firing weapon.
+	/// </summary>
+	public void EnableShooting() => playerInput.Hunting.Shoot.performed += ctx => WeaponManager.Instance.CurrentGun.Shoot();
 }
