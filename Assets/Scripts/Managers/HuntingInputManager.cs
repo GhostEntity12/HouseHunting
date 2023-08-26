@@ -57,7 +57,19 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput.Hunting.Enable();
 	}
 
-	private void FixedUpdate()
+    private void Update()
+    {
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hit, 3f) && hit.transform.TryGetComponent(out IInteractable interactable) && interactable.Interactable)
+        {
+			InteractPopupManager.Instance.gameObject.SetActive(true);
+			InteractPopupManager.Instance.SetAction(interactable.InteractActionText);
+        } else
+		{
+			InteractPopupManager.Instance.gameObject.SetActive(false);
+		}
+    }
+
+    private void FixedUpdate()
 	{
 		if (ShopUIManager.Instance.IsShopOpen) return;
 
@@ -80,7 +92,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
     private void Interact()
     {
-        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hit, 3f) && hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hit, 3f) && hit.transform.TryGetComponent(out IInteractable interactable))
         {
 			interactable.Interact();
         }
