@@ -15,9 +15,7 @@ public class CampfireButton : MonoBehaviour
 		this.c = c;
 		icon.sprite = c.CampfireInfo.icon;
 		campfireName.SetText(c.CampfireInfo.id);
-		Button b = GetComponent<Button>();
-		Debug.Log(b, b);
-		b.onClick.AddListener(() => { 
+		GetComponent<Button>().onClick.AddListener(() => { 
 			this.c.SpawnAtCampfire();
 			manager.HideCanvas();
 		});

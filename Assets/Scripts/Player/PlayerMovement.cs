@@ -30,7 +30,6 @@ public class PlayerMovement : MonoBehaviour
             currentSpeed = speed / 2;
         } else if (isSprinting) {
             currentSpeed = speed * 1.5f;
-             Debug.Log("isSprinting");
         } else {
             currentSpeed = speed;
         }
@@ -86,7 +85,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (input > 0) {
             Sprint(true);
-            Debug.Log("Run");
         }
         else {
             Sprint(false);
@@ -100,7 +98,6 @@ public class PlayerMovement : MonoBehaviour
     public void Sprint(bool input)
     {
         isSprinting = input;
-        Debug.Log("Sprint");
     }
 
     public void Warp(Transform warpPoint)
