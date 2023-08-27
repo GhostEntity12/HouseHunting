@@ -21,7 +21,7 @@ public class FurnitureSO : ScriptableObject
     public float alertnessThreshold3;
     public AlertRate alertRate;
     public Ability special;
-    public SenseSO[] senses;
+    public ViewConeSO[] senses;
     public Material[] materials;
     public int basePrice;
     public Sprite thumbnail;
