@@ -30,7 +30,12 @@ public class WanderAI : MonoBehaviour
 	float relaxTimer = 0f;
 	FurnitureSO stats;
 
-	public float Alertness { get; private set; } = 0;
+	private float alertness = 0;
+	public float Alertness
+	{
+		get => alertness;
+		private set => alertness = Mathf.Clamp(value, 0, 100);
+	}
 
 	public bool IsAggressive => stats.behavior != AIType.Prey;
 
