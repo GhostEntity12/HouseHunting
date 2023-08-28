@@ -1,34 +1,34 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
 using System.Linq;
-using static UnityEditor.Experimental.GraphView.Port;
 using UnityEditor;
 
 public class WanderAI : MonoBehaviour
 {
+	const float aiEntityDistance = 100f; // This distance will be used to determine whether or not the AI should run or not.
 	enum PathfindingState { Fleeing, Chasing, Investigating, Looking, Wandering }
-	bool isRelaxed;
+	enum AlertLevels { None, Level1, Level2, Level3}
 
 	private Shootable shootable;
 	private Canvas alertCanvas;
 	private PathfindingState pathfindingState = PathfindingState.Wandering;
+	private AlertLevels currentBehaviour = AlertLevels.None;
 	private float timeSinceLastAttack = 0f;
 	private float timeSinceLastBump = 0f;
+	private bool isRelaxed;
+	private float relaxTimer = 0f;
+
 	private readonly float fleeingSearchRange = 3.0f;
 	private readonly float investigateRadius = 2f;
 	private readonly float alertDistance = 30f;
 	private readonly float timePerBump = 1f; // This is used to determine if the AI pathfinding should recalculate itself, so that it can properly escape the player.
-	private readonly float aiEntityDistance = 100f; // This distance will be used to determine whether or not the AI should run or not.
 
-	public PlayerMovement playerMovement;
-	public NavMeshAgent agent;
+	private NavMeshAgent agent;
 	public float wanderRadius = 15f; // how far the AI can wander
 
-	Transform player;
-	float relaxTimer = 0f;
-	FurnitureSO stats;
+	private Transform player;
+	private FurnitureSO stats;
 
 	private float alertness = 0;
 	public float Alertness
@@ -44,12 +44,12 @@ public class WanderAI : MonoBehaviour
 		agent = GetComponent<NavMeshAgent>();
 		shootable = GetComponent<Shootable>();
 		alertCanvas = GetComponentInChildren<Canvas>();
-		playerMovement = FindObjectOfType<PlayerMovement>();
 
+		// Cache some values
 		player = HuntingManager.Instance.Player;
-
 		stats = shootable.FurnitureSO;
 
+		// Populate the speed from the stats
 		agent.speed = stats.speed;
 	}
 
@@ -61,51 +61,84 @@ public class WanderAI : MonoBehaviour
 			return;
 		}
 
+		// Culling behaviour if outside of entity distance
 		if (!player || Vector3.Distance(player.position, transform.position) > aiEntityDistance)
 			return;
 
-		if (Time.deltaTime > 0.2f)
-		{
-			Debug.LogWarning("Warning: DeltaTime is at:" + Time.deltaTime);
-		}
+		//if (Time.deltaTime > 0.2f)
+		//{
+		//	Debug.LogWarning("Warning: DeltaTime is at:" + Time.deltaTime);
+		//}
+		//SetSpeed();
 
-		UpdateWanderAI();
-
-		int[] status = shootable.GetHealth(); //fetch currentHealth and maxHealth respectfully
-		agent.speed = shootable.FurnitureSO.speed * (1 - Mathf.Pow(((status[1] - status[0]) / status[1]), 3)); //multiplies the speed proportionally to a graph of y = 1 - x^3, where x is ((maxHealth - currentHealth) / maxHealth)
-		if (pathfindingState == PathfindingState.Looking) // When looking, slow your speed.
-			agent.speed /= 2;
+		//UpdateWanderAI();
 
 		bool canSeePlayer = HasLineOfSight();
 
-		//Debug.Log(canSeePlayer);
-
 		if (canSeePlayer)
 		{
-			IncrementAlertness(Time.deltaTime, true);
+			IncrementAlertness(Time.deltaTime * 10, true);
 		}
-		UpdateAlertness(canSeePlayer);
+
+
+
+		switch (currentBehaviour)
+		{
+			// Does not know player is around at all
+			case AlertLevels.None:
+				Roam();
+				break;
+			// Has some knowledge of the player
+			case AlertLevels.Level1:
+				Flee();
+				break;
+			default:
+				break;
+		}
+
+		UpdateBehaviourFromThreshold();
+
+		//bool canSeePlayer = HasLineOfSight();
+
+		//if (canSeePlayer)
+		//{
+		//	IncrementAlertness(Time.deltaTime, true);
+		//}
+
+		//UpdateRelax(canSeePlayer);
+		//alertCanvas.enabled = Alertness != 0;
+
+		//if (Alertness >= stats.alertnessThreshold3)
+		//{
+		//	UpdateAlertAI();
+		//}
+		//else
+		//{
+		//	agent.isStopped = false;
+		//}
 	}
 
-	private float GetFleeingDist()
+	private void SetSpeed()
 	{
-		float senseDist = 0f;
-		List<float> availableSenses = new();
-		foreach (ViewConeSO sense in stats.senses)
-		{
-			availableSenses.Add(sense.length);
-		}
-		if (availableSenses.Count > 0)
-		{
-			foreach (float usableSense in availableSenses)
-			{
-				senseDist += usableSense;
-			}
-			senseDist /= availableSenses.Count;
-		}
-		return senseDist;
+		// Multiplies the speed proportionally to a graph of y = 1 - x^3, where x is ((maxHealth - currentHealth) / maxHealth)
+		(int current, int max) = shootable.Health;
+		agent.speed = shootable.FurnitureSO.speed * (1 - Mathf.Pow((max - current) / max, 3));
+
+		// TODO: what's happening here? Why?
+		if (pathfindingState == PathfindingState.Looking) // When looking, slow your speed.
+			agent.speed /= 2;
 	}
 
+	/// <summary>
+	/// Gets the average sense distance
+	/// </summary>
+	/// <returns></returns>
+	private float GetFleeingDist() => stats.senses.Average(vc => vc.length);
+
+	/// <summary>
+	/// Calculate whether the furniture can see the player
+	/// </summary>
+	/// <returns></returns>
 	private bool HasLineOfSight()
 	{
 		// Treat the player's position as the center of it's body
@@ -120,16 +153,22 @@ public class WanderAI : MonoBehaviour
 			// If the player is in range and within angle, do a raycast, check if the hit is the player
 			// NOTE: This currently casts against everything in the scene. May need to add a layermask to prevent hits with transparent objects.
 			if (cone.InCone(transform, playerCenter) &&
-				Physics.Raycast(transform.position, targetDirection, out RaycastHit hit) &&
-				hit.transform.CompareTag("Player"))
+				Physics.Raycast(transform.position, targetDirection, out RaycastHit hit, 100, ~(1 << 14)))
 			{
-				return true;
+				if (hit.transform.CompareTag("Player"))
+				{
+					return true;
+				}
 			}
 		}
 		return false;
 	}
 
-	private void UpdateAlertness(bool seesPlayer)
+	/// <summary>
+	/// Updates the furniture's alertness based on whether it can see the player
+	/// </summary>
+	/// <param name="seesPlayer"></param>
+	private void UpdateRelax(bool seesPlayer)
 	{
 		if (isRelaxed)
 		{
@@ -137,11 +176,9 @@ public class WanderAI : MonoBehaviour
 		}
 		else
 		{
-			// If can see the player, keep the relax timer at 2, otherwise, start reducing the relaxTimer
+			// If can see the player, keep the relax timer at max, otherwise, start reducing the relaxTimer
 			if (seesPlayer)
-			{
 				relaxTimer = stats.timeBeforeRelaxing;
-			}
 			else
 			{
 				relaxTimer -= Time.deltaTime / stats.timeToRelax;
@@ -149,20 +186,79 @@ public class WanderAI : MonoBehaviour
 					isRelaxed = true;
 			}
 		}
+	}
 
-		// Clamp alertness
-		Alertness = Mathf.Clamp(Alertness, 0, 100);
-		alertCanvas.enabled = Alertness != 0;
-
-		if (Alertness >= stats.alertnessThreshold3)
+	private void UpdateBehaviourFromThreshold()
+	{
+		switch (Alertness)
 		{
-			UpdateAlertAI();
-		}
-		else
-		{
-			agent.isStopped = false;
+			case float a3 when a3 >= stats.alertnessThreshold3 && currentBehaviour != AlertLevels.Level3:
+			case float a2 when a2 >= stats.alertnessThreshold2 && currentBehaviour != AlertLevels.Level2:
+			case float a1 when a1 >= stats.alertnessThreshold1 && currentBehaviour != AlertLevels.Level1:
+				currentBehaviour = AlertLevels.Level1;
+				agent.ResetPath();
+				break;
+			case float a0 when a0 == 0:
+				currentBehaviour = AlertLevels.None;
+				break;
+			default:
+				break;
 		}
 	}
+
+	private void Flee(Vector3? position = null)
+	{
+		Debug.Log("Fleeing!");
+		// Allows for the furniture to flee from a position - such as potentially a missed shot?
+		Vector3 fleeFrom = position ?? player.position;
+
+		Vector3 fleeTo = transform.position + ((transform.position - fleeFrom).normalized * GetFleeingDist());
+		Debug.DrawLine(fleeFrom, transform.position, Color.cyan, 15);
+		Debug.DrawLine(transform.position, fleeTo, Color.blue, 15);
+		Debug.DrawLine(fleeTo, fleeTo + Vector3.up * 10, Color.red, 15);
+		// If the agent is close to it's destination, choose a new one
+		if (agent.remainingDistance < 1)
+		{
+			// Get a point in front of the furniture, and a random point
+			// in a circle centered on that point, then navigate to it
+			// This favours the AI moving generally forward
+			if (RandomPoint(transform.position + transform.forward * 5, 3, out Vector3 newPointForward))
+			{
+				agent.SetDestination(newPointForward);
+			}
+			// If a point can't be found, then get a new point centered 
+			// on the AI. This lets the AI choose a new random forward
+			// An intemediary step could be added where it tries to reverse first
+			else if (RandomPoint(transform.position, 10, out Vector3 newPoint))
+			{
+				agent.SetDestination(newPoint);
+			}
+		}
+
+	}
+
+	private void Roam()
+	{
+		// If the agent is close to it's destination, choose a new one
+		if (agent.remainingDistance < 1)
+		{
+			// Get a point in front of the furniture, and a random point
+			// in a circle centered on that point, then navigate to it
+			// This favours the AI moving generally forward
+			if (RandomPoint(transform.position + transform.forward * 5, 3, out Vector3 newPointForward))
+			{
+				agent.SetDestination(newPointForward);
+			}
+			// If a point can't be found, then get a new point centered 
+			// on the AI. This lets the AI choose a new random forward
+			// An intemediary step could be added where it tries to reverse first
+			else if (RandomPoint(transform.position, 10, out Vector3 newPoint))
+			{
+				agent.SetDestination(newPoint);
+			}
+		}
+	}
+
 	// TODO: Rework this
 	private void PredatorAI()
 	{
@@ -182,15 +278,6 @@ public class WanderAI : MonoBehaviour
 			agent.SetDestination(player.transform.position);
 			pathfindingState = PathfindingState.Chasing;
 		}
-	}
-
-	private void Flee(Vector3? position = null)
-	{
-		// Allows for the furniture to flee from a position - such as potentially a missed shot?
-		Vector3 fleeFrom = position ?? player.position;
-
-		Vector3 fleeTo = transform.position + (player.position - fleeFrom);
-		Debug.DrawLine(fleeTo, fleeTo + Vector3.up * 10, Color.red);
 	}
 
 	private void PreyAI(bool useOld = true)
@@ -236,7 +323,7 @@ public class WanderAI : MonoBehaviour
 				{
 					// If that direction cannot get far enough, try the other direction!
 					Debug.Log("That direction didn't work! Go the other way!");
-					
+
 					destination = destination == leftDestination ? rightDestination : leftDestination;
 
 					if (NavMesh.SamplePosition(destination, out NavMeshHit hit2, fleeingSearchRange, NavMesh.AllAreas))

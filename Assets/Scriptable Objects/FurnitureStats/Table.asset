@@ -23,8 +23,8 @@ MonoBehaviour:
   alertnessThreshold1: 30
   alertnessThreshold2: 60
   alertnessThreshold3: 100
-  timeBeforeRelaxing: 0
-  timeToRelax: 0
+  timeBeforeRelaxing: 2
+  timeToRelax: 1
   alertRate: 0
   special: 0
   senses:
