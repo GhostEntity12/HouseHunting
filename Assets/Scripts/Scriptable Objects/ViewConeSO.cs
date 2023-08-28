@@ -20,7 +20,6 @@ public class ViewConeSO : ScriptableObject
 	[Header("Debug")]
     public Color debugIdleColor;
     public Color debugDetectedColor;
-	[SerializeField] private bool debugEnabled;
 #endif
 
 	/// <summary>
@@ -40,10 +39,6 @@ public class ViewConeSO : ScriptableObject
 		float dist = Vector3.Distance(point, position);
 		Vector3 targetDirection = point - position;
 		float angle = Mathf.Acos(Vector3.Dot(targetDirection.normalized, Quaternion.Euler(rotOffset) * transform.forward)) * Mathf.Rad2Deg;
-		
-		// DEBUG: draw the view cone
-		if (debugEnabled)
-			Debug.Log($"<color={(angle < TrueAngle ? "green" : "red")}>{angle}</color>/{TrueAngle}, <color={(dist < length ? "green" : "red")}>{dist}</color>/{length}");
 
 		// Return if in range
 		return angle < TrueAngle && dist < length;
