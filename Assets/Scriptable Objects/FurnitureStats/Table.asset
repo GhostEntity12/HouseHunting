@@ -23,10 +23,12 @@ MonoBehaviour:
   alertnessThreshold1: 30
   alertnessThreshold2: 60
   alertnessThreshold3: 100
+  timeBeforeRelaxing: 0
+  timeToRelax: 0
   alertRate: 0
   special: 0
   senses:
-  - {fileID: 11400000, guid: cf6b21924dff1114884671c4df35a3a6, type: 2}
+  - {fileID: 11400000, guid: f9f7060eff2b4844093101b1d93db58e, type: 2}
   materials:
   - {fileID: 2100000, guid: 77e0807815f787f49986266eb8a05c81, type: 2}
   - {fileID: 2100000, guid: f6169a20652d95d4d8e1ad0b423f5224, type: 2}

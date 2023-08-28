@@ -3,23 +3,18 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
 using System.Linq;
+using static UnityEditor.Experimental.GraphView.Port;
+using UnityEditor;
 
 public class WanderAI : MonoBehaviour
 {
 	enum PathfindingState { Fleeing, Chasing, Investigating, Looking, Wandering }
-	enum StressState { Stressed, CanRelax, Relaxing }
+	bool isRelaxed;
 
 	private Shootable shootable;
 	private Canvas alertCanvas;
-	private ViewConeSO[] viewCones;
-	private bool xray;
-	private StressState stressState = StressState.Relaxing;
 	private PathfindingState pathfindingState = PathfindingState.Wandering;
-	private AIType behaviorType = AIType.Prey;
-	private AlertRate alertRate = AlertRate.Low;
-	private Ability specialAbility = Ability.None;
 	private float timeSinceLastAttack = 0f;
-	private (float threshold1, float threshold2, float threshold3) alertnessThresholds = (50, 75, 100);
 	private float timeSinceLastBump = 0f;
 	private readonly float fleeingSearchRange = 3.0f;
 	private readonly float investigateRadius = 2f;
@@ -33,26 +28,24 @@ public class WanderAI : MonoBehaviour
 
 	Transform player;
 	float relaxTimer = 0f;
+	FurnitureSO stats;
 
 	public float Alertness { get; private set; } = 0;
+
+	public bool IsAggressive => stats.behavior != AIType.Prey;
 
 	private void Awake()
 	{
 		agent = GetComponent<NavMeshAgent>();
 		shootable = GetComponent<Shootable>();
 		alertCanvas = GetComponentInChildren<Canvas>();
+		playerMovement = FindObjectOfType<PlayerMovement>();
 
 		player = HuntingManager.Instance.Player;
 
-		// Populating from furniture SO (can probably be removed and just accessed directly)
-		behaviorType = shootable.FurnitureSO.behavior;
-		specialAbility = shootable.FurnitureSO.special;
-		alertnessThresholds = (shootable.FurnitureSO.alertnessThreshold1, shootable.FurnitureSO.alertnessThreshold2, shootable.FurnitureSO.alertnessThreshold3);
-		alertRate = shootable.FurnitureSO.alertRate;
-		viewCones = shootable.FurnitureSO.senses;
-		agent.speed = shootable.FurnitureSO.speed;
-		xray = shootable.FurnitureSO.xray;
-		playerMovement = FindObjectOfType<PlayerMovement>();
+		stats = shootable.FurnitureSO;
+
+		agent.speed = stats.speed;
 	}
 
 	private void Update()
@@ -80,6 +73,8 @@ public class WanderAI : MonoBehaviour
 
 		bool canSeePlayer = HasLineOfSight();
 
+		//Debug.Log(canSeePlayer);
+
 		if (canSeePlayer)
 		{
 			IncrementAlertness(Time.deltaTime, true);
@@ -91,9 +86,9 @@ public class WanderAI : MonoBehaviour
 	{
 		float senseDist = 0f;
 		List<float> availableSenses = new();
-		foreach (ViewConeSO sense in viewCones)
+		foreach (ViewConeSO sense in stats.senses)
 		{
-			availableSenses.Add(sense.range);
+			availableSenses.Add(sense.length);
 		}
 		if (availableSenses.Count > 0)
 		{
@@ -109,53 +104,52 @@ public class WanderAI : MonoBehaviour
 	private bool HasLineOfSight()
 	{
 		// Treat the player's position as the center of it's body
-		// TODO: alter if the player is crouching.
+		// TODO: alter if the player is crouching?
 		Vector3 playerCenter = player.position + Vector3.up;
 
-		// Get the distance and angle to the player
-		float dist = Vector3.Distance(playerCenter, transform.position);
+		// Get the direction to the player
 		Vector3 targetDirection = playerCenter - transform.position;
-		float angle = Mathf.Acos(Vector3.Dot(targetDirection.normalized, transform.forward)) * Mathf.Rad2Deg;
 
-		Debug.Log(angle);
-
-		foreach (ViewConeSO cone in viewCones)
+		foreach (ViewConeSO cone in stats.senses)
 		{
 			// If the player is in range and within angle, do a raycast, check if the hit is the player
 			// NOTE: This currently casts against everything in the scene. May need to add a layermask to prevent hits with transparent objects.
-			if (angle < cone.maxAngle &&
-				dist < cone.range &&
-				Physics.Raycast(transform.position, targetDirection, out RaycastHit hit, dist) &&
+			if (cone.InCone(transform, playerCenter) &&
+				Physics.Raycast(transform.position, targetDirection, out RaycastHit hit) &&
 				hit.transform.CompareTag("Player"))
+			{
 				return true;
+			}
 		}
 		return false;
 	}
 
 	private void UpdateAlertness(bool seesPlayer)
 	{
-		switch (stressState)
+		if (isRelaxed)
 		{
-			case StressState.Stressed:
-				// If can see the player, keep the relax timer at 2, otherwise, start reducing the relaxTimer
-				if (seesPlayer)
-					relaxTimer = 2;
-				else
-				{
-					relaxTimer -= Time.deltaTime;
-					if (relaxTimer <= 0)
-						stressState = StressState.Relaxing;
-				}
-				break;
-			case StressState.Relaxing:
-				Alertness -= Time.deltaTime * 10;
-				break;
+			Alertness -= Time.deltaTime * 10;
 		}
+		else
+		{
+			// If can see the player, keep the relax timer at 2, otherwise, start reducing the relaxTimer
+			if (seesPlayer)
+			{
+				relaxTimer = stats.timeBeforeRelaxing;
+			}
+			else
+			{
+				relaxTimer -= Time.deltaTime / stats.timeToRelax;
+				if (relaxTimer <= 0)
+					isRelaxed = true;
+			}
+		}
+
 		// Clamp alertness
 		Alertness = Mathf.Clamp(Alertness, 0, 100);
 		alertCanvas.enabled = Alertness != 0;
 
-		if (Alertness >= alertnessThresholds.threshold3)
+		if (Alertness >= stats.alertnessThreshold3)
 		{
 			UpdateAlertAI();
 		}
@@ -164,7 +158,7 @@ public class WanderAI : MonoBehaviour
 			agent.isStopped = false;
 		}
 	}
-
+	// TODO: Rework this
 	private void PredatorAI()
 	{
 		float distance = Vector3.Distance(transform.position, player.transform.position);
@@ -172,7 +166,7 @@ public class WanderAI : MonoBehaviour
 		if (distance <= 2f)
 		{
 			agent.isStopped = true;
-			if (Alertness >= alertnessThresholds.threshold3)
+			if (Alertness >= stats.alertnessThreshold3)
 			{
 				AttackPlayer();
 			}
@@ -225,14 +219,9 @@ public class WanderAI : MonoBehaviour
 				Vector3 rightDirection = Quaternion.AngleAxis(-90, Vector3.up) * playerDirection;
 				Vector3 rightDestination = transform.position - (rightDirection * (GetFleeingDist() + fleeingSearchRange));
 				// Choose the most ideal direction to get far away from the human!
-				if (Vector3.Distance(player.transform.position, leftDestination) < Vector3.Distance(player.position, rightDestination))
-				{
-					destination = leftDestination;
-				}
-				else
-				{
-					destination = rightDestination;
-				}
+				destination = Vector3.Distance(player.transform.position, leftDestination) < Vector3.Distance(player.position, rightDestination)
+					? leftDestination
+					: rightDestination;
 				if (NavMesh.SamplePosition(destination, out NavMeshHit hit1, fleeingSearchRange, NavMesh.AllAreas))
 				{
 					agent.SetDestination(hit1.position);
@@ -242,14 +231,9 @@ public class WanderAI : MonoBehaviour
 				{
 					// If that direction cannot get far enough, try the other direction!
 					Debug.Log("That direction didn't work! Go the other way!");
-					if (destination == leftDestination)
-					{
-						destination = rightDestination;
-					}
-					else
-					{
-						destination = leftDestination;
-					}
+					
+					destination = destination == leftDestination ? rightDestination : leftDestination;
+
 					if (NavMesh.SamplePosition(destination, out NavMeshHit hit2, fleeingSearchRange, NavMesh.AllAreas))
 					{
 						agent.SetDestination(hit2.position);
@@ -285,18 +269,16 @@ public class WanderAI : MonoBehaviour
 
 	private void UpdateAlertAI()
 	{
-		if (specialAbility == Ability.Alert)
+		if (stats.special == Ability.Alert)
 		{
 			foreach (Collider hitCollider in Physics.OverlapSphere(transform.position, alertDistance))
 			{
-				if (hitCollider.TryGetComponent(out WanderAI ai) && ai.IsAggressive())
-				{
+				if (hitCollider.TryGetComponent(out WanderAI ai) && ai.IsAggressive)
 					ai.IncrementAlertness(100);
-				}
 			}
 		}
 
-		switch (behaviorType)
+		switch (stats.behavior)
 		{
 			case AIType.Prey:
 				PreyAI();
@@ -321,7 +303,7 @@ public class WanderAI : MonoBehaviour
 	private void UpdateWanderAI()
 	{
 		// Non-Alerted Behavior
-		if (agent.remainingDistance <= agent.stoppingDistance && Alertness < alertnessThresholds.threshold1) //done with path
+		if (agent.remainingDistance <= agent.stoppingDistance && Alertness < stats.alertnessThreshold1) //done with path
 		{
 			if (RandomPoint(transform.position, wanderRadius, out Vector3 point)) //pass in our centre point and radius of area
 			{
@@ -332,7 +314,7 @@ public class WanderAI : MonoBehaviour
 		else
 		{
 			// Stage 1 of Alerted Behavior
-			if ((agent.remainingDistance <= agent.stoppingDistance || pathfindingState != PathfindingState.Looking) && Alertness >= alertnessThresholds.threshold1 && Alertness < alertnessThresholds.threshold2)
+			if ((agent.remainingDistance <= agent.stoppingDistance || pathfindingState != PathfindingState.Looking) && Alertness >= stats.alertnessThreshold1 && Alertness < stats.alertnessThreshold2)
 			{
 				if (RandomPoint(player.position, investigateRadius, out Vector3 point)) //pass in our centre point and radius of area
 				{
@@ -343,9 +325,9 @@ public class WanderAI : MonoBehaviour
 			else
 			{
 				// Stage 2 of Alerted Behavior behaviorType
-				if ((agent.remainingDistance <= agent.stoppingDistance || (pathfindingState != PathfindingState.Investigating && pathfindingState != PathfindingState.Fleeing)) && Alertness >= alertnessThresholds.threshold2 && Alertness < alertnessThresholds.threshold3)
+				if ((agent.remainingDistance <= agent.stoppingDistance || (pathfindingState != PathfindingState.Investigating && pathfindingState != PathfindingState.Fleeing)) && Alertness >= stats.alertnessThreshold2 && Alertness < stats.alertnessThreshold3)
 				{
-					if (behaviorType == AIType.Prey)
+					if (stats.behavior == AIType.Prey)
 					{
 						PreyAI();
 					}
@@ -391,7 +373,7 @@ public class WanderAI : MonoBehaviour
 	{
 		if (isRate)
 		{
-			Alertness += alertRate switch
+			Alertness += stats.alertRate switch
 			{
 				AlertRate.Low => gain * 5,
 				AlertRate.Medium => gain * 10,
@@ -404,32 +386,24 @@ public class WanderAI : MonoBehaviour
 		// Clamp alertness to the range 0-100
 		Alertness = Mathf.Clamp(Alertness, 0, 100);
 
-		if (stressState != StressState.Stressed)
+		if (isRelaxed)
 		{
-			StopCoroutine("RelaxTimer");
-			stressState = StressState.Stressed;
+			isRelaxed = false;
+			relaxTimer = stats.timeBeforeRelaxing;
 		}
 	}
 
-	public bool IsAggressive()
+	private void OnDrawGizmos()
 	{
-		if (behaviorType == AIType.Prey)
+		if (stats.senses.Length == 0 || !Application.isPlaying) return;
+		foreach (ViewConeSO cone in stats.senses)
 		{
-			return false;
-		}
-		else
-		{
-			return true;
+			Handles.zTest = UnityEngine.Rendering.CompareFunction.LessEqual;
+			cone.DebugDraw(transform, player.position, 0.5f);
+			Handles.zTest = UnityEngine.Rendering.CompareFunction.Greater;
+			cone.DebugDraw(transform, player.position, 0.2f);
 		}
 	}
-
-	private IEnumerator RelaxTimer()
-	{
-		yield return new WaitForSeconds(2);
-		stressState = StressState.Relaxing;
-	}
-
-
 
 	//private void OnDrawGizmos()
 	//{

@@ -19,6 +19,8 @@ public class FurnitureSO : ScriptableObject
     public float alertnessThreshold1;
     public float alertnessThreshold2;
     public float alertnessThreshold3;
+    public float timeBeforeRelaxing;
+    public float timeToRelax;
     public AlertRate alertRate;
     public Ability special;
     public ViewConeSO[] senses;
