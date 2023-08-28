@@ -11,7 +11,7 @@ public class Placeable : MonoBehaviour, IInteractable
     [field: SerializeField] public MeshRenderer Mesh { get; private set; }
 
     public bool IsValidPosition { get; private set; } = true;
-	public FurnitureItem InventoryItem { get; set; }
+	public SaveDataFurniture InventoryItem { get; set; }
     public Material Material { get; set; }
     public MeshCollider ChildMeshCollider => childMeshCollider;
     public bool CanPlaceOnSurface => canPlaceOnSurface;

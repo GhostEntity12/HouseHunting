@@ -9,6 +9,8 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	private PlayerMovement movement;
 	private PlayerLook look;
 
+	public PlayerInput PlayerInput => playerInput;
+
 	protected override void Awake()
 	{
         base.Awake();
@@ -33,6 +35,9 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		//removed for alpha
 		//playerInput.Hunting.OpenInventory.performed += ctx => ShopUIManager.Instance.ToggleShop();
 		playerInput.Hunting.Jump.performed += ctx => movement.Jump();
+
+		// shoot
+		playerInput.Hunting.Shoot.performed += ctx => WeaponManager.Instance.CurrentGun?.Shoot();
 
 		// reload
 		playerInput.Hunting.Reload.performed += ctx => WeaponManager.Instance.CurrentGun.Reload();

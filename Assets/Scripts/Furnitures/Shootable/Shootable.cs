@@ -55,9 +55,9 @@ public abstract class Shootable : MonoBehaviour, IInteractable
         return healthStatus;
     }
 
-    public FurnitureItem GetInventoryItem()
+    public SaveDataFurniture GetInventoryItem()
     {
-        return new FurnitureItem(furnitureSO.id, scaleFactor, materialIndex, price);
+        return new SaveDataFurniture(furnitureSO.id, scaleFactor, materialIndex, price);
     }
 
     public void Interact()
