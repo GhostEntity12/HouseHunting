@@ -8,7 +8,7 @@ public class WanderAI : MonoBehaviour
 {
 	const float aiEntityDistance = 100f; // This distance will be used to determine whether or not the AI should run or not.
 	enum PathfindingState { Fleeing, Chasing, Investigating, Looking, Wandering }
-	enum AlertLevels { None, Level1, Level2, Level3}
+	enum AlertLevels { None, Level1, Level2, Level3 }
 
 	private Shootable shootable;
 	private Canvas alertCanvas;
@@ -65,28 +65,17 @@ public class WanderAI : MonoBehaviour
 		if (!player || Vector3.Distance(player.position, transform.position) > aiEntityDistance)
 			return;
 
-		//if (Time.deltaTime > 0.2f)
-		//{
-		//	Debug.LogWarning("Warning: DeltaTime is at:" + Time.deltaTime);
-		//}
 		//SetSpeed();
 
 		//UpdateWanderAI();
 
 		bool canSeePlayer = HasLineOfSight();
 
-		if (canSeePlayer)
-		{
-			IncrementAlertness(Time.deltaTime * 10, true);
-		}
-
-
-
 		switch (currentBehaviour)
 		{
 			// Does not know player is around at all
 			case AlertLevels.None:
-				Roam();
+				Roam(canSeePlayer);
 				break;
 			// Has some knowledge of the player
 			case AlertLevels.Level1:
@@ -97,16 +86,7 @@ public class WanderAI : MonoBehaviour
 		}
 
 		UpdateBehaviourFromThreshold();
-
-		//bool canSeePlayer = HasLineOfSight();
-
-		//if (canSeePlayer)
-		//{
-		//	IncrementAlertness(Time.deltaTime, true);
-		//}
-
-		//UpdateRelax(canSeePlayer);
-		//alertCanvas.enabled = Alertness != 0;
+		UpdateRelax(canSeePlayer);
 
 		//if (Alertness >= stats.alertnessThreshold3)
 		//{
@@ -116,6 +96,11 @@ public class WanderAI : MonoBehaviour
 		//{
 		//	agent.isStopped = false;
 		//}
+
+		if (Input.GetKeyDown(KeyCode.T))
+		{
+			ToggleDoesRotate();
+		}
 	}
 
 	private void SetSpeed()
@@ -197,6 +182,7 @@ public class WanderAI : MonoBehaviour
 			case float a1 when a1 >= stats.alertnessThreshold1 && currentBehaviour != AlertLevels.Level1:
 				currentBehaviour = AlertLevels.Level1;
 				agent.ResetPath();
+				FindFleePoint();
 				break;
 			case float a0 when a0 == 0:
 				currentBehaviour = AlertLevels.None;
@@ -206,7 +192,7 @@ public class WanderAI : MonoBehaviour
 		}
 	}
 
-	private void Flee(Vector3? position = null)
+	private void FindFleePoint(Vector3? position = null)
 	{
 		Debug.Log("Fleeing!");
 		// Allows for the furniture to flee from a position - such as potentially a missed shot?
@@ -219,25 +205,17 @@ public class WanderAI : MonoBehaviour
 		// If the agent is close to it's destination, choose a new one
 		if (agent.remainingDistance < 1)
 		{
-			// Get a point in front of the furniture, and a random point
-			// in a circle centered on that point, then navigate to it
-			// This favours the AI moving generally forward
-			if (RandomPoint(transform.position + transform.forward * 5, 3, out Vector3 newPointForward))
+			Debug.Log("Fleepoint attempt");
+			if (NavMesh.SamplePosition(fleeTo, out NavMeshHit hit, 10f, NavMesh.AllAreas))
 			{
-				agent.SetDestination(newPointForward);
-			}
-			// If a point can't be found, then get a new point centered 
-			// on the AI. This lets the AI choose a new random forward
-			// An intemediary step could be added where it tries to reverse first
-			else if (RandomPoint(transform.position, 10, out Vector3 newPoint))
-			{
-				agent.SetDestination(newPoint);
+				Debug.Log("Fleepoint found");
+				agent.SetDestination(hit.position);
 			}
 		}
 
 	}
 
-	private void Roam()
+	private void Roam(bool canSeePlayer)
 	{
 		// If the agent is close to it's destination, choose a new one
 		if (agent.remainingDistance < 1)
@@ -257,6 +235,16 @@ public class WanderAI : MonoBehaviour
 				agent.SetDestination(newPoint);
 			}
 		}
+
+		if (canSeePlayer)
+		{
+			IncrementAlertness(Time.deltaTime * 20, true);
+		}
+	}
+
+	private void Flee()
+	{
+		Debug.Log("Fleeing!");
 	}
 
 	// TODO: Rework this
@@ -496,4 +484,7 @@ public class WanderAI : MonoBehaviour
 			cone.DebugDraw(transform, player.position, 0.2f);
 		}
 	}
+
+	[ContextMenu("Toggle Does Rot")]
+	public void ToggleDoesRotate() => agent.updateRotation = !agent.updateRotation;
 }
