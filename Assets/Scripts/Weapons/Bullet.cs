@@ -1,14 +1,22 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private GameObject bulletHolePrefab;
+    [SerializeField] int damage;
+    [SerializeField] GameObject bulletHolePrefab;
+    [SerializeField] float lifespan;
 
-    private int damage;
-
+    public Rigidbody Rigidbody { get; private set; }
     public int Damage { get { return damage; } set { damage = value; } }
     public bool CanBounce { get; set; }
+
+
+	private void Awake()
+	{
+		Rigidbody = GetComponent<Rigidbody>();
+	}
 
     private void OnCollisionEnter(Collision collision)
     {

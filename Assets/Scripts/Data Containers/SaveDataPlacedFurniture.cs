@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public struct HouseItem
+public struct SaveDataPlacedFurniture
 {
     public Vector3 position;
     public float rotationAngle;
 
-    public FurnitureItem inventoryItem;
+    public SaveDataFurniture inventoryItem;
 
-    public HouseItem(FurnitureItem inventoryItem, Vector3 position, float rotationAngle)
+    public SaveDataPlacedFurniture(SaveDataFurniture inventoryItem, Vector3 position, float rotationAngle)
     {
         this.inventoryItem = inventoryItem;
         this.position = position;

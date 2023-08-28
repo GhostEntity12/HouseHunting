@@ -11,6 +11,7 @@ public class BulletPool : Singleton<BulletPool>
 
     public Bullet BulletPrefab 
     { 
+        get { return bulletPrefab; }
         set 
         {
             foreach(Bullet bullet in pooledObjects)
