@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 191712800586414919}
   - component: {fileID: 9089002510832572809}
   - component: {fileID: 1072507620166295143}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 5988595869423812583}
   - component: {fileID: 4980923520864812753}
   - component: {fileID: 6286950046973409605}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 5389150443075915665}
   - component: {fileID: 196924580575452389}
   - component: {fileID: 4769373712336529039}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Leg (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 5494817654374562812}
   - component: {fileID: 7406689001724238556}
   - component: {fileID: 6705102548806765304}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Leg (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 3995878489297562419}
   - component: {fileID: 8689176999054604303}
   - component: {fileID: 1546028303723054115}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Leg (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +349,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 626940987496722998}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Hitboxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 1171529578584424129}
   - component: {fileID: 736955873112452282}
   - component: {fileID: 7221047130739491992}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Table
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -439,11 +439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fbf68acf72d3d4385926a6f0451aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alertness: 0
-  playerMovement: {fileID: 6098993039830378882, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
-  agent: {fileID: 736955873112452282}
   wanderRadius: 15
-  isPredator: 0
 --- !u!195 &736955873112452282
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -583,6 +579,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Alert UI
       objectReference: {fileID: 0}
+    - target: {fileID: 958545255073040575, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5236622499727851553, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6070018216266263218, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -656,6 +664,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
       propertyPath: m_Name
       value: Table
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
