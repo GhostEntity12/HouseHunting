@@ -12,10 +12,10 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
 	private Placeable holdingPlaceable;
     private float holdingPlaceableRotation = 0;
-	private List<HouseItem> houseItems;
+	private List<SaveDataPlacedFurniture> houseItems;
 	private float houseValue = 0;
 
-	public List<HouseItem> HouseItems => houseItems;
+	public List<SaveDataPlacedFurniture> HouseItems => houseItems;
     public Placeable HoldingPlaceable { get => holdingPlaceable; set => holdingPlaceable = value; }
 	public float HoldingPlaceableRotation { get => holdingPlaceableRotation; set => holdingPlaceableRotation = value; }
 
@@ -33,11 +33,11 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
     }
 
     // function to calculate house rating, on certain threseholds (to be determined later), unlockTier is called to unlock that tier.
-    private float CalculateHouseRating(List<HouseItem> houseItems)
+    private float CalculateHouseRating(List<SaveDataPlacedFurniture> houseItems)
 	{
 		float tValue = 0;
 
-		foreach (HouseItem item in houseItems)
+		foreach (SaveDataPlacedFurniture item in houseItems)
 		{
 			tValue += item.inventoryItem.Value;
 		}
@@ -52,7 +52,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
 	private void SpawnSerializedPlaceables()
 	{
-		foreach (HouseItem item in houseItems)
+		foreach (SaveDataPlacedFurniture item in houseItems)
 		{
 			Placeable spawnedPlaceable = Instantiate(DataPersistenceManager.Instance.GetPlaceablePrefabById(item.inventoryItem.id));
 			spawnedPlaceable.SetTransforms(item.position, item.rotationAngle);
@@ -101,18 +101,18 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
 	public void LoadData(GameData data)
 	{
-		houseItems = data.houseItems;
+		houseItems = data.placedFurniture;
 	}
 
 	public void SaveData(GameData data)
 	{
-        data.houseItems = houseItems;
+        data.placedFurniture = houseItems;
 	}
 
 	public void SelectFurnitureToPlace()
 	{
 		if (ShopUIManager.Instance.SelectedFurniture?.so == null) return;
-		(FurnitureSO so, FurnitureItem item) selectedFurniture = ShopUIManager.Instance.SelectedFurniture.Value;
+		(FurnitureSO so, SaveDataFurniture item) selectedFurniture = ShopUIManager.Instance.SelectedFurniture.Value;
 		Placeable spawnedPlaceable = Instantiate(selectedFurniture.so.placeablePrefab);
 
 		holdingPlaceable = spawnedPlaceable;
@@ -135,7 +135,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
         GameManager.Instance.PermanentInventory.RemoveItem(holdingPlaceable.InventoryItem);
 
         MeshRenderer meshRenderer = holdingPlaceable.GetComponentInChildren<MeshRenderer>();
-        houseItems.Add(new HouseItem(holdingPlaceable.InventoryItem, holdingPlaceable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
+        houseItems.Add(new SaveDataPlacedFurniture(holdingPlaceable.InventoryItem, holdingPlaceable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
 
 		holdingPlaceable.Mesh.material = holdingPlaceable.Material;
 		holdingPlaceable.ChildMeshCollider.enabled = true;

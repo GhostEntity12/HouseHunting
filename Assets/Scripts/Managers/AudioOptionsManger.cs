@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using System;
 
 public class AudioOptionsManager : MonoBehaviour
 {
@@ -49,8 +50,11 @@ public class AudioOptionsManager : MonoBehaviour
     public void SetEffectVolume()
     {
         float volume = effectsVolumeSlider.value;
-        myMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
-        effectsVolumeText.text = ((int)(volume * 100)).ToString();
+        myMixer.SetFloat("SFXVolume", (float)Mathf.Log10(volume) * 20);
+        Debug.Log(Math.Round(volume * 100, 0));
+
+        effectsVolumeText.text = Math.Round(volume * 100, 0).ToString();
+
         PlayerPrefs.SetFloat("SFXVolume", volume);
     }
 

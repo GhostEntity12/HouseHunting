@@ -3,19 +3,17 @@ using System.Collections.Generic;
 [System.Serializable]
 public class GameData
 {
-    public List<FurnitureItem> permanentInventory;
-    public List<FurnitureItem> huntingInventory;
-    public List<HouseItem> houseItems;
-    public List<ShopItem> boughtItems;
+    public List<SaveDataFurniture> storedFurniture;
+    public List<SaveDataPlacedFurniture> placedFurniture;
+    public List<SaveDataGun> gunSaveData;
     public int currency;
 
     //the values in this constructor will be the initial values of the game state, i.e., when there is no save file
     public GameData()
     {
-        permanentInventory = new List<FurnitureItem>();
-        huntingInventory = new List<FurnitureItem>();
-        houseItems = new List<HouseItem>();
-        boughtItems = new List<ShopItem>();
+        storedFurniture = new();
+        placedFurniture = new();
+        gunSaveData = new();
         currency = 0;
     }
 }
