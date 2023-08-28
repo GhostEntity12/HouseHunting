@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 9124735293262616422}
   - component: {fileID: 1370906476700937492}
   - component: {fileID: 8535494396004692210}
+  - component: {fileID: -5252831852714092}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -210,6 +211,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3eab3b8a8951b7e43a98e783c59ee939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-5252831852714092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659654999893775899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a200e82fc034f40bf3598872f7710c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3181152274157614099
@@ -430,6 +443,7 @@ MonoBehaviour:
   recoilX: 5
   recoilY: 5
   recoilZ: 5
+  kickbackZ: 0
   snappiness: 5
   returnSpeed: 1
 --- !u!1 &8337428779502255245
