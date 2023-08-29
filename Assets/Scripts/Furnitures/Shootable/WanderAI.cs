@@ -8,11 +8,7 @@ public class WanderAI : MonoBehaviour
 	enum AlertLevels { None, Level1, Level2, Level3 }
 	const float aiEntityDistance = 100f; // This distance will be used to determine whether or not the AI should run or not.
 
-	[SerializeField] private FurnitureSO stats;
-	[SerializeField] private Behaviour threshold0Behaviour;
-	[SerializeField] private Behaviour threshold1Behaviour;
-	[SerializeField] private Behaviour threshold2Behaviour;
-	[SerializeField] private Behaviour threshold3Behaviour;
+	private FurnitureSO info;
 
 	private Shootable shootable;
 	private AlertLevels currentBehaviour = AlertLevels.None;
@@ -46,10 +42,10 @@ public class WanderAI : MonoBehaviour
 	{
 		// Cache some values
 		player = HuntingManager.Instance.Player;
-		stats = shootable.FurnitureSO;
+		info = shootable.FurnitureSO;
 
 		// Populate the speed from the stats
-		agent.speed = stats.speed;
+		agent.speed = info.speed;
 	}
 
 	private void Update()
@@ -74,7 +70,7 @@ public class WanderAI : MonoBehaviour
 		UpdateSightAlertness(canSeePlayer);
 
 		// Bundle information to pass to behaviours
-		Knowledge k = new(transform, player.position, dangerPosition, stats, agent, sound, canSeePlayer);
+		Knowledge k = new(transform, player.position, dangerPosition, info, agent, sound, canSeePlayer);
 
 		// State machine
 		switch (currentBehaviour)
@@ -100,8 +96,8 @@ public class WanderAI : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		if (stats.senses.Length == 0 || !Application.isPlaying) return;
-		foreach (ViewConeSO cone in stats.senses)
+		if (info.senses.Length == 0 || !Application.isPlaying) return;
+		foreach (ViewConeSO cone in info.senses)
 		{
 			Handles.zTest = UnityEngine.Rendering.CompareFunction.LessEqual;
 			cone.DebugDraw(transform, player.position, 0.5f);
@@ -113,10 +109,10 @@ public class WanderAI : MonoBehaviour
 	private void Threshold0(Knowledge knowledge)
 	{
 		// Update behaviour level where appropriate
-		if (Alertness > stats.alertnessThreshold1)
+		if (Alertness > info.alertnessThreshold1)
 			TransitionToThreshold1();
 
-		threshold0Behaviour.Act(ref knowledge);
+		info.threshold0Behaviour.Act(ref knowledge);
 	}
 
 	private void Threshold1(Knowledge knowledge)
@@ -127,12 +123,12 @@ public class WanderAI : MonoBehaviour
 			case 0:
 				TransitionToThreshold0();
 				break;
-			case float a when a >= stats.alertnessThreshold2:
+			case float a when a >= info.alertnessThreshold2:
 				TransitionToThreshold2();
 				break;
 		}
 
-		threshold1Behaviour.Act(ref knowledge);
+		info.threshold1Behaviour.Act(ref knowledge);
 	}
 
 	private void Threshold2(Knowledge knowledge)
@@ -140,24 +136,24 @@ public class WanderAI : MonoBehaviour
 		// Update behaviour level where appropriate
 		switch (Alertness)
 		{
-			case float a when a < stats.alertnessThreshold1:
+			case float a when a < info.alertnessThreshold1:
 				TransitionToThreshold1();
 				break;
-			case float a when a >= stats.alertnessThreshold3:
+			case float a when a >= info.alertnessThreshold3:
 				TransitionToThreshold3();
 				break;
 		}
 
-		threshold2Behaviour.Act(ref knowledge);
+		info.threshold2Behaviour.Act(ref knowledge);
 	}
 
 	private void Threshold3(Knowledge knowledge)
 	{
 		// Update behaviour level where appropriate
-		if (Alertness < stats.alertnessThreshold1)
+		if (Alertness < info.alertnessThreshold1)
 			TransitionToThreshold1();
 
-		threshold3Behaviour.Act(ref knowledge);
+		info.threshold3Behaviour.Act(ref knowledge);
 	}
 
 	void TransitionToThreshold0()
@@ -176,7 +172,7 @@ public class WanderAI : MonoBehaviour
 		// Seize control of rotation
 		agent.updateRotation = false;
 		// Ensure speed is correct
-		agent.speed = stats.speed;
+		agent.speed = info.speed;
 		currentBehaviour = AlertLevels.Level1;
 	}
 
@@ -184,13 +180,13 @@ public class WanderAI : MonoBehaviour
 	{
 		// Release control of rotation
 		agent.updateRotation = true;
-		agent.speed = stats.speed;
+		agent.speed = info.speed;
 		currentBehaviour = AlertLevels.Level2;
 	}
 
 	private void TransitionToThreshold3()
 	{
-		agent.speed = stats.speed * 2;
+		agent.speed = info.speed * 2;
 		currentBehaviour = AlertLevels.Level3;
 	}
 
@@ -207,7 +203,7 @@ public class WanderAI : MonoBehaviour
 		// Get the direction to the player
 		Vector3 targetDirection = playerCenter - transform.position;
 
-		foreach (ViewConeSO cone in stats.senses)
+		foreach (ViewConeSO cone in info.senses)
 		{
 			// If the player is in range and within angle, do a raycast, check if the hit is the player
 			// NOTE: This currently casts against everything in the scene. May need to add a layermask to prevent hits with transparent objects.
@@ -268,9 +264,9 @@ public class WanderAI : MonoBehaviour
 		// Can see player, don't relax and keep relax timer at max
 		if (seesPlayer)
 		{
-			Alertness += Time.deltaTime * stats.sightAlertnessRate;
+			Alertness += Time.deltaTime * info.sightAlertnessRate;
 			isRelaxed = false;
-			relaxTimer = stats.timeBeforeDecay;
+			relaxTimer = info.timeBeforeDecay;
 		}
 		// Can't see player and but not relaxed yet
 		else if (!isRelaxed)
@@ -281,7 +277,7 @@ public class WanderAI : MonoBehaviour
 		}
 		// Decrease relaxTimer
 		else
-			Alertness -= Time.deltaTime * stats.alertnessDecayRate;
+			Alertness -= Time.deltaTime * info.alertnessDecayRate;
 	}
 
 	/// <summary>
