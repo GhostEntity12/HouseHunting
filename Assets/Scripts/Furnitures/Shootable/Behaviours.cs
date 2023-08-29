@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,12 +11,12 @@ public class Knowledge
 	public Vector3? dangerPosition;
 
 	public Vector3 AIPosition { get; private set; }
-	public Vector3 AIForward {get; private set; }
-	public Vector3 PlayerPosition {get; private set; }
-	public FurnitureSO Stats {get; private set; }
-	public NavMeshAgent Agent {get; private set; }
-	public SoundAlert MostProminentSound {get; private set; }
-	public bool CanSeePlayer {get; private set; }
+	public Vector3 AIForward { get; private set; }
+	public Vector3 PlayerPosition { get; private set; }
+	public FurnitureSO Stats { get; private set; }
+	public NavMeshAgent Agent { get; private set; }
+	public SoundAlert MostProminentSound { get; private set; }
+	public bool CanSeePlayer { get; private set; }
 
 	public Knowledge(Vector3 t, Vector3 f, Vector3 p, Vector3? d, FurnitureSO s, NavMeshAgent a, SoundAlert sa, bool v)
 	{

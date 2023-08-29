@@ -136,6 +136,7 @@ public class WanderAI : MonoBehaviour
 				TransitionToThreshold2();
 				break;
 		}
+
 		threshold1Behaviour.Act(ref knowledge);
 	}
 
@@ -151,6 +152,7 @@ public class WanderAI : MonoBehaviour
 				TransitionToThreshold3();
 				break;
 		}
+
 		threshold2Behaviour.Act(ref knowledge);
 	}
 
