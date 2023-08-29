@@ -14,6 +14,8 @@ public abstract class Shootable : MonoBehaviour, IInteractable
 
     public bool IsDead => isDead;
     public FurnitureSO FurnitureSO => furnitureSO;
+    public string InteractActionText => "Pickup";
+    public bool Interactable => isDead;
 
     private void Awake()
     {

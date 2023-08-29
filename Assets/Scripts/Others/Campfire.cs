@@ -10,7 +10,10 @@ public class Campfire : MonoBehaviour, IInteractable
 
 	public (string id, Sprite icon) CampfireInfo => (campfireID, icon);
 
-	private void Awake()
+	public string InteractActionText => "Return to House";
+	public bool Interactable => true;
+
+    private void Awake()
 	{
 		spawnPoint = transform.GetChild(0);	
 	}
