@@ -1,23 +1,22 @@
 using UnityEngine;
-using UnityEngineInternal;
 
 public class SoundAlerter : MonoBehaviour
 {
-    [SerializeField] Transform soundOrigin;
-    [SerializeField] Vector3 soundOriginPos;
-    [SerializeField] float range;
-    [SerializeField] float volume;
+	[SerializeField] Transform soundOrigin;
+	[SerializeField] Vector3 soundOriginPos;
+	[SerializeField] float range;
+	[SerializeField] float volume;
 
-    public void DebugSound() => MakeSound(volume, soundOrigin == null ? soundOriginPos : soundOrigin.position, range);
+	public void DebugSound() => MakeSound(volume, soundOrigin == null ? soundOriginPos : soundOrigin.position, range);
 
-    public static void MakeSound(float volume, Vector3 source, float? rangeOverride = null)
-    {
-        Collider[] hitColliders = Physics.OverlapSphere(source, rangeOverride ?? volume);
+	public static void MakeSound(float volume, Vector3 source, float? rangeOverride = null)
+	{
+		Collider[] hitColliders = Physics.OverlapSphere(source, rangeOverride ?? volume);
 
 		foreach (Collider hitCollider in hitColliders)
-        {
-            if (hitCollider.transform.TryGetComponent(out WanderAI ai))
-            {
+		{
+			if (hitCollider.transform.TryGetComponent(out WanderAI ai))
+			{
 				float distance = Vector3.Distance(source, ai.transform.position); // Get the distance between the source and furniture
 				float soundFalloff = rangeOverride == null
 					? Mathf.Pow((distance - volume) / -volume, 2f)
@@ -29,18 +28,18 @@ public class SoundAlerter : MonoBehaviour
             */
 				ai.EnqueueSound(new(source, volume * soundFalloff));
 			}
-        }
-    }
+		}
+	}
 }
 
 public struct SoundAlert
 {
-    public Vector3 position;
-    public float volume;
+	public Vector3 position;
+	public float volume;
 
-    public SoundAlert(Vector3 pos, float vol)
-    {
-        position = pos;
-        volume = vol;
-    }
+	public SoundAlert(Vector3 pos, float vol)
+	{
+		position = pos;
+		volume = vol;
+	}
 }

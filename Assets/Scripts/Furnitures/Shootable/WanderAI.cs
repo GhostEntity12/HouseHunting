@@ -1,13 +1,11 @@
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEditor;
 
 public class WanderAI : MonoBehaviour
 {
 	enum AlertLevels { None, Level1, Level2, Level3 }
-										 //enum PathfindingState { Fleeing, Chasing, Investigating, Looking, Wandering }
 	const float aiEntityDistance = 100f; // This distance will be used to determine whether or not the AI should run or not.
 
 	[SerializeField] private FurnitureSO stats;
@@ -17,7 +15,6 @@ public class WanderAI : MonoBehaviour
 	[SerializeField] private Behaviour threshold3Behaviour;
 
 	private Shootable shootable;
-	private Canvas alertCanvas;
 	private AlertLevels currentBehaviour = AlertLevels.None;
 	private bool isRelaxed;
 	private float relaxTimer = 0f;
@@ -32,13 +29,17 @@ public class WanderAI : MonoBehaviour
 		get => alertness;
 		private set => alertness = Mathf.Clamp(value, 0, 100);
 	}
-	public bool IsAggressive => stats.behavior != AIType.Prey;
 
 	private void Awake()
 	{
 		agent = GetComponent<NavMeshAgent>();
 		shootable = GetComponent<Shootable>();
-		alertCanvas = GetComponentInChildren<Canvas>();
+		// Could clone the Behaviours to allow them to carry their own instance variables...
+		// This could allow for knowledge to not need to pass in dangerPosition
+		//threshold0Behaviour = Instantiate(threshold0Behaviour);
+		//threshold1Behaviour = Instantiate(threshold1Behaviour);
+		//threshold2Behaviour = Instantiate(threshold2Behaviour);
+		//threshold3Behaviour = Instantiate(threshold3Behaviour);
 	}
 
 	private void Start()
@@ -73,7 +74,7 @@ public class WanderAI : MonoBehaviour
 		UpdateSightAlertness(canSeePlayer);
 
 		// Bundle information to pass to behaviours
-		Knowledge k = new(transform.position, transform.forward, player.position, dangerPosition, stats, agent, sound, canSeePlayer);
+		Knowledge k = new(transform, player.position, dangerPosition, stats, agent, sound, canSeePlayer);
 
 		// State machine
 		switch (currentBehaviour)
@@ -94,12 +95,6 @@ public class WanderAI : MonoBehaviour
 
 		// Update the cached danger position in case the behaviours changed it.
 		dangerPosition = k.dangerPosition;
-
-		// This is debug
-		if (Input.GetKeyDown(KeyCode.T))
-		{
-			ToggleDoesRotate();
-		}
 
 	}
 
@@ -145,7 +140,7 @@ public class WanderAI : MonoBehaviour
 		// Update behaviour level where appropriate
 		switch (Alertness)
 		{
-			case float a when a >= stats.alertnessThreshold1:
+			case float a when a < stats.alertnessThreshold1:
 				TransitionToThreshold1();
 				break;
 			case float a when a >= stats.alertnessThreshold3:
@@ -159,21 +154,16 @@ public class WanderAI : MonoBehaviour
 	private void Threshold3(Knowledge knowledge)
 	{
 		// Update behaviour level where appropriate
-		switch (Alertness)
-		{
-			case float a when a < stats.alertnessThreshold1:
-				TransitionToThreshold1();
-				break;
-			case float a when a > stats.alertnessThreshold3:
-				TransitionToThreshold3();
-				break;
-		}
+		if (Alertness < stats.alertnessThreshold1)
+			TransitionToThreshold1();
 
 		threshold3Behaviour.Act(ref knowledge);
 	}
 
 	void TransitionToThreshold0()
 	{
+		// Release control of rotation
+		agent.updateRotation = true;
 		currentBehaviour = AlertLevels.None;
 	}
 
@@ -189,7 +179,7 @@ public class WanderAI : MonoBehaviour
 		agent.speed = stats.speed;
 		currentBehaviour = AlertLevels.Level1;
 	}
-	
+
 	private void TransitionToThreshold2()
 	{
 		// Release control of rotation
@@ -197,7 +187,7 @@ public class WanderAI : MonoBehaviour
 		agent.speed = stats.speed;
 		currentBehaviour = AlertLevels.Level2;
 	}
-	
+
 	private void TransitionToThreshold3()
 	{
 		agent.speed = stats.speed * 2;
@@ -249,14 +239,14 @@ public class WanderAI : MonoBehaviour
 		// Debug draws
 		Debug.DrawLine(fleeFrom, currentPosition, Color.cyan, 15);
 		Debug.DrawLine(currentPosition, fleeTo, Color.blue, 15);
-		Debug.DrawLine(fleeTo, fleeTo + Vector3.up * 10, Color.red, 15);
+		Debug.DrawLine(fleeTo, fleeTo + (Vector3.up * 10), Color.red, 15);
 
 		return fleeTo;
 	}
 
 	public static bool RandomPoint(Vector3 center, float range, out Vector3 result)
 	{
-		Vector3 randomPoint = center + Random.insideUnitSphere * range; //random point in a sphere 
+		Vector3 randomPoint = center + (Random.insideUnitSphere * range); //random point in a sphere 
 		if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 1.0f, NavMesh.AllAreas)) //documentation: https://docs.unity3d.com/ScriptReference/AI.NavMesh.SamplePosition.html
 		{
 			//the 1.0f is the max distance from the random point to a point on the navmesh, might want to increase if range is big
@@ -278,6 +268,7 @@ public class WanderAI : MonoBehaviour
 		// Can see player, don't relax and keep relax timer at max
 		if (seesPlayer)
 		{
+			Alertness += Time.deltaTime * stats.sightAlertnessRate;
 			isRelaxed = false;
 			relaxTimer = stats.timeBeforeDecay;
 		}
@@ -316,8 +307,4 @@ public class WanderAI : MonoBehaviour
 	/// </summary>
 	/// <param name="sound"></param>
 	public void EnqueueSound(SoundAlert sound) => sounds.Enqueue(sound);
-
-	[ContextMenu("Toggle Does Rot")]
-	public void ToggleDoesRotate() => agent.updateRotation = !agent.updateRotation;
-
 }

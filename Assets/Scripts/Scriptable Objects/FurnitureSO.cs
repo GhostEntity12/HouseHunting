@@ -8,12 +8,12 @@ public enum AlertRate { Low, Medium, High, Instant };
 
 public class FurnitureSO : ScriptableObject
 {
-    [Header("Basic Info")]
-    public string id;
-    public new string name;
-    public int maxHealth;
-    public int damage;
-    public float speed;
+	[Header("Basic Info")]
+	public string id;
+	public new string name;
+	public int maxHealth;
+	public int damage;
+	public float speed;
 
 	[Header("System")]
 	public Sprite thumbnail;
@@ -21,22 +21,19 @@ public class FurnitureSO : ScriptableObject
 	public Shootable shootablePrefab;
 
 	[Header("Alertness/AI")]
-    public ViewConeSO[] senses;
-    [Range(0, 100)]
-    public float alertnessThreshold1;
-    [Range(0, 100)]
-    public float alertnessThreshold2;
-    [Range(0, 100)]
-    public float alertnessThreshold3;
-    public float timeBeforeDecay;
-    public float alertnessDecayRate;
+	public ViewConeSO[] senses;
+	[Range(0, 100)]
+	public float alertnessThreshold1 = 33;
+	[Range(0, 100)]
+	public float alertnessThreshold2 = 66;
+	[Range(0, 100)]
+	public float alertnessThreshold3 = 100;
+	public float timeBeforeDecay = 5;
+	public float alertnessDecayRate = 10;
+	public float sightAlertnessRate = 25;
 
-    [Header("Other")]
-    public float attackInterval;
-    public bool xray; //can the furniture see the player through obstructions?
-    public AIType behavior;
-    public AlertRate alertRate;
-    public Ability special;
-    public Material[] materials;
-    public int basePrice;
+	[Header("Other")]
+	public Ability special;
+	public Material[] materials;
+	public int basePrice;
 }

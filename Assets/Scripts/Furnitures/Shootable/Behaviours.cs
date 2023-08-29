@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+// This is *super* loosely based on a bunch of stuff
+// but partially adapted from https://www.youtube.com/watch?v=0VV24g1SxGU
 public abstract class Behaviour : ScriptableObject
 {
 	public abstract void Act(ref Knowledge knowledge);
@@ -10,18 +12,16 @@ public class Knowledge
 {
 	public Vector3? dangerPosition;
 
-	public Vector3 AIPosition { get; private set; }
-	public Vector3 AIForward { get; private set; }
+	public Transform AITransform { get; private set; }
 	public Vector3 PlayerPosition { get; private set; }
 	public FurnitureSO Stats { get; private set; }
 	public NavMeshAgent Agent { get; private set; }
 	public SoundAlert MostProminentSound { get; private set; }
 	public bool CanSeePlayer { get; private set; }
 
-	public Knowledge(Vector3 t, Vector3 f, Vector3 p, Vector3? d, FurnitureSO s, NavMeshAgent a, SoundAlert sa, bool v)
+	public Knowledge(Transform t, Vector3 p, Vector3? d, FurnitureSO s, NavMeshAgent a, SoundAlert sa, bool v)
 	{
-		AIPosition = t;
-		AIForward = f;
+		AITransform = t;
 		PlayerPosition = p;
 		dangerPosition = d;
 		Stats = s;
@@ -42,14 +42,14 @@ public class RoamBehaviour : Behaviour
 			// Get a point in front of the furniture, and a random point
 			// in a circle centered on that point, then navigate to it
 			// This favours the AI moving generally forward
-			if (WanderAI.RandomPoint(knowledge.AIPosition + knowledge.AIForward * 5, 3, out Vector3 newPointForward))
+			if (WanderAI.RandomPoint(knowledge.AITransform.position + (knowledge.AITransform.forward * 5), 3, out Vector3 newPointForward))
 			{
 				knowledge.Agent.SetDestination(newPointForward);
 			}
 			// If a point can't be found, then get a new point centered 
 			// on the AI. This lets the AI choose a new random forward
 			// An intemediary step could be added where it tries to reverse first
-			else if (WanderAI.RandomPoint(knowledge.AIPosition, 10, out Vector3 newPoint))
+			else if (WanderAI.RandomPoint(knowledge.AITransform.position, 10, out Vector3 newPoint))
 			{
 				knowledge.Agent.SetDestination(newPoint);
 			}
@@ -74,10 +74,23 @@ public class SearchBehaviour : Behaviour
 		else if (knowledge.dangerPosition == null)
 		{
 			// Hasn't yet seen and can't see the player in this state.
-			// Look around randomly
+			// Generate a random rotation
+			Vector2 circle = Random.insideUnitCircle;
+			knowledge.dangerPosition = new(
+				knowledge.AITransform.position.x + circle.x,
+				knowledge.AITransform.position.y,
+				knowledge.AITransform.position.z + circle.y);
 		}
 
-		// Look at dangerPosition
+		Quaternion targetRotation = Quaternion.LookRotation((Vector3)(knowledge.dangerPosition - knowledge.AITransform.position), Vector3.up);
+		// Rotate towards dangerPosition
+		knowledge.AITransform.rotation = Quaternion.RotateTowards(knowledge.AITransform.rotation, targetRotation, knowledge.Agent.angularSpeed * Time.deltaTime);
+		// Check if rot is close to looking at danger position
+		// If yes, reset dangerPosition
+		if (1 - Mathf.Abs(Quaternion.Dot(knowledge.AITransform.rotation, targetRotation)) < 0.1f)
+		{
+			knowledge.dangerPosition = null;
+		}
 	}
 }
 
@@ -97,7 +110,7 @@ public class FleeBehaviour : Behaviour
 		}
 
 		// If we reached the end of our current path or a new sound has been detected, generate a new path
-		if (knowledge.Agent.remainingDistance < 1 && WanderAI.RandomPoint(WanderAI.FindFleePoint((Vector3)knowledge.dangerPosition, knowledge.AIPosition), 2, out Vector3 fleeDestination))
+		if (knowledge.Agent.remainingDistance < 1 && WanderAI.RandomPoint(WanderAI.FindFleePoint((Vector3)knowledge.dangerPosition, knowledge.AITransform.position), 2, out Vector3 fleeDestination))
 		{
 			knowledge.Agent.SetDestination(fleeDestination);
 		}
@@ -109,7 +122,8 @@ public class FleePlayerBehaviour : Behaviour
 {
 	public override void Act(ref Knowledge knowledge)
 	{
-		if (knowledge.Agent.remainingDistance < 1 && WanderAI.RandomPoint(WanderAI.FindFleePoint(knowledge.PlayerPosition, knowledge.AIPosition), 2, out Vector3 fleeDestination))
+		// If we reached the end of our current path, generate a new one
+		if (knowledge.Agent.remainingDistance < 1 && WanderAI.RandomPoint(WanderAI.FindFleePoint(knowledge.PlayerPosition, knowledge.AITransform.position), 2, out Vector3 fleeDestination))
 		{
 			knowledge.Agent.SetDestination(fleeDestination);
 		}
