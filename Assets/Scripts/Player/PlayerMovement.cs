@@ -45,11 +45,11 @@ public class PlayerMovement : MonoBehaviour
 
         // Adjust sound alert levels based on isSneaking and isSprinting flags
         if (isSneaking) {
-            soundAlerter.MakeSound(Time.deltaTime * 2, transform.position, 2);
+            SoundAlerter.MakeSound(Time.deltaTime * 2, transform.position, 2);
         } else if (isSprinting){
-            soundAlerter.MakeSound(Time.deltaTime * 8, transform.position, 8);
+            SoundAlerter.MakeSound(Time.deltaTime * 8, transform.position, 8);
         } else {
-            soundAlerter.MakeSound(Time.deltaTime * 5, transform.position, 5);
+            SoundAlerter.MakeSound(Time.deltaTime * 5, transform.position, 5);
         }
     }
 
@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
             controller.Move(playerVelocity * Time.deltaTime);
 
-            soundAlerter.MakeSound(1, transform.position, 1);
+            SoundAlerter.MakeSound(1, transform.position, 1);
         }
     }
 

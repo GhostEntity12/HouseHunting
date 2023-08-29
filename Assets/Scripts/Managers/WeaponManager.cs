@@ -51,7 +51,7 @@ public class WeaponManager : Singleton<WeaponManager>
             CurrentGun = selectedGun;
             selectedGun.gameObject.SetActive(true);
             BulletPool.Instance.BulletPrefab = CurrentGun.GunSO.bulletPrefab;
-            soundAlerter.MakeSound(10, transform.position);
+            SoundAlerter.MakeSound(10, transform.position);
         }
         else if (selectedGun != null && selectedGun.GunSO.id != CurrentGun.GunSO.id)
         {
@@ -59,7 +59,7 @@ public class WeaponManager : Singleton<WeaponManager>
             selectedGun.gameObject.SetActive(true);
             CurrentGun = selectedGun;
             BulletPool.Instance.BulletPrefab = CurrentGun.GunSO.bulletPrefab;
-            soundAlerter.MakeSound(10, transform.position);
+            SoundAlerter.MakeSound(10, transform.position);
         }
         HuntingUIManager.Instance.SetAmmoCounterText(CurrentGun.AmmoInfo);
     }

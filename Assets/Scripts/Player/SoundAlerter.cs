@@ -1,11 +1,16 @@
 using UnityEngine;
+using UnityEngineInternal;
 
 public class SoundAlerter : MonoBehaviour
 {
-    //public delegate void OnSoundEmit(float volume, Vector3 source);
-    //public static event OnSoundEmit OnSoundEmitEvent;
+    [SerializeField] Transform soundOrigin;
+    [SerializeField] Vector3 soundOriginPos;
+    [SerializeField] float range;
+    [SerializeField] float volume;
 
-    public void MakeSound(float volume, Vector3 source, float? rangeOverride = null)
+    public void DebugSound() => MakeSound(volume, soundOrigin == null ? soundOriginPos : soundOrigin.position, range);
+
+    public static void MakeSound(float volume, Vector3 source, float? rangeOverride = null)
     {
         Collider[] hitColliders = Physics.OverlapSphere(source, rangeOverride ?? volume);
 
@@ -22,8 +27,20 @@ public class SoundAlerter : MonoBehaviour
                It has been simplified for now, but if we want to make the minimum distance to be that of the furniture's hitbox we can do that, 
                but measures must be taken so nothing bad happens if the sound came from within that hitbox.
             */
-				ai.IncrementAlertness(volume * soundFalloff);
+				ai.EnqueueSound(new(source, volume * soundFalloff));
 			}
         }
+    }
+}
+
+public struct SoundAlert
+{
+    public Vector3 position;
+    public float volume;
+
+    public SoundAlert(Vector3 pos, float vol)
+    {
+        position = pos;
+        volume = vol;
     }
 }
