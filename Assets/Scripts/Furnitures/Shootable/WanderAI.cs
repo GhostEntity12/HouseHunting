@@ -57,12 +57,6 @@ public class WanderAI : MonoBehaviour
 
     private void Update()
     {
-        if (shootable.IsDead)
-        {
-            agent.isStopped = true;
-            return;
-        }
-
         if (subject == null || Vector3.Distance(subject.transform.position, transform.position) > aiEntityDistance)
         {
             return;
