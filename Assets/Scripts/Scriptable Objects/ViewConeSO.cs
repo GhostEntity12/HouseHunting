@@ -10,7 +10,7 @@ public class ViewConeSO : ScriptableObject
     public Vector3 rotOffset;
 	[Tooltip("The length of the cone")]
 	public float length;
-	[Tooltip("The size of the cone")]
+	[Tooltip("The size of the cone"), Range(0, 360)]
 	public float angle;
 	// The angle actually being used in calculations.
 	// The TrueAngle is the permitted angle on either side of the center of the cone
