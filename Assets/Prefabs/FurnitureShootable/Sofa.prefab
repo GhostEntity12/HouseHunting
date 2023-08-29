@@ -357,7 +357,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fbf68acf72d3d4385926a6f0451aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderRadius: 15
+  stats: {fileID: 11400000, guid: 69de1102128b90040a3f6300e8e49c55, type: 2}
+  threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
+  threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
+  threshold2Behaviour: {fileID: 11400000, guid: 217112832d3f55c4e8f13aef0f12578c, type: 2}
+  threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
 --- !u!195 &736955873112452282
 NavMeshAgent:
   m_ObjectHideFlags: 0
