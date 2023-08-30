@@ -6,25 +6,24 @@ using UnityEngine.AI;
 public abstract class Behaviour : ScriptableObject
 {
 	public abstract void Act(ref Knowledge knowledge);
+	public abstract void Entry(ref Knowledge knowledge);
+	public abstract void Exit(ref Knowledge knowledge);
 }
 
 public class Knowledge
 {
-	public Vector3? dangerPosition;
-
 	public Transform AITransform { get; private set; }
 	public Vector3 PlayerPosition { get; private set; }
-	public FurnitureSO Stats { get; private set; }
+	public FurnitureSO Info { get; private set; }
 	public NavMeshAgent Agent { get; private set; }
 	public SoundAlert? MostProminentSound { get; private set; }
 	public bool CanSeePlayer { get; private set; }
 
-	public Knowledge(Transform t, Vector3 p, Vector3? d, FurnitureSO s, NavMeshAgent a, SoundAlert? sa, bool v)
+	public Knowledge(Transform t, Vector3 p, FurnitureSO i, NavMeshAgent a, SoundAlert? sa, bool v)
 	{
 		AITransform = t;
 		PlayerPosition = p;
-		dangerPosition = d;
-		Stats = s;
+		Info = i;
 		Agent = a;
 		MostProminentSound = sa;
 		CanSeePlayer = v;
@@ -42,78 +41,120 @@ public class RoamBehaviour : Behaviour
 			// Get a point in front of the furniture, and a random point
 			// in a circle centered on that point, then navigate to it
 			// This favours the AI moving generally forward
-			if (WanderAI.RandomPoint(knowledge.AITransform.position + (knowledge.AITransform.forward * 5), 3, out Vector3 newPointForward))
-			{
-				knowledge.Agent.SetDestination(newPointForward);
-			}
 			// If a point can't be found, then get a new point centered 
 			// on the AI. This lets the AI choose a new random forward
 			// An intemediary step could be added where it tries to reverse first
-			else if (WanderAI.RandomPoint(knowledge.AITransform.position, 10, out Vector3 newPoint))
+			if (WanderAI.RandomPoint(knowledge.AITransform.position + (knowledge.AITransform.forward * 5), 3, out Vector3 destination) ||
+				WanderAI.RandomPoint(knowledge.AITransform.position, 10, out destination))
 			{
-				knowledge.Agent.SetDestination(newPoint);
+				knowledge.Agent.SetDestination(destination);
 			}
 		}
+	}
+
+	public override void Entry(ref Knowledge knowledge)
+	{
+
+	}
+
+	public override void Exit(ref Knowledge knowledge)
+	{
+		knowledge.Agent.ResetPath();
 	}
 }
 
 [CreateAssetMenu(fileName = "Search Behaviour", menuName = "Behaviours/Search")]
 public class SearchBehaviour : Behaviour
 {
+	private Vector3? dangerPosition = null;
+	private float holdLookTimer;
+	[SerializeField] private float holdLookLength = 1;
 	public override void Act(ref Knowledge knowledge)
 	{
 		if (knowledge.CanSeePlayer)
 		{
 			// Cache the player's position in case it loses sight of the player
-			knowledge.dangerPosition = knowledge.PlayerPosition;
+			dangerPosition = knowledge.PlayerPosition;
+			holdLookTimer = holdLookLength;
 		}
 		//else if (knowledge.mostProminentSound.volume > 0)
 		//{
 		//	knowledge.dangerPosition = knowledge.mostProminentSound.position;
+		//	holdLookTimer = holdLookLength;
 		//}
-		else if (knowledge.dangerPosition == null)
+		else if (dangerPosition == null)
 		{
 			// Hasn't yet seen and can't see the player in this state.
 			// Generate a random rotation
 			Vector2 circle = Random.insideUnitCircle;
-			knowledge.dangerPosition = new(
+			dangerPosition = new(
 				knowledge.AITransform.position.x + circle.x,
 				knowledge.AITransform.position.y,
 				knowledge.AITransform.position.z + circle.y);
+			holdLookTimer = holdLookLength;
 		}
 
-		Quaternion targetRotation = Quaternion.LookRotation((Vector3)(knowledge.dangerPosition - knowledge.AITransform.position), Vector3.up);
+		Quaternion targetRotation = Quaternion.LookRotation((Vector3)(dangerPosition - knowledge.AITransform.position), Vector3.up);
 		// Rotate towards dangerPosition
 		knowledge.AITransform.rotation = Quaternion.RotateTowards(knowledge.AITransform.rotation, targetRotation, knowledge.Agent.angularSpeed * Time.deltaTime);
 		// Check if rot is close to looking at danger position
 		// If yes, reset dangerPosition
 		if (1 - Mathf.Abs(Quaternion.Dot(knowledge.AITransform.rotation, targetRotation)) < 0.1f)
 		{
-			knowledge.dangerPosition = null;
+			holdLookTimer -= Time.deltaTime;
+			if (holdLookTimer <= 0)
+			{
+				dangerPosition = null;
+				holdLookTimer = holdLookLength;
+			}
 		}
+	}
+
+	public override void Entry(ref Knowledge knowledge)
+	{
+		// Seize control of rotation
+		knowledge.Agent.updateRotation = false;
+	}
+
+	public override void Exit(ref Knowledge knowledge)
+	{
+		knowledge.Agent.ResetPath();
+		knowledge.Agent.updateRotation = true;
 	}
 }
 
 [CreateAssetMenu(fileName = "Flee Behaviour", menuName = "Behaviours/Flee General")]
 public class FleeBehaviour : Behaviour
 {
+	Vector3? dangerPosition = null;
 	public override void Act(ref Knowledge knowledge)
 	{
 		// Update dangerPosition if required
 		if (knowledge.CanSeePlayer)
 		{
-			knowledge.dangerPosition = knowledge.PlayerPosition;
+			dangerPosition = knowledge.PlayerPosition;
 		}
 		else if (knowledge.MostProminentSound != null)
 		{
-			knowledge.dangerPosition = ((SoundAlert)knowledge.MostProminentSound).position;
+			dangerPosition = ((SoundAlert)knowledge.MostProminentSound).position;
 		}
 
 		// If we reached the end of our current path or a new sound has been detected, generate a new path
-		if (knowledge.Agent.remainingDistance < 1 && WanderAI.RandomPoint(WanderAI.FindFleePoint((Vector3)knowledge.dangerPosition, knowledge.AITransform.position), 2, out Vector3 fleeDestination))
+		if (knowledge.Agent.remainingDistance < 1 &&
+			WanderAI.RandomPoint(WanderAI.FindFleePoint((Vector3)dangerPosition, knowledge.AITransform.position), 2, out Vector3 fleeDestination))
 		{
 			knowledge.Agent.SetDestination(fleeDestination);
 		}
+	}
+
+	public override void Entry(ref Knowledge knowledge)
+	{
+
+	}
+
+	public override void Exit(ref Knowledge knowledge)
+	{
+		knowledge.Agent.ResetPath();
 	}
 }
 
@@ -127,5 +168,19 @@ public class FleePlayerBehaviour : Behaviour
 		{
 			knowledge.Agent.SetDestination(fleeDestination);
 		}
+	}
+
+	public override void Entry(ref Knowledge knowledge)
+	{
+		// Ensure speed is correct
+		knowledge.Agent.speed = knowledge.Info.speed * 2;
+	}
+
+	public override void Exit(ref Knowledge knowledge)
+	{
+
+		// Ensure speed is correct
+		knowledge.Agent.speed = knowledge.Info.speed;
+		knowledge.Agent.ResetPath();
 	}
 }

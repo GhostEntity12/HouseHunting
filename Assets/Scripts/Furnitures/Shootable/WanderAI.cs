@@ -5,20 +5,20 @@ using UnityEngine.AI;
 
 public class WanderAI : MonoBehaviour
 {
-	enum AlertLevels { None, Level1, Level2, Level3 }
+	enum ThresholdLevels { Level0, Level1, Level2, Level3 }
 	const float aiEntityDistance = 100f; // This distance will be used to determine whether or not the AI should run or not.
 
 	private FurnitureSO info;
 
 	private Shootable shootable;
-	private AlertLevels currentBehaviour = AlertLevels.None;
+	private ThresholdLevels alertLevel = ThresholdLevels.Level0;
 	private bool isRelaxed;
 	private float relaxTimer = 0f;
-	private Vector3? dangerPosition = null;
 	private NavMeshAgent agent;
 	private readonly Queue<SoundAlert> sounds = new();
 	private Transform player;
 	private float alertness = 0;
+	private Behaviour activeBehaviour;
 
 	public float Alertness
 	{
@@ -30,12 +30,6 @@ public class WanderAI : MonoBehaviour
 	{
 		agent = GetComponent<NavMeshAgent>();
 		shootable = GetComponent<Shootable>();
-		// Could clone the Behaviours to allow them to carry their own instance variables...
-		// This could allow for knowledge to not need to pass in dangerPosition
-		//threshold0Behaviour = Instantiate(threshold0Behaviour);
-		//threshold1Behaviour = Instantiate(threshold1Behaviour);
-		//threshold2Behaviour = Instantiate(threshold2Behaviour);
-		//threshold3Behaviour = Instantiate(threshold3Behaviour);
 	}
 
 	private void Start()
@@ -43,6 +37,7 @@ public class WanderAI : MonoBehaviour
 		// Cache some values
 		player = HuntingManager.Instance.Player;
 		info = shootable.FurnitureSO;
+		activeBehaviour = Instantiate(info.threshold0Behaviour);
 
 		// Populate the speed from the stats
 		agent.speed = info.speed;
@@ -70,27 +65,11 @@ public class WanderAI : MonoBehaviour
 		UpdateSightAlertness(canSeePlayer);
 
 		// Bundle information to pass to behaviours
-		Knowledge k = new(transform, player.position, dangerPosition, info, agent, sound, canSeePlayer);
+		Knowledge k = new(transform, player.position, info, agent, sound, canSeePlayer);
 
-		// State machine
-		switch (currentBehaviour)
-		{
-			case AlertLevels.None:
-				Threshold0(k);
-				break;
-			case AlertLevels.Level1:
-				Threshold1(k);
-				break;
-			case AlertLevels.Level2:
-				Threshold2(k);
-				break;
-			case AlertLevels.Level3:
-				Threshold3(k);
-				break;
-		}
+		CheckTransitions(k);
 
-		// Update the cached danger position in case the behaviours changed it.
-		dangerPosition = k.dangerPosition;
+		activeBehaviour.Act(ref k);
 
 	}
 
@@ -106,90 +85,57 @@ public class WanderAI : MonoBehaviour
 		}
 	}
 
-	private void Threshold0(Knowledge knowledge)
+	private void CheckTransitions(Knowledge k)
 	{
-		// Update behaviour level where appropriate
-		if (Alertness > info.alertnessThreshold1)
-			TransitionToThreshold1();
-
-		info.threshold0Behaviour.Act(ref knowledge);
-	}
-
-	private void Threshold1(Knowledge knowledge)
-	{
-		// Update behaviour level where appropriate
-		switch (Alertness)
+		switch (alertLevel)
 		{
-			case 0:
-				TransitionToThreshold0();
+			case ThresholdLevels.Level0:
+				if (Alertness > info.alertnessThreshold1)
+				{
+					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
+				}
 				break;
-			case float a when a >= info.alertnessThreshold2:
-				TransitionToThreshold2();
+			case ThresholdLevels.Level1:
+				if (Alertness == 0)
+				{
+					Transition(info.threshold0Behaviour, k, ThresholdLevels.Level0);
+				}
+				else if (Alertness >= info.alertnessThreshold2)
+				{
+					Transition(info.threshold2Behaviour, k, ThresholdLevels.Level2);
+				}
+				break;
+			case ThresholdLevels.Level2:
+				if (Alertness < info.alertnessThreshold1)
+				{
+					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
+				}
+				else if (Alertness >= info.alertnessThreshold3)
+				{
+					Transition(info.threshold3Behaviour, k, ThresholdLevels.Level3);
+				}
+				break;
+			case ThresholdLevels.Level3:
+				if (Alertness < info.alertnessThreshold1)
+				{
+					Transition(info.threshold0Behaviour, k, ThresholdLevels.Level0);
+				}
 				break;
 		}
-
-		info.threshold1Behaviour.Act(ref knowledge);
 	}
 
-	private void Threshold2(Knowledge knowledge)
+	private void Transition(Behaviour newBehaviour, Knowledge knowledge, ThresholdLevels newAlertLevel)
 	{
-		// Update behaviour level where appropriate
-		switch (Alertness)
-		{
-			case float a when a < info.alertnessThreshold1:
-				TransitionToThreshold1();
-				break;
-			case float a when a >= info.alertnessThreshold3:
-				TransitionToThreshold3();
-				break;
-		}
-
-		info.threshold2Behaviour.Act(ref knowledge);
-	}
-
-	private void Threshold3(Knowledge knowledge)
-	{
-		// Update behaviour level where appropriate
-		if (Alertness < info.alertnessThreshold1)
-			TransitionToThreshold1();
-
-		info.threshold3Behaviour.Act(ref knowledge);
-	}
-
-	void TransitionToThreshold0()
-	{
-		// Release control of rotation
-		agent.updateRotation = true;
-		currentBehaviour = AlertLevels.None;
-	}
-
-	private void TransitionToThreshold1()
-	{
-		// Clear the path
-		agent.ResetPath();
-		// Clear any knowledge of where the player is
-		dangerPosition = null;
-		// Seize control of rotation
-		agent.updateRotation = false;
-		// Ensure speed is correct
-		agent.speed = info.speed;
-		currentBehaviour = AlertLevels.Level1;
-	}
-
-	private void TransitionToThreshold2()
-	{
-		// Clear the path
-		agent.ResetPath();
-		// Release control of rotation
-		agent.updateRotation = true;
-		agent.speed = info.speed;
-		currentBehaviour = AlertLevels.Level2;
-	}
-
-	private void TransitionToThreshold3()
-	{
-		agent.speed = info.speed * 2;
-		currentBehaviour = AlertLevels.Level3;
+		// Call the behaviour's exit
+		activeBehaviour.Exit(ref knowledge);
+		// Destroy the old behaviour
+		Destroy(activeBehaviour);
+		// Make a copy of the new behaviour
+		activeBehaviour = Instantiate(newBehaviour);
+		// Call the new behaviour's entry
+		activeBehaviour.Entry(ref knowledge);
+		// Update the state
+		alertLevel = newAlertLevel;
 	}
 
 	/// <summary>
