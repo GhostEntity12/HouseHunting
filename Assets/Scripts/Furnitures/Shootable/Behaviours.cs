@@ -16,10 +16,10 @@ public class Knowledge
 	public Vector3 PlayerPosition { get; private set; }
 	public FurnitureSO Stats { get; private set; }
 	public NavMeshAgent Agent { get; private set; }
-	public SoundAlert MostProminentSound { get; private set; }
+	public SoundAlert? MostProminentSound { get; private set; }
 	public bool CanSeePlayer { get; private set; }
 
-	public Knowledge(Transform t, Vector3 p, Vector3? d, FurnitureSO s, NavMeshAgent a, SoundAlert sa, bool v)
+	public Knowledge(Transform t, Vector3 p, Vector3? d, FurnitureSO s, NavMeshAgent a, SoundAlert? sa, bool v)
 	{
 		AITransform = t;
 		PlayerPosition = p;
@@ -104,9 +104,9 @@ public class FleeBehaviour : Behaviour
 		{
 			knowledge.dangerPosition = knowledge.PlayerPosition;
 		}
-		else if (knowledge.MostProminentSound.volume > 0)
+		else if (knowledge.MostProminentSound != null)
 		{
-			knowledge.dangerPosition = knowledge.MostProminentSound.position;
+			knowledge.dangerPosition = ((SoundAlert)knowledge.MostProminentSound).position;
 		}
 
 		// If we reached the end of our current path or a new sound has been detected, generate a new path

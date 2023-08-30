@@ -64,7 +64,8 @@ public class Gun : MonoBehaviour
 		// If gun is not fuly loaded, only fire bullets in gun
 		int bulletsToFire = Mathf.Min(GunSO.bulletsPerTap, AmmoPouch.AmmoInGun);
         //AnimationTrigger("Shoot"); // fire gun animation
-        SoundAlerter.MakeSound(GunSO.volume, transform.position);
+        SoundAlerter.MakeSoundImpulse(GunSO.volume, transform.position);
+        Rigidbody rb = new();
             
         readyToShoot = false;
         //AnimationTrigger("Shoot"); // fire gun animation
@@ -114,7 +115,7 @@ public class Gun : MonoBehaviour
 		recoil.RecoilFire();
 
 		// Make noise
-		SoundAlerter.MakeSound(GunSO.volume, transform.position);
+		SoundAlerter.MakeSoundImpulse(GunSO.volume, transform.position);
 
 		// Reenable gun after wait
 		Invoke(nameof(ReenableGun), GunSO.timeBetweenShots);

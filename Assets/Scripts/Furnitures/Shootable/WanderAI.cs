@@ -64,7 +64,7 @@ public class WanderAI : MonoBehaviour
 		bool canSeePlayer = HasLineOfSight();
 
 		// Deal with sounds
-		ProcessSounds(out SoundAlert sound);
+		ProcessSounds(out SoundAlert? sound);
 
 		// Change alertness based on whether the player is visible
 		UpdateSightAlertness(canSeePlayer);
@@ -178,6 +178,8 @@ public class WanderAI : MonoBehaviour
 
 	private void TransitionToThreshold2()
 	{
+		// Clear the path
+		agent.ResetPath();
 		// Release control of rotation
 		agent.updateRotation = true;
 		agent.speed = info.speed;
@@ -284,17 +286,27 @@ public class WanderAI : MonoBehaviour
 	/// Iterates through the queue of sounds and adds their volume to the furniture's alertness 
 	/// </summary>
 	/// <param name="loudestSound">The sound with the largest volume</param>
-	private void ProcessSounds(out SoundAlert loudestSound)
+	private void ProcessSounds(out SoundAlert? loudestSound)
 	{
-		loudestSound = new(Vector3.zero, 0);
-		while (sounds.Count > 0)
+		if (sounds.Count == 0)
 		{
-			SoundAlert sound = sounds.Dequeue();
-			if (sound.volume > loudestSound.volume)
+			loudestSound = null;
+			return;
+		}
+		else
+		{
+			loudestSound = new(Vector3.zero, 0);
+			isRelaxed = false;
+			relaxTimer = info.timeBeforeDecay;
+			while (sounds.Count > 0)
 			{
-				loudestSound = sound;
+				SoundAlert sound = sounds.Dequeue();
+				if (sound.volume > ((SoundAlert)loudestSound).volume)
+				{
+					loudestSound = sound;
+				}
+				Alertness += sound.volume;
 			}
-			Alertness += sound.volume;
 		}
 	}
 
