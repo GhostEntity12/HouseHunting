@@ -12,7 +12,6 @@ public class FurnitureSO : ScriptableObject
 	public string id;
 	public new string name;
 	public int maxHealth;
-	public int damage;
 	public float speed;
 
 	[Header("System")]
