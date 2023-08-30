@@ -18,7 +18,7 @@ public class WanderAI : MonoBehaviour
 	private readonly Queue<SoundAlert> sounds = new();
 	private Transform player;
 	private float alertness = 0;
-	private Behaviour activeBehaviour;
+	private AIBehaviour activeBehaviour;
 
 	public float Alertness
 	{
@@ -124,7 +124,7 @@ public class WanderAI : MonoBehaviour
 		}
 	}
 
-	private void Transition(Behaviour newBehaviour, Knowledge knowledge, ThresholdLevels newAlertLevel)
+	private void Transition(AIBehaviour newBehaviour, Knowledge knowledge, ThresholdLevels newAlertLevel)
 	{
 		// Call the behaviour's exit
 		activeBehaviour.Exit(ref knowledge);

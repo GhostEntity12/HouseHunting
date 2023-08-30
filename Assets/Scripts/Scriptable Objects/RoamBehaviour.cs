@@ -11,17 +11,22 @@ public class RoamBehaviour : AIBehaviour
 			// Get a point in front of the furniture, and a random point
 			// in a circle centered on that point, then navigate to it
 			// This favours the AI moving generally forward
-			if (WanderAI.RandomPoint(knowledge.AITransform.position + (knowledge.AITransform.forward * 5), 3, out Vector3 newPointForward))
-			{
-				knowledge.Agent.SetDestination(newPointForward);
-			}
 			// If a point can't be found, then get a new point centered 
 			// on the AI. This lets the AI choose a new random forward
 			// An intemediary step could be added where it tries to reverse first
-			else if (WanderAI.RandomPoint(knowledge.AITransform.position, 10, out Vector3 newPoint))
+			if (WanderAI.RandomPoint(knowledge.AITransform.position + (knowledge.AITransform.forward * 5), 3, out Vector3 destination) ||
+				WanderAI.RandomPoint(knowledge.AITransform.position, 10, out destination))
 			{
-				knowledge.Agent.SetDestination(newPoint);
+				knowledge.Agent.SetDestination(destination);
 			}
 		}
+	}
+	public override void Entry(ref Knowledge knowledge)
+	{
+
+	}
+	public override void Exit(ref Knowledge knowledge)
+	{
+		knowledge.Agent.ResetPath();
 	}
 }
