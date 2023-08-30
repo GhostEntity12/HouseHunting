@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 51aa51c7b4703ed418b94f9b4b5e1eb5, type: 3}
   m_Name: Roam Behaviour
   m_EditorClassIdentifier: Assembly-CSharp::RoamBehaviour

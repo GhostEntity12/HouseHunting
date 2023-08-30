@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 5bb6443571878fd4aadacbf1273683e4, type: 3}
   m_Name: Search Behaviour
   m_EditorClassIdentifier: Assembly-CSharp::SearchBehaviour
   holdLookLength: 1
