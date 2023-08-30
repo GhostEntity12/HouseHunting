@@ -20,16 +20,16 @@ public class FurnitureSO : ScriptableObject
 	public Shootable shootablePrefab;
 
 	[Header("AI Behaviour")]
-	public Behaviour threshold0Behaviour;
+	public AIBehaviour threshold0Behaviour;
 	[Range(0, 100)]
 	public float alertnessThreshold1 = 33;
-	public Behaviour threshold1Behaviour;
+	public AIBehaviour threshold1Behaviour;
 	[Range(0, 100)]
 	public float alertnessThreshold2 = 66;
-	public Behaviour threshold2Behaviour;
+	public AIBehaviour threshold2Behaviour;
 	[Range(0, 100)]
 	public float alertnessThreshold3 = 100;
-	public Behaviour threshold3Behaviour;
+	public AIBehaviour threshold3Behaviour;
 	
 	[Header("Alertness and Senses")]
 	public float timeBeforeDecay = 5;
