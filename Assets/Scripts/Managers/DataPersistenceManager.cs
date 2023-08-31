@@ -5,8 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class DataPersistenceManager : Singleton<DataPersistenceManager>
 {
-    [SerializeField] private List<FurnitureSO> allFurnitureSOs; // this list stores all the placeable scriptable objects in the game, every time a new one is created, it must be added to this list via the Unity editor
-    [SerializeField] private List<ShopItemSO> allShopItems; // this list stores all the buyable items in the game, every time a new one is created, it must be added to this list via the Unity editor
+	[Tooltip("This list stores all the placeable scriptable objects in the game, every time a new one is created, it must be added to this list via the Unity editor")]
+	[SerializeField] private List<FurnitureSO> allFurnitureSOs;
+    [SerializeField] private List<GunSO> allGunSOs;
+    [Tooltip("This list stores all the gun scriptable objects in the game, every time a new one is created, it must be added to this list via the Unity editor")]
     [SerializeField] private string savedFileName = "data";
 
     private GameData gameData;
@@ -14,7 +16,6 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
     private FileDataHandler fileDataHandler;
 
     public List<FurnitureSO> AllFurnitureSO { get => allFurnitureSOs; }
-    public List<ShopItemSO> AllShopItems { get => allShopItems; }
 
     protected override void Awake() 
     {
@@ -52,21 +53,15 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
         SaveGame();
     }
 
-    private List<IDataPersistence> FindAllDataPersistenceObjects()
-    {
-        IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
-        return new List<IDataPersistence>(dataPersistenceObjects);
-    }
+	private List<IDataPersistence> FindAllDataPersistenceObjects() => new(FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>());
 
-    public void NewGame()
+	public void NewGame()
     {
         gameData = new GameData();
-        gameData.boughtItems.Add(new GunShopItem("crossbow", 1, 1));
-        gameData.boughtItems.Add(new ShopItem("crossbow_bullet", 1000));
-        gameData.boughtItems.Add(new GunShopItem("rifle", 1, 1));
-        gameData.boughtItems.Add(new ShopItem("rifle_bullet", 1000));
-        gameData.boughtItems.Add(new GunShopItem("shotgun", 1, 1));
-        gameData.boughtItems.Add(new ShopItem("shotgun_icon", 10000));
+        // Add the guns to the save
+        gameData.gunSaveData.Add(new SaveDataGun("crossbow"));
+        gameData.gunSaveData.Add(new SaveDataGun("rifle"));
+        gameData.gunSaveData.Add(new SaveDataGun("shotgun"));
     }
 
     public void LoadGame()
@@ -97,8 +92,5 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
         return allFurnitureSOs.Find(x => x.id == id).placeablePrefab;
     }
 
-    public ShopItemSO GetShopItemById(string id)
-    {
-        return allShopItems.Find(x => x.id == id);
-    }
+    public GunSO GetGunById(string id) => allGunSOs.Find(x => x.id == id);
 }

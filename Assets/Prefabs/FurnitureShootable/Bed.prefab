@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 714293541680953632}
   - component: {fileID: 2998029856060972406}
   - component: {fileID: 5826287862924014707}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 5988595869423812583}
   - component: {fileID: 4980923520864812753}
   - component: {fileID: 6286950046973409605}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 6056453616130983068}
   - component: {fileID: 4058607576882067627}
   - component: {fileID: 4917483403529469925}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 8819945149847025498}
   - component: {fileID: 3783386989878595318}
   - component: {fileID: 4958022596994901484}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Pillow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 626940987496722998}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Hitboxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,9 +320,9 @@ GameObject:
   - component: {fileID: 736955873112452282}
   - component: {fileID: 7221047130739491992}
   - component: {fileID: 6366392969304530097}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Bed
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -357,11 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fbf68acf72d3d4385926a6f0451aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alertness: 0
-  playerMovement: {fileID: 6098993039830378882, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
-  agent: {fileID: 736955873112452282}
   wanderRadius: 15
-  isPredator: 0
 --- !u!195 &736955873112452282
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -376,7 +372,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -473,6 +469,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 27c9356bf9a33634d95b47eb2dd83705, type: 3}
       propertyPath: m_Name
       value: Bed1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 27c9356bf9a33634d95b47eb2dd83705, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -581,6 +581,10 @@ PrefabInstance:
       value: Alert UI
       objectReference: {fileID: 0}
     - target: {fileID: 958545255073040575, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 958545255073040575, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -592,10 +596,14 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4967339732981435965, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
-      propertyPath: skull
-      value: 
-      objectReference: {fileID: 21300000, guid: 4c4534e14b124c24fbc70ae73c64d016, type: 3}
+    - target: {fileID: 5236622499727851553, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6070018216266263218, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

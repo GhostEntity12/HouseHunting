@@ -14,8 +14,10 @@ public abstract class Shootable : MonoBehaviour, IInteractable
 
     public bool IsDead => isDead;
     public FurnitureSO FurnitureSO => furnitureSO;
+    public string InteractActionText => "Pickup";
+    public bool Interactable => isDead;
 
-    private void Awake()
+	private void Awake()
     {
         currentHealth = furnitureSO.maxHealth;
         meshRenderer = GetComponentInChildren<MeshRenderer>();
@@ -47,15 +49,10 @@ public abstract class Shootable : MonoBehaviour, IInteractable
         if (currentHealth <= 0) Die();
     }
 
-    public int[] GetHealth()
-    {
-        int[] healthStatus = { currentHealth, furnitureSO.maxHealth };
-        return healthStatus;
-    }
 
-    public FurnitureItem GetInventoryItem()
+	public SaveDataFurniture GetInventoryItem()
     {
-        return new FurnitureItem(furnitureSO.id, scaleFactor, materialIndex, price);
+        return new SaveDataFurniture(furnitureSO.id, scaleFactor, materialIndex, price);
     }
 
     public void Interact()
