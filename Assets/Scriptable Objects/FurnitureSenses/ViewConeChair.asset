@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4542cbce753f7974d84ae8b4da51e96f, type: 3}
-  m_Name: TableSight
+  m_Script: {fileID: 11500000, guid: f60a2417889a3074fbae62580b3987c9, type: 3}
+  m_Name: ViewConeChair
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 0, z: 0}
+  posOffset: {x: 0, y: 0, z: 0}
   rotOffset: {x: 0, y: 0, z: 0}
-  debugIdleColor: {r: 0, g: 1, b: 0, a: 1}
-  debugDetectedColor: {r: 1, g: 0, b: 0, a: 1}
-  range: 10
-  maxAngle: 20
+  length: 30
+  angle: 360
+  debugIdleColor: {r: 0.7169812, g: 0.23268066, b: 0.23268066, a: 1}
+  debugDetectedColor: {r: 0.67312175, g: 0.9254902, b: 0.65882355, a: 1}
