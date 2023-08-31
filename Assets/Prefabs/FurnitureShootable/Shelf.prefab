@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7583036294647450}
   - component: {fileID: 3960466011309733488}
   - component: {fileID: 4816409863799703582}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Shelf (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 6209520795957016250}
   - component: {fileID: 718958378878947309}
   - component: {fileID: 3347138501756866857}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Shelf (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 5988595869423812583}
   - component: {fileID: 4980923520864812753}
   - component: {fileID: 6286950046973409605}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 260907322063193431}
   - component: {fileID: 4136947965998327745}
   - component: {fileID: 6565816785926232861}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Side (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 9076706562438606177}
   - component: {fileID: 860222262764764363}
   - component: {fileID: 6179296560542096775}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Shelf (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 5009626281985045995}
   - component: {fileID: 1983604862647813042}
   - component: {fileID: 510669388232817854}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Shelf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -417,7 +417,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 626940987496722998}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Hitboxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -458,7 +458,7 @@ GameObject:
   - component: {fileID: 736955873112452282}
   - component: {fileID: 7221047130739491992}
   - component: {fileID: 6900452092522998625}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Shelf
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -495,11 +495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fbf68acf72d3d4385926a6f0451aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alertness: 0
-  playerMovement: {fileID: 6098993039830378882, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
-  agent: {fileID: 736955873112452282}
   wanderRadius: 15
-  isPredator: 0
 --- !u!195 &736955873112452282
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -612,6 +608,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shelf1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 09e87d08a93f10943a795fef0c082bf9, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -719,6 +719,10 @@ PrefabInstance:
       value: Alert UI
       objectReference: {fileID: 0}
     - target: {fileID: 958545255073040575, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 958545255073040575, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -729,6 +733,14 @@ PrefabInstance:
     - target: {fileID: 4543745558615537537, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5236622499727851553, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6070018216266263218, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
