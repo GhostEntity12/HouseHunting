@@ -23,9 +23,9 @@ MonoBehaviour:
   alertnessThreshold1: 30
   threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
   alertnessThreshold2: 60
-  threshold2Behaviour: {fileID: 0}
+  threshold2Behaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
   alertnessThreshold3: 100
-  threshold3Behaviour: {fileID: 0}
+  threshold3Behaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
   timeBeforeDecay: 5
   alertnessDecayRate: 10
   sightAlertnessRate: 25
