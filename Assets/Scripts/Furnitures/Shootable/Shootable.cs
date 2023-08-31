@@ -14,6 +14,8 @@ public abstract class Shootable : MonoBehaviour, IInteractable
 
     public bool IsDead => isDead;
     public FurnitureSO FurnitureSO => furnitureSO;
+    public string InteractActionText => "Pickup";
+    public bool Interactable => isDead;
 
     private void Awake()
     {
@@ -53,9 +55,9 @@ public abstract class Shootable : MonoBehaviour, IInteractable
         return healthStatus;
     }
 
-    public FurnitureItem GetInventoryItem()
+    public SaveDataFurniture GetInventoryItem()
     {
-        return new FurnitureItem(furnitureSO.id, scaleFactor, materialIndex, price);
+        return new SaveDataFurniture(furnitureSO.id, scaleFactor, materialIndex, price);
     }
 
     public void Interact()
