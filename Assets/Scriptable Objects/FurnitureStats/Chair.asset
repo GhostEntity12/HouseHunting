@@ -14,23 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: chair
   name: Chair
-  maxHealth: 50
-  damage: 20
-  speed: 4
-  attackInterval: 2
-  xray: 0
-  behavior: 0
+  maxHealth: 20
+  speed: 5
+  thumbnail: {fileID: 21300000, guid: 166e5dc9494bfeb4f8094bc130d8669c, type: 3}
+  placeablePrefab: {fileID: 1539234630903234798, guid: 3a32fa9bd96e69a45a45bce94bf15c16, type: 3}
+  shootablePrefab: {fileID: 3685072443934080641, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
+  threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
   alertnessThreshold1: 35
+  threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
   alertnessThreshold2: 70
+  threshold2Behaviour: {fileID: 11400000, guid: 217112832d3f55c4e8f13aef0f12578c, type: 2}
   alertnessThreshold3: 100
-  alertRate: 0
-  special: 0
+  threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
+  timeBeforeDecay: 5
+  alertnessDecayRate: 10
+  sightAlertnessRate: 25
   senses:
-  - {fileID: 11400000, guid: b1e25f516c768da4296a4c5bf6551fed, type: 2}
+  - {fileID: 11400000, guid: f9f7060eff2b4844093101b1d93db58e, type: 2}
+  special: 0
   materials:
   - {fileID: 2100000, guid: dc9a266ec49130e4c9b55f5329b7e48f, type: 2}
   - {fileID: 2100000, guid: e86089b7200e35043a5cdf794f97fbc5, type: 2}
   basePrice: 50
-  thumbnail: {fileID: 21300000, guid: 166e5dc9494bfeb4f8094bc130d8669c, type: 3}
-  placeablePrefab: {fileID: 1539234630903234798, guid: 3a32fa9bd96e69a45a45bce94bf15c16, type: 3}
-  shootablePrefab: {fileID: 3685072443934080641, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
