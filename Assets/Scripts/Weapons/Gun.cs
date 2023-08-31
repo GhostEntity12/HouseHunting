@@ -17,7 +17,6 @@ public class Gun : MonoBehaviour
 	private bool usingADS = false;
 	private Animator anim;
 	private Recoil recoil;
-	private SoundAlerter soundAlerter;
     private Vector3 initialPosition;
     private Vector3 adsPosition;
 
@@ -31,7 +30,6 @@ public class Gun : MonoBehaviour
     {
         recoil = GetComponentInParent<Recoil>();
         anim = GetComponent<Animator>();
-        soundAlerter = GameObject.Find("Player").GetComponent<SoundAlerter>();
         readyToShoot = true;
         ads = false;
         elapsedTime = 1;
@@ -64,7 +62,8 @@ public class Gun : MonoBehaviour
 		// If gun is not fuly loaded, only fire bullets in gun
 		int bulletsToFire = Mathf.Min(GunSO.bulletsPerTap, AmmoPouch.AmmoInGun);
         //AnimationTrigger("Shoot"); // fire gun animation
-        soundAlerter.MakeSound(GunSO.volume, transform.position);
+        SoundAlerter.MakeSoundImpulse(GunSO.volume, transform.position);
+        Rigidbody rb = new();
             
         readyToShoot = false;
         //AnimationTrigger("Shoot"); // fire gun animation
@@ -114,7 +113,7 @@ public class Gun : MonoBehaviour
 		recoil.RecoilFire();
 
 		// Make noise
-		soundAlerter.MakeSound(GunSO.volume, transform.position);
+		SoundAlerter.MakeSoundImpulse(GunSO.volume, transform.position);
 
 		// Reenable gun after wait
 		Invoke(nameof(ReenableGun), GunSO.timeBetweenShots);
