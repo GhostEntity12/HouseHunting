@@ -1,34 +1,41 @@
+using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Bullet : MonoBehaviour
 {
-    public int damage;
-    public GameObject bulletHolePrefab;
-    public float lifespan;
+    [SerializeField] int damage;
+    [SerializeField] GameObject bulletHolePrefab;
+    [SerializeField] float lifespan;
 
-    void OnCollisionEnter(Collision collision)
+    public Rigidbody Rigidbody { get; private set; }
+    public int Damage { get { return damage; } set { damage = value; } }
+    public bool CanBounce { get; set; }
+
+
+	private void Awake()
+	{
+		Rigidbody = GetComponent<Rigidbody>();
+	}
+
+    private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Player"))
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         if (collision.transform.TryGetComponent(out Hitbox hitbox))
         {
             hitbox.Damage(damage);
-
-            // Instantiate bullet hole
-            ContactPoint contact = collision.GetContact(0);
-            Quaternion rotation = Quaternion.FromToRotation(Vector3.up, contact.normal);
-            GameObject bulletHole = Instantiate(bulletHolePrefab, contact.point, rotation);
-            bulletHole.transform.position += bulletHole.transform.forward / 1000;
-            Destroy(gameObject);
-            return;
         }
 
-        //Despawn bullet
-        Destroy(gameObject, lifespan); 
+        StartCoroutine(DestroyDelay());
+        // Instantiate bullet hole
+        ContactPoint contact = collision.GetContact(0);
+        GameObject bulletHole = Instantiate(bulletHolePrefab, contact.point, Quaternion.LookRotation(contact.normal));
+        bulletHole.transform.position += bulletHole.transform.forward / 500;
+        Destroy(bulletHole, 1.5f);
     }
     
+    private IEnumerator DestroyDelay()
+    {
+        yield return new WaitForSeconds(CanBounce ? 1.5f : 0);
+        gameObject.SetActive(false);
+    }
 }

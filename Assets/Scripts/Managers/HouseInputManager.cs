@@ -29,6 +29,18 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		playerInput.House.Enable();
     }
 
+    private void Update()
+    {
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 3f) && hit.transform.TryGetComponent(out IInteractable interactable) && interactable.Interactable)
+        {
+			InteractPopupManager.Instance.gameObject.SetActive(true);
+			InteractPopupManager.Instance.SetAction(interactable.InteractActionText);
+        } else
+		{
+			InteractPopupManager.Instance.gameObject.SetActive(false);
+		}
+    }
+
     private void FixedUpdate()
 	{
         if (!ShopUIManager.Instance.IsShopOpen)

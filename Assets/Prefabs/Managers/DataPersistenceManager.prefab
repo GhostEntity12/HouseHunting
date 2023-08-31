@@ -52,18 +52,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1dcca73881634e345b92d7a7b74d5654, type: 2}
   - {fileID: 11400000, guid: 69de1102128b90040a3f6300e8e49c55, type: 2}
   - {fileID: 11400000, guid: cdedef21e3f841b428cb71cb08e6a8db, type: 2}
-  - {fileID: 11400000, guid: 2d9675b2fd54ef344b9c7e4ceed87213, type: 2}
-  - {fileID: 11400000, guid: 46680193f04c63e41b07f4bff6852e0e, type: 2}
-  - {fileID: 11400000, guid: 52d1dfc4d1fd73a47ba04b980dd7ec55, type: 2}
-  - {fileID: 11400000, guid: ee9aa1c04b07097418393da139fee3ac, type: 2}
-  - {fileID: 11400000, guid: ae55ba0707fa4ca409e3ff2ae1e3d041, type: 2}
-  - {fileID: 11400000, guid: a23d6fea2a74c67479c79fb36c6d8859, type: 2}
-  - {fileID: 11400000, guid: cd559f755261cca438240d2e52738194, type: 2}
-  allShopItems:
-  - {fileID: 11400000, guid: 2316356cb94825c40a4c239d447aaf42, type: 2}
-  - {fileID: 11400000, guid: f5fa55fd452667742849a27f3897a243, type: 2}
-  - {fileID: 11400000, guid: 48e8de274598bad4c96c7736278cbb98, type: 2}
-  - {fileID: 11400000, guid: 25da7d02a6ecd914ca4753afc0b9d7d9, type: 2}
-  - {fileID: 11400000, guid: 8bf667d09ce49754bbad806dc4dda6f3, type: 2}
-  - {fileID: 11400000, guid: 1f61477647416ad4ca1aab1270c44416, type: 2}
+  allGunSOs:
+  - {fileID: 11400000, guid: 260cd78f5b7281843b0c646b1f74255c, type: 2}
+  - {fileID: 11400000, guid: 32118748925db9a45a9281c1d16cd3f7, type: 2}
+  - {fileID: 11400000, guid: 8fe96e106545c50498bb3b14c76c014e, type: 2}
   savedFileName: data
