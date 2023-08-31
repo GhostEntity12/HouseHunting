@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2320999884146223389
 MonoBehaviour:
@@ -50,7 +50,7 @@ MonoBehaviour:
   sounds:
   - audioType: 1
     clip: {fileID: 8300000, guid: 2155b06e3e5f39a4b90769ef8ef23ef4, type: 3}
-    loop: 0
+    loop: 1
     playOnAwake: 0
     volume: 1
     pitch: 1
@@ -58,7 +58,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - audioType: 1
     clip: {fileID: 8300000, guid: 1031a364098ef3340bc568331ac01b53, type: 3}
-    loop: 0
+    loop: 1
     playOnAwake: 0
     volume: 1
     pitch: 1
@@ -66,7 +66,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - audioType: 1
     clip: {fileID: 8300000, guid: c079757f96d9f8844867534b2b460fc5, type: 3}
-    loop: 0
+    loop: 1
     playOnAwake: 0
     volume: 1
     pitch: 1
@@ -74,7 +74,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - audioType: 1
     clip: {fileID: 8300000, guid: add67e703414c8047afd5623cf6da5be, type: 3}
-    loop: 0
+    loop: 1
     playOnAwake: 0
     volume: 1
     pitch: 1
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d638f35bfe678cf4488582e195ea1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMixer: {fileID: 0}
+  myMixer: {fileID: 24100000, guid: e8a21494f77d0a345b323aea9a2b7600, type: 2}
   musicVolumeText: {fileID: 0}
   effectsVolumeText: {fileID: 0}
   masterVolumeText: {fileID: 0}
