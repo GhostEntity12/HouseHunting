@@ -24,6 +24,7 @@ public class CompassController : MonoBehaviour
 
     private void Update()
     {
+        if (!player) return;
         cardinalImage.uvRect = new Rect(player.localEulerAngles.y / 360f, 0f, 1f, 1f);
 
         foreach(CompassMarker marker in markers)

@@ -526,7 +526,7 @@ public class WanderAI : MonoBehaviour
         if (timeSinceLastAttack >= shootable.FurnitureSO.attackInterval)
         {
             timeSinceLastAttack = 0f;
-            HuntingManager.Instance.DealDamageToPlayer(shootable.FurnitureSO.damage);
+            HuntingManager.Instance.DealDamageToPlayer();
         }
         else
         {
