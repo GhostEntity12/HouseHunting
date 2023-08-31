@@ -96,7 +96,7 @@ public class WanderAI : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		if (info.senses.Length == 0 || !Application.isPlaying) return;
+		if (info && info.senses.Length == 0 || !Application.isPlaying) return;
 		foreach (ViewConeSO cone in info.senses)
 		{
 			Handles.zTest = UnityEngine.Rendering.CompareFunction.LessEqual;
