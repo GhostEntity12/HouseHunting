@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 
-public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
+public class HuntingManager : Singleton<HuntingManager>
 {
 	[SerializeField] private int maxHealth;
 	[SerializeField] private GameObject gameOverUI;
@@ -16,11 +16,10 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 	[SerializeField] private TextMeshProUGUI healthText;
 
 	private int currentHealth;
-	private Inventory huntingInventory;
 	private float huntingTimerSeconds;
 
 	[field: SerializeField] public Transform Player { get; private set; }
-	public Inventory HuntingInventory => huntingInventory;
+	public FurnitureInventory HuntingInventory { get; private set; }
 
 	protected override void Awake()
 	{
@@ -29,7 +28,7 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 		currentHealth = maxHealth;
 		huntingTimerSeconds = huntingDurationSeconds;
 
-		huntingInventory = new Inventory();
+		HuntingInventory = new FurnitureInventory();
 	}
 
 	private void Start()
@@ -59,7 +58,7 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 	private void Die()
 	{
 		// clear the current hunting session's inventory
-		huntingInventory.ClearInventory();
+		HuntingInventory.ClearInventory();
 
 		// detach the camera from the player
 		Camera camera = Player.GetComponentInChildren<Camera>();
@@ -109,19 +108,9 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 
 	public void RespawnInHouse()
 	{
-		GameManager.Instance.PermanentInventory.MergeInventory(huntingInventory);
+		GameManager.Instance.PermanentInventory.MergeInventory(HuntingInventory);
 		gameOverUI.SetActive(false);
 		GameManager.Instance.HideCursor();
 		SceneManager.LoadScene(1);
-	}
-
-	public void LoadData(GameData data)
-	{
-		huntingInventory.Items = data.huntingInventory;
-	}
-
-	public void SaveData(GameData data)
-	{
-		data.huntingInventory = huntingInventory.Items;
 	}
 }

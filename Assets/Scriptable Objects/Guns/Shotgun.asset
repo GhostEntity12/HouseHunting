@@ -15,7 +15,8 @@ MonoBehaviour:
   id: shotgun
   name: Shotgun
   bulletPrefab: {fileID: 3790431006243065009, guid: 5ff316bf07ef7cf42a70ce61b97da412, type: 3}
-  icon: {fileID: 21300000, guid: d79a92fb90dd48841b06e145213af236, type: 3}
+  icon: {fileID: 21300000, guid: cbfd737db6c50f14ebb140c9625c6292, type: 3}
+  damagePerBullet: 30
   shootForce: 75
   timeBetweenShots: 1
   spread: 0.2
