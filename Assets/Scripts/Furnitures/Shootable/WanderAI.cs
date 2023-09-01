@@ -94,6 +94,7 @@ public class WanderAI : MonoBehaviour
 
 	}
 
+#if UNITY_EDITOR
 	private void OnDrawGizmos()
 	{
 		if (info && info.senses.Length == 0 || !Application.isPlaying) return;
@@ -105,7 +106,7 @@ public class WanderAI : MonoBehaviour
 			cone.DebugDraw(transform, player.position, 0.2f);
 		}
 	}
-
+#endif
 	private void Threshold0(Knowledge knowledge)
 	{
 		// Update behaviour level where appropriate
