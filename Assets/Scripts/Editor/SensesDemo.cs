@@ -27,7 +27,7 @@ public class SensesDemo : MonoBehaviour
 		foreach (SenseCone cone in cones)
 		{
 			Handles.color = new Color(cone.color.r, cone.color.g, cone.color.b, transparency);
-			Vector3 baseOffset = Quaternion.Euler(0, cone.angleOffest, 0) * transform.forward;
+			Vector3 baseOffset = Quaternion.Euler(0, cone.angleOffset, 0) * transform.forward;
 			Vector3 drawOffset = Quaternion.AngleAxis(-0.5f * cone.arc, Vector3.up) * (baseOffset - Vector3.Dot(baseOffset, Vector3.up) * Vector3.up);
 			Handles.DrawSolidArc(transform.position + Vector3.up * 0.01f, Vector3.up, drawOffset, cone.arc, cone.length);
 		}
@@ -42,7 +42,7 @@ public struct SenseCone
 	[Range(0, 360)]
 	public float arc;
 	[Range(-180, 180)]
-	public float angleOffest;
+	public float angleOffset;
 }
 
 [System.Serializable]

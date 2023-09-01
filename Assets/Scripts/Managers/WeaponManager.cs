@@ -6,7 +6,6 @@ public class WeaponManager : Singleton<WeaponManager>
 {
 	private readonly List<Gun> allGuns = new();
 	private readonly List<Gun> ownedGuns = new();
-	private SoundAlerter soundAlerter;
 
 	public int CurrentGunIndex { get; private set; } = 0;
 	public Gun CurrentGun { get; private set; } = null;
@@ -15,9 +14,6 @@ public class WeaponManager : Singleton<WeaponManager>
 	{
         // Return if not in Hunting scene
         if (HuntingManager.Instance == null) return;
-
-        // TODO: Swap to this once player is exposed
-        soundAlerter = HuntingManager.Instance.Player.GetComponent<SoundAlerter>();
 
         // Iterating over children
         foreach (Transform t in transform)
@@ -51,7 +47,7 @@ public class WeaponManager : Singleton<WeaponManager>
             CurrentGun = selectedGun;
             selectedGun.gameObject.SetActive(true);
             BulletPool.Instance.BulletPrefab = CurrentGun.GunSO.bulletPrefab;
-            soundAlerter.MakeSound(10, transform.position);
+            SoundAlerter.MakeSoundImpulse(10, transform.position);
         }
         else if (selectedGun != null && selectedGun.GunSO.id != CurrentGun.GunSO.id)
         {
@@ -59,7 +55,7 @@ public class WeaponManager : Singleton<WeaponManager>
             selectedGun.gameObject.SetActive(true);
             CurrentGun = selectedGun;
             BulletPool.Instance.BulletPrefab = CurrentGun.GunSO.bulletPrefab;
-            soundAlerter.MakeSound(10, transform.position);
+            SoundAlerter.MakeSoundImpulse(10, transform.position);
         }
         HuntingUIManager.Instance.SetAmmoCounterText(CurrentGun.AmmoInfo);
     }
