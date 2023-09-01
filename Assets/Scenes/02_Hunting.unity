@@ -2001,7 +2001,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 127751011}
   inputField: {fileID: 1251025676}
-  outputText: {fileID: 0}
+  outputText: {fileID: 1642745586}
   allCommands:
   - {fileID: 11400000, guid: 3e87d1c562a6bf442af01148ef2102ca, type: 2}
 --- !u!1 &127962760
@@ -2105,11 +2105,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9183740531884994269, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9183740531884994269, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9183740531884994269, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_AnchorMin.y
@@ -2227,21 +2227,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shop UI
       objectReference: {fileID: 0}
-    - target: {fileID: 9183740532586617849, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 9183740532713411041, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9183740532713411041, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9183740532713411041, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9183740532713411041, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9183740532993204622, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_text
@@ -2249,7 +2245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9183740533133080826, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000018119812
+      value: -0.00057106366
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15007,27 +15003,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6080739849800273057, guid: 6994a377fbdc3174f92c55cee93265e7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6080739849800273057, guid: 6994a377fbdc3174f92c55cee93265e7, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6080739849800273057, guid: 6994a377fbdc3174f92c55cee93265e7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 250
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6080739849800273057, guid: 6994a377fbdc3174f92c55cee93265e7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6080739851205457314, guid: 6994a377fbdc3174f92c55cee93265e7, type: 3}
       propertyPath: m_Name
       value: CampfireChoiceCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 6080739851205457314, guid: 6994a377fbdc3174f92c55cee93265e7, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6080739851205457321, guid: 6994a377fbdc3174f92c55cee93265e7, type: 3}
       propertyPath: m_Pivot.x

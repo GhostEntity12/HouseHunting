@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aeab36a7412d64449707397051c74ca, type: 3}
   m_Name: Deal Damage Command
   m_EditorClassIdentifier: 
+  prefix: dealdamage
+  tips: Deals 1 damage to the player. Cannot be called in non-hunting scene.

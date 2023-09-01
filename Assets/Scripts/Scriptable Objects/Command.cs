@@ -3,7 +3,7 @@ using UnityEngine;
 public class Command : ScriptableObject
 {
     public string prefix;
-    public string tips;
+    [TextArea] public string tips;
 
     public Command(string prefix, string tips)
     {

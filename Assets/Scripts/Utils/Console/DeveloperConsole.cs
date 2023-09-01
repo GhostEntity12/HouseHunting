@@ -26,16 +26,19 @@ public class DeveloperConsole : Singleton<DeveloperConsole>
 
             string[] words = inputField.text.Split(' ');
 
-            Command matchCommand = allCommands.Find(c => c.prefix == words[0]);
+            string prefix = words[0];
+
+            Command matchCommand = allCommands.Find(c => c.prefix == prefix.ToLower());
 
             if (matchCommand != null)
                 matchCommand.Execute(words.Skip(1).ToArray());
             else
-                SetOutput("Command not found");
+                SetOutput($"{prefix} is not a valid command");
 
             inputField.text = "";
+            inputField.ActivateInputField();
+            inputField.Select();
         }
-        if (canvas.enabled) inputField.Select();
     }
 
     public void Toggle()
@@ -43,11 +46,14 @@ public class DeveloperConsole : Singleton<DeveloperConsole>
         canvas.enabled = !canvas.enabled;
         if (canvas.enabled)
         {
+            inputField.ActivateInputField();
             inputField.Select();
             GameManager.Instance.ShowCursor();
+            HuntingInputManager.Instance.PlayerInput.Disable();
         } else
         {
             GameManager.Instance.HideCursor();
+            HuntingInputManager.Instance.PlayerInput.Enable();
         }
     }
 
