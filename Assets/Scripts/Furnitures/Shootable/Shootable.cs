@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Shootable : MonoBehaviour, IInteractable
+public class Shootable : MonoBehaviour, IInteractable
 {
     [SerializeField] private FurnitureSO furnitureSO;
 

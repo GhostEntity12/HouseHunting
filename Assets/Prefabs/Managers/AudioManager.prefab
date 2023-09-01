@@ -96,6 +96,46 @@ MonoBehaviour:
     pitch: 1
     name: Landing
     source: {fileID: 0}
+  - audioType: 0
+    clip: {fileID: 8300000, guid: a574dcef22ab42e4a9f0e892173fb867, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 1
+    pitch: 1
+    name: Crossbow
+    source: {fileID: 0}
+  - audioType: 0
+    clip: {fileID: 8300000, guid: 8b37a0fcaf5572748b1ffd55a3a1df7d, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 1
+    pitch: 1
+    name: Rifle
+    source: {fileID: 0}
+  - audioType: 0
+    clip: {fileID: 8300000, guid: 3ee48b1df651ca74a92c63d8df2afde7, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 1
+    pitch: 1
+    name: Shotgun
+    source: {fileID: 0}
+  - audioType: 0
+    clip: {fileID: 8300000, guid: 2538d05235a10cc47bb8235e75da7b8e, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 1
+    pitch: 1
+    name: Rifle Reload
+    source: {fileID: 0}
+  - audioType: 0
+    clip: {fileID: 8300000, guid: a891b8202f06c62458bd781ef4ca42ac, type: 3}
+    loop: 0
+    playOnAwake: 0
+    volume: 1
+    pitch: 1
+    name: Shotgun Reload
+    source: {fileID: 0}
 --- !u!114 &4096926207107223717
 MonoBehaviour:
   m_ObjectHideFlags: 0
