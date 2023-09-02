@@ -7,4 +7,8 @@ public class EmptyBehaviour : AIBehaviour
 	{
 		//Debug.Log("Using EmptyBehaviour");
 	}
+
+	public override void Entry(ref Knowledge knowledge) { }
+
+	public override void Exit(ref Knowledge knowledge) { }
 }

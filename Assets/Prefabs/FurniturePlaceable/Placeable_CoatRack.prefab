@@ -54,6 +54,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canPlaceOnSurface: 0
   <Mesh>k__BackingField: {fileID: 2646266269406180392}
+
+--- !u!64 &261975386212110139
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408006311470859530}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -9168509072338611511, guid: 217ce9bcc0df2d64184969f7e3b1c709, type: 3}
+
 --- !u!54 &2147385906949764466
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -81,6 +105,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+
 --- !u!65 &5909724839816090490
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -207,6 +232,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.057647467, y: 0.4529257, z: 0.56129223}
   m_Center: {x: 1.4001213, y: 0.23934229, z: 0.24240264}
+
 --- !u!1001 &3708987552308340908
 PrefabInstance:
   m_ObjectHideFlags: 0

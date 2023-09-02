@@ -51,6 +51,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canPlaceOnSurface: 1
   <Mesh>k__BackingField: {fileID: 2015515570166233003}
+
+--- !u!64 &1191435547810342176
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408006311470859530}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2549672088751988971, guid: fba672230f16e0d45959f2e496c15dd5, type: 3}
+
 --- !u!54 &-6575698546327367221
 Rigidbody:
   m_ObjectHideFlags: 0
