@@ -33,7 +33,7 @@ public class Recoil : MonoBehaviour
         targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.deltaTime);
         transform.localRotation = Quaternion.Euler(currentRotation);
-        if (!WeaponWheel.Instance.GetOpen())
+        if (WeaponWheel.Instance && !WeaponWheel.Instance.GetOpen())
             Camera.main.transform.localRotation = Quaternion.Euler(currentRotation);
         ResetPosition();
     }
