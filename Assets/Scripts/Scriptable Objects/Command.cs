@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Command : ScriptableObject
+public abstract class Command : ScriptableObject
 {
     public string prefix;
     [TextArea] public string tips;
@@ -16,8 +16,10 @@ public class Command : ScriptableObject
         DeveloperConsole.Instance.SetOutput(message);
     }
 
-    public virtual void Execute(string[] arguments)
-    {
+    public abstract void Execute(string[] arguments);
 
+    public virtual string Help()
+    {
+        return tips;
     }
 }

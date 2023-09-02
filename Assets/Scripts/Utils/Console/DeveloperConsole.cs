@@ -11,6 +11,8 @@ public class DeveloperConsole : Singleton<DeveloperConsole>
 
     [SerializeField] private List<Command> allCommands = new List<Command>();
 
+    public List<Command> AllCommands => allCommands;
+
     protected override void Awake()
     {
         base.Awake();
@@ -52,6 +54,8 @@ public class DeveloperConsole : Singleton<DeveloperConsole>
             HuntingInputManager.Instance.PlayerInput.Disable();
         } else
         {
+            inputField.DeactivateInputField();
+            inputField.text = "";
             GameManager.Instance.HideCursor();
             HuntingInputManager.Instance.PlayerInput.Enable();
         }

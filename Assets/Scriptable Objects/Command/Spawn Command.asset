@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35da222bb403b7408b5ae307f7d1fa9, type: 3}
+  m_Name: Spawn Command
+  m_EditorClassIdentifier: 
+  prefix: spawn
+  tips: "Spawns a shootable. Cannot be called in a non-hunting scene. Pass in an
+    argument choose which furniture to spawn, otherwise, the first on the list will
+    be spawned.\n Available furnitures:\\n"
+  shootables:
+  - {fileID: 6366392969304530097, guid: e8539187ac50cf744a5e6e54af7a9808, type: 3}
+  - {fileID: 1321375191118770268, guid: 3d99d20caa0dee94cb093efa19525613, type: 3}
+  - {fileID: 3685072443934080641, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
+  - {fileID: 4520007949729603114, guid: ba44497b1ba814d438e59de2bc65c4df, type: 3}
+  - {fileID: 1346307617691619806, guid: f66c5f23a7f5934488d000a213105943, type: 3}
+  - {fileID: 274742349716809348, guid: 2783c2dda8fd2ca45acae96f356af6b6, type: 3}
+  - {fileID: 6090958504537676759, guid: 77c8ac7d9c84bf643b42d8738edeffdf, type: 3}
+  - {fileID: 1708161194996407248, guid: 8c8823706d60a1f4786ada53f96f97c3, type: 3}
+  - {fileID: -1363456017480070556, guid: 2f430d09af36fd341aadc2318819177b, type: 3}
+  - {fileID: 6900452092522998625, guid: b59a9dd65c1947b4eb388d089f4a19e5, type: 3}
+  - {fileID: 4207542877117778773, guid: 72ec9f24d63fd614aa750b9890637395, type: 3}
+  - {fileID: 2899710936797965666, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
+  - {fileID: 5670009076271129424, guid: c9cedc47b510963439aa1210cae5a74c, type: 3}
+  - {fileID: 8381788616885222956, guid: bcceed28008597e4687b8ffeb46fe246, type: 3}
