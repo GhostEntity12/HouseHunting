@@ -11,4 +11,16 @@ public class FleePlayerBehaviour : AIBehaviour
 			knowledge.Agent.SetDestination(fleeDestination);
 		}
 	}
+
+	public override void Entry(ref Knowledge knowledge)
+	{
+		// Ensure speed is correct
+		knowledge.Agent.speed = knowledge.Info.speed * 2;
+	}
+	public override void Exit(ref Knowledge knowledge)
+	{
+		// Ensure speed is correct
+		knowledge.Agent.speed = knowledge.Info.speed;
+		knowledge.Agent.ResetPath();
+	}
 }
