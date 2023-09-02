@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
+  m_Name: Cup
+  m_EditorClassIdentifier: 
+  id: cup
+  name: Cup
+  maxHealth: 10
+  damage: 3
+  speed: 5
+  attackInterval: 1
+  xray: 0
+  senses:
+  - {fileID: 11400000, guid: b1e25f516c768da4296a4c5bf6551fed, type: 2}
+  - {fileID: 11400000, guid: c925e0707a43bfd47a76c43a1c11547f, type: 2}
+  materials:
+  - {fileID: -389402008792246631, guid: 893fef4c6c54df3448a00479c3e8ce7f, type: 3}
+  basePrice: 900
+  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  placeablePrefab: {fileID: 2350306671234011157, guid: 6ae59c1c9532ff640becdf3da723f4dc, type: 3}
+  shootablePrefab: {fileID: 1346307617691619806, guid: f66c5f23a7f5934488d000a213105943, type: 3}

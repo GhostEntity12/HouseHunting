@@ -53,7 +53,7 @@ public class Hitbox : MonoBehaviour
 					Gizmos.DrawCube(bc.center + GetComponentInParent<Transform>().position, bc.size);
 					break;
 				case SphereCollider sc:
-					Gizmos.DrawSphere(sc.center, sc.radius);
+					Gizmos.DrawSphere(sc.center + GetComponentInParent<Transform>().position, sc.radius);
 					break;
 				default:
 					break;
