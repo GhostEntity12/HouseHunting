@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
-  m_Name: Wardrobe
+  m_Name: RectRug
   m_EditorClassIdentifier: 
-  id: wardrobe
-  name: Wardrobe
-  maxHealth: 20
-  speed: 5
+  id: RectRug
+  name: Rectangle Rug
+  maxHealth: 100
+  speed: 8
   thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
-  placeablePrefab: {fileID: 1539234630903234798, guid: 0b3ee8bdbaf697d45b5a8324a81fd13b, type: 3}
-  shootablePrefab: {fileID: 3685072443934080641, guid: 1a2ac2217ed713743acd3eab627fd946, type: 3}
+  placeablePrefab: {fileID: 1539234630903234798, guid: dff13f37fd9dc384d8925d9d5bb9c8f0, type: 3}
+  shootablePrefab: {fileID: 3685072443934080641, guid: 80707375bc9c4a34db589cbf055f72ea, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
-  alertnessThreshold1: 35
+  alertnessThreshold1: 33
   threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
-  alertnessThreshold2: 70
+  alertnessThreshold2: 66
   threshold2Behaviour: {fileID: 11400000, guid: 217112832d3f55c4e8f13aef0f12578c, type: 2}
   alertnessThreshold3: 100
   threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
@@ -30,9 +30,7 @@ MonoBehaviour:
   alertnessDecayRate: 10
   sightAlertnessRate: 25
   senses:
-  - {fileID: 11400000, guid: f9f7060eff2b4844093101b1d93db58e, type: 2}
+  - {fileID: 11400000, guid: 760ab4ef6f2337a42aadba9923593eef, type: 2}
   special: 0
-  materials:
-  - {fileID: 2100000, guid: dc9a266ec49130e4c9b55f5329b7e48f, type: 2}
-  - {fileID: 2100000, guid: e86089b7200e35043a5cdf794f97fbc5, type: 2}
-  basePrice: 50
+  materials: []
+  basePrice: 10
