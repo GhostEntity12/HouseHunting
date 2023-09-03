@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: Deal Damage Command
   m_EditorClassIdentifier: 
   prefix: dealdamage
-  tips: Deals 1 damage to the player. Cannot be called in non-hunting scene.
+  tips: 'Deals 1 damage to player. Cannot be called in non-hunting scene.
+
+    Usage:
+    dealdamage'

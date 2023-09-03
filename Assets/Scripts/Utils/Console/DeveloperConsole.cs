@@ -23,9 +23,10 @@ public class DeveloperConsole : Singleton<DeveloperConsole>
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F11)) Toggle();
+
         if (canvas.enabled && Input.GetKeyDown(KeyCode.Return) && inputField.text != "")
         {
-
             string[] words = inputField.text.Split(' ');
 
             string prefix = words[0];
@@ -51,13 +52,15 @@ public class DeveloperConsole : Singleton<DeveloperConsole>
             inputField.ActivateInputField();
             inputField.Select();
             GameManager.Instance.ShowCursor();
-            HuntingInputManager.Instance.PlayerInput.Disable();
+            if (HuntingInputManager.Instance) HuntingInputManager.Instance.PlayerInput.Disable();
+            else if (HouseInputManager.Instance) HouseInputManager.Instance.PlayerInput.Disable();
         } else
         {
             inputField.DeactivateInputField();
             inputField.text = "";
             GameManager.Instance.HideCursor();
-            HuntingInputManager.Instance.PlayerInput.Enable();
+            if (HuntingInputManager.Instance) HuntingInputManager.Instance.PlayerInput.Enable();
+            else if (HouseInputManager.Instance) HouseInputManager.Instance.PlayerInput.Enable();
         }
     }
 

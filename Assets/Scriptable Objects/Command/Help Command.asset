@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: Help Command
   m_EditorClassIdentifier: 
   prefix: help
-  tips: Displays the command description. Pass in 0 arguments to see list of commands
+  tips: 'Displays the command description.
+
+    Usage: help <command name>.
+
+    If
+    no command is passed, all available commands will be displayed.'

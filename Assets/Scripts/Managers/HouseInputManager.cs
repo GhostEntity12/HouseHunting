@@ -8,6 +8,8 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
 	private PlayerInput playerInput;
 
+	public PlayerInput PlayerInput => playerInput;
+
 	protected override void Awake()
 	{
 		// Singleton setup

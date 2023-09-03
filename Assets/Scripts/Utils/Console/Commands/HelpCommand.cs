@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Help Command", menuName = "Command/Help")]
 public class HelpCommand : Command
 {
-    public HelpCommand() : base("help", "Displays the command description. Pass in 0 arguments to see list of commands")
+    public HelpCommand() : base("help", "Displays the command description.\nUsage: help <command name>.\nIf no command is passed, all available commands will be displayed.")
     {
     }
 

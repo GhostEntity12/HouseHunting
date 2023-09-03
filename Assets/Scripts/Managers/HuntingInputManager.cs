@@ -62,12 +62,6 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput.Hunting.Enable();
 	}
 
-    private void Update()
-    {
-		if (Input.GetKeyDown(KeyCode.F11))
-			DeveloperConsole.Instance.Toggle();
-	}
-
     private void FixedUpdate()
 	{
 		UpdateInteractUI();

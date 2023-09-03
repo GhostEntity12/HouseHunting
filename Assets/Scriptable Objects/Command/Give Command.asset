@@ -9,15 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d35da222bb403b7408b5ae307f7d1fa9, type: 3}
-  m_Name: Spawn Command
+  m_Script: {fileID: 11500000, guid: bff3b3df0389d7946ae1c184784325ff, type: 3}
+  m_Name: Give Command
   m_EditorClassIdentifier: 
-  prefix: spawn
-  tips: 'Spawns a shootable. Cannot be called in a non-hunting scene.
+  prefix: give
+  tips: 'Gives an inventory item, can be called in house or hunting scene.
 
     Usage:
-    spawn <furniture id>.
+    give <furniture id>
 
-    Default to first furniture in the data persistence
-    manager list.'
-  shootables: []
+    Default to first furniture in the data persistence manager
+    list.'

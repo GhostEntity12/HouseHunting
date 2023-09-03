@@ -6,7 +6,7 @@ public class SpawnCommand : Command
 {
     public List<Shootable> shootables = new List<Shootable>();
 
-    public SpawnCommand() : base("spawn", "Spawns a shootable. Cannot be called in a non-hunting scene. Pass in an argument choose which furniture to spawn, otherwise, the first on the list will be spawned.\n Available furnitures:")
+    public SpawnCommand() : base("spawn", "Spawns a shootable. Cannot be called in a non-hunting scene.\nUsage: spawn <furniture id>.\nDefault to first furniture in the data persistence manager list.")
     {
     }
 

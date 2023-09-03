@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Deal Damage Command", menuName = "Command/Deal Damage")]
 public class DealDamageCommand : Command
 {
-    public DealDamageCommand() : base("dealdamage", "Deals 1 damage to player. Cannot be called in non-hunting scene")
+    public DealDamageCommand() : base("dealdamage", "Deals 1 damage to player. Cannot be called in non-hunting scene.\nUsage: dealdamage")
     {
     }
 
