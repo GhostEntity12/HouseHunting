@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f60a2417889a3074fbae62580b3987c9, type: 3}
-  m_Name: ViewConeWashingMachine
+  m_Name: ViewConeToyCar
   m_EditorClassIdentifier: 
   posOffset: {x: 0, y: 0, z: 0}
   rotOffset: {x: 0, y: 0, z: 0}
   length: 20
-  angle: 80
+  angle: 50
   debugIdleColor: {r: 0.7169812, g: 0.23268066, b: 0.23268066, a: 1}
   debugDetectedColor: {r: 0.67312175, g: 0.9254902, b: 0.65882355, a: 1}
