@@ -31,5 +31,7 @@ MonoBehaviour:
   sightAlertnessRate: 25
   senses: []
   special: 0
-  materials: []
+  materials:
+  - {fileID: 2100000, guid: b098f126ba88e9f44aebdb6e0584851c, type: 2}
+  - {fileID: -1400836625916889992, guid: 3ac05f64e3c52a74d9853255ef8b6c12, type: 3}
   basePrice: 0
