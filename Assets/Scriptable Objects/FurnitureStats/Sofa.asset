@@ -14,19 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: sofa
   name: Sofa
-  maxHealth: 100
-  damage: 5
-  speed: 2
-  attackInterval: 1
-  xray: 0
-  senses:
-  - {fileID: 11400000, guid: b1e25f516c768da4296a4c5bf6551fed, type: 2}
-  - {fileID: 11400000, guid: c925e0707a43bfd47a76c43a1c11547f, type: 2}
-  materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 2100000, guid: 267df59e799c5e1488d9c6d143d39cd3, type: 2}
-  - {fileID: 2100000, guid: 936649d7c6c09a24393aa524a2f8e495, type: 2}
-  basePrice: 750
+  maxHealth: 40
+  speed: 4
   thumbnail: {fileID: 21300000, guid: 9b837a8ec030db34e92d6403d7517937, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: f36da03e11569b644866033ffddca509, type: 3}
   shootablePrefab: {fileID: 4207542877117778773, guid: 72ec9f24d63fd614aa750b9890637395, type: 3}
+  threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
+  alertnessThreshold1: 30
+  threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
+  alertnessThreshold2: 60
+  threshold2Behaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
+  alertnessThreshold3: 100
+  threshold3Behaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
+  timeBeforeDecay: 5
+  alertnessDecayRate: 10
+  sightAlertnessRate: 25
+  senses:
+  - {fileID: 11400000, guid: 3aa254ac0bf9f8043be63289eaeaae9e, type: 2}
+  special: 0
+  materials:
+  - {fileID: 2100000, guid: af31d53076fd745faa5f05dae96c15c3, type: 2}
+  - {fileID: 2100000, guid: 267df59e799c5e1488d9c6d143d39cd3, type: 2}
+  - {fileID: 2100000, guid: 936649d7c6c09a24393aa524a2f8e495, type: 2}
+  - {fileID: 880774007180850119, guid: 0542432cd9555004ebac9cf90add21c8, type: 3}
+  - {fileID: 2100000, guid: 221234e77532a4e3b96e5cce2b41b771, type: 2}
+  - {fileID: 2100000, guid: 936649d7c6c09a24393aa524a2f8e495, type: 2}
+  - {fileID: 2100000, guid: 33b82a22301d648c5afa1a682a259e5d, type: 2}
+  basePrice: 750

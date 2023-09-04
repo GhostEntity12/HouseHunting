@@ -173,9 +173,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c750834e85aa434592367f5a67ae82e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunSO: {fileID: 11400000, guid: 32118748925db9a45a9281c1d16cd3f7, type: 2}
   muzzlePoint: {fileID: 9044442938445331869}
   muzzleFlashPrefab: {fileID: 1000010254994808, guid: 849b008210656a542b75ecfdc722a116, type: 3}
+  adsFactor: 4
+  gunSO: {fileID: 11400000, guid: 32118748925db9a45a9281c1d16cd3f7, type: 2}
+  <GunSO>k__BackingField: {fileID: 0}
 --- !u!95 &2803764956648699406
 Animator:
   serializedVersion: 5
@@ -667,7 +669,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9044442938445331868}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0081, y: 0.1376, z: -1.0259}
+  m_LocalPosition: {x: 0.008, y: 0.1376, z: -1.101}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

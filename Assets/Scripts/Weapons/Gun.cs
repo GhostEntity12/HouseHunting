@@ -1,38 +1,45 @@
+using UnityEditor;
 using System.Collections;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+	enum GunState { Ready, Shooting, Reloading }
+	
+	[SerializeField] private Transform muzzlePoint;
+	[SerializeField] private GameObject muzzleFlashPrefab;
+	[SerializeField] private float adsFactor = 4;
     [SerializeField] private GunSO gunSO;
-    [SerializeField] private Transform muzzlePoint;
-    [SerializeField] private GameObject muzzleFlashPrefab;
 
     //bools
     private bool readyToShoot, reloading, ads;
     private float elapsedTime; // for lerping ads
 
+	private GunState state = GunState.Ready;
+	private bool usingADS = false;
+	private Animator anim;
+	private Recoil recoil;
     private Vector3 initialPosition;
-    private Recoil recoil;
-    private SoundAlerter soundAlerter;
-    private Animator anim;
     private Vector3 adsPosition;
 
-    public GunSO GunSO => gunSO;
+	[field: SerializeField] public GunSO GunSO { get; private set; }
+	[field: SerializeField] public AmmoPouch AmmoPouch { get; private set; } = new();
     public Recoil Recoil => recoil;
 
+	public string AmmoInfo => $"{AmmoPouch.AmmoInGun / GunSO.bulletsPerTap} / {AmmoPouch.AmmoStored / GunSO.bulletsPerTap}";
 
     private void Awake()
     {
         recoil = GetComponentInParent<Recoil>();
         anim = GetComponent<Animator>();
-        soundAlerter = GameObject.Find("Player").GetComponent<SoundAlerter>();
         readyToShoot = true;
         ads = false;
         elapsedTime = 1;
-        BulletPool.Instance.BulletPrefab = gunSO.bulletPrefab;
         initialPosition = transform.localPosition;
         adsPosition = new Vector3(initialPosition.x - 0.45f, initialPosition.y, initialPosition.z);
     }
+
+	private void ReenableGun() => state = GunState.Ready;
 
     private void Update()
     {
@@ -42,18 +49,24 @@ public class Gun : MonoBehaviour
         float cameraFov = ads ? 40 : 60;
         //transform.localPosition = Vector3.Lerp(ads ? initialPosition: adsPosition, targetPosition, elapsedTime);
         Camera.main.fieldOfView = Mathf.Lerp(ads ? 60 : 40, cameraFov, elapsedTime);
-
     }
 
-    public void Shoot(bool firstShot = false)
+    public void Shoot()
     {
         if (GameManager.Instance.IsPaused) return;
-        if ( !readyToShoot || WeaponManager.Instance.BulletsInMag <= 0 || reloading) return;
+		if (state != GunState.Ready || AmmoPouch.AmmoInGun <= 0) return;
         if (HuntingInputManager.Instance.WeaponWheelIsOpen()) return; // dont shoot when weapon wheel is open
+        if (BulletPool.Instance.BulletPrefab == null) return; // if bullet prefab in bullet pool is not set, do not shoot
 
-        if (firstShot)
-            soundAlerter.MakeSound(GunSO.volume, transform.position);
+		// Set state to shooting
+		state = GunState.Shooting;
 
+		// If gun is not fuly loaded, only fire bullets in gun
+		int bulletsToFire = Mathf.Min(GunSO.bulletsPerTap, AmmoPouch.AmmoInGun);
+        //AnimationTrigger("Shoot"); // fire gun animation
+        SoundAlerter.MakeSoundImpulse(GunSO.volume, transform.position);
+        Rigidbody rb = new();
+            
         readyToShoot = false;
         //AnimationTrigger("Shoot"); // fire gun animation
 
@@ -69,7 +82,7 @@ public class Gun : MonoBehaviour
             Bullet currentBullet = BulletPool.Instance.GetPooledObject(muzzlePoint.position, Quaternion.identity);
             currentBullet.Damage = gunSO.damagePerBullet;
             currentBullet.CanBounce = GunSO.id.ToLower() == "crossbow";
-            
+
             // cast ray to crosshair, if the ray hits something, means that there are something in range that should be aimed that, otherwise, the direction can be slightly off
             // currently, this change still does not fix the problem completely because the colliders on trees are weird
             // so if you aim at a spot where there are no colliders present on the tree (such as very high up), the bullet will still not go to where the crosshair aims at because the raycast could not find a target
@@ -85,43 +98,49 @@ public class Gun : MonoBehaviour
                 currentBullet.transform.forward = direction.normalized;
             }
 
-            //Add force to bullet
-            currentBullet.GetComponent<Rigidbody>().AddForce(currentBullet.transform.forward.normalized * gunSO.shootForce, ForceMode.Impulse);
+            // Add force to bullet
+            currentBullet.Rigidbody.AddForce(currentBullet.transform.forward.normalized * GunSO.shootForce, ForceMode.Impulse);
         }
 
-        //Muzzle flash
+        AudioManager.Instance.Play(GunSO.name);
+        
+		// Remove bullets
+		AmmoPouch.RemoveAmmo(bulletsToFire);
+
+		// Update UI
+		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
+
+		//Muzzle flash
         Instantiate(muzzleFlashPrefab, muzzlePoint.position, Quaternion.identity);
 
-        //recoil
-        recoil.RecoilFire();
+		// Recoil
+		recoil.RecoilFire();
 
-        WeaponManager.Instance.BulletsInMag -= gunSO.bulletsPerTap;
-        HuntingUIManager.Instance.SetAmmoCounterText(WeaponManager.Instance.BulletsInMag / gunSO.bulletsPerTap +  " / " + WeaponManager.Instance.BulletsInInventory / gunSO.bulletsPerTap);
+		// Make noise
+		SoundAlerter.MakeSoundImpulse(GunSO.volume, transform.position);
 
-        StartCoroutine(ResetShot(gunSO.timeBetweenShots));
-    }
+		// Reenable gun after wait
+		Invoke(nameof(ReenableGun), GunSO.timeBetweenShots);
+	}
 
-    // so outside managers can trigger animations if needed
-    public void AnimationTrigger(string animationName)
-    {
-        anim.SetTrigger(animationName);
-    }
+	// so outside managers can trigger animations if needed
+	public void AnimationTrigger(string animationName) => anim.SetTrigger(animationName);
 
-    public void Reload()
-    {
-        if (reloading) return;
-        if (HuntingInputManager.Instance.WeaponWheelIsOpen()) return; // dont reload while weapon wheel is open
-        if (gunSO.magSize == WeaponManager.Instance.BulletsInMag) return; // dont reload when mag is full
+	public void Reload()
+	{
+		// Skip if the gun can't be fired yet, no ammo in pouch or if already at max ammo
+		if (state != GunState.Ready || AmmoPouch.AmmoStored == 0 || AmmoPouch.AmmoInGun == GunSO.magSize) return;
 
-        AnimationTrigger("Reload");
+        AudioManager.Instance.Play(GunSO.name + " Reload");
 
-        
-        reloading = true;
+		// Trigger reload
+		state = GunState.Reloading;
         ToggleADS(false);
-        anim.SetBool("Reload", reloading);
-        StartCoroutine(ResetReload(gunSO.reloadTime));
-        HuntingUIManager.Instance.ReloadBarAnimation(gunSO.reloadTime);
-    }
+		anim.SetBool("Reload", true);
+		AnimationTrigger("Reload");
+		HuntingUIManager.Instance.ReloadBarAnimation(GunSO.reloadTime);
+		HuntingUIManager.OnReloadFinishEvent += OnReloadFinish;
+	}
 
     public void ToggleADS()
     {
@@ -135,17 +154,16 @@ public class Gun : MonoBehaviour
         anim.SetBool("Aiming", ads);
     }
 
-    private IEnumerator ResetReload(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        WeaponManager.Instance.Reload();
-        reloading = false;
-        anim.SetBool("Reload", reloading);
-    }
-
-    private IEnumerator ResetShot(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        readyToShoot = true;
-    }
+	private void OnReloadFinish()
+	{
+		AmmoPouch.LoadGun(GunSO.magSize);
+		anim.SetBool("Reload", false);
+		
+		// Reload the gun
+		HuntingUIManager.OnReloadFinishEvent -= OnReloadFinish;
+		// Update UI
+		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
+		
+		ReenableGun();
+	}
 }

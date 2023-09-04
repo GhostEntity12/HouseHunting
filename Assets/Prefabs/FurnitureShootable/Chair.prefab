@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6168631653059402417}
   - component: {fileID: 3924592687772681479}
   - component: {fileID: 2040926132473123112}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Seat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 8500515865788039226}
   - component: {fileID: 7142348409468309179}
   - component: {fileID: 3090386700864915618}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 6099438620595364871}
   - component: {fileID: 2358377360629614961}
   - component: {fileID: 2486928630498788002}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Leg (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 9069280973365874789}
   - component: {fileID: 5358140550995981468}
   - component: {fileID: 6884290564210124775}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Leg (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 3516023119720762311}
   - component: {fileID: 5211969483445936578}
   - component: {fileID: 7186413390683857188}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Leg (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 6402633772232249832}
   - component: {fileID: 7918277639090260260}
   - component: {fileID: 8435291213220389697}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -417,7 +417,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1389266229656319510}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Hitboxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -458,9 +458,9 @@ GameObject:
   - component: {fileID: 3520433945217684714}
   - component: {fileID: 6779599493470380603}
   - component: {fileID: 2676805215291020394}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Chair
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -492,7 +492,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8607944281932643591}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f8f73ebed778e344b7e1ca0c42bd7df, type: 3}
+  m_Script: {fileID: 11500000, guid: e772e154071c25f42835ff5ac02f8388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   furnitureSO: {fileID: 11400000, guid: 390014d96b7a124489f5476ed23af37c, type: 2}
@@ -508,11 +508,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fbf68acf72d3d4385926a6f0451aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alertness: 0
-  playerMovement: {fileID: 6098993039830378882, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
-  agent: {fileID: 6779599493470380603}
-  wanderRadius: 15
-  isPredator: 0
 --- !u!195 &6779599493470380603
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -527,7 +522,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -652,6 +647,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Alert UI
       objectReference: {fileID: 0}
+    - target: {fileID: 958545255073040575, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5236622499727851553, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6070018216266263218, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -733,6 +740,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9464a6a1b5f93ea41b09b06dd93aa191, type: 3}
       propertyPath: m_Name
       value: Chair2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9464a6a1b5f93ea41b09b06dd93aa191, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

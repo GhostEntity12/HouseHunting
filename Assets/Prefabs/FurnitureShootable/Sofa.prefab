@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5769824891965075171}
   - component: {fileID: 4764499245587886054}
   - component: {fileID: 5584010680209192090}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Side (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 4777159596915011628}
   - component: {fileID: 2325163835319029587}
   - component: {fileID: 9050717121962095114}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 5988595869423812583}
   - component: {fileID: 4980923520864812753}
   - component: {fileID: 6286950046973409605}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 5610990510248286989}
   - component: {fileID: 9124847339834812146}
   - component: {fileID: 6671691250738304244}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Seats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 626940987496722998}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Hitboxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,9 +320,9 @@ GameObject:
   - component: {fileID: 736955873112452282}
   - component: {fileID: 7221047130739491992}
   - component: {fileID: 4207542877117778773}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Sofa
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -357,11 +357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fbf68acf72d3d4385926a6f0451aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alertness: 0
-  playerMovement: {fileID: 6098993039830378882, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
-  agent: {fileID: 736955873112452282}
-  wanderRadius: 15
-  isPredator: 0
 --- !u!195 &736955873112452282
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -376,7 +371,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -414,7 +409,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8607944281932643591}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91d69ad758956ac49ac64cbfe555be33, type: 3}
+  m_Script: {fileID: 11500000, guid: e772e154071c25f42835ff5ac02f8388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   furnitureSO: {fileID: 11400000, guid: 69de1102128b90040a3f6300e8e49c55, type: 2}
@@ -515,6 +510,10 @@ PrefabInstance:
       value: Alert UI
       objectReference: {fileID: 0}
     - target: {fileID: 958545255073040575, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 958545255073040575, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -525,6 +524,14 @@ PrefabInstance:
     - target: {fileID: 4543745558615537537, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5236622499727851553, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6070018216266263218, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -591,6 +598,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c0059db36d5ba20478429fcd0e6754e6, type: 3}
       propertyPath: m_Name
       value: Sofa2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c0059db36d5ba20478429fcd0e6754e6, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,361 +1,198 @@
-using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class WanderAI : MonoBehaviour 
+public class WanderAI : MonoBehaviour
 {
-    enum IState { Idle, Alert, Searching }
-    enum SState { Stressed, CanRelax, Relaxing }
+	enum ThresholdLevels { Level0, Level1, Level2, Level3 }
+	const float aiEntityDistance = 100f; // This distance will be used to determine whether or not the AI should run or not.
 
-    private Shootable shootable;
-    private MeshRenderer meshRenderer;
-    private Canvas alertCanvas;
-    private SenseSO[] senses;
-    private bool xray;
-    private float timeSinceLastAttack = 0f;
-    public float alertness = 0; // between 0 and 100
-    private SState stressState = SState.Relaxing;
-    private GameObject subject;
-    private IState investigate = IState.Idle;
-    
-    public PlayerMovement playerMovement;
-    public NavMeshAgent agent;
-    public float wanderRadius = 15f; // how far the AI can wander
-    public bool isPredator;
+	private FurnitureSO info;
 
-    private void Awake()
-    {
-        agent = GetComponent<NavMeshAgent>();
-        shootable = GetComponent<Shootable>();
-        meshRenderer = GetComponentInChildren<MeshRenderer>();
-        alertCanvas = GetComponentInChildren<Canvas>();
-        subject = GameObject.FindWithTag("Player");
+	private Shootable shootable;
+	private ThresholdLevels alertLevel = ThresholdLevels.Level0;
+	private bool isRelaxed;
+	private float relaxTimer = 0f;
+	private NavMeshAgent agent;
+	private readonly Queue<SoundAlert> sounds = new();
+	private Transform player;
+	private float alertness = 0;
+	private AIBehaviour activeBehaviour;
 
-        senses = shootable.FurnitureSO.senses;
-        agent.speed = shootable.FurnitureSO.speed;
-        xray = shootable.FurnitureSO.xray;
-        playerMovement = FindObjectOfType<PlayerMovement>();
-    }
+	public float Alertness
+	{
+		get => alertness;
+		private set => alertness = Mathf.Clamp(value, 0, 100);
+	}
 
-    /*
-    private void OnEnable() 
-    {
-        SoundAlerter.OnSoundEmitEvent += OnSoundDetect;
-    }
-    */
-    private void OnDrawGizmos()
-    {
-        if (senses == null)
-            return;
+	private void Awake()
+	{
+		agent = GetComponent<NavMeshAgent>();
+		shootable = GetComponent<Shootable>();
+	}
 
-        foreach (SenseSO sense in senses)
-        {
-            bool unused = false;
-            switch (sense.senseCategory)
-            {
-                case SenseCategory.Stealth:
-                    if (!IsPlayerSneaking())
-                        unused = true;
-                    break;
-                case SenseCategory.Normal:
-                    if (IsPlayerSneaking())
-                        unused = true;
-                    break;
-                default:
-                    break;
-            }
-            if (unused)
-            {
-                continue;
-            }
+	private void Start()
+	{
+		// Cache some values
+		player = HuntingManager.Instance.Player;
+		info = shootable.FurnitureSO;
+		activeBehaviour = Instantiate(info.threshold0Behaviour);
 
-            Vector3 senseDir = Quaternion.Euler(sense.rotOffset) * transform.forward;
-            Vector3 sensePos = transform.localToWorldMatrix.MultiplyPoint3x4(sense.offset);
+		// Populate the speed from the stats
+		agent.speed = info.speed;
+	}
 
-            Gizmos.color = sense.debugIdleColor; // Default Color
+	private void Update()
+	{
+		if (shootable.IsDead)
+		{
+			agent.isStopped = true;
+			return;
+		}
 
-            if (sense is SenseSphereSO sphereSense)
-            {
-                if (subject != null)
-                {
-                    Collider[] hitColliders = Physics.OverlapSphere(sensePos, sphereSense.radius);
+		// Culling behaviour if outside of entity distance
+		if (!player || Vector3.Distance(player.position, transform.position) > aiEntityDistance)
+			return;
 
-                    bool detected = false;
+		// Cache player visibility
+		bool canSeePlayer = HasLineOfSight();
 
-                    foreach (Collider hitCollider in hitColliders)
-                    {
-                        if (hitCollider.CompareTag("Player"))
-                        {
-                            detected = true;
-                            break;
-                        }
-                    }
+		// Deal with sounds
+		ProcessSounds(out SoundAlert? sound);
 
-                    if (detected)
-                        Gizmos.color = sphereSense.debugDetectedColor;
+		// Change alertness based on whether the player is visible
+		UpdateSightAlertness(canSeePlayer);
 
-                    Gizmos.DrawWireSphere(sensePos, sphereSense.radius);
-                }
-            }
-            else if (sense is SenseConeSO coneSense)
-            {
-                if (subject != null)
-                {
-                    Vector3 toPosition = (subject.transform.position - sensePos).normalized;
-                    float dist = (subject.transform.position - sensePos).magnitude;
-                    float angleToPosition = Vector3.Angle(senseDir, toPosition);
+		// Bundle information to pass to behaviours
+		Knowledge k = new(transform, player.position, info, agent, sound, canSeePlayer);
 
-                    if (angleToPosition <= coneSense.maxAngle && dist <= coneSense.range) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
-                    {
-                        Gizmos.color = Color.red;
-                        Gizmos.DrawRay(sensePos, toPosition);
-                        Gizmos.color = coneSense.debugDetectedColor;
-                    }
-                    else
-                    {
-                        Gizmos.color = Color.black;
-                        Gizmos.DrawRay(sensePos, toPosition);
-                        Gizmos.color = coneSense.debugIdleColor;
-                    }
-                }
+		CheckTransitions(k);
 
-                Quaternion leftRayRotation = Quaternion.AngleAxis(-coneSense.maxAngle, Vector3.up);
-                Quaternion rightRayRotation = Quaternion.AngleAxis(coneSense.maxAngle, Vector3.up);
+		activeBehaviour.Act(ref k);
 
-                Vector3 leftRayDirection = leftRayRotation * (senseDir) * coneSense.range;
-                Vector3 rightRayDirection = rightRayRotation * (senseDir) * coneSense.range;
-                Vector3 forwardDirection = Vector3.Lerp(leftRayDirection, rightRayDirection, 0.5f);
+	}
 
-                float gapLength = (leftRayDirection - rightRayDirection).magnitude;
+#if UNITY_EDITOR
+	private void OnDrawGizmos()
+	{
+		if (info && info.senses.Length == 0 || !Application.isPlaying) return;
+		foreach (ViewConeSO cone in info.senses)
+		{
+			Handles.zTest = UnityEngine.Rendering.CompareFunction.LessEqual;
+			cone.DebugDraw(transform, player.position, 0.5f);
+			Handles.zTest = UnityEngine.Rendering.CompareFunction.Greater;
+			cone.DebugDraw(transform, player.position, 0.2f);
+		}
+	}
+#endif
 
-                Vector3 upRayDirection = forwardDirection + new Vector3(0, gapLength / 2, 0);
-                Vector3 downRayDirection = forwardDirection + new Vector3(0, gapLength / -2, 0);
+	private void CheckTransitions(Knowledge k)
+	{
+		switch (alertLevel)
+		{
+			case ThresholdLevels.Level0:
+				if (Alertness > info.alertnessThreshold1)
+				{
+					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
+				}
+				break;
+			case ThresholdLevels.Level1:
+				if (Alertness == 0)
+				{
+					Transition(info.threshold0Behaviour, k, ThresholdLevels.Level0);
+				}
+				else if (Alertness >= info.alertnessThreshold2)
+				{
+					Transition(info.threshold2Behaviour, k, ThresholdLevels.Level2);
+				}
+				break;
+			case ThresholdLevels.Level2:
+				if (Alertness < info.alertnessThreshold1)
+				{
+					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
+				}
+				else if (Alertness >= info.alertnessThreshold3)
+				{
+					Transition(info.threshold3Behaviour, k, ThresholdLevels.Level3);
+				}
+				break;
+			case ThresholdLevels.Level3:
+				if (Alertness < info.alertnessThreshold1)
+				{
+					Transition(info.threshold0Behaviour, k, ThresholdLevels.Level0);
+				}
+				break;
+		}
+	}
 
-                Gizmos.DrawRay(sensePos, upRayDirection);
-                Gizmos.DrawRay(sensePos, downRayDirection);
-                Gizmos.DrawRay(sensePos, leftRayDirection);
-                Gizmos.DrawRay(sensePos, rightRayDirection);
-                Gizmos.DrawLine(sensePos + downRayDirection, sensePos + upRayDirection);
-                Gizmos.DrawLine(sensePos + leftRayDirection, sensePos + rightRayDirection);
+	private void Transition(AIBehaviour newBehaviour, Knowledge knowledge, ThresholdLevels newAlertLevel)
+	{
+		// Call the behaviour's exit
+		activeBehaviour.Exit(ref knowledge);
+		// Destroy the old behaviour
+		Destroy(activeBehaviour);
+		// Make a copy of the new behaviour
+		activeBehaviour = Instantiate(newBehaviour);
+		// Call the new behaviour's entry
+		activeBehaviour.Entry(ref knowledge);
+		// Update the state
+		alertLevel = newAlertLevel;
+	}
 
-            }
-        }
-    }
+	/// <summary>
+	/// Calculate whether the furniture can see the player
+	/// </summary>
+	/// <returns></returns>
+	private bool HasLineOfSight()
+	{
+		// Treat the player's position as the center of it's body
+		// TODO: alter if the player is crouching?
+		Vector3 playerCenter = player.position + Vector3.up;
 
-    private void Update()
-    {
-        if (shootable.IsDead)
-        {
-            agent.isStopped = true;
-            return;
-        }
+		// Get the direction to the player
+		Vector3 targetDirection = playerCenter - transform.position;
 
-        /*
-        if (IsPlayerSneaking())
-        {
-            Debug.Log("player is sneaking");
-        }
-        else {
-            Debug.Log("player is not sneaking");
-        }
-        */
+		foreach (ViewConeSO cone in info.senses)
+		{
+			// If the player is in range and within angle, do a raycast, check if the hit is the player
+			// NOTE: This currently casts against everything in the scene. May need to add a layermask to prevent hits with transparent objects.
+			if (cone.InCone(transform, playerCenter) &&
+				Physics.Raycast(transform.position, targetDirection, out RaycastHit hit, 100, ~(1 << 14)))
+			{
+				if (hit.transform.CompareTag("Player"))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
-        if (agent.remainingDistance <= agent.stoppingDistance && alertness < 50) //done with path
-        {
-            if (RandomPoint(transform.position, wanderRadius, out Vector3 point)) //pass in our centre point and radius of area
-                agent.SetDestination(point);
-        }
-        else
-        {
-            if ((agent.remainingDistance <= agent.stoppingDistance || investigate == IState.Alert) && alertness < 75)
-            {
-                investigate = IState.Searching;
-                if (RandomPoint(subject.transform.position, 3, out Vector3 point)) //pass in our centre point and radius of area
-                    agent.SetDestination(point);
-            }
-        }
+	/// <summary>
+	/// Returns a point distance units away in the opposite direction from fleeFrom
+	/// </summary>
+	/// <param name="fleeFrom"></param>
+	/// <param name="currentPosition"></param>
+	/// <param name="distance"></param>
+	public static Vector3 FindFleePoint(Vector3 fleeFrom, Vector3 currentPosition, float distance = 3)
+	{
+		// Flatten the fleeFrom to be level with the AI
+		fleeFrom.y = currentPosition.y;
 
-        int[] status = shootable.GetHealth(); //fetch currentHealth and maxHealth respectfully
-        agent.speed = shootable.FurnitureSO.speed * (1 - Mathf.Pow(((status[1] - status[0])/status[1]),3)); //multiplies the speed proportionally to a graph of y = 1 - x^3, where x is ((maxHealth - currentHealth) / maxHealth)
+		// Calculate the position to flee to
+		Vector3 fleeTo = currentPosition + ((currentPosition - fleeFrom).normalized * distance);
+		// Debug draws
+		Debug.DrawLine(fleeFrom, currentPosition, Color.cyan, 15);
+		Debug.DrawLine(currentPosition, fleeTo, Color.blue, 15);
+		Debug.DrawLine(fleeTo, fleeTo + (Vector3.up * 10), Color.red, 15);
 
-        bool detected = false;
+		return fleeTo;
+	}
 
-        foreach (SenseSO sense in senses)
-        {
-            bool unused = false;
-            switch (sense.senseCategory)
-            {
-                case SenseCategory.Stealth:
-                    if (!IsPlayerSneaking())
-                        unused = true;
-                    break;
-                case SenseCategory.Normal:
-                    if (IsPlayerSneaking())
-                        unused = true;
-                    break;
-                default:
-                    unused = true;
-                    break;
-            }
-
-            if (unused)
-                continue;
-
-            Vector3 senseDir = Quaternion.Euler(sense.rotOffset) * transform.forward;
-            Vector3 sensePos = transform.localToWorldMatrix.MultiplyPoint3x4(sense.offset);
-
-            bool inRange = false;
-
-            if (sense is SenseSphereSO sphereSense)
-            {
-                if (subject != null)
-                {
-                    Collider[] hitColliders = Physics.OverlapSphere(sensePos, sphereSense.radius);
-
-                    foreach (Collider hitCollider in hitColliders)
-                    {
-                        if (hitCollider.CompareTag("Player"))
-                        {
-                            inRange = true;
-                            break;
-                        }
-                    }
-
-                    if (inRange)
-                    {
-                            detected = true;
-                            if (sphereSense.senseCategory == SenseCategory.Stealth)
-                                IncrementAlertness(Time.deltaTime * 50);
-                            else
-                                IncrementAlertness(Time.deltaTime * 100);
-                    }
-                }
-            }
-            else if (sense is SenseConeSO coneSense)
-            {
-                if (subject != null)
-                {
-                    Vector3 toPosition = (subject.transform.position - sensePos).normalized;
-                    float dist = (subject.transform.position - sensePos).magnitude;
-                    float angleToPosition = Vector3.Angle(senseDir, toPosition);
-
-                    if (angleToPosition <= coneSense.maxAngle && dist <= coneSense.range) //&& ((Physics.Raycast((transform.position + new Vector3(0,height,0)), toPosition, out hit, perceptionRadius, finalMask) && hit.collider.CompareTag("Player")) || xray))
-                    {
-                            detected = true;
-                            if (coneSense.senseCategory == SenseCategory.Stealth)
-                                IncrementAlertness(Time.deltaTime * 50);
-                            else
-                                IncrementAlertness(Time.deltaTime * 100);
-                    }
-                }
-            }
-        }
-
-        if (!detected && stressState == SState.Stressed)
-        {
-            stressState = SState.CanRelax;
-            StartCoroutine("RelaxTimer");
-        }
-
-        if (stressState == SState.Relaxing)
-        {
-            alertness -= Time.deltaTime * 10;
-        }
-        
-        alertness = Mathf.Clamp(alertness, 0, 100);
-        if(alertness != 0)
-        {
-            alertCanvas.enabled = true;
-        } else
-        {
-            alertCanvas.enabled = false;
-        }
-        if (alertness >= 75 && subject != null)
-        {
-            
-            if (isPredator)
-            {
-                //meshRenderer.material.color = Color.red;
-
-                float distance = Vector3.Distance(transform.position, subject.transform.position);
-
-                if (distance <= 2f)
-                {
-                    agent.isStopped = true;
-                    if (alertness >= 100)
-                    {
-                        AttackPlayer();
-                    }
-                }
-                else
-                {
-                    agent.isStopped = false;
-                    agent.SetDestination(subject.transform.position);
-                }
-            }
-            else
-            {
-                //meshRenderer.material.color = Color.green;
-                Vector3 playerDirection = subject.transform.position - (transform.position);
-                Vector3 destination = (transform.position) - playerDirection;
-                if (NavMesh.SamplePosition(destination, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
-                    agent.SetDestination(hit.position);
-            }
-        }
-        else if (alertness >= 50 && subject != null && investigate == IState.Idle)
-        {
-            investigate = IState.Alert;
-        }
-        else
-        {
-            //meshRenderer.material.color = Color.white;
-            agent.isStopped = false;
-            investigate = IState.Idle;
-        }
-    }
-
-    public void IncrementAlertness(float gain)
-    {
-        alertness += gain;
-        if (stressState != SState.Stressed)
-        {
-            StopCoroutine("RelaxTimer");
-            stressState = SState.Stressed;
-        }
-    }
-
-    private void OnSoundDetect(float volume, Vector3 source)
-    {
-        if ((source - transform.position).magnitude <= volume)
-        {
-            IncrementAlertness(volume);
-        }
-    }
-
-    private bool IsPlayerSneaking()
-    {
-        if (playerMovement != null)
-            return playerMovement.isSneaking;
-
-        return false;
-    }
-
-    private void AttackPlayer()
-    {
-        if (timeSinceLastAttack >= shootable.FurnitureSO.attackInterval)
-        {
-            timeSinceLastAttack = 0f;
-            HuntingManager.Instance.DealDamageToPlayer(shootable.FurnitureSO.damage);
-        }
-        else
-        {
-            timeSinceLastAttack += Time.deltaTime;
-        }
-    }
-
-    private bool RandomPoint(Vector3 center, float range, out Vector3 result)
-    {
-        Vector3 randomPoint = center + Random.insideUnitSphere * range; //random point in a sphere 
+	public static bool RandomPoint(Vector3 center, float range, out Vector3 result)
+	{
+		Vector3 randomPoint = center + (Random.insideUnitSphere * range); //random point in a sphere 
 		if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 1.0f, NavMesh.AllAreas)) //documentation: https://docs.unity3d.com/ScriptReference/AI.NavMesh.SamplePosition.html
 		{
 			//the 1.0f is the max distance from the random point to a point on the navmesh, might want to increase if range is big
@@ -365,12 +202,65 @@ public class WanderAI : MonoBehaviour
 		}
 
 		result = Vector3.zero;
-        return false;
-    }
+		return false;
+	}
 
-    private IEnumerator RelaxTimer()
-    {
-        yield return new WaitForSeconds(2);
-        stressState = SState.Relaxing;
-    }
+	/// <summary>
+	/// Updates the furniture's alertness based on whether it can see the player
+	/// </summary>
+	/// <param name="seesPlayer"></param>
+	private void UpdateSightAlertness(bool seesPlayer)
+	{
+		// Can see player, don't relax and keep relax timer at max
+		if (seesPlayer)
+		{
+			Alertness += Time.deltaTime * info.sightAlertnessRate;
+			isRelaxed = false;
+			relaxTimer = info.timeBeforeDecay;
+		}
+		// Can't see player and but not relaxed yet
+		else if (!isRelaxed)
+		{
+			relaxTimer -= Time.deltaTime;
+			if (relaxTimer <= 0)
+				isRelaxed = true;
+		}
+		// Decrease relaxTimer
+		else
+			Alertness -= Time.deltaTime * info.alertnessDecayRate;
+	}
+
+	/// <summary>
+	/// Iterates through the queue of sounds and adds their volume to the furniture's alertness 
+	/// </summary>
+	/// <param name="loudestSound">The sound with the largest volume</param>
+	private void ProcessSounds(out SoundAlert? loudestSound)
+	{
+		if (sounds.Count == 0)
+		{
+			loudestSound = null;
+			return;
+		}
+		else
+		{
+			loudestSound = new(Vector3.zero, 0);
+			isRelaxed = false;
+			relaxTimer = info.timeBeforeDecay;
+			while (sounds.Count > 0)
+			{
+				SoundAlert sound = sounds.Dequeue();
+				if (sound.volume > ((SoundAlert)loudestSound).volume)
+				{
+					loudestSound = sound;
+				}
+				Alertness += sound.volume;
+			}
+		}
+	}
+
+	/// <summary>
+	/// Adds a sound to be processed on the next frame
+	/// </summary>
+	/// <param name="sound"></param>
+	public void EnqueueSound(SoundAlert sound) => sounds.Enqueue(sound);
 }

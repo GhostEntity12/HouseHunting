@@ -6,7 +6,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 
     private void Start()
     {
-        foreach (FurnitureItem item in GameManager.Instance.PermanentInventory.Items)
+        foreach (SaveDataFurniture item in GameManager.Instance.PermanentInventory.Furniture)
         {
             ItemThumbnailUI inventoryItem = Instantiate(inventoryItemsUIPrefab, transform);
             inventoryItem.SetItem(item);
@@ -22,7 +22,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
         }
 
         //add all items UI from the inventory
-        foreach (FurnitureItem item in GameManager.Instance.PermanentInventory.Items)
+        foreach (SaveDataFurniture item in GameManager.Instance.PermanentInventory.Furniture)
         {
             ItemThumbnailUI inventoryItem = Instantiate(inventoryItemsUIPrefab, transform);
             inventoryItem.SetItem(item);

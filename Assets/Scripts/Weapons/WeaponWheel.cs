@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -9,10 +8,10 @@ public class WeaponWheel : Singleton<WeaponWheel>
     [SerializeField] private Image weaponWheelItemPrefab;
     [SerializeField] private Image insideWheel;
 
-    private List<Image> weaponWheelItems = new List<Image>();
+    private List<Image> weaponWheelItems = new();
     private int selectedIndex = 0;
 
-    private int DistinctItemCount => GameManager.Instance.PermanentInventory.BoughtItems.Where(x => x is GunShopItem).Cast<GunShopItem>().ToList().Count;
+    private int DistinctItemCount => GameManager.Instance.OwnedGuns.Count;
 
     private void Start()
     {
@@ -41,7 +40,7 @@ public class WeaponWheel : Singleton<WeaponWheel>
             Image icon = new GameObject("Icon").AddComponent<Image>();
             icon.transform.SetParent(transform);
             // set the icon's sprite to the weapon's icon
-			icon.sprite = DataPersistenceManager.Instance.GetShopItemById(GameManager.Instance.PermanentInventory.BoughtItems.FindAll(i => i is GunShopItem).Cast<GunShopItem>().ToArray()[i].id).icon;
+			icon.sprite = DataPersistenceManager.Instance.GetGunById(GameManager.Instance.OwnedGuns[i].id).icon;
 
             // calculate the angle of the icon based on the index of the weapon, i.e., which segment of the wheel it is in
             float angleInDegrees = 360 / DistinctItemCount * i;
@@ -61,8 +60,10 @@ public class WeaponWheel : Singleton<WeaponWheel>
 
         insideWheel.fillAmount = 1f / DistinctItemCount;
 
-        CloseWeaponWheel();
-    }
+        // Not calling CloseWeaponWheel() to avoid hiding the cursor for the CampfireManager
+        gameObject.SetActive(false);
+        WeaponManager.Instance.SelectItem(selectedIndex);
+	}
 
     private void Update()
     {
@@ -70,7 +71,7 @@ public class WeaponWheel : Singleton<WeaponWheel>
         {
             // calculate the angle of the mouse from the center of the screen
             Vector2 mousePos = Mouse.current.position.ReadValue();
-            Vector2 center = new Vector2(Screen.width / 2, Screen.height / 2);
+            Vector2 center = new(Screen.width / 2, Screen.height / 2);
             
             float distanceBetweenMouseAndCenter = Vector2.Distance(mousePos, center);
             if (distanceBetweenMouseAndCenter < insideWheel.rectTransform.rect.width / 2)
