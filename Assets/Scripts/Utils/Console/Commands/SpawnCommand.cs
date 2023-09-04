@@ -4,8 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Spawn Command", menuName = "Command/Spawn")]
 public class SpawnCommand : Command
 {
-    public List<Shootable> shootables = new List<Shootable>();
-
     public SpawnCommand() : base("spawn", "Spawns a shootable. Cannot be called in a non-hunting scene.\nUsage: spawn <furniture id>.\nDefault to first furniture in the data persistence manager list.")
     {
     }
@@ -14,9 +12,9 @@ public class SpawnCommand : Command
     {
         string output = "";
 
-        foreach (Shootable shootable in shootables)
+        foreach (FurnitureSO furniture in DataPersistenceManager.Instance.AllFurnitureSO)
         {
-            output += $"\n- {shootable.FurnitureSO.id.ToLower().Replace(" ", "")}";
+            output += $"\n- {furniture.id.ToLower().Replace(" ", "")}";
         }
 
         return tips + output;
@@ -29,22 +27,29 @@ public class SpawnCommand : Command
             Output("Error. Cannot spawn furniture in this scene.");
             return;
         }
-        
-        if (shootables.Count == 0)
+
+        if (DataPersistenceManager.Instance == null)
         {
-            Output("Error. No shootable available to spawn.");
+            Output("Error. DataPersistenceManager not found in scene.");
+            return;
+        }
+        
+        if (DataPersistenceManager.Instance.AllFurnitureSO.Count == 0)
+        {
+            Output("Error. No furniture to spawn. Check if AllFurnitureSO in DataPersistenceManager is populated.");
             return;
         }
 
+        List<FurnitureSO> allFurnitures = DataPersistenceManager.Instance.AllFurnitureSO;
         Shootable shootable;
         if (arguments.Length == 0)
-            shootable = shootables[0];
+            shootable = allFurnitures[0].shootablePrefab;
         else
-            shootable = shootables.Find(s => s.FurnitureSO.id.ToLower().Replace(" ", "") == arguments[0].ToLower());
+            shootable = allFurnitures.Find(f => f.id.ToLower().Replace(" ", "") == arguments[0].ToLower()).shootablePrefab;
                     
         if (shootable == null)
         {
-            Output("Error. Invalid shootable id");
+            Output("Error. Invalid furniture id");
             return;
         }
         

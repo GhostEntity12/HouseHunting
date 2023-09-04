@@ -21,9 +21,15 @@ public class GiveCommand : Command
 
     public override void Execute(string[] arguments)
     {
+        if (DataPersistenceManager.Instance == null)
+        {
+            Output("Error. DataPersistenceManager not found in scene.");
+            return;
+        }
+
         if (DataPersistenceManager.Instance.AllFurnitureSO.Count == 0)
         {
-            Output("Error. No shootable available to spawn.");
+            Output("Error. No furniture to give. Check if AllFurnitureSO in DataPersistenceManager is populated.");
             return;
         }
 
