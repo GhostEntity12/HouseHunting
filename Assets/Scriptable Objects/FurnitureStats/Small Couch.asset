@@ -32,5 +32,6 @@ MonoBehaviour:
   senses:
   - {fileID: 11400000, guid: 760ab4ef6f2337a42aadba9923593eef, type: 2}
   special: 0
-  materials: []
+  materials:
+  - {fileID: 6856601759615805375, guid: d92eaf8f2411291448d9270a7a069aed, type: 3}
   basePrice: 0
