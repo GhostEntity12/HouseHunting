@@ -28,9 +28,9 @@ MonoBehaviour:
   threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
   timeBeforeDecay: 5
   alertnessDecayRate: 5
-  sightAlertnessRate: 30
+  sightAlertnessRate: 25
   senses:
-  - {fileID: 11400000, guid: 6d38f80ffbfac3c43a19e3233142b69d, type: 2}
+  - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
   special: 0
   materials:
   - {fileID: -876546973899608171, guid: 7c4c7e6dfc563fb419282290426406fb, type: 3}
