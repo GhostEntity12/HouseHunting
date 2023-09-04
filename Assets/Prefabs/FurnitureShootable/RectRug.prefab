@@ -26,7 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7300849810581415486}
   m_Father: {fileID: 1778503834011940512}
@@ -61,8 +61,8 @@ Transform:
   m_GameObject: {fileID: 8607944281932643591}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 346920351036183791}
   - {fileID: 1389266229656319510}
@@ -396,6 +396,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b4aa6e6cb8473e94e8db8ba474fe35e6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 7887957717227282328, guid: b4aa6e6cb8473e94e8db8ba474fe35e6, type: 3}
     - target: {fileID: 919132149155446097, guid: b4aa6e6cb8473e94e8db8ba474fe35e6, type: 3}
       propertyPath: m_Name
       value: Furniture_rugRectangle
