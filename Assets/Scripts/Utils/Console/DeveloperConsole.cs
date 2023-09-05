@@ -27,16 +27,6 @@ public class DeveloperConsole : Singleton<DeveloperConsole>
         playerInput.DevConsole.Submit.performed += ctx => ExecuteCommand();
     }
 
-    private void OnEnable()
-    {
-        playerInput.DevConsole.Enable();
-    }
-
-    private void OnDisable()
-    {
-        playerInput.DevConsole.Disable();
-    }
-
     private void ExecuteCommand()
     {
         if (!canvas.enabled || inputField.text == string.Empty) return;
@@ -60,18 +50,23 @@ public class DeveloperConsole : Singleton<DeveloperConsole>
     public void Toggle()
     {
         canvas.enabled = !canvas.enabled;
+        // disable input when console is open, enable input when console is closed
         GeneralInputManager.Instance.enabled = !canvas.enabled;
         if (HuntingInputManager.Instance) HuntingInputManager.Instance.enabled = !canvas.enabled;
         else if (HouseInputManager.Instance) HouseInputManager.Instance.enabled = !canvas.enabled;
+
         if (canvas.enabled)
         {
             inputField.ActivateInputField();
             inputField.Select();
+            playerInput.DevConsole.Enable();
             GameManager.Instance.ShowCursor();
-        } else
+        } 
+        else
         {
             inputField.DeactivateInputField();
             inputField.text = "";
+            playerInput.DevConsole.Disable();
             GameManager.Instance.HideCursor();
         }
     }

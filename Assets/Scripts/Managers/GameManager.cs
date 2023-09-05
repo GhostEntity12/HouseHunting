@@ -42,9 +42,9 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
 
     public void ShowCursor()
 	{
-		//Cursor.lockState = CursorLockMode.None;
-		//Cursor.visible = true;
-	}
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 
     public void ReturnToMainMenu()
     {

@@ -30,6 +30,11 @@ public class PauseMenu : Singleton<PauseMenu>
     {
         isPaused = pause;
         canvas.enabled = pause;
+
+        GeneralInputManager.Instance.enabled = !pause;
+        if (HouseInputManager.Instance) HouseInputManager.Instance.enabled = !pause;
+        if (HuntingInputManager.Instance) HuntingInputManager.Instance.enabled = !pause;
+
         if (pause)
         {
             Time.timeScale = 0;
@@ -42,9 +47,5 @@ public class PauseMenu : Singleton<PauseMenu>
             playerInput.PauseMenu.Disable();
             GameManager.Instance.HideCursor();
         }
-
-        if (HouseInputManager.Instance) HouseInputManager.Instance.enabled = !pause;
-        if (HuntingInputManager.Instance) HuntingInputManager.Instance.enabled = !pause;
-        GeneralInputManager.Instance.enabled = !pause;
     }    
 }
