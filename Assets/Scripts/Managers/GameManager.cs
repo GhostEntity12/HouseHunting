@@ -4,14 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>, IDataPersistence
 {
-    [SerializeField] private Canvas pauseMenuCanvas;
-    public GameObject player;
+    [SerializeField] private Player player;
 
     public FurnitureInventory PermanentInventory { get; private set; }
     public List<SaveDataGun> OwnedGuns { get; private set; }
+    public Player Player => player;
 
     public int Currency { get; set; }
-    public bool IsPaused { get => pauseMenuCanvas.enabled; }
 
     protected override void Awake()
     {
@@ -35,35 +34,17 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
         Currency = data.currency;
     }
     
-
 	public void HideCursor()
 	{
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
-	}
-
-	public void ShowCursor()
-	{
-		Cursor.lockState = CursorLockMode.None;
-		Cursor.visible = true;
-	}
-	public void SetGamePause(bool pause)
-    {
-        if (pauseMenuCanvas == null) return;
-
-        if (pause)
-        {
-            Time.timeScale = 0;
-            ShowCursor();
-            pauseMenuCanvas.enabled = true;
-        }
-        else
-        {
-            Time.timeScale = 1;
-            HideCursor();
-            pauseMenuCanvas.enabled = false;
-        }
     }
+
+    public void ShowCursor()
+	{
+		//Cursor.lockState = CursorLockMode.None;
+		//Cursor.visible = true;
+	}
 
     public void ReturnToMainMenu()
     {

@@ -1237,7 +1237,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &1793959058796324511
 MonoBehaviour:
@@ -1291,6 +1291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f21337c3ffd8245b299bd61c45cab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 1793959058796324510}
   currentView: {fileID: 8515731362758926771}
 --- !u!1 &1793959059320334237
 GameObject:
@@ -3581,6 +3582,22 @@ PrefabInstance:
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 1570871959493464725}
+    - target: {fileID: 735650654806469828, guid: bf12a996c6db93e46aa13bc2f2cbfda8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 735650654806469828, guid: bf12a996c6db93e46aa13bc2f2cbfda8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5202851768757586003}
+    - target: {fileID: 735650654806469828, guid: bf12a996c6db93e46aa13bc2f2cbfda8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetGamePause
+      objectReference: {fileID: 0}
+    - target: {fileID: 735650654806469828, guid: bf12a996c6db93e46aa13bc2f2cbfda8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1978437310311881660, guid: bf12a996c6db93e46aa13bc2f2cbfda8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

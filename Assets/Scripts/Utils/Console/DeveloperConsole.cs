@@ -11,6 +11,8 @@ public class DeveloperConsole : Singleton<DeveloperConsole>
 
     [SerializeField] private List<Command> allCommands = new List<Command>();
 
+    private PlayerInput playerInput;
+
     public List<Command> AllCommands => allCommands;
 
     protected override void Awake()
@@ -19,48 +21,58 @@ public class DeveloperConsole : Singleton<DeveloperConsole>
 
         canvas.enabled = false;
 
+        playerInput = new PlayerInput();
+
+        playerInput.DevConsole.CloseDevConsole.performed += ctx => Toggle();
+        playerInput.DevConsole.Submit.performed += ctx => ExecuteCommand();
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.F11)) Toggle();
+        playerInput.DevConsole.Enable();
+    }
 
-        if (canvas.enabled && Input.GetKeyDown(KeyCode.Return) && inputField.text != "")
-        {
-            string[] words = inputField.text.Split(' ');
+    private void OnDisable()
+    {
+        playerInput.DevConsole.Disable();
+    }
 
-            string prefix = words[0];
+    private void ExecuteCommand()
+    {
+        if (!canvas.enabled || inputField.text == string.Empty) return;
 
-            Command matchCommand = allCommands.Find(c => c.prefix == prefix.ToLower());
+        string[] words = inputField.text.Split(' ');
 
-            if (matchCommand != null)
-                matchCommand.Execute(words.Skip(1).ToArray());
-            else
-                SetOutput($"{prefix} is not a valid command");
+        string prefix = words[0];
 
-            inputField.text = "";
-            inputField.ActivateInputField();
-            inputField.Select();
-        }
+        Command matchCommand = allCommands.Find(c => c.prefix == prefix.ToLower());
+
+        if (matchCommand != null)
+            matchCommand.Execute(words.Skip(1).ToArray());
+        else
+            SetOutput($"{prefix} is not a valid command");
+
+        inputField.text = "";
+        inputField.ActivateInputField();
+        inputField.Select();
     }
 
     public void Toggle()
     {
         canvas.enabled = !canvas.enabled;
+        GeneralInputManager.Instance.enabled = !canvas.enabled;
+        if (HuntingInputManager.Instance) HuntingInputManager.Instance.enabled = !canvas.enabled;
+        else if (HouseInputManager.Instance) HouseInputManager.Instance.enabled = !canvas.enabled;
         if (canvas.enabled)
         {
             inputField.ActivateInputField();
             inputField.Select();
             GameManager.Instance.ShowCursor();
-            if (HuntingInputManager.Instance) HuntingInputManager.Instance.PlayerInput.Disable();
-            else if (HouseInputManager.Instance) HouseInputManager.Instance.PlayerInput.Disable();
         } else
         {
             inputField.DeactivateInputField();
             inputField.text = "";
             GameManager.Instance.HideCursor();
-            if (HuntingInputManager.Instance) HuntingInputManager.Instance.PlayerInput.Enable();
-            else if (HouseInputManager.Instance) HouseInputManager.Instance.PlayerInput.Enable();
         }
     }
 
