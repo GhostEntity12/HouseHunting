@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
-  m_Name: Sink Round
+  m_Name: DoubleBed
   m_EditorClassIdentifier: 
-  id: shadedLamp
-  name: Shaded Lamp
-  maxHealth: 20
+  id: doubleBed
+  name: Double Bed
+  maxHealth: 30
   speed: 3
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
-  placeablePrefab: {fileID: 1539234630903234798, guid: f4aefb11ea598469f9725e5cab54e2dd, type: 3}
-  shootablePrefab: {fileID: 3685072443934080641, guid: c6397f22e5db0442daf735b6b8e559ec, type: 3}
+  thumbnail: {fileID: 21300000, guid: 7be0f92b9e7bb1744bfe3af8adc18fd2, type: 3}
+  placeablePrefab: {fileID: 2350306671234011157, guid: 9a26f7a9a12bc8f4bb9bd8c412f1af23, type: 3}
+  shootablePrefab: {fileID: 6366392969304530097, guid: 8dd7d42fbef8ba04b9398f06db5ef2b2, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
-  alertnessThreshold1: 33
+  alertnessThreshold1: 30
   threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
-  alertnessThreshold2: 66
+  alertnessThreshold2: 60
   threshold2Behaviour: {fileID: 11400000, guid: 217112832d3f55c4e8f13aef0f12578c, type: 2}
   alertnessThreshold3: 100
   threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
@@ -33,6 +33,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
   special: 0
   materials:
-  - {fileID: 2100000, guid: b098f126ba88e9f44aebdb6e0584851c, type: 2}
-  - {fileID: -1400836625916889992, guid: 3ac05f64e3c52a74d9853255ef8b6c12, type: 3}
-  basePrice: 0
+  - {fileID: -389402008792246631, guid: 893fef4c6c54df3448a00479c3e8ce7f, type: 3}
+  basePrice: 200
