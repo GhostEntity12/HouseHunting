@@ -6971,7 +6971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9183740533133080826, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00017276546
+      value: 0.0010183817
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7107,8 +7107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableFurniture:
-  - {fileID: 3685072443934080641, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
-  - {fileID: 3685072443934080641, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
+  - {fileID: 3685072443934080641, guid: fc7621cacaffc1a4e8ba5882c3f64511, type: 3}
+  - {fileID: 3685072443934080641, guid: 33ba177a7359448a3a9ce8573681c901, type: 3}
   amountToSpawn: 3
 --- !u!114 &152494371 stripped
 MonoBehaviour:
@@ -25176,7 +25176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableFurniture:
-  - {fileID: 4207542877117778773, guid: 72ec9f24d63fd614aa750b9890637395, type: 3}
+  - {fileID: 3685072443934080641, guid: 33ba177a7359448a3a9ce8573681c901, type: 3}
   - {fileID: 3685072443934080641, guid: 80707375bc9c4a34db589cbf055f72ea, type: 3}
   amountToSpawn: 2
 --- !u!1001 &1083426702
@@ -29915,7 +29915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnableFurniture:
   - {fileID: 2899710936797965666, guid: 17c4f93df63368e42834b0e1283922c0, type: 3}
-  - {fileID: 3685072443934080641, guid: 1a2ac2217ed713743acd3eab627fd946, type: 3}
+  - {fileID: 3685072443934080641, guid: 33ba177a7359448a3a9ce8573681c901, type: 3}
   amountToSpawn: 3
 --- !u!1 &1497406803
 GameObject:
@@ -37721,7 +37721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableFurniture:
-  - {fileID: 5670009076271129424, guid: c9cedc47b510963439aa1210cae5a74c, type: 3}
+  - {fileID: 3685072443934080641, guid: c9e85f8fa86c73e40af1e389bc50cc7f, type: 3}
   amountToSpawn: 1
 --- !u!1 &1708793188
 GameObject:
