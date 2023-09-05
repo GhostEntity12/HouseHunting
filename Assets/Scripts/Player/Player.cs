@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,13 +24,19 @@ public class Player : MonoBehaviour
 	private float speedMultiplyer = 1f;
 	private float moveVolume = 6f;
 	private float playerVerticalVelocity;
+	private List<MoveState> moveState = new List<MoveState>();
 
 	// look
 	private float xRotation = 0f;
 
+    private void Awake()
+    {
+        moveState.Add(MoveState.Walk);
+    }
+
     private void Update()
     {
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 3f) && hit.transform.TryGetComponent(out IInteractable interactable) && interactable.Interactable)
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, interactRange) && hit.transform.TryGetComponent(out IInteractable interactable) && interactable.Interactable)
         {
 			InteractPopupManager.Instance.gameObject.SetActive(true);
 			InteractPopupManager.Instance.SetAction(interactable.InteractActionText);
@@ -74,9 +81,25 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	public void SetMoveState(MoveState movementState)
+	/// <summary>
+	///	Set Move State
+	///	<para>Move state is a list filled with MoveState, the first on the list will always be walk, and cannot be removed.</para>
+	///	<para>When this method is called, it will push/remove the movementState passed in to the list</para>
+	///	<para>The move state will always be the last element on the list</para>
+	///	<para>This is so that if the player presses crtl then shift, then releases one of them, the move state will not get set to walking, instead it will be changed to whatever key the player is holding down</para>
+	/// </summary>
+	/// <param name="movementState">Which movementState to add or remove</param>
+	/// <param name="add">true if add, false if remove</param>
+	public void SetMoveState(MoveState movementState, bool add)
 	{
-		switch (movementState)
+		if (add)
+			moveState.Add(movementState);
+		else
+			moveState.Remove(movementState);
+
+		MoveState currentState = moveState[moveState.Count - 1];
+
+		switch (currentState)
 		{
 			case MoveState.Crouch:
 				controller.height = 1;
@@ -126,7 +149,7 @@ public class Player : MonoBehaviour
 
 	public void Interact()
 	{
-        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hit, 3f) && hit.transform.TryGetComponent(out IInteractable interactable))
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hit, interactRange) && hit.transform.TryGetComponent(out IInteractable interactable))
             interactable.Interact();
     }
 }

@@ -15,11 +15,11 @@ public class GeneralInputManager : Singleton<GeneralInputManager>
 
         playerInput = new PlayerInput();
 
-        playerInput.General.Crouch.performed += ctx => player.SetMoveState(Player.MoveState.Crouch);
-        playerInput.General.Crouch.canceled += ctx => player.SetMoveState(Player.MoveState.Walk);
+        playerInput.General.Crouch.performed += ctx => player.SetMoveState(Player.MoveState.Crouch, true);
+        playerInput.General.Crouch.canceled += ctx => player.SetMoveState(Player.MoveState.Crouch, false);
 
-        playerInput.General.Run.performed += ctx => player.SetMoveState(Player.MoveState.Sprint);
-        playerInput.General.Run.canceled += ctx => player.SetMoveState(Player.MoveState.Walk);
+        playerInput.General.Run.performed += ctx => player.SetMoveState(Player.MoveState.Sprint, true);
+        playerInput.General.Run.canceled += ctx => player.SetMoveState(Player.MoveState.Sprint, false);
 
         playerInput.General.Interact.performed += ctx => player.Interact();
 

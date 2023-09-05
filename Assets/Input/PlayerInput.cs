@@ -332,15 +332,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Pause"",
-                    ""type"": ""Button"",
-                    ""id"": ""7040fe47-d6d5-4dba-8f45-1bb56b93bb45"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -363,17 +354,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""OpenInventory"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2d81e499-cee5-4784-8e9a-28b99929e0ee"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -773,7 +753,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_House_RotateHoldingFurniture = m_House.FindAction("RotateHoldingFurniture", throwIfNotFound: true);
         m_House_PlaceHoldingFurniture = m_House.FindAction("PlaceHoldingFurniture", throwIfNotFound: true);
         m_House_OpenInventory = m_House.FindAction("OpenInventory", throwIfNotFound: true);
-        m_House_Pause = m_House.FindAction("Pause", throwIfNotFound: true);
         // General
         m_General = asset.FindActionMap("General", throwIfNotFound: true);
         m_General_Look = m_General.FindAction("Look", throwIfNotFound: true);
@@ -993,7 +972,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_House_RotateHoldingFurniture;
     private readonly InputAction m_House_PlaceHoldingFurniture;
     private readonly InputAction m_House_OpenInventory;
-    private readonly InputAction m_House_Pause;
     public struct HouseActions
     {
         private @PlayerInput m_Wrapper;
@@ -1002,7 +980,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @RotateHoldingFurniture => m_Wrapper.m_House_RotateHoldingFurniture;
         public InputAction @PlaceHoldingFurniture => m_Wrapper.m_House_PlaceHoldingFurniture;
         public InputAction @OpenInventory => m_Wrapper.m_House_OpenInventory;
-        public InputAction @Pause => m_Wrapper.m_House_Pause;
         public InputActionMap Get() { return m_Wrapper.m_House; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1024,9 +1001,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @OpenInventory.started += instance.OnOpenInventory;
             @OpenInventory.performed += instance.OnOpenInventory;
             @OpenInventory.canceled += instance.OnOpenInventory;
-            @Pause.started += instance.OnPause;
-            @Pause.performed += instance.OnPause;
-            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IHouseActions instance)
@@ -1043,9 +1017,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @OpenInventory.started -= instance.OnOpenInventory;
             @OpenInventory.performed -= instance.OnOpenInventory;
             @OpenInventory.canceled -= instance.OnOpenInventory;
-            @Pause.started -= instance.OnPause;
-            @Pause.performed -= instance.OnPause;
-            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IHouseActions instance)
@@ -1332,7 +1303,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnRotateHoldingFurniture(InputAction.CallbackContext context);
         void OnPlaceHoldingFurniture(InputAction.CallbackContext context);
         void OnOpenInventory(InputAction.CallbackContext context);
-        void OnPause(InputAction.CallbackContext context);
     }
     public interface IGeneralActions
     {
