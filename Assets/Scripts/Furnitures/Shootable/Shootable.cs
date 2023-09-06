@@ -1,6 +1,8 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
-public abstract class Shootable : MonoBehaviour, IInteractable
+public class Shootable : MonoBehaviour, IInteractable
 {
     [SerializeField] private FurnitureSO furnitureSO;
 
@@ -17,7 +19,7 @@ public abstract class Shootable : MonoBehaviour, IInteractable
     public string InteractActionText => "Pickup";
     public bool Interactable => isDead;
 
-    private void Awake()
+	private void Awake()
     {
         currentHealth = furnitureSO.maxHealth;
         meshRenderer = GetComponentInChildren<MeshRenderer>();
@@ -38,6 +40,17 @@ public abstract class Shootable : MonoBehaviour, IInteractable
     {
         isDead = true;
         furnitureAlert.OnDead();
+
+        // disable AI when dead
+        WanderAI wanderAI = transform.GetComponent<WanderAI>();
+        wanderAI.enabled = false;
+        NavMeshAgent navMeshAgent = transform.GetComponent<NavMeshAgent>();
+        navMeshAgent.enabled = false;
+
+        // add a rigid body component and apply force to make it topple
+        Rigidbody rb = transform.AddComponent<Rigidbody>();
+        rb.AddForce(GameManager.Instance.player.transform.forward * 5, ForceMode.Impulse);
+        rb.AddTorque(GameManager.Instance.player.transform.forward * 5, ForceMode.Impulse);
     }
 
     public void TakeDamage(int damage)
@@ -49,13 +62,8 @@ public abstract class Shootable : MonoBehaviour, IInteractable
         if (currentHealth <= 0) Die();
     }
 
-    public int[] GetHealth()
-    {
-        int[] healthStatus = { currentHealth, furnitureSO.maxHealth };
-        return healthStatus;
-    }
 
-    public SaveDataFurniture GetInventoryItem()
+	public SaveDataFurniture GetInventoryItem()
     {
         return new SaveDataFurniture(furnitureSO.id, scaleFactor, materialIndex, price);
     }

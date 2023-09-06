@@ -254,6 +254,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4893088008911026468, guid: 94a448de968685a47a8219c63ea8ad83, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 31735
+      objectReference: {fileID: 0}
     - target: {fileID: 8337428779502255244, guid: 94a448de968685a47a8219c63ea8ad83, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
@@ -388,10 +392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d6f362199acc941b311d63496bae92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allGuns:
-  - {fileID: 2932757771291123352, guid: ceff132106ef38140bee93ace2b7aa97, type: 3}
-  - {fileID: 9044442938559451673, guid: 3387f283955c7f6449c60a21db593378, type: 3}
-  - {fileID: 7744787206299875300, guid: b564367a31bf57d40ac12e86b95962e7, type: 3}
 --- !u!1 &5657111898024006285 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 659654999893775899, guid: 94a448de968685a47a8219c63ea8ad83, type: 3}

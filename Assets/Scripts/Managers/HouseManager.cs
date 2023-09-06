@@ -116,7 +116,9 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		Placeable spawnedPlaceable = Instantiate(selectedFurniture.so.placeablePrefab);
 
 		holdingPlaceable = spawnedPlaceable;
-        spawnedPlaceable.InventoryItem = selectedFurniture.item;
+		MeshCollider meshCollider = holdingPlaceable.GetComponentInChildren<MeshCollider>();
+		meshCollider.enabled = false;
+		spawnedPlaceable.InventoryItem = selectedFurniture.item;
 
 		ShopUIManager.Instance.ToggleShop();
 	}

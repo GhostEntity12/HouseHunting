@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6130737722407600114}
   - component: {fileID: 2350306671234011157}
-  - component: {fileID: 3718148273572612224}
   - component: {fileID: 2525179865123600939}
   - component: {fileID: 4484003681652388258}
   - component: {fileID: 617541988014259175}
@@ -29,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4408006311470859530}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -38,7 +37,7 @@ Transform:
   - {fileID: 1881498738827691164}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &2350306671234011157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53,27 +52,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canPlaceOnSurface: 0
   <Mesh>k__BackingField: {fileID: 745136825906266099}
---- !u!65 &3718148273572612224
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408006311470859530}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.9122419, y: 1.3266677, z: 0.079152584}
-  m_Center: {x: -0.0034847558, y: 0.62833387, z: -2.024576}
 --- !u!65 &2525179865123600939
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -175,7 +153,6 @@ GameObject:
   - component: {fileID: 5862638478991180022}
   - component: {fileID: 1511726677889583794}
   - component: {fileID: 7171063780360546523}
-  - component: {fileID: 5543148881952539599}
   m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
@@ -225,20 +202,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.99999976, y: 0.649663, z: 0.9999998}
-  m_Center: {x: 0, y: -0.4569284, z: 0}
---- !u!114 &5543148881952539599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8119642218485232497}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad8c75a69f43b694bb527b303933999a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2132124978556363639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -257,7 +222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 27c9356bf9a33634d95b47eb2dd83705, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.017
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 27c9356bf9a33634d95b47eb2dd83705, type: 3}
       propertyPath: m_LocalPosition.z
@@ -291,6 +256,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: 27c9356bf9a33634d95b47eb2dd83705, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 6508942946276188115, guid: 27c9356bf9a33634d95b47eb2dd83705, type: 3}
     - target: {fileID: 919132149155446097, guid: 27c9356bf9a33634d95b47eb2dd83705, type: 3}
       propertyPath: m_Name
       value: Bed1
@@ -338,7 +307,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 6508942946276188115, guid: 27c9356bf9a33634d95b47eb2dd83705, type: 3}
+  m_Mesh: {fileID: 3335724914305450694, guid: 9258e0f93dd57e444b525e1e672dc365, type: 3}
 --- !u!4 &1881498738827691164 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 27c9356bf9a33634d95b47eb2dd83705, type: 3}
