@@ -56,8 +56,6 @@ public class Gun : MonoBehaviour
         if (HuntingInputManager.Instance.WeaponWheelIsOpen()) return; // dont shoot when weapon wheel is open
         if (BulletPool.Instance.BulletPrefab == null) return; // if bullet prefab in bullet pool is not set, do not shoot
 
-        HuntingManager.Instance.DealDamageToPlayer();
-
 		// Set state to shooting
 		state = GunState.Shooting;
 
