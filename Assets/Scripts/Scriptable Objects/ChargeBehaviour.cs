@@ -49,6 +49,7 @@ public class ChargeBehaviour : AIBehaviour
             timeSinceLastCharge += Time.deltaTime;
             if (timeSinceLastCharge >= chargeDelay)
             {
+                knowledge.Agent.speed = knowledge.Stats.speed * 3;
                 knowledge.Agent.isStopped = false;
                 charging = true;
                 timeSinceLastCharge = 0;
