@@ -15,7 +15,7 @@ public class DealDamageCommand : Command
             return;
         }
 
-        HuntingManager.Instance.DealDamageToPlayer(1);
+        HuntingManager.Instance.DealDamageToPlayer();
         Output("Dealt 1 damage to player");
     }
 }

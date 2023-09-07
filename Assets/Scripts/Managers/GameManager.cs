@@ -71,4 +71,9 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
         ShowCursor();
         SceneManager.LoadScene(0);
     }
+
+    public void ReturnToHouse()
+    {
+        SceneManager.LoadScene(1);
+    }
 }
