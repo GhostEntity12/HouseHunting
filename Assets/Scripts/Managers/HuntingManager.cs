@@ -12,14 +12,14 @@ public class HuntingManager : Singleton<HuntingManager>
 
 	[SerializeField] private Image hurtOverlay;
 
-	[SerializeField] private Image healthFill;
-	[SerializeField] private TextMeshProUGUI healthText;
+	[SerializeField] private HealthUI healthUI;
 
 	private int currentHealth;
 	private float huntingTimerSeconds;
 
 	[field: SerializeField] public Transform Player { get; private set; }
 	public FurnitureInventory HuntingInventory { get; private set; }
+	public int MaxHealth => maxHealth;
 
 	protected override void Awake()
 	{
@@ -39,10 +39,6 @@ public class HuntingManager : Singleton<HuntingManager>
 
 	private void Update()
 	{
-		//health UI
-		healthText.text = currentHealth.ToString();
-		healthFill.fillAmount = (float)currentHealth / (float)maxHealth;
-
 		if (huntingTimerSeconds > 0)
 		{
 			huntingTimerSeconds -= Time.deltaTime;
@@ -82,7 +78,7 @@ public class HuntingManager : Singleton<HuntingManager>
 		return string.Format("{0:00}:{1:00}", minutes, remainingSeconds);
 	}
 
-	public void DealDamageToPlayer(int damage)
+	public void DealDamageToPlayer()
 	{
 		// Set initial alpha to 0.5
 		hurtOverlay.color = new Color(hurtOverlay.color.r, hurtOverlay.color.g, hurtOverlay.color.b, 0.5f);
@@ -95,8 +91,8 @@ public class HuntingManager : Singleton<HuntingManager>
 			hurtOverlay.color = new Color(c.r, c.g, c.b, 0f);
 		});
 
-		currentHealth -= damage;
-		Debug.Log("Player took " + damage + " damage. Current health: " + currentHealth);
+		currentHealth--;
+		healthUI.DecrementHealth();
 		if (currentHealth <= 0) Die();
 	}
 
