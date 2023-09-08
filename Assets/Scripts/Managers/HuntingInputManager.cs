@@ -50,9 +50,6 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
         playerInput.Hunting.Quick5.performed += ctx => WeaponManager.Instance.SelectItem(4);
         playerInput.Hunting.Quick6.performed += ctx => WeaponManager.Instance.SelectItem(5);
 
-		// debug
-		playerInput.Hunting.DebugAmmo.performed += ctx => WeaponManager.Instance.GiveAmmo(100);
-
 		// ADS
 		playerInput.Hunting.ADS.performed += ctx => WeaponManager.Instance.CurrentGun.ToggleADS();
     }

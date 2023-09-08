@@ -172,15 +172,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""DebugAmmo"",
-                    ""type"": ""Button"",
-                    ""id"": ""76d1ac6f-d949-4ece-aa0c-fd32fb6bdbdb"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Run"",
                     ""type"": ""Button"",
                     ""id"": ""9d288a96-fe55-4d70-abc9-8f73411d46b1"",
@@ -419,39 +410,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Quick6"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""51c8d6b1-96c1-46bf-a437-83792d78148b"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DebugAmmo"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""64678518-d464-41eb-84b1-8c334b29a125"",
-                    ""path"": ""<Keyboard>/ctrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DebugAmmo"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""857c9309-7645-41c1-9c21-b0f9239804a3"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DebugAmmo"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -904,7 +862,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Hunting_Quick4 = m_Hunting.FindAction("Quick4", throwIfNotFound: true);
         m_Hunting_Quick5 = m_Hunting.FindAction("Quick5", throwIfNotFound: true);
         m_Hunting_Quick6 = m_Hunting.FindAction("Quick6", throwIfNotFound: true);
-        m_Hunting_DebugAmmo = m_Hunting.FindAction("DebugAmmo", throwIfNotFound: true);
         m_Hunting_Run = m_Hunting.FindAction("Run", throwIfNotFound: true);
         m_Hunting_ADS = m_Hunting.FindAction("ADS", throwIfNotFound: true);
         // House
@@ -1002,7 +959,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_Quick4;
     private readonly InputAction m_Hunting_Quick5;
     private readonly InputAction m_Hunting_Quick6;
-    private readonly InputAction m_Hunting_DebugAmmo;
     private readonly InputAction m_Hunting_Run;
     private readonly InputAction m_Hunting_ADS;
     public struct HuntingActions
@@ -1025,7 +981,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Quick4 => m_Wrapper.m_Hunting_Quick4;
         public InputAction @Quick5 => m_Wrapper.m_Hunting_Quick5;
         public InputAction @Quick6 => m_Wrapper.m_Hunting_Quick6;
-        public InputAction @DebugAmmo => m_Wrapper.m_Hunting_DebugAmmo;
         public InputAction @Run => m_Wrapper.m_Hunting_Run;
         public InputAction @ADS => m_Wrapper.m_Hunting_ADS;
         public InputActionMap Get() { return m_Wrapper.m_Hunting; }
@@ -1085,9 +1040,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Quick6.started += instance.OnQuick6;
             @Quick6.performed += instance.OnQuick6;
             @Quick6.canceled += instance.OnQuick6;
-            @DebugAmmo.started += instance.OnDebugAmmo;
-            @DebugAmmo.performed += instance.OnDebugAmmo;
-            @DebugAmmo.canceled += instance.OnDebugAmmo;
             @Run.started += instance.OnRun;
             @Run.performed += instance.OnRun;
             @Run.canceled += instance.OnRun;
@@ -1146,9 +1098,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Quick6.started -= instance.OnQuick6;
             @Quick6.performed -= instance.OnQuick6;
             @Quick6.canceled -= instance.OnQuick6;
-            @DebugAmmo.started -= instance.OnDebugAmmo;
-            @DebugAmmo.performed -= instance.OnDebugAmmo;
-            @DebugAmmo.canceled -= instance.OnDebugAmmo;
             @Run.started -= instance.OnRun;
             @Run.performed -= instance.OnRun;
             @Run.canceled -= instance.OnRun;
@@ -1378,7 +1327,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnQuick4(InputAction.CallbackContext context);
         void OnQuick5(InputAction.CallbackContext context);
         void OnQuick6(InputAction.CallbackContext context);
-        void OnDebugAmmo(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnADS(InputAction.CallbackContext context);
     }

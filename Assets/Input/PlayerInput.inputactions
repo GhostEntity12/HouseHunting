@@ -150,15 +150,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "DebugAmmo",
-                    "type": "Button",
-                    "id": "76d1ac6f-d949-4ece-aa0c-fd32fb6bdbdb",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Run",
                     "type": "Button",
                     "id": "9d288a96-fe55-4d70-abc9-8f73411d46b1",
@@ -397,39 +388,6 @@
                     "action": "Quick6",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "One Modifier",
-                    "id": "51c8d6b1-96c1-46bf-a437-83792d78148b",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "DebugAmmo",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "64678518-d464-41eb-84b1-8c334b29a125",
-                    "path": "<Keyboard>/ctrl",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "DebugAmmo",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "857c9309-7645-41c1-9c21-b0f9239804a3",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "DebugAmmo",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
