@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class HuntingInputManager : Singleton<HuntingInputManager>
 {
@@ -11,6 +12,13 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 	public PlayerInput PlayerInput => playerInput;
 
+	public Transform cam;
+	public Transform attackPoint;
+	public GameObject objectToThrow;
+	private bool lureReload;
+	public float throwForce;
+	public float throwUpwardForce;
+
 	protected override void Awake()
 	{
         base.Awake();
@@ -21,6 +29,8 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		look = GetComponent<PlayerLook>();
 
 		camera = GetComponentInChildren<Camera>();
+
+		lureReload = true;
 
 		// interact
 		playerInput.Hunting.Interact.performed += ctx => Interact();
@@ -55,6 +65,10 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 		// ADS
 		playerInput.Hunting.ADS.performed += ctx => WeaponManager.Instance.CurrentGun.ToggleADS();
+
+		// Lure
+		//playerInput.Hunting.ThrowLure.performed += ctx => Lure();
+
     }
 
 	private void OnEnable()
@@ -80,6 +94,20 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 			look.Look(playerInput.Hunting.Look.ReadValue<Vector2>());
 	}
 
+	private void Update()
+	{
+		if (lureReload == true && Input.GetKeyDown(KeyCode.G) )
+		{
+			GameObject projectile = Instantiate(objectToThrow, attackPoint.position, cam.rotation);
+			Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+			Vector3 forceToAdd = cam.transform.forward * throwForce + transform.up * throwUpwardForce;
+
+			projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
+			lureReload = false;
+			StartCoroutine("LureTimer");
+		}	
+	}
+
 	private void OnDisable()
 	{
 		playerInput.Hunting.Disable();
@@ -96,6 +124,12 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		{
 			InteractPopupManager.Instance.gameObject.SetActive(false);
 		}
+	}
+
+	// Check again with inputs
+	private void Lure()
+	{
+			
 	}
 
     private void Interact()
@@ -120,6 +154,12 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	{
 		return weaponWheelController.GetOpen();
 	}
+
+	private IEnumerator LureTimer()
+    {
+        yield return new WaitForSeconds(2);
+		lureReload = true;
+    }
 
 	/// <summary>
 	/// Enables firing of the gun. Not done in awake to allow for setup (campfires) without firing weapon.

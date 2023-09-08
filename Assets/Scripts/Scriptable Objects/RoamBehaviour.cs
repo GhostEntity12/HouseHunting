@@ -5,7 +5,7 @@ public class RoamBehaviour : AIBehaviour
 {
 	public override void Act(ref Knowledge knowledge)
 	{
-		// If the agent is close to it's destination, choose a new one
+		/*// If the agent is close to it's destination, choose a new one
 		if (knowledge.Agent.remainingDistance < 1)
 		{
 			// Get a point in front of the furniture, and a random point
@@ -19,8 +19,11 @@ public class RoamBehaviour : AIBehaviour
 			{
 				knowledge.Agent.SetDestination(destination);
 			}
-		}
+		}*/
+		knowledge.Agent.SetDestination(knowledge.LurePosition);
 	}
+
+
 	public override void Entry(ref Knowledge knowledge)
 	{
 

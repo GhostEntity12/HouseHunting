@@ -19,6 +19,8 @@ public class WanderAI : MonoBehaviour
 	private Transform player;
 	private float alertness = 0;
 	private AIBehaviour activeBehaviour;
+	private GameObject lure;
+	private Vector3 lurePos;
 
 	public float Alertness
 	{
@@ -44,7 +46,14 @@ public class WanderAI : MonoBehaviour
 	}
 
 	private void Update()
-	{
+	{	
+		if (lure != null)
+		{
+			lure = GameObject.FindWithTag("Lure");
+			lurePos = lure.transform.position;
+		}
+			
+
 		if (shootable.IsDead)
 		{
 			agent.isStopped = true;
@@ -65,7 +74,7 @@ public class WanderAI : MonoBehaviour
 		UpdateSightAlertness(canSeePlayer);
 
 		// Bundle information to pass to behaviours
-		Knowledge k = new(transform, player.position, info, agent, sound, canSeePlayer);
+		Knowledge k = new(transform, player.position, lurePos, info, agent, sound, canSeePlayer);
 
 		CheckTransitions(k);
 

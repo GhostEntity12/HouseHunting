@@ -11,7 +11,7 @@ public class MainMenuManager : Singleton<MainMenuManager>
     public void NewGame()
     {
         DataPersistenceManager.Instance.NewGame();
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("ForestTestingAllen");
     }
 
     public void Continue()
