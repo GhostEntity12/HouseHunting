@@ -14,7 +14,7 @@ public class HuntingManager : Singleton<HuntingManager>
 
 	[SerializeField] private HealthUI healthUI;
 
-	private int currentHealth;
+	private float currentHealth;
 	private float huntingTimerSeconds;
 
 	[field: SerializeField] public Transform Player { get; private set; }
@@ -78,7 +78,7 @@ public class HuntingManager : Singleton<HuntingManager>
 		return string.Format("{0:00}:{1:00}", minutes, remainingSeconds);
 	}
 
-	public void DealDamageToPlayer()
+	public void DealDamageToPlayer(float damage)
 	{
 		// Set initial alpha to 0.5
 		hurtOverlay.color = new Color(hurtOverlay.color.r, hurtOverlay.color.g, hurtOverlay.color.b, 0.5f);
@@ -91,8 +91,8 @@ public class HuntingManager : Singleton<HuntingManager>
 			hurtOverlay.color = new Color(c.r, c.g, c.b, 0f);
 		});
 
-		currentHealth--;
-		healthUI.DecrementHealth();
+		currentHealth -= damage;
+		healthUI.SetHealth(currentHealth);
 		if (currentHealth <= 0) Die();
 	}
 

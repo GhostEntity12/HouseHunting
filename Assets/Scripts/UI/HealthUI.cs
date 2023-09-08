@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,9 +14,25 @@ public class HealthUI : MonoBehaviour
         }
     }
 
-    public void DecrementHealth()
+    public void SetHealth(float health)
     {
-        Transform health = transform.GetChild(0);
-        Destroy(health.gameObject);
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        for (int i = transform.childCount - 1; i >= 0; i--)
+        {
+            Transform ithChild = transform.GetChild(i);
+            if (health >= 1)
+            {
+                ithChild.gameObject.SetActive(true);
+            }
+            else if (health > 0)
+            {
+                ithChild.gameObject.SetActive(true);
+                ithChild.GetComponent<Image>().fillAmount = health;
+            }
+            health--;
+        }
     }
 }

@@ -294,8 +294,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e3000612d696a4e9c6ebb199e2775b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  markerPrefab: {fileID: 0}
-  markers: []
+  markerPrefab: {fileID: 3065085429191710885, guid: 8042c9e39fc691842a46cb9e888d388a, type: 3}
+  markers:
+  - {fileID: 0}
   cardinalImage: {fileID: 3638121145331747669}
   player: {fileID: 0}
   houseMarker: {fileID: 0}
@@ -333,10 +334,10 @@ RectTransform:
   m_Father: {fileID: 5236336954374965659}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 657.39355, y: 484.52148}
-  m_SizeDelta: {x: -1314.7872, y: -969.043}
+  m_AnchoredPosition: {x: -302.60645, y: -55.478485}
+  m_SizeDelta: {x: 605.21277, y: 110.95697}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9156891031394588992
 CanvasRenderer:
@@ -420,8 +421,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -110.22339, y: 57.100006}
-  m_SizeDelta: {x: 168.4467, y: 72.4039}
+  m_AnchoredPosition: {x: -84.22333, y: 95.71387}
+  m_SizeDelta: {x: 168.4467, y: 191.4276}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4683046851554983671
 CanvasRenderer:
@@ -1118,9 +1119,9 @@ RectTransform:
   m_Father: {fileID: 5236336954374965659}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 743.5, y: -566.6}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -339.1, y: 95}
   m_SizeDelta: {x: 236, y: 164}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4784733594342064051

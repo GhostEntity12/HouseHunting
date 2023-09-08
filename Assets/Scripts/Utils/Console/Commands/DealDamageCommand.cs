@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Deal Damage Command", menuName = "Command/Deal Damage")]
 public class DealDamageCommand : Command
 {
-    public DealDamageCommand() : base("dealdamage", "Deals 1 damage to player. Cannot be called in non-hunting scene.\nUsage: dealdamage")
+    public DealDamageCommand() : base("dealdamage", "Deals damage to player. Cannot be called in non-hunting scene. By default deals 1 damage. Pass in a float to specify damage.\nUsage: dealdamage <damage>")
     {
     }
 
@@ -15,7 +16,16 @@ public class DealDamageCommand : Command
             return;
         }
 
-        HuntingManager.Instance.DealDamageToPlayer();
-        Output("Dealt 1 damage to player");
+        try
+        {
+            float damage;
+            damage = arguments.Length > 0 ? float.Parse(arguments[0]) : 1f;
+            HuntingManager.Instance.DealDamageToPlayer(damage);
+            Output($"Dealt {damage} damage to player");
+        }
+        catch
+        {
+            Output(arguments[0] + " is not a valid number");
+        }
     }
 }
