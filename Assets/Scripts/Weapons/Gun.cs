@@ -63,7 +63,7 @@ public class Gun : MonoBehaviour
 
 		// If gun is not fuly loaded, only fire bullets in gun
 		int bulletsToFire = Mathf.Min(GunSO.bulletsPerTap, AmmoPouch.AmmoInGun);
-        //AnimationTrigger("Shoot"); // fire gun animation
+        AnimationTrigger("Shoot"); // fire gun animation
         SoundAlerter.MakeSoundImpulse(GunSO.volume, transform.position);
         Rigidbody rb = new();
             
