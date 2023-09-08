@@ -16,7 +16,7 @@ public class ChargeBehaviour : AIBehaviour
 	{
         if (hitbox == null)
         {
-            hitbox = knowledge.AITransform.GetComponent<Collider>();
+            
         }
         if (charging)
         {
@@ -49,7 +49,7 @@ public class ChargeBehaviour : AIBehaviour
             timeSinceLastCharge += Time.deltaTime;
             if (timeSinceLastCharge >= chargeDelay)
             {
-                knowledge.Agent.speed = knowledge.Stats.speed * 3;
+                knowledge.Agent.speed = knowledge.Info.speed * 3;
                 knowledge.Agent.isStopped = false;
                 charging = true;
                 timeSinceLastCharge = 0;
@@ -66,4 +66,9 @@ public class ChargeBehaviour : AIBehaviour
             }
         }
 	}
+    public override void Entry(ref Knowledge knowledge)
+    {
+        hitbox = knowledge.AITransform.GetComponent<Collider>();
+    }
+    public override void Exit(ref Knowledge knowledge) { }
 }

@@ -17,12 +17,11 @@ public class SlamBehaviour : AIBehaviour
     private float jumpTime = 0f;
     public override void Act(ref Knowledge knowledge)
     {
-        knowledge.Agent.isStopped = true;
         if (jumping)
         {
-            jumpTime += (Time.deltaTime / distance) * knowledge.Stats.speed;
+            jumpTime += (Time.deltaTime / distance) * knowledge.Info.speed;
             knowledge.Agent.isStopped = true;
-            knowledge.AITransform.position = WanderAI.Parabola(startPosition, endPosition, range, jumpTime);
+            knowledge.AITransform.position = WanderAI.Parabola(startPosition, endPosition, Mathf.Sqrt(distance / range) * range, jumpTime);
             if (jumpTime >= 1f)
             {
                 foreach (Collider hitCollider in Physics.OverlapSphere(knowledge.AITransform.position, radius))
@@ -62,10 +61,11 @@ public class SlamBehaviour : AIBehaviour
                     }
                 }
             }
-            else
-            {
-                knowledge.Agent.isStopped = true;
-            }
         }
     }
+    public override void Entry(ref Knowledge knowledge)
+    {
+        knowledge.Agent.isStopped = true;
+    }
+    public override void Exit(ref Knowledge knowledge) { }
 }
