@@ -20,6 +20,8 @@ public class WanderAI : MonoBehaviour
 	private Transform player;
 	private float alertness = 0;
 	private AIBehaviour activeBehaviour;
+	private float painTimer = 0f;
+	private bool hurt = false;
 
 	public float Alertness
 	{
@@ -68,7 +70,7 @@ public class WanderAI : MonoBehaviour
 		// Bundle information to pass to behaviours
 		Knowledge k = new(transform, player.position, info, agent, sound, canSeePlayer);
 
-		CheckTransitions(k);
+		CheckTransitions(k,UpdatePain());
 
 		activeBehaviour.Act(ref k);
 
@@ -88,18 +90,26 @@ public class WanderAI : MonoBehaviour
 	}
 #endif
 
-	private void CheckTransitions(Knowledge k)
+	private void CheckTransitions(Knowledge k, bool recovering = false)
 	{
 		switch (alertLevel)
 		{
 			case ThresholdLevels.Level0:
-				if (Alertness > info.alertnessThreshold1)
+				if (Alertness > info.alertnessThreshold1 && (painTimer <= 0 || recovering))
 				{
 					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
+				} 
+				else if (hurt)
+				{
+					Transition(info.damageBehaviour, k, ThresholdLevels.Level0);
+				}
+				else if (recovering)
+				{
+					Transition(info.threshold0Behaviour, k, ThresholdLevels.Level0);
 				}
 				break;
 			case ThresholdLevels.Level1:
-				if (Alertness == 0)
+				if (Alertness == 0 && (painTimer <= 0 || recovering))
 				{
 					Transition(info.threshold0Behaviour, k, ThresholdLevels.Level0);
 				}
@@ -107,9 +117,17 @@ public class WanderAI : MonoBehaviour
 				{
 					Transition(info.threshold2Behaviour, k, ThresholdLevels.Level2);
 				}
+				else if (hurt)
+				{
+					Transition(info.damageBehaviour, k, ThresholdLevels.Level1);
+				}
+				else if (recovering)
+				{
+					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
+				}
 				break;
 			case ThresholdLevels.Level2:
-				if (Alertness < info.alertnessThreshold1)
+				if (Alertness < info.alertnessThreshold1 && painTimer <= 0)
 				{
 					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
 				}
@@ -125,6 +143,7 @@ public class WanderAI : MonoBehaviour
 				}
 				break;
 		}
+		hurt = false;
 	}
 
 	private void Transition(AIBehaviour newBehaviour, Knowledge knowledge, ThresholdLevels newAlertLevel)
@@ -215,6 +234,13 @@ public class WanderAI : MonoBehaviour
 		return false;
 	}
 
+	public void InducePain()
+	{
+		alertness += 50f;
+		painTimer = 7.5f;
+		hurt = true;
+	}
+
 	/// <summary>
 	/// Updates the furniture's alertness based on whether it can see the player
 	/// </summary>
@@ -238,6 +264,25 @@ public class WanderAI : MonoBehaviour
 		// Decrease relaxTimer
 		else
 			Alertness -= Time.deltaTime * info.alertnessDecayRate;
+	}
+
+	/// <summary>
+	/// Counts down the furniture's painTimer.
+	/// </summary>
+	private bool UpdatePain()
+	{
+		if (painTimer >= Time.deltaTime)
+		{
+			painTimer -= Time.deltaTime;
+		} else if (painTimer < Time.deltaTime && painTimer > 0)
+		{
+			painTimer = 0f;
+		}
+		if (painTimer <= 0)
+		{
+			return true;
+		}
+		return false;
 	}
 
 	/// <summary>
