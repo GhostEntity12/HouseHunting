@@ -14,10 +14,6 @@ public class ChargeBehaviour : AIBehaviour
 
     public override void Act(ref Knowledge knowledge)
 	{
-        if (hitbox == null)
-        {
-            
-        }
         if (charging)
         {
             knowledge.Agent.isStopped = false;
