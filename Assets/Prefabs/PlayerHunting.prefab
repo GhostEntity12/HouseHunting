@@ -210,6 +210,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerHunting
       objectReference: {fileID: 0}
+    - target: {fileID: 1370906476700937492, guid: 94a448de968685a47a8219c63ea8ad83, type: 3}
+      propertyPath: speed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4230644132993505579, guid: 94a448de968685a47a8219c63ea8ad83, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -257,6 +261,10 @@ PrefabInstance:
     - target: {fileID: 4893088008911026468, guid: 94a448de968685a47a8219c63ea8ad83, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 31735
+      objectReference: {fileID: 0}
+    - target: {fileID: 4935077285264864549, guid: 94a448de968685a47a8219c63ea8ad83, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 8337428779502255244, guid: 94a448de968685a47a8219c63ea8ad83, type: 3}
       propertyPath: m_LocalPosition.z
@@ -584,6 +592,14 @@ PrefabInstance:
     - target: {fileID: 3126259693033042120, guid: b564367a31bf57d40ac12e86b95962e7, type: 3}
       propertyPath: m_Name
       value: Gun_Crossbow
+      objectReference: {fileID: 0}
+    - target: {fileID: 5881727287344065269, guid: b564367a31bf57d40ac12e86b95962e7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5881727287344065269, guid: b564367a31bf57d40ac12e86b95962e7, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7744787206299875300, guid: b564367a31bf57d40ac12e86b95962e7, type: 3}
       propertyPath: <GunSO>k__BackingField

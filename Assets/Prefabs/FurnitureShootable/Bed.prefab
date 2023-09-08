@@ -579,30 +579,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Alert UI
       objectReference: {fileID: 0}
-    - target: {fileID: 958545255073040575, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 958545255073040575, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4371707135187960402, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4543745558615537537, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5236622499727851553, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 6070018216266263218, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

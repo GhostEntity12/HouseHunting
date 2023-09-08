@@ -30,9 +30,11 @@ MonoBehaviour:
   alertnessDecayRate: 10
   sightAlertnessRate: 25
   senses:
-  - {fileID: 11400000, guid: f9f7060eff2b4844093101b1d93db58e, type: 2}
+  - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
   special: 0
   materials:
-  - {fileID: 2100000, guid: dc9a266ec49130e4c9b55f5329b7e48f, type: 2}
-  - {fileID: 2100000, guid: e86089b7200e35043a5cdf794f97fbc5, type: 2}
+  - {fileID: -8896051167825165466, guid: 2766f87bb921e404da225de215247143, type: 3}
+  - {fileID: -6867524174320841699, guid: 2766f87bb921e404da225de215247143, type: 3}
+  - {fileID: -8067726398312463513, guid: 2766f87bb921e404da225de215247143, type: 3}
+  - {fileID: 4821569825883369354, guid: 2766f87bb921e404da225de215247143, type: 3}
   basePrice: 50

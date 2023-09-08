@@ -78,7 +78,9 @@ public class Gun : MonoBehaviour
 
             // get bullet at muzzle point
             Bullet currentBullet = BulletPool.Instance.GetPooledObject(muzzlePoint.position, Quaternion.identity);
-            currentBullet.Damage = gunSO.damagePerBullet;
+			currentBullet.Rigidbody.angularVelocity = Vector3.zero;
+			currentBullet.Rigidbody.velocity = Vector3.zero;
+			currentBullet.Damage = gunSO.damagePerBullet;
             currentBullet.CanBounce = GunSO.id.ToLower() == "crossbow";
 
             // cast ray to crosshair, if the ray hits something, means that there are something in range that should be aimed that, otherwise, the direction can be slightly off
