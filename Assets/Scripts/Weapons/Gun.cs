@@ -102,6 +102,8 @@ public class Gun : MonoBehaviour
             currentBullet.Rigidbody.AddForce(currentBullet.transform.forward.normalized * GunSO.shootForce, ForceMode.Impulse);
         }
 
+        AudioManager.Instance.Play(GunSO.name);
+        
 		// Remove bullets
 		AmmoPouch.RemoveAmmo(bulletsToFire);
 
@@ -128,6 +130,8 @@ public class Gun : MonoBehaviour
 	{
 		// Skip if the gun can't be fired yet, no ammo in pouch or if already at max ammo
 		if (state != GunState.Ready || AmmoPouch.AmmoStored == 0 || AmmoPouch.AmmoInGun == GunSO.magSize) return;
+
+        AudioManager.Instance.Play(GunSO.name + " Reload");
 
 		// Trigger reload
 		state = GunState.Reloading;

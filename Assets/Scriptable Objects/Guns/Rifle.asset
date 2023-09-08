@@ -17,11 +17,10 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8184732236930052444, guid: 0ed628029aeff8b45ae54a00e10920f9, type: 3}
   icon: {fileID: 21300000, guid: f4aa1067a5340b743a14f2df540266c2, type: 3}
   damagePerBullet: 100
-  shootForce: 1000
+  shootForce: 200
   timeBetweenShots: 0.5
   spread: 0
   reloadTime: 1
   volume: 50
   magSize: 7
   bulletsPerTap: 1
-  bulletShopItem: {fileID: 11400000, guid: 25da7d02a6ecd914ca4753afc0b9d7d9, type: 2}
