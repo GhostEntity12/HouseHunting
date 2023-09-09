@@ -58,6 +58,7 @@ public class WeaponManager : Singleton<WeaponManager>
             SoundAlerter.MakeSoundImpulse(10, transform.position);
         }
         HuntingUIManager.Instance.SetAmmoCounterText(CurrentGun.AmmoInfo);
+        HuntingUIManager.Instance.BulletUI.ChangeGun(selectedGun);
     }
  
     // function which gives the player ammo

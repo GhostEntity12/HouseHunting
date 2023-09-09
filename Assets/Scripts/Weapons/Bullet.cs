@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Bullet : MonoBehaviour
@@ -7,7 +8,9 @@ public class Bullet : MonoBehaviour
     [SerializeField] int damage;
     [SerializeField] GameObject bulletHolePrefab;
     [SerializeField] float lifespan;
+    [SerializeField] Sprite sprite;
 
+    public Sprite Sprite => sprite;
     public Rigidbody Rigidbody { get; private set; }
     public int Damage { get { return damage; } set { damage = value; } }
     public bool CanBounce { get; set; }

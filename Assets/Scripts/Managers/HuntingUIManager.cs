@@ -9,6 +9,7 @@ public class HuntingUIManager : Singleton<HuntingUIManager>
 
     //ammo
     [SerializeField] private TextMeshProUGUI ammoCounterText;
+    [SerializeField] private BulletUI bulletUI;
 
     //reload UI
     [SerializeField] private Image reloadBar;
@@ -16,6 +17,8 @@ public class HuntingUIManager : Singleton<HuntingUIManager>
     private bool isReloading = false;
     private float reloadTimer = 0f;
     private float reloadTime; // Time it takes to reload the gun
+
+    public BulletUI BulletUI => bulletUI;
 
 	public delegate void OnReloadFinish();
 	public static event OnReloadFinish OnReloadFinishEvent;

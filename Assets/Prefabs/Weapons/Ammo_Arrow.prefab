@@ -152,6 +152,7 @@ MonoBehaviour:
   damage: 50
   bulletHolePrefab: {fileID: 6181713115017043311, guid: 88e418b7c1c193748b83c8c3c95d93ce, type: 3}
   lifespan: 2
+  sprite: {fileID: 21300000, guid: 541ad17c89bcb194993deeb1333d6693, type: 3}
 --- !u!1 &1606972069694784870
 GameObject:
   m_ObjectHideFlags: 0
