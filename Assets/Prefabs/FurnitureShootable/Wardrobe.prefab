@@ -52,8 +52,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0209246, y: 1.9210413, z: 0.57504606}
-  m_Center: {x: -0.0104623735, y: 0.43017232, z: 0.059337974}
+  m_Size: {x: 1.1091491, y: 1.9210413, z: 0.5935644}
+  m_Center: {x: -0.011216104, y: 0.43017232, z: 0.06859715}
 --- !u!114 &7037791057789475250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,7 +399,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: cff33c18dabd43d478024c1cd23c7597, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: -7924008169366355380, guid: cff33c18dabd43d478024c1cd23c7597, type: 3}
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 919132149155446097, guid: cff33c18dabd43d478024c1cd23c7597, type: 3}
       propertyPath: m_Name
       value: Furniture_Wardrobe

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showHitbox: 1
-  damageModifier: 2
+  damageModifier: 1
 --- !u!65 &1072507620166295143
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showHitbox: 1
-  damageModifier: 2
+  damageModifier: 1
 --- !u!65 &4769373712336529039
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showHitbox: 1
-  damageModifier: 2
+  damageModifier: 1
 --- !u!65 &6705102548806765304
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showHitbox: 1
-  damageModifier: 2
+  damageModifier: 1
 --- !u!65 &1546028303723054115
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -663,7 +663,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 77e0807815f787f49986266eb8a05c81, type: 2}
+      objectReference: {fileID: 2100000, guid: d79ef863f7fc0d44095118cc4667e66d, type: 2}
     - target: {fileID: 919132149155446097, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
       propertyPath: m_Name
       value: Table
