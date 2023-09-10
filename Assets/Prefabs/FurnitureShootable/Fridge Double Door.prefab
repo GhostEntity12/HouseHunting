@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showHitbox: 1
-  damageModifier: 2
+  damageModifier: 1
 --- !u!65 &8545174012311013685
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -192,8 +192,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6420431, y: 2.711851, z: 1.490207}
-  m_Center: {x: 0.099645376, y: 1.3559254, z: 0.025615215}
+  m_Size: {x: 2.0576985, y: 2.711851, z: 1.7575583}
+  m_Center: {x: -0.04194677, y: 1.3559254, z: 0.047978044}
 --- !u!114 &274742349716809348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showHitbox: 1
-  damageModifier: 2
+  damageModifier: 1
 --- !u!1001 &44184949845675264
 PrefabInstance:
   m_ObjectHideFlags: 0
