@@ -10372,17 +10372,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 720303408}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &725404725 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2774402201236185178, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
-  m_PrefabInstance: {fileID: 4683046851424238251}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 390a3ea55020bea44a2c5beaab7da450, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &727263099
 GameObject:
   m_ObjectHideFlags: 0
@@ -14672,23 +14661,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6080739849800273057, guid: 6994a377fbdc3174f92c55cee93265e7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6080739849800273057, guid: 6994a377fbdc3174f92c55cee93265e7, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6080739849800273057, guid: 6994a377fbdc3174f92c55cee93265e7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 6080739849800273057, guid: 6994a377fbdc3174f92c55cee93265e7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 6080739851205457314, guid: 6994a377fbdc3174f92c55cee93265e7, type: 3}
       propertyPath: m_Name
       value: CampfireChoiceCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080739851205457314, guid: 6994a377fbdc3174f92c55cee93265e7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6080739851205457321, guid: 6994a377fbdc3174f92c55cee93265e7, type: 3}
       propertyPath: m_Pivot.x
@@ -29718,10 +29711,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 600864394199555719, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
-      propertyPath: bulletUI
-      value: 
-      objectReference: {fileID: 725404725}
     - target: {fileID: 3615420396457086078, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_Name
       value: HealthUI
@@ -29733,18 +29722,6 @@ PrefabInstance:
     - target: {fileID: 4683046851554983664, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_margin.x
       value: -63.310425
-      objectReference: {fileID: 0}
-    - target: {fileID: 4683046851554983665, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -84.224
-      objectReference: {fileID: 0}
-    - target: {fileID: 4683046851554983665, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 4683046852287738537, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5236336954374965659, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_Pivot.x
@@ -29846,9 +29823,9 @@ PrefabInstance:
       propertyPath: markers.Array.data[0]
       value: 
       objectReference: {fileID: 1324402770}
-    - target: {fileID: 7217299715317337716, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -55.478485
+    - target: {fileID: 8718915713298058547, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
