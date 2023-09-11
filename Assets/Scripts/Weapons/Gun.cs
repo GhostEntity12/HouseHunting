@@ -24,7 +24,10 @@ public class Gun : MonoBehaviour
 	[field: SerializeField] public AmmoPouch AmmoPouch { get; private set; } = new();
     public Recoil Recoil => recoil;
 
-	public string AmmoInfo => $"{AmmoPouch.AmmoInGun / GunSO.bulletsPerTap} / {AmmoPouch.AmmoStored / GunSO.bulletsPerTap}";
+	public string AmmoInfo => $"{AmmoPouch.AmmoInGun / gunSO.bulletsPerTap} / {AmmoPouch.AmmoStored / gunSO.bulletsPerTap}";
+    public int NumberOfMagazineLeft => AmmoPouch.AmmoStored / gunSO.bulletsPerTap;
+    public int NumberOfShotsLeft => AmmoPouch.AmmoInGun / gunSO.bulletsPerTap;
+    public int MaxShotPerMagazine => gunSO.magSize / gunSO.bulletsPerTap;
 
     private void Awake()
     {
@@ -109,6 +112,7 @@ public class Gun : MonoBehaviour
 
 		// Update UI
 		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
+        HuntingUIManager.Instance.AmmoUI.SetBulletsLeft(NumberOfShotsLeft);
 
 		//Muzzle flash
         Instantiate(muzzleFlashPrefab, muzzlePoint.position, Quaternion.identity);
@@ -138,8 +142,10 @@ public class Gun : MonoBehaviour
         ToggleADS(false);
 		anim.SetBool("Reload", true);
 		AnimationTrigger("Reload");
-		HuntingUIManager.Instance.ReloadBarAnimation(GunSO.reloadTime);
-		HuntingUIManager.OnReloadFinishEvent += OnReloadFinish;
+        //HuntingUIManager.Instance.ReloadBarAnimation(GunSO.reloadTime);
+        HuntingUIManager.Instance.AmmoUI.isReloading = true;
+        HuntingUIManager.Instance.AmmoUI.reloadTime = GunSO.reloadTime;
+		AmmoUI.OnReloadFinishEvent += OnReloadFinish;
 	}
 
     public void ToggleADS()
@@ -160,9 +166,11 @@ public class Gun : MonoBehaviour
 		anim.SetBool("Reload", false);
 		
 		// Reload the gun
-		HuntingUIManager.OnReloadFinishEvent -= OnReloadFinish;
+		AmmoUI.OnReloadFinishEvent -= OnReloadFinish;
 		// Update UI
 		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
+        HuntingUIManager.Instance.AmmoUI.SetBulletsLeft(NumberOfShotsLeft);
+        HuntingUIManager.Instance.AmmoUI.MagazineLeft = NumberOfMagazineLeft;
 		
 		ReenableGun();
 	}
