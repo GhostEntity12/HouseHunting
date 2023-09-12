@@ -44,6 +44,6 @@ public class BulletPool : Singleton<BulletPool>
 
         Bullet newObject = Instantiate(bulletPrefab);
         pooledObjects.Add(newObject);
-        return newObject;
+        return pooledObjects[0];
     }
 }
