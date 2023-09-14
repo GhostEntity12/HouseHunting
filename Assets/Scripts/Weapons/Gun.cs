@@ -9,20 +9,16 @@ public class Gun : MonoBehaviour
 	[SerializeField] private float adsFactor = 4;
     [SerializeField] private GunSO gunSO;
 
-    //bools
-    private bool readyToShoot, reloading, ads;
+    private bool ads;
     private float elapsedTime; // for lerping ads
 
 	private GunState state = GunState.Ready;
-	private bool usingADS = false;
 	private Animator anim;
-	private Recoil recoil;
     private Vector3 initialPosition;
     private Vector3 adsPosition;
 
 	[field: SerializeField] public GunSO GunSO { get; private set; }
 	[field: SerializeField] public AmmoPouch AmmoPouch { get; private set; } = new();
-    public Recoil Recoil => recoil;
 
 	public string AmmoInfo => $"{AmmoPouch.AmmoInGun / gunSO.bulletsPerTap} / {AmmoPouch.AmmoStored / gunSO.bulletsPerTap}";
     public int NumberOfMagazineLeft => AmmoPouch.AmmoStored / gunSO.bulletsPerTap;
@@ -31,9 +27,7 @@ public class Gun : MonoBehaviour
 
     private void Awake()
     {
-        recoil = GetComponentInParent<Recoil>();
         anim = GetComponent<Animator>();
-        readyToShoot = true;
         ads = false;
         elapsedTime = 1;
         initialPosition = transform.localPosition;
@@ -54,9 +48,7 @@ public class Gun : MonoBehaviour
 
     public void Shoot()
     {
-        if (GameManager.Instance.IsPaused) return;
 		if (state != GunState.Ready || AmmoPouch.AmmoInGun <= 0) return;
-        if (HuntingInputManager.Instance.WeaponWheelIsOpen()) return; // dont shoot when weapon wheel is open
         if (BulletPool.Instance.BulletPrefab == null) return; // if bullet prefab in bullet pool is not set, do not shoot
 
 		// Set state to shooting
@@ -68,8 +60,7 @@ public class Gun : MonoBehaviour
         SoundAlerter.MakeSoundImpulse(GunSO.volume, transform.position);
         Rigidbody rb = new();
             
-        readyToShoot = false;
-        //AnimationTrigger("Shoot"); // fire gun animation
+        AnimationTrigger("Shoot"); // fire gun animation
 
         for (int i = 0; i < gunSO.bulletsPerTap; i++)
         {
@@ -116,9 +107,6 @@ public class Gun : MonoBehaviour
 
 		//Muzzle flash
         Instantiate(muzzleFlashPrefab, muzzlePoint.position, Quaternion.identity);
-
-		// Recoil
-		recoil.RecoilFire();
 
 		// Make noise
 		SoundAlerter.MakeSoundImpulse(GunSO.volume, transform.position);
