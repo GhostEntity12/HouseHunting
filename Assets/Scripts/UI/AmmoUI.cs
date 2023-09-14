@@ -68,10 +68,20 @@ public class AmmoUI : MonoBehaviour
             newIcon.sprite = newGun.GunSO.bulletPrefab.Sprite;
             newIcon.transform.parent = bulletIconsLayoutGroup.transform;
 
+            // Calculate the size of the child object based on the sprite's dimensions.
+            float spriteWidth = newIcon.sprite.rect.width;
+            float spriteHeight = newIcon.sprite.rect.height;
+            float aspectRatio = spriteWidth / spriteHeight;
+
+            // Set the calculated size to the RectTransform of the child object.
+            RectTransform rectTransform = newIcon.GetComponent<RectTransform>();
+            rectTransform.sizeDelta = new Vector2(100 * aspectRatio, 100); // You can adjust the 100 as needed.
+
             // set new icon to type filled
             newIcon.type = Image.Type.Filled;
             newIcon.fillMethod = Image.FillMethod.Vertical;
             newIcon.fillAmount = 1;
+            newIcon.preserveAspect = true;
 
             bulletIcons.Add(newIcon);
         }

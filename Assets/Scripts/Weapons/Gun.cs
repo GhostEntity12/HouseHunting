@@ -102,7 +102,6 @@ public class Gun : MonoBehaviour
 		AmmoPouch.RemoveAmmo(bulletsToFire);
 
 		// Update UI
-		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
         HuntingUIManager.Instance.AmmoUI.SetBulletsLeft(NumberOfShotsLeft);
 
 		//Muzzle flash
@@ -156,7 +155,6 @@ public class Gun : MonoBehaviour
 		// Reload the gun
 		AmmoUI.OnReloadFinishEvent -= OnReloadFinish;
 		// Update UI
-		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
         HuntingUIManager.Instance.AmmoUI.SetBulletsLeft(NumberOfShotsLeft);
         HuntingUIManager.Instance.AmmoUI.MagazineLeft = NumberOfMagazineLeft;
 		

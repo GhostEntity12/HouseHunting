@@ -57,7 +57,6 @@ public class WeaponManager : Singleton<WeaponManager>
             BulletPool.Instance.BulletPrefab = CurrentGun.GunSO.bulletPrefab;
             SoundAlerter.MakeSoundImpulse(10, transform.position);
         }
-        HuntingUIManager.Instance.SetAmmoCounterText(CurrentGun.AmmoInfo);
         HuntingUIManager.Instance.AmmoUI.ChangeGun(selectedGun);
     }
  
@@ -65,6 +64,5 @@ public class WeaponManager : Singleton<WeaponManager>
     public void GiveAmmo(int number)
     {
         CurrentGun.AmmoPouch.AddAmmo(number);
-        HuntingUIManager.Instance.SetAmmoCounterText(CurrentGun.AmmoInfo);
     }
 }

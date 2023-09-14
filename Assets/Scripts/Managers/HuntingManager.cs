@@ -7,15 +7,12 @@ public class HuntingManager : Singleton<HuntingManager>
 {
 	[SerializeField] private int maxHealth;
 	[SerializeField] private GameObject gameOverUI;
-	[SerializeField] private float huntingDurationSeconds;
-	[SerializeField] private TextMeshProUGUI huntingTimerText;
 
 	[SerializeField] private Image hurtOverlay;
 
 	[SerializeField] private HealthUI healthUI;
 
 	private float currentHealth;
-	private float huntingTimerSeconds;
 
 	public FurnitureInventory HuntingInventory { get; private set; }
 	public int MaxHealth => maxHealth;
@@ -25,29 +22,13 @@ public class HuntingManager : Singleton<HuntingManager>
 		base.Awake();
 
 		currentHealth = maxHealth;
-		huntingTimerSeconds = huntingDurationSeconds;
 
 		HuntingInventory = new FurnitureInventory();
 	}
 
 	private void Start()
 	{
-		huntingTimerText.text = FormatTime(huntingDurationSeconds);
 		AudioManager.Instance.Play("Ambience");
-	}
-
-	private void Update()
-	{
-		if (huntingTimerSeconds > 0)
-		{
-			huntingTimerSeconds -= Time.deltaTime;
-			huntingTimerText.text = FormatTime(huntingTimerSeconds);
-		}
-		else
-		{
-			huntingTimerText.text = "00:00";
-			RespawnInHouse();
-		}
 	}
 
 	private void Die()
