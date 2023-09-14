@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 			currentSpeed = speed;
 		}
 
-		Vector3 movementVector = transform.TransformDirection(moveDirection) * currentSpeed * Time.deltaTime;
+        Vector3 movementVector = currentSpeed * Time.deltaTime * transform.TransformDirection(moveDirection);
 
 		playerVerticalVelocity += gravity * Time.deltaTime;
 
@@ -51,18 +51,9 @@ public class PlayerMovement : MonoBehaviour
 		if (moveDirection.magnitude > 0)
 		{
 			// Adjust sound alert levels based on isSneaking and isSprinting flags
-			if (isSneaking)
-			{
-				SoundAlerter.MakeSoundContinuous(2, transform.position, hasFalloff: false);
-			}
-			else if (isSprinting)
-			{
-				SoundAlerter.MakeSoundContinuous(8, transform.position, hasFalloff: false);
-			}
-			else
-			{
-				SoundAlerter.MakeSoundContinuous(5, transform.position, hasFalloff: false);
-			}
+			// sneaking = 2, sprinting = 8, walking = 6
+			int volume = isSneaking ? 2 : isSprinting ? 8 : 6;
+			SoundAlerter.MakeSoundContinuous(volume, transform.position, hasFalloff: false);
 		}
 	}
 

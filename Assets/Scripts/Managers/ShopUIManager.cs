@@ -18,6 +18,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
     private List<string> tabs;
     private List<SaveDataFurniture> currentDisplayedItems;
     private FurnitureInventory inventory;
+    private PlayerInput playerInput;
 
     public bool IsShopOpen => shopCanvas.enabled;
     public (FurnitureSO so, SaveDataFurniture inventoryItem)? SelectedFurniture => selectedFurniture;
@@ -26,6 +27,9 @@ public class ShopUIManager : Singleton<ShopUIManager>
     {
         base.Awake();
         shopCanvas.enabled = false;
+
+        playerInput = GeneralInputManager.Instance.PlayerInput;
+        playerInput.Shop.CloseShop.performed += ctx => ToggleShop();
 
         SelectItem(null);
         tabs = new List<string>();
@@ -99,15 +103,19 @@ public class ShopUIManager : Singleton<ShopUIManager>
     public void ToggleShop()
     {
         shopCanvas.enabled = !shopCanvas.enabled;
+        GeneralInputManager.Instance.enabled = !IsShopOpen;
+        HouseInputManager.Instance.enabled = !IsShopOpen;
         if (IsShopOpen)
         {
+            playerInput.Shop.Enable();
             GameManager.Instance.ShowCursor();
             RepaintTab();
         }
         else
         {
-            SelectItem(null);
+            playerInput.Shop.Disable();
             GameManager.Instance.HideCursor();
+            SelectItem(null);
         }
     }
 
