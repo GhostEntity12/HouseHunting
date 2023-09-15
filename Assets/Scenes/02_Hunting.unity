@@ -28829,7 +28829,7 @@ MonoBehaviour:
   maxHealth: 3
   gameOverUI: {fileID: 1310588880}
   hurtOverlay: {fileID: 1252325453}
-  healthUI: {fileID: 0}
+  healthUI: {fileID: 4683046851424238252}
 --- !u!4 &2067825355
 Transform:
   m_ObjectHideFlags: 0
@@ -29785,6 +29785,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+--- !u!114 &4683046851424238252 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4165661045905591698, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+  m_PrefabInstance: {fileID: 4683046851424238251}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9cd9a6d4e819d4387ac11350a4f6fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5516135218273864417
 PrefabInstance:
   m_ObjectHideFlags: 0
