@@ -552,45 +552,6 @@
             ]
         },
         {
-            "name": "Shop",
-            "id": "3da84645-c23d-4eb7-a053-adc71a9fa338",
-            "actions": [
-                {
-                    "name": "CloseShop",
-                    "type": "Button",
-                    "id": "d875727b-984b-4a3d-882b-0af4434ac442",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "443109cc-582a-412a-b1de-46be5e720998",
-                    "path": "<Keyboard>/b",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CloseShop",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f6536dbd-3e34-4b07-8217-ba1a8716bf60",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CloseShop",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
             "name": "PauseMenu",
             "id": "b610f994-0c60-4904-a80e-ecc23fafa115",
             "actions": [
@@ -661,6 +622,34 @@
                     "processors": "",
                     "groups": "",
                     "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Inventory",
+            "id": "4888e5af-9b84-4b0d-9c67-6f7bbc451e76",
+            "actions": [
+                {
+                    "name": "CloseInventory",
+                    "type": "Button",
+                    "id": "3e4fe52f-712b-48a0-a56b-6dc307440499",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2abbe691-4ec8-4df3-92ee-b903d63ae9f1",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

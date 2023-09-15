@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopUIManager : Singleton<ShopUIManager>
+public class InventoryUIManagerOld : Singleton<InventoryUIManagerOld>
 {
     [SerializeField] private Canvas shopCanvas;
     [SerializeField] private ShopFurnitureItem shopFurnitureItemPrefab;
@@ -29,7 +29,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
         shopCanvas.enabled = false;
 
         playerInput = GeneralInputManager.Instance.PlayerInput;
-        playerInput.Shop.CloseShop.performed += ctx => ToggleShop();
+        playerInput.Inventory.CloseInventory.performed += ctx => ToggleShop();
 
         SelectItem(null);
         tabs = new List<string>();
@@ -107,13 +107,13 @@ public class ShopUIManager : Singleton<ShopUIManager>
         HouseInputManager.Instance.enabled = !IsShopOpen;
         if (IsShopOpen)
         {
-            playerInput.Shop.Enable();
+            playerInput.Inventory.Enable();
             GameManager.Instance.ShowCursor();
             RepaintTab();
         }
         else
         {
-            playerInput.Shop.Disable();
+            playerInput.Inventory.Disable();
             GameManager.Instance.HideCursor();
             SelectItem(null);
         }
@@ -148,7 +148,6 @@ public class ShopUIManager : Singleton<ShopUIManager>
         SetTab(selectedFurniture?.inventoryItem.id);
         RepaintTab();
         SelectItem(null);
-        InventoryUIManager.Instance.RepaintInventory();
     }
 
     public void DropItem()
