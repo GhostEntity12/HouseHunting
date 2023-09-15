@@ -10,15 +10,17 @@ public class Campfire : MonoBehaviour, IInteractable
 
 	public (string id, Sprite icon) CampfireInfo => (campfireID, icon);
 
-	private void Awake()
+	public string InteractActionText => "Return to House";
+	public bool Interactable => true;
+
+    private void Awake()
 	{
 		spawnPoint = transform.GetChild(0);	
 	}
 
 	public void SpawnAtCampfire()
 	{
-		HuntingManager.Instance.Player.GetComponent<PlayerMovement>().Warp(spawnPoint);
-		//player.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
+		GameManager.Instance.Player.Warp(spawnPoint);
 	}
 
 	public void Interact()

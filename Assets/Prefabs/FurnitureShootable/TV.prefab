@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3483971599295484719}
   - component: {fileID: 3728614252930923207}
   - component: {fileID: 1022287547073763354}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Leg (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 7334542657108252800}
   - component: {fileID: 6850986452865766268}
   - component: {fileID: 6147087683995038367}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 5988595869423812583}
   - component: {fileID: 4980923520864812753}
   - component: {fileID: 6286950046973409605}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 626940987496722998}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Hitboxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,9 +252,9 @@ GameObject:
   - component: {fileID: 736955873112452282}
   - component: {fileID: 7221047130739491992}
   - component: {fileID: 5670009076271129424}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: TV
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,11 +289,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fbf68acf72d3d4385926a6f0451aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alertness: 0
-  playerMovement: {fileID: 6098993039830378882, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
-  agent: {fileID: 736955873112452282}
-  wanderRadius: 15
-  isPredator: 0
 --- !u!195 &736955873112452282
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -308,7 +303,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -346,7 +341,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8607944281932643591}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 613aa298519fff84ebd5ead6fa06590c, type: 3}
+  m_Script: {fileID: 11500000, guid: e772e154071c25f42835ff5ac02f8388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   furnitureSO: {fileID: 11400000, guid: cdedef21e3f841b428cb71cb08e6a8db, type: 2}
@@ -361,7 +356,7 @@ GameObject:
   - component: {fileID: 7159081016555639587}
   - component: {fileID: 5754062349602249646}
   - component: {fileID: 5280469060181487394}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -515,6 +510,10 @@ PrefabInstance:
       value: Alert UI
       objectReference: {fileID: 0}
     - target: {fileID: 958545255073040575, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 958545255073040575, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -534,6 +533,14 @@ PrefabInstance:
       propertyPath: skull
       value: 
       objectReference: {fileID: 21300000, guid: 4c4534e14b124c24fbc70ae73c64d016, type: 3}
+    - target: {fileID: 5236622499727851553, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6070018216266263218, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 8173339553924687594, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -603,6 +610,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fba672230f16e0d45959f2e496c15dd5, type: 3}
       propertyPath: m_Name
       value: Television1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fba672230f16e0d45959f2e496c15dd5, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

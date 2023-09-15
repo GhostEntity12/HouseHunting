@@ -16,7 +16,7 @@ public class Spawner : MonoBehaviour
         for(int i = 0; i < amountToSpawn; i++)
         {
             Instantiate(spawnableFurniture[Random.Range(0, spawnableFurniture.Count)], transform);
-            Debug.Log($"Spawn location: {transform.position}");
+            //Debug.Log($"Spawn location: {transform.position}");
         }
         return true;
     }

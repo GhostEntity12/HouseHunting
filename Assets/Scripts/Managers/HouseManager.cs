@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class HouseManager : Singleton<HouseManager>, IDataPersistence
 {
-	[SerializeField] private CanvasGroup decorateUI;
-	[SerializeField] private GameObject playerGameObject;
 	[SerializeField] private TMP_Text furnitureDecorateTooltipText;
     [field: SerializeField] public Camera ExploreCamera { get; private set; }
 
 
 	private Placeable holdingPlaceable;
+	private List<SaveDataPlacedFurniture> houseItems;
+	private Player player;
     private float holdingPlaceableRotation = 0;
-	private List<HouseItem> houseItems;
 	private float houseValue = 0;
 
-	public List<HouseItem> HouseItems => houseItems;
+	public List<SaveDataPlacedFurniture> HouseItems => houseItems;
     public Placeable HoldingPlaceable { get => holdingPlaceable; set => holdingPlaceable = value; }
 	public float HoldingPlaceableRotation { get => holdingPlaceableRotation; set => holdingPlaceableRotation = value; }
 
@@ -23,6 +22,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	{
 		SpawnSerializedPlaceables();
 		houseValue = CalculateHouseRating(houseItems); // assign total value here
+		player = GameManager.Instance.Player;
 
 		AudioManager.Instance.Play("Building");
 	}
@@ -33,11 +33,11 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
     }
 
     // function to calculate house rating, on certain threseholds (to be determined later), unlockTier is called to unlock that tier.
-    private float CalculateHouseRating(List<HouseItem> houseItems)
+    private float CalculateHouseRating(List<SaveDataPlacedFurniture> houseItems)
 	{
 		float tValue = 0;
 
-		foreach (HouseItem item in houseItems)
+		foreach (SaveDataPlacedFurniture item in houseItems)
 		{
 			tValue += item.inventoryItem.Value;
 		}
@@ -52,7 +52,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
 	private void SpawnSerializedPlaceables()
 	{
-		foreach (HouseItem item in houseItems)
+		foreach (SaveDataPlacedFurniture item in houseItems)
 		{
 			Placeable spawnedPlaceable = Instantiate(DataPersistenceManager.Instance.GetPlaceablePrefabById(item.inventoryItem.id));
 			spawnedPlaceable.SetTransforms(item.position, item.rotationAngle);
@@ -83,7 +83,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		if (Physics.Raycast(ray, out RaycastHit hit, 3, layerMask))
             holdingPlaceable.transform.position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
         else
-            holdingPlaceable.transform.position = playerGameObject.transform.position + playerGameObject.transform.forward * 3;
+            holdingPlaceable.transform.position = player.transform.position + player.transform.forward * 3;
 
 		// clamp the position so that the y index is always on ground level
 		//holdingPlaceable.transform.position = new Vector3(holdingPlaceable.transform.position.x, 0, holdingPlaceable.transform.position.z);
@@ -101,18 +101,18 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
 	public void LoadData(GameData data)
 	{
-		houseItems = data.houseItems;
+		houseItems = data.placedFurniture;
 	}
 
 	public void SaveData(GameData data)
 	{
-        data.houseItems = houseItems;
+        data.placedFurniture = houseItems;
 	}
 
 	public void SelectFurnitureToPlace()
 	{
 		if (ShopUIManager.Instance.SelectedFurniture?.so == null) return;
-		(FurnitureSO so, FurnitureItem item) selectedFurniture = ShopUIManager.Instance.SelectedFurniture.Value;
+		(FurnitureSO so, SaveDataFurniture item) selectedFurniture = ShopUIManager.Instance.SelectedFurniture.Value;
 		Placeable spawnedPlaceable = Instantiate(selectedFurniture.so.placeablePrefab);
 
 		holdingPlaceable = spawnedPlaceable;
@@ -137,7 +137,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
         GameManager.Instance.PermanentInventory.RemoveItem(holdingPlaceable.InventoryItem);
 
         MeshRenderer meshRenderer = holdingPlaceable.GetComponentInChildren<MeshRenderer>();
-        houseItems.Add(new HouseItem(holdingPlaceable.InventoryItem, holdingPlaceable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
+        houseItems.Add(new SaveDataPlacedFurniture(holdingPlaceable.InventoryItem, holdingPlaceable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
 
 		holdingPlaceable.Mesh.material = holdingPlaceable.Material;
 		holdingPlaceable.ChildMeshCollider.enabled = true;

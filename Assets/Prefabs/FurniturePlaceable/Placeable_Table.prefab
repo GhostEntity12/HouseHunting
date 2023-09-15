@@ -11,11 +11,9 @@ GameObject:
   - component: {fileID: 6130737722407600114}
   - component: {fileID: 2350306671234011157}
   - component: {fileID: -4965036044693124274}
-  - component: {fileID: 7523257109883189051}
-  - component: {fileID: 2741596182066564029}
-  - component: {fileID: 5632802528920419397}
-  - component: {fileID: 3572314743205332823}
-  - component: {fileID: 4481142508856501512}
+
+  - component: {fileID: 7996267283164501018}
+
   m_Layer: 6
   m_Name: Placeable_Table
   m_TagString: Untagged
@@ -36,7 +34,9 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4342651302957549635}
+
   - {fileID: 6790764818255770238}
+
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -54,9 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 
   canPlaceOnSurface: 0
-  <Mesh>k__BackingField: {fileID: 3174789825948807980}
---- !u!54 &-4965036044693124274
-Rigidbody:
+
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -83,7 +81,6 @@ Rigidbody:
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!65 &7523257109883189051
-
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,6 +103,29 @@ BoxCollider:
   m_Center: {x: -0.010782003, y: 1.2759395, z: 0.0022894144}
 --- !u!65 &2741596182066564029
 BoxCollider:
+
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408006311470859530}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!64 &7996267283164501018
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -122,13 +142,21 @@ BoxCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6317805809608689028, guid: 2ccef17a0684c0a48bd208c868a89423, type: 3}
+
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.07405496, y: 1.0565399, z: 0.059437633}
   m_Center: {x: 0.95666564, y: 0.67125684, z: 0.61478883}
 --- !u!65 &5632802528920419397
 BoxCollider:
   m_ObjectHideFlags: 0
-
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -296,11 +324,11 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
       propertyPath: m_LocalPosition.y
 
-      value: -0.204
+      value: 0.77
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: -0.23
 
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
@@ -331,6 +359,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -6317805809608689028, guid: 2ccef17a0684c0a48bd208c868a89423, type: 3}
     - target: {fileID: 919132149155446097, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
       propertyPath: m_Name
       value: Furniture_Table
@@ -374,7 +406,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4493585093827132993, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
+  m_Mesh: {fileID: -6317805809608689028, guid: 2ccef17a0684c0a48bd208c868a89423, type: 3}
 --- !u!4 &4342651302957549635 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}

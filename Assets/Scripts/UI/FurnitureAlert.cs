@@ -9,6 +9,7 @@ public class FurnitureAlert : MonoBehaviour
     [SerializeField] private Sprite exclamationMark;
     [SerializeField] private Sprite skull; // currently using placeholder
     [SerializeField] private Camera mainCamera;
+    private Canvas canvas;
 
     private WanderAI AI;
     private Shootable shootableComponent;
@@ -23,6 +24,7 @@ public class FurnitureAlert : MonoBehaviour
         if (mainCamera == null)
             mainCamera = Camera.main;
         shootableComponent = GetComponentInParent<Shootable>();
+        canvas = GetComponent<Canvas>();
     }
 
     // Update is called once per frame
@@ -31,23 +33,28 @@ public class FurnitureAlert : MonoBehaviour
         if (shootableComponent.IsDead) return;
 
         //change icon depending on alertness
-        if(AI.alertness == 100 && fill.sprite != exclamationMark)
+        if(AI.Alertness == 100 && fill.sprite != exclamationMark)
         {
             AnimateIcon(exclamationMark);
         }
-        else if (AI.alertness != 100)
+        else if (AI.Alertness != 100)
         {
             ChangeIcon(questionMark);
         }
-
-        // Clamp alertness to the range 0-100
-        AI.alertness = Mathf.Clamp(AI.alertness, 0, 100);
+        
+        if(AI.Alertness == 0)
+        {
+            canvas.enabled = false;
+        } else
+        {
+            canvas.enabled = true;
+        }
 
         // Update the alert icon's fill amount to match the current alertness level
-        fill.fillAmount = AI.alertness / 100f;  // divide by 100 to convert alertness to a percentage
+        fill.fillAmount = AI.Alertness / 100f;  // divide by 100 to convert alertness to a percentage
 
         // Lerp between the low and high alertness colors based on the current alertness level
-        fill.color = Color.Lerp(alertnessLowColor, alertnessHighColor, AI.alertness / 100f);
+        fill.color = Color.Lerp(alertnessLowColor, alertnessHighColor, AI.Alertness / 100f);
 
         // Make sure the canvas always faces the camera
         transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward, mainCamera.transform.rotation * Vector3.up);

@@ -14,22 +14,26 @@ public class ShopUIManager : Singleton<ShopUIManager>
     [SerializeField] private TextMeshProUGUI noItemsText;
     [SerializeField] private TextMeshProUGUI currencyText;
 
-    private (FurnitureSO so, FurnitureItem inventoryItem)? selectedFurniture;
+    private (FurnitureSO so, SaveDataFurniture inventoryItem)? selectedFurniture;
     private List<string> tabs;
-    private List<FurnitureItem> currentDisplayedItems;
-    private Inventory inventory;
+    private List<SaveDataFurniture> currentDisplayedItems;
+    private FurnitureInventory inventory;
+    private PlayerInput playerInput;
 
     public bool IsShopOpen => shopCanvas.enabled;
-    public (FurnitureSO so, FurnitureItem inventoryItem)? SelectedFurniture => selectedFurniture;
+    public (FurnitureSO so, SaveDataFurniture inventoryItem)? SelectedFurniture => selectedFurniture;
 
     protected override void Awake()
     {
         base.Awake();
         shopCanvas.enabled = false;
 
+        playerInput = GeneralInputManager.Instance.PlayerInput;
+        playerInput.Shop.CloseShop.performed += ctx => ToggleShop();
+
         SelectItem(null);
         tabs = new List<string>();
-        currentDisplayedItems = new List<FurnitureItem>();
+        currentDisplayedItems = new List<SaveDataFurniture>();
     }
 
     private void Start()
@@ -53,7 +57,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
         else
         {
             noItemsText.gameObject.SetActive(false);
-            foreach (FurnitureItem item in currentDisplayedItems)
+            foreach (SaveDataFurniture item in currentDisplayedItems)
             {
                 ShopFurnitureItem itemThumbnailUI = Instantiate(shopFurnitureItemPrefab, gridLayoutGroup.transform);
                 itemThumbnailUI.SetItem(item);
@@ -73,7 +77,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
 
         tabs.Clear();
 
-        foreach (FurnitureItem item in inventory.Items)
+        foreach (SaveDataFurniture item in inventory.Furniture)
         {
             // add a tab for this item if it doesn't exist
             if (!tabs.Contains(item.id)) 
@@ -85,7 +89,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
         foreach (string tab in tabs)
         {
             ShopTabItem shopTab = Instantiate(shopTabItemPrefab, tabGroup.transform);
-            shopTab.SetItem(inventory.Items.Find(x => x.id == tab));
+            shopTab.SetItem(inventory.Furniture.Find(x => x.id == tab));
         }
 
         if (tabs.Count > 0)
@@ -99,19 +103,23 @@ public class ShopUIManager : Singleton<ShopUIManager>
     public void ToggleShop()
     {
         shopCanvas.enabled = !shopCanvas.enabled;
+        GeneralInputManager.Instance.enabled = !IsShopOpen;
+        HouseInputManager.Instance.enabled = !IsShopOpen;
         if (IsShopOpen)
         {
+            playerInput.Shop.Enable();
             GameManager.Instance.ShowCursor();
             RepaintTab();
         }
         else
         {
-            SelectItem(null);
+            playerInput.Shop.Disable();
             GameManager.Instance.HideCursor();
+            SelectItem(null);
         }
     }
 
-    public void SelectItem((FurnitureSO so, FurnitureItem inventoryItem)? selectedInventoryItem)
+    public void SelectItem((FurnitureSO so, SaveDataFurniture inventoryItem)? selectedInventoryItem)
     {
         if (selectedInventoryItem is null)
         {
@@ -125,7 +133,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
 
     public void SetTab(string tabName)
     {
-        currentDisplayedItems = inventory.Items.FindAll(x => x.id == tabName);
+        currentDisplayedItems = inventory.Furniture.FindAll(x => x.id == tabName);
         BuyMenuUIManager.Instance.ToggleBuyMenu(false);
         SelectItem(null);
         RepaintShop();
@@ -136,7 +144,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
         if (selectedFurniture is null) return;
 
         GameManager.Instance.Currency += (int)selectedFurniture?.inventoryItem.price;
-        inventory.RemoveItem((FurnitureItem)selectedFurniture?.inventoryItem);
+        inventory.RemoveItem((SaveDataFurniture)selectedFurniture?.inventoryItem);
         SetTab(selectedFurniture?.inventoryItem.id);
         RepaintTab();
         SelectItem(null);
@@ -147,7 +155,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
     {
         if (selectedFurniture is null) return;
 
-        inventory.RemoveItem((FurnitureItem)selectedFurniture?.inventoryItem);
+        inventory.RemoveItem((SaveDataFurniture)selectedFurniture?.inventoryItem);
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         // i wanted to use HuntingInputManager. which is attached to the player but it's null for some reason
         Shootable shootable = Instantiate(selectedFurniture?.so.shootablePrefab, player.transform.position + player.transform.forward * 2, Quaternion.identity);

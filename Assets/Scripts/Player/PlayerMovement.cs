@@ -2,111 +2,90 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 5.0f;
-    private const float gravity = -9.81f;
-    private const float jumpSpeed = 15f;
+	[SerializeField] private float speed = 5.0f;
+	private const float gravity = -9.81f;
+	private const float jumpSpeed = 15f;
 
-    private CharacterController controller;
-    private SoundAlerter soundAlerter;
+	private CharacterController controller;
 
-    private Vector3 playerVelocity;
-    private float currentSpeed;
+	private float playerVerticalVelocity;
+	private float currentSpeed;
 
-    public bool isSneaking;
-    public bool isSprinting;
+	public bool isSneaking;
+	public bool isSprinting;
 
-    private void Start()
-    {
-        controller = GetComponent<CharacterController>();
-        soundAlerter = GetComponent<SoundAlerter>();
-    }
+	private void Start()
+	{
+		controller = GetComponent<CharacterController>();
+	}
 
-    public void Move(Vector2 input)
-    {
-        Vector3 moveDirection = new Vector3(input.x, 0, input.y);
+	public void Move(Vector2 input)
+	{
+		Vector3 moveDirection = new Vector3(input.x, 0, input.y);
 
-        // Set currentSpeed based on isSneaking and isSprinting flags
-        if (isSneaking) {
-            currentSpeed = speed / 2;
-        } else if (isSprinting) {
-            currentSpeed = speed * 1.5f;
-             Debug.Log("isSprinting");
-        } else {
-            currentSpeed = speed;
-        }
+		// Set currentSpeed based on isSneaking and isSprinting flags
+		if (isSneaking)
+		{
+			currentSpeed = speed * 0.5f;
+		}
+		else if (isSprinting)
+		{
+			currentSpeed = speed * 1.5f;
+		}
+		else
+		{
+			currentSpeed = speed;
+		}
 
-        controller.Move(transform.TransformDirection(moveDirection) * currentSpeed * Time.deltaTime);
+        Vector3 movementVector = currentSpeed * Time.deltaTime * transform.TransformDirection(moveDirection);
 
-        playerVelocity.y += gravity * Time.deltaTime;
+		playerVerticalVelocity += gravity * Time.deltaTime;
 
-        if (controller.isGrounded && playerVelocity.y < 0)
-            playerVelocity.y = -2f;
+		if (controller.isGrounded && playerVerticalVelocity < 0)
+			playerVerticalVelocity = -2f;
 
-        controller.Move(playerVelocity * Time.deltaTime);
+		movementVector.y = playerVerticalVelocity * Time.deltaTime;
 
-        // Adjust sound alert levels based on isSneaking and isSprinting flags
-        if (isSneaking) {
-            soundAlerter.MakeSound(Time.deltaTime * 2, transform.position, 2);
-        } else if (isSprinting){
-            soundAlerter.MakeSound(Time.deltaTime * 8, transform.position, 8);
-        } else {
-            soundAlerter.MakeSound(Time.deltaTime * 5, transform.position, 5);
-        }
-    }
+		controller.Move(movementVector);
 
-    public void Jump()
-    {
-        if (controller.isGrounded)
-        {
-            float jump = jumpSpeed + gravity;
+		if (moveDirection.magnitude > 0)
+		{
+			// Adjust sound alert levels based on isSneaking and isSprinting flags
+			// sneaking = 2, sprinting = 8, walking = 6
+			int volume = isSneaking ? 2 : isSprinting ? 8 : 6;
+			SoundAlerter.MakeSoundContinuous(volume, transform.position, hasFalloff: false);
+		}
+	}
 
-            playerVelocity.Set(playerVelocity.x, jump, playerVelocity.z);
+	public void Jump()
+	{
+		if (controller.isGrounded)
+		{
+			float jump = jumpSpeed + gravity;
 
-            controller.Move(playerVelocity * Time.deltaTime);
+			playerVerticalVelocity = jump;
 
-            soundAlerter.MakeSound(1, transform.position, 1);
-        }
-    }
+			controller.Move(Vector3.up * playerVerticalVelocity * Time.deltaTime);
 
-    public void Crouch(float input)
-    {
-        if (input > 0)
-        {
-            controller.height = 1f;
-            Sneak(true);
-        }
-        else
-        {
-            controller.height = 2f;
-            Sneak(false);
-        }
-    }
+			SoundAlerter.MakeSoundImpulse(10, transform.position);
+		}
+	}
 
-    public void Run(float input)
-    {
-        if (input > 0) {
-            Sprint(true);
-            Debug.Log("Run");
-        }
-        else {
-            Sprint(false);
-        }
-    }
-    public void Sneak(bool input)
-    {
-        isSneaking = input;
-    }
+	public void Crouch(float input)
+	{
+		isSneaking = input > 0;
+		controller.height = isSneaking ? 1 : 2;
+	}
 
-    public void Sprint(bool input)
-    {
-        isSprinting = input;
-        Debug.Log("Sprint");
-    }
+	public void Run(float input)
+	{
+		isSprinting = input > 0;
+	}
 
-    public void Warp(Transform warpPoint)
-    {
-        controller.enabled = false;
-        transform.SetPositionAndRotation(warpPoint.position, warpPoint.rotation);
+	public void Warp(Transform warpPoint)
+	{
+		controller.enabled = false;
+		transform.SetPositionAndRotation(warpPoint.position, warpPoint.rotation);
 		controller.enabled = true;
-    }
+	}
 }
