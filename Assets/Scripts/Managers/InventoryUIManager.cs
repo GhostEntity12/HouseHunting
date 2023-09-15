@@ -140,4 +140,11 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
             GameManager.Instance.HideCursor();
         }
     }
+
+    public void DiscardSelectedFurniture()
+    {
+        GameManager.Instance.PermanentInventory.Furniture.Remove(selectedFurniture.Value.inventoryItem);
+        SelectedFurniture = null;
+        RedrawInventoryItems();
+    }
 }

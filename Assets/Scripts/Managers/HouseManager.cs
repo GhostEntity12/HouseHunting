@@ -109,7 +109,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
         data.placedFurniture = houseItems;
 	}
 
-	public void SelectFurnitureToPlace()
+	public void PlaceSelectedFurnitureFromInventory()
 	{
 		if (InventoryUIManager.Instance.SelectedFurniture?.so == null) return;
 		(FurnitureSO so, SaveDataFurniture item) selectedFurniture = InventoryUIManager.Instance.SelectedFurniture.Value;
