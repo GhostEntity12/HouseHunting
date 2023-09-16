@@ -14,7 +14,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		playerInput = GeneralInputManager.Instance.PlayerInput;
 
 		//removed for alpha
-		playerInput.House.OpenInventory.performed += ctx => InventoryUIManager.Instance.ToggleInventory();
 		playerInput.House.PlaceHoldingFurniture.performed += ctx => HouseManager.Instance.PlaceHoldingPlaceable();
 		playerInput.House.RemoveHoldingFurniture.performed += ctx => RemoveHoldingPlaceable();
 	}

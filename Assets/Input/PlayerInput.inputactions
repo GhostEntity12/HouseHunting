@@ -259,15 +259,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "OpenInventory",
-                    "type": "Button",
-                    "id": "b2d5ae4d-16a6-4fe4-a692-adc4a0c7a53b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -279,17 +270,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "RemoveHoldingFurniture",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "332daacf-74d1-4426-8a59-f95f46dd2208",
-                    "path": "<Keyboard>/b",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "OpenInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -410,6 +390,15 @@
                     "name": "OpenDevConsole",
                     "type": "Button",
                     "id": "bdbddca0-1f3d-4805-9d52-ce0b5878f744",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenInventory",
+                    "type": "Button",
+                    "id": "f821b925-9a00-4603-8bb5-989a5b89ab64",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -548,6 +537,17 @@
                     "action": "OpenDevConsole",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1b58cc4d-d3ff-4e5f-b7fa-704cdbf4ff59",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -645,7 +645,7 @@
                 {
                     "name": "",
                     "id": "2abbe691-4ec8-4df3-92ee-b903d63ae9f1",
-                    "path": "<Keyboard>/b",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,6 +36,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 
     private FurnitureType selectedTab;
     private (FurnitureSO so, SaveDataFurniture inventoryItem)? selectedFurniture;
+    private List<SaveDataFurniture> furnitureInventory;
 
     public (FurnitureSO so, SaveDataFurniture inventoryItem)? SelectedFurniture 
     {
@@ -46,7 +48,9 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
                 rightPanel.gameObject.SetActive(true);
                 selectedFurniture = value;
                 furnitureNameText.text = selectedFurniture.Value.so.name;
-                modelPreview.SetMesh(value.Value.so.placeablePrefab.MeshFilter.sharedMesh, value.Value.so.placeablePrefab.MeshRenderer.sharedMaterials);
+                modelPreview.MeshFilter.mesh = value.Value.so.placeablePrefab.MeshFilter.sharedMesh;
+                modelPreview.MeshRenderer.materials = value.Value.so.placeablePrefab.MeshRenderer.sharedMaterials;
+                modelPreview.MeshRenderer.material = value.Value.so.materials[value.Value.inventoryItem.materialIndex];
             }
             else
             {
@@ -61,7 +65,6 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 
         canvas.enabled = false;
 
-        SetTab(0);
         SelectedFurniture = null; // this is here to force the prop setter to set null
 
         // input
@@ -76,12 +79,18 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
         miscTabButton.onClick.AddListener(() => SetTab(FurnitureType.Misc));
     }
 
+    private void Start()
+    {
+        furnitureInventory = HuntingManager.Instance != null ? HuntingManager.Instance.HuntingInventory.Furniture : GameManager.Instance.PermanentInventory.Furniture;
+        SetTab(0);
+    }
+
     private void RedrawInventoryItems()
     {
         foreach (Transform child in furnitureItemContainer.transform)
             Destroy(child.gameObject);
 
-        foreach (SaveDataFurniture savedFurniture in GameManager.Instance.PermanentInventory.Furniture)
+        foreach (SaveDataFurniture savedFurniture in furnitureInventory)
         {
             FurnitureSO savedFurnitureSO = DataPersistenceManager.Instance.AllFurnitureSO.Find(f => f.id == savedFurniture.id);
             if (savedFurnitureSO != null && savedFurnitureSO.type == selectedTab)
@@ -125,8 +134,10 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
         bool open = !canvas.enabled;
 
         canvas.enabled = open;
+
         GeneralInputManager.Instance.enabled = !open;
-        HouseInputManager.Instance.enabled = !open;
+        if (HouseInputManager.Instance) HouseInputManager.Instance.enabled = !open;
+        else if (HuntingInputManager.Instance) HuntingInputManager.Instance.enabled = !open;
 
         if (open)
         {
@@ -143,7 +154,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 
     public void DiscardSelectedFurniture()
     {
-        GameManager.Instance.PermanentInventory.Furniture.Remove(selectedFurniture.Value.inventoryItem);
+        furnitureInventory.Remove(selectedFurniture.Value.inventoryItem);
         SelectedFurniture = null;
         RedrawInventoryItems();
     }

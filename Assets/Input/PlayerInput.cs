@@ -281,15 +281,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""OpenInventory"",
-                    ""type"": ""Button"",
-                    ""id"": ""b2d5ae4d-16a6-4fe4-a692-adc4a0c7a53b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -301,17 +292,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""RemoveHoldingFurniture"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""332daacf-74d1-4426-8a59-f95f46dd2208"",
-                    ""path"": ""<Keyboard>/b"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""OpenInventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -432,6 +412,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": ""OpenDevConsole"",
                     ""type"": ""Button"",
                     ""id"": ""bdbddca0-1f3d-4805-9d52-ce0b5878f744"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""f821b925-9a00-4603-8bb5-989a5b89ab64"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -570,6 +559,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""OpenDevConsole"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b58cc4d-d3ff-4e5f-b7fa-704cdbf4ff59"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -667,7 +667,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2abbe691-4ec8-4df3-92ee-b903d63ae9f1"",
-                    ""path"": ""<Keyboard>/b"",
+                    ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -698,7 +698,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_House_RemoveHoldingFurniture = m_House.FindAction("RemoveHoldingFurniture", throwIfNotFound: true);
         m_House_RotateHoldingFurniture = m_House.FindAction("RotateHoldingFurniture", throwIfNotFound: true);
         m_House_PlaceHoldingFurniture = m_House.FindAction("PlaceHoldingFurniture", throwIfNotFound: true);
-        m_House_OpenInventory = m_House.FindAction("OpenInventory", throwIfNotFound: true);
         // General
         m_General = asset.FindActionMap("General", throwIfNotFound: true);
         m_General_Look = m_General.FindAction("Look", throwIfNotFound: true);
@@ -709,6 +708,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_General_Interact = m_General.FindAction("Interact", throwIfNotFound: true);
         m_General_Pause = m_General.FindAction("Pause", throwIfNotFound: true);
         m_General_OpenDevConsole = m_General.FindAction("OpenDevConsole", throwIfNotFound: true);
+        m_General_OpenInventory = m_General.FindAction("OpenInventory", throwIfNotFound: true);
         // PauseMenu
         m_PauseMenu = asset.FindActionMap("PauseMenu", throwIfNotFound: true);
         m_PauseMenu_ResumeGame = m_PauseMenu.FindAction("ResumeGame", throwIfNotFound: true);
@@ -909,7 +909,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_House_RemoveHoldingFurniture;
     private readonly InputAction m_House_RotateHoldingFurniture;
     private readonly InputAction m_House_PlaceHoldingFurniture;
-    private readonly InputAction m_House_OpenInventory;
     public struct HouseActions
     {
         private @PlayerInput m_Wrapper;
@@ -917,7 +916,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @RemoveHoldingFurniture => m_Wrapper.m_House_RemoveHoldingFurniture;
         public InputAction @RotateHoldingFurniture => m_Wrapper.m_House_RotateHoldingFurniture;
         public InputAction @PlaceHoldingFurniture => m_Wrapper.m_House_PlaceHoldingFurniture;
-        public InputAction @OpenInventory => m_Wrapper.m_House_OpenInventory;
         public InputActionMap Get() { return m_Wrapper.m_House; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -936,9 +934,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @PlaceHoldingFurniture.started += instance.OnPlaceHoldingFurniture;
             @PlaceHoldingFurniture.performed += instance.OnPlaceHoldingFurniture;
             @PlaceHoldingFurniture.canceled += instance.OnPlaceHoldingFurniture;
-            @OpenInventory.started += instance.OnOpenInventory;
-            @OpenInventory.performed += instance.OnOpenInventory;
-            @OpenInventory.canceled += instance.OnOpenInventory;
         }
 
         private void UnregisterCallbacks(IHouseActions instance)
@@ -952,9 +947,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @PlaceHoldingFurniture.started -= instance.OnPlaceHoldingFurniture;
             @PlaceHoldingFurniture.performed -= instance.OnPlaceHoldingFurniture;
             @PlaceHoldingFurniture.canceled -= instance.OnPlaceHoldingFurniture;
-            @OpenInventory.started -= instance.OnOpenInventory;
-            @OpenInventory.performed -= instance.OnOpenInventory;
-            @OpenInventory.canceled -= instance.OnOpenInventory;
         }
 
         public void RemoveCallbacks(IHouseActions instance)
@@ -984,6 +976,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_General_Interact;
     private readonly InputAction m_General_Pause;
     private readonly InputAction m_General_OpenDevConsole;
+    private readonly InputAction m_General_OpenInventory;
     public struct GeneralActions
     {
         private @PlayerInput m_Wrapper;
@@ -996,6 +989,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_General_Interact;
         public InputAction @Pause => m_Wrapper.m_General_Pause;
         public InputAction @OpenDevConsole => m_Wrapper.m_General_OpenDevConsole;
+        public InputAction @OpenInventory => m_Wrapper.m_General_OpenInventory;
         public InputActionMap Get() { return m_Wrapper.m_General; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1029,6 +1023,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @OpenDevConsole.started += instance.OnOpenDevConsole;
             @OpenDevConsole.performed += instance.OnOpenDevConsole;
             @OpenDevConsole.canceled += instance.OnOpenDevConsole;
+            @OpenInventory.started += instance.OnOpenInventory;
+            @OpenInventory.performed += instance.OnOpenInventory;
+            @OpenInventory.canceled += instance.OnOpenInventory;
         }
 
         private void UnregisterCallbacks(IGeneralActions instance)
@@ -1057,6 +1054,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @OpenDevConsole.started -= instance.OnOpenDevConsole;
             @OpenDevConsole.performed -= instance.OnOpenDevConsole;
             @OpenDevConsole.canceled -= instance.OnOpenDevConsole;
+            @OpenInventory.started -= instance.OnOpenInventory;
+            @OpenInventory.performed -= instance.OnOpenInventory;
+            @OpenInventory.canceled -= instance.OnOpenInventory;
         }
 
         public void RemoveCallbacks(IGeneralActions instance)
@@ -1239,7 +1239,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnRemoveHoldingFurniture(InputAction.CallbackContext context);
         void OnRotateHoldingFurniture(InputAction.CallbackContext context);
         void OnPlaceHoldingFurniture(InputAction.CallbackContext context);
-        void OnOpenInventory(InputAction.CallbackContext context);
     }
     public interface IGeneralActions
     {
@@ -1251,6 +1250,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnOpenDevConsole(InputAction.CallbackContext context);
+        void OnOpenInventory(InputAction.CallbackContext context);
     }
     public interface IPauseMenuActions
     {

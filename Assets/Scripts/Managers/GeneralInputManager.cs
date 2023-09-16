@@ -24,7 +24,8 @@ public class GeneralInputManager : Singleton<GeneralInputManager>
         playerInput.General.Interact.performed += ctx => player.Interact();
 
         playerInput.General.Pause.performed += ctx => PauseMenu.Instance.SetGamePause(true);
-        playerInput.General.OpenDevConsole.performed += ctx => DeveloperConsole.Instance.Toggle();
+        playerInput.General.OpenInventory.performed += ctx => InventoryUIManager.Instance.ToggleInventory();
+        playerInput.General.OpenDevConsole.performed += ctx => DeveloperConsole.Instance.ToggleDevConsole();
     }
 
     private void OnEnable()
