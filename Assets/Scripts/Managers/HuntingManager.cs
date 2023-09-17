@@ -50,14 +50,6 @@ public class HuntingManager : Singleton<HuntingManager>
 		GameOver();
 	}
 
-	// converts seconds to a string in the format "mm:ss"
-	private string FormatTime(float seconds)
-	{
-		int minutes = Mathf.FloorToInt(seconds / 60);
-		int remainingSeconds = Mathf.FloorToInt(seconds % 60);
-		return string.Format("{0:00}:{1:00}", minutes, remainingSeconds);
-	}
-
 	public void DealDamageToPlayer(float damage)
 	{
 		// Set initial alpha to 0.5

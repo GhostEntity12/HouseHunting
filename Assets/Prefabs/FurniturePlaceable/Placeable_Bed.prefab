@@ -53,6 +53,7 @@ MonoBehaviour:
   canPlaceOnSurface: 0
   <MeshRenderer>k__BackingField: {fileID: 745136825906266099}
   <MeshFilter>k__BackingField: {fileID: 3293176650222832441}
+  <model>k__BackingField: {fileID: 0}
 --- !u!65 &2525179865123600939
 BoxCollider:
   m_ObjectHideFlags: 0
