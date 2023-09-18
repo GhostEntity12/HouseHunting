@@ -1621,6 +1621,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7262658836864928535, guid: 002132cd085e1c449ad3c4fda2a25d82, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -29154,6 +29158,18 @@ PrefabInstance:
     - target: {fileID: 7217299715317337716, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -55.478485
+      objectReference: {fileID: 0}
+    - target: {fileID: 8718915713298058547, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 4c8b28d051782dc47953ac6df3a35620, type: 2}
+    - target: {fileID: 8718915713298058547, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1119861197781442097, guid: 4c8b28d051782dc47953ac6df3a35620, type: 2}
+    - target: {fileID: 8718915713298058547, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
