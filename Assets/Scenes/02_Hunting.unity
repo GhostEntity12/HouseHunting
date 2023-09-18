@@ -17585,6 +17585,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inventory
       objectReference: {fileID: 0}
+    - target: {fileID: 8276508473873281153, guid: c8d853a08ed02024f93722499e56faa8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 132
+      objectReference: {fileID: 0}
     - target: {fileID: 8682053248201902979, guid: c8d853a08ed02024f93722499e56faa8, type: 3}
       propertyPath: m_Pivot.x
       value: 0

@@ -152,6 +152,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
         }
     }
 
+    // referenced in discard button in inventory UI
     public void DiscardSelectedFurniture()
     {
         furnitureInventory.Remove(selectedFurniture.Value.inventoryItem);
