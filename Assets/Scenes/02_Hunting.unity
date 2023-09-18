@@ -29155,9 +29155,13 @@ PrefabInstance:
       propertyPath: markers.Array.data[0]
       value: 
       objectReference: {fileID: 1324402770}
-    - target: {fileID: 7217299715317337716, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -55.478485
+    - target: {fileID: 6635930508914741442, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6635930508914741442, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_Padding.m_Right
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8718915713298058547, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_fontAsset
