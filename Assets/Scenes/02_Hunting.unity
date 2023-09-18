@@ -29019,14 +29019,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 928380810684098387, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 928380810684098387, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 527.5
-      objectReference: {fileID: 0}
     - target: {fileID: 1432584188688666622, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 705
@@ -29162,6 +29154,10 @@ PrefabInstance:
     - target: {fileID: 6635930508914741442, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_Padding.m_Right
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8570542878449152335, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000024795532
       objectReference: {fileID: 0}
     - target: {fileID: 8718915713298058547, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_fontAsset
