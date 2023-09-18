@@ -125,6 +125,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ReturnToHome"",
+                    ""type"": ""Button"",
+                    ""id"": ""f3e2bb5e-bc77-4bdb-8b45-9cb6da7258c0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -246,6 +255,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ADS"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7bafdd7-d91b-448e-a209-ad69c4c5f15c"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReturnToHome"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -693,6 +713,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Hunting_Quick5 = m_Hunting.FindAction("Quick5", throwIfNotFound: true);
         m_Hunting_Quick6 = m_Hunting.FindAction("Quick6", throwIfNotFound: true);
         m_Hunting_ADS = m_Hunting.FindAction("ADS", throwIfNotFound: true);
+        m_Hunting_ReturnToHome = m_Hunting.FindAction("ReturnToHome", throwIfNotFound: true);
         // House
         m_House = asset.FindActionMap("House", throwIfNotFound: true);
         m_House_RemoveHoldingFurniture = m_House.FindAction("RemoveHoldingFurniture", throwIfNotFound: true);
@@ -791,6 +812,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_Quick5;
     private readonly InputAction m_Hunting_Quick6;
     private readonly InputAction m_Hunting_ADS;
+    private readonly InputAction m_Hunting_ReturnToHome;
     public struct HuntingActions
     {
         private @PlayerInput m_Wrapper;
@@ -806,6 +828,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Quick5 => m_Wrapper.m_Hunting_Quick5;
         public InputAction @Quick6 => m_Wrapper.m_Hunting_Quick6;
         public InputAction @ADS => m_Wrapper.m_Hunting_ADS;
+        public InputAction @ReturnToHome => m_Wrapper.m_Hunting_ReturnToHome;
         public InputActionMap Get() { return m_Wrapper.m_Hunting; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -848,6 +871,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @ADS.started += instance.OnADS;
             @ADS.performed += instance.OnADS;
             @ADS.canceled += instance.OnADS;
+            @ReturnToHome.started += instance.OnReturnToHome;
+            @ReturnToHome.performed += instance.OnReturnToHome;
+            @ReturnToHome.canceled += instance.OnReturnToHome;
         }
 
         private void UnregisterCallbacks(IHuntingActions instance)
@@ -885,6 +911,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @ADS.started -= instance.OnADS;
             @ADS.performed -= instance.OnADS;
             @ADS.canceled -= instance.OnADS;
+            @ReturnToHome.started -= instance.OnReturnToHome;
+            @ReturnToHome.performed -= instance.OnReturnToHome;
+            @ReturnToHome.canceled -= instance.OnReturnToHome;
         }
 
         public void RemoveCallbacks(IHuntingActions instance)
@@ -1233,6 +1262,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnQuick5(InputAction.CallbackContext context);
         void OnQuick6(InputAction.CallbackContext context);
         void OnADS(InputAction.CallbackContext context);
+        void OnReturnToHome(InputAction.CallbackContext context);
     }
     public interface IHouseActions
     {

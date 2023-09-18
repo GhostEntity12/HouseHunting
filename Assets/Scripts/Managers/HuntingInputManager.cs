@@ -18,9 +18,6 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput.Hunting.OpenWeaponWheel.started += ctx => OpenWeaponWheel();
 		playerInput.Hunting.OpenWeaponWheel.canceled += ctx => CloseWeaponWheel();
 
-		//removed for alpha
-		//playerInput.Hunting.OpenInventory.performed += ctx => ShopUIManager.Instance.ToggleShop();
-
 		// shoot
 		playerInput.Hunting.Shoot.performed += ctx => WeaponManager.Instance.CurrentGun.Shoot();
 
@@ -37,6 +34,9 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 		// ADS
 		playerInput.Hunting.ADS.performed += ctx => WeaponManager.Instance.CurrentGun.ToggleADS();
+
+		// Return to Cabin
+		playerInput.Hunting.ReturnToHome.performed += ctx => HuntingManager.Instance.RespawnInHouse();
     }
 
 	private void OnEnable()
