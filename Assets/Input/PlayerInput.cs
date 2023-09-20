@@ -696,6 +696,34 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Map"",
+            ""id"": ""f4535245-2ef7-4265-a5d6-b35fb60e531f"",
+            ""actions"": [
+                {
+                    ""name"": ""CloseMap"",
+                    ""type"": ""Button"",
+                    ""id"": ""d45b92b8-6cd8-40c8-a665-31e06a287b2a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8b453d67-1d49-46b6-9cfa-2b80a85b88d6"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -740,6 +768,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // Inventory
         m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
         m_Inventory_CloseInventory = m_Inventory.FindAction("CloseInventory", throwIfNotFound: true);
+        // Map
+        m_Map = asset.FindActionMap("Map", throwIfNotFound: true);
+        m_Map_CloseMap = m_Map.FindAction("CloseMap", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1249,6 +1280,52 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public InventoryActions @Inventory => new InventoryActions(this);
+
+    // Map
+    private readonly InputActionMap m_Map;
+    private List<IMapActions> m_MapActionsCallbackInterfaces = new List<IMapActions>();
+    private readonly InputAction m_Map_CloseMap;
+    public struct MapActions
+    {
+        private @PlayerInput m_Wrapper;
+        public MapActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @CloseMap => m_Wrapper.m_Map_CloseMap;
+        public InputActionMap Get() { return m_Wrapper.m_Map; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MapActions set) { return set.Get(); }
+        public void AddCallbacks(IMapActions instance)
+        {
+            if (instance == null || m_Wrapper.m_MapActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MapActionsCallbackInterfaces.Add(instance);
+            @CloseMap.started += instance.OnCloseMap;
+            @CloseMap.performed += instance.OnCloseMap;
+            @CloseMap.canceled += instance.OnCloseMap;
+        }
+
+        private void UnregisterCallbacks(IMapActions instance)
+        {
+            @CloseMap.started -= instance.OnCloseMap;
+            @CloseMap.performed -= instance.OnCloseMap;
+            @CloseMap.canceled -= instance.OnCloseMap;
+        }
+
+        public void RemoveCallbacks(IMapActions instance)
+        {
+            if (m_Wrapper.m_MapActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IMapActions instance)
+        {
+            foreach (var item in m_Wrapper.m_MapActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_MapActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public MapActions @Map => new MapActions(this);
     public interface IHuntingActions
     {
         void OnShoot(InputAction.CallbackContext context);
@@ -1294,5 +1371,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public interface IInventoryActions
     {
         void OnCloseInventory(InputAction.CallbackContext context);
+    }
+    public interface IMapActions
+    {
+        void OnCloseMap(InputAction.CallbackContext context);
     }
 }

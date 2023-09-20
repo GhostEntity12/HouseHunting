@@ -674,6 +674,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Map",
+            "id": "f4535245-2ef7-4265-a5d6-b35fb60e531f",
+            "actions": [
+                {
+                    "name": "CloseMap",
+                    "type": "Button",
+                    "id": "d45b92b8-6cd8-40c8-a665-31e06a287b2a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8b453d67-1d49-46b6-9cfa-2b80a85b88d6",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseMap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

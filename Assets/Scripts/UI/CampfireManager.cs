@@ -5,12 +5,11 @@ using UnityEngine;
 public class CampfireManager : MonoBehaviour
 {
 	[SerializeField] Transform parent;
-	[SerializeField] CampfireButton buttonPrefab;
+	[SerializeField] CampfireButton campfireButtonPrefab;
 	[SerializeField] private List<Campfire> campfires;
-	// Start is called before the first frame update
+
 	private void Awake()
 	{
-		campfires.ForEach(c => Instantiate(buttonPrefab, parent).Setup(c, this));
 	}
 
     private void Start()
