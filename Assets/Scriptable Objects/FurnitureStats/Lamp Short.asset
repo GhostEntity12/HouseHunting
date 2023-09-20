@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
-  m_Name: Bed
+  m_Name: Lamp Short
   m_EditorClassIdentifier: 
-  id: bed
-  name: Bed
-  maxHealth: 30
+  id: lampshort
+  name: Lamp Short
+  maxHealth: 10
   speed: 3
-  thumbnail: {fileID: 21300000, guid: 7be0f92b9e7bb1744bfe3af8adc18fd2, type: 3}
-  placeablePrefab: {fileID: 2350306671234011157, guid: c20f478f636a2e244ae1457817647b17, type: 3}
-  shootablePrefab: {fileID: 4207542877117778773, guid: bd24c24fd5ad4d741892ce478fba20ea, type: 3}
+  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  placeablePrefab: {fileID: 2350306671234011157, guid: 06e85a0c7916a7a418470a2a48e582a1, type: 3}
+  shootablePrefab: {fileID: 6090958504537676759, guid: 625fb83031f75a4468847b3f2e0f1b1a, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
-  alertnessThreshold1: 30
+  alertnessThreshold1: 33
   threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
-  alertnessThreshold2: 60
+  alertnessThreshold2: 66
   threshold2Behaviour: {fileID: 11400000, guid: d1b5f233a60fcac4d8755cfbc52da0af, type: 2}
   alertnessThreshold3: 100
   threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
@@ -30,8 +30,8 @@ MonoBehaviour:
   alertnessDecayRate: 10
   sightAlertnessRate: 25
   senses:
-  - {fileID: 11400000, guid: 1ec6d6abffce23b43997e79b8f25d4ca, type: 2}
+  - {fileID: 11400000, guid: cd62ccb9624d14841a5c503f3f9b2687, type: 2}
   special: 0
   materials:
   - {fileID: -3963241562183589234, guid: 57f36821fbacc444a83ba13036d24ba6, type: 3}
-  basePrice: 200
+  basePrice: 0
