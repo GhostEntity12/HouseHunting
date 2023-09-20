@@ -15,7 +15,7 @@ MonoBehaviour:
   id: bath
   name: Bath
   maxHealth: 20
-  speed: 5
+  speed: 3
   thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
   placeablePrefab: {fileID: 1539234630903234798, guid: 316e62d968a6c65419b0cf490878a4ab, type: 3}
   shootablePrefab: {fileID: 3685072443934080641, guid: e349d4d7f03c8d34e83e199dc0870a66, type: 3}
@@ -33,6 +33,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
   special: 0
   materials:
-  - {fileID: -1400836625916889992, guid: 825c4be5061dc9e4ba4cb6580074fa71, type: 3}
-  - {fileID: 1368211022695203897, guid: 9464a6a1b5f93ea41b09b06dd93aa191, type: 3}
+  - {fileID: -3963241562183589234, guid: 57f36821fbacc444a83ba13036d24ba6, type: 3}
   basePrice: 50

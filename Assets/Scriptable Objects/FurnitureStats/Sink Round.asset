@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
   m_Name: Sink Round
   m_EditorClassIdentifier: 
-  id: shadedLamp
-  name: Shaded Lamp
+  id: Sink Round
+  name: Sink Round
   maxHealth: 20
   speed: 3
   thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
@@ -33,6 +33,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
   special: 0
   materials:
-  - {fileID: 2100000, guid: b098f126ba88e9f44aebdb6e0584851c, type: 2}
+  - {fileID: -3963241562183589234, guid: 57f36821fbacc444a83ba13036d24ba6, type: 3}
   - {fileID: -1400836625916889992, guid: 3ac05f64e3c52a74d9853255ef8b6c12, type: 3}
   basePrice: 0

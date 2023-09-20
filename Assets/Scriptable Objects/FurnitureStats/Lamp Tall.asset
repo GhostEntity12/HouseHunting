@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
-  m_Name: Lamp Shade
+  m_Name: Lamp Tall
   m_EditorClassIdentifier: 
-  id: lamp_shade
-  name: Lamp Shade
+  id: lamp_tall
+  name: Lamp Tall
   maxHealth: 10
   speed: 5
   thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
@@ -33,5 +33,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cd62ccb9624d14841a5c503f3f9b2687, type: 2}
   special: 0
   materials:
-  - {fileID: -389402008792246631, guid: 893fef4c6c54df3448a00479c3e8ce7f, type: 3}
+  - {fileID: -3963241562183589234, guid: 57f36821fbacc444a83ba13036d24ba6, type: 3}
   basePrice: 900
