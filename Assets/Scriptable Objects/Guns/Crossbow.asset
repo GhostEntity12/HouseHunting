@@ -24,3 +24,6 @@ MonoBehaviour:
   volume: 0.1
   magSize: 1
   bulletsPerTap: 1
+  equipSound: {fileID: 11400000, guid: 27856eb5e46000341bfaec0ddc21c1ba, type: 2}
+  fireSound: {fileID: 11400000, guid: 3658217a5a484714b94d6ae2416f54b9, type: 2}
+  reloadSound: {fileID: 11400000, guid: 9a3913b8d871204499f3d7ac6b6a8c3e, type: 2}
