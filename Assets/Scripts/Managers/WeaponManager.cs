@@ -41,12 +41,17 @@ public class WeaponManager : Singleton<WeaponManager>
 
         //TODO: make this compatible with other items than guns with interface
         Gun selectedGun = ownedGuns[index];
+
+        if (CurrentGun == null)
+            CurrentGun = selectedGun; // make sure theres a gun to check id of
+
+        // if the selected gun is different to the previous gun, disable old gun prefab
         if (selectedGun != null && selectedGun.GunSO.id != CurrentGun.GunSO.id)
         {
             CurrentGun.gameObject.SetActive(false);
         }
-        selectedGun.gameObject.SetActive(true);
-        CurrentGun = selectedGun;
+        CurrentGun = selectedGun; // swap
+        selectedGun.gameObject.SetActive(true); // enable
         BulletPool.Instance.BulletPrefab = CurrentGun.GunSO.bulletPrefab;
         SoundAlerter.MakeSound(CurrentGun.GunSO.equipSound, transform.position);
         HuntingUIManager.Instance.SetAmmoCounterText(CurrentGun.AmmoInfo);
