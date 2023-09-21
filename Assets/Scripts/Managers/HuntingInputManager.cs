@@ -22,7 +22,10 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		//playerInput.Hunting.OpenInventory.performed += ctx => ShopUIManager.Instance.ToggleShop();
 
 		// shoot
-		playerInput.Hunting.Shoot.performed += ctx => WeaponManager.Instance.CurrentGun.Shoot();
+		playerInput.Hunting.UsePrimary.performed += ctx => WeaponManager.Instance.CurrentGun.Shoot();
+
+		// ADS
+		playerInput.Hunting.UseSecondary.performed += ctx => WeaponManager.Instance.CurrentGun.ToggleADS();
 
 		// reload
 		playerInput.Hunting.Reload.performed += ctx => WeaponManager.Instance.CurrentGun.Reload();
@@ -34,9 +37,6 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
         playerInput.Hunting.Quick4.performed += ctx => WeaponManager.Instance.SelectItem(3);
         playerInput.Hunting.Quick5.performed += ctx => WeaponManager.Instance.SelectItem(4);
         playerInput.Hunting.Quick6.performed += ctx => WeaponManager.Instance.SelectItem(5);
-
-		// ADS
-		playerInput.Hunting.ADS.performed += ctx => WeaponManager.Instance.CurrentGun.ToggleADS();
     }
 
 	private void OnEnable()
@@ -52,14 +52,16 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	private void OpenWeaponWheel()
 	{
 		playerInput.General.Look.Disable();
-		playerInput.Hunting.Shoot.Disable();
+		playerInput.Hunting.UsePrimary.Disable();
+		playerInput.Hunting.UseSecondary.Disable();
 		weaponWheelController.OpenWeaponWheel();
     }
 
 	private void CloseWeaponWheel()
 	{
 		playerInput.General.Look.Enable();
-		playerInput.Hunting.Shoot.Enable();
+		playerInput.Hunting.UsePrimary.Enable();
+		playerInput.Hunting.UseSecondary.Enable();
 		weaponWheelController.CloseWeaponWheel();
 	}
 
@@ -71,5 +73,5 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	/// <summary>
 	/// Enables firing of the gun. Not done in awake to allow for setup (campfires) without firing weapon.
 	/// </summary>
-	public void EnableShooting() => playerInput.Hunting.Shoot.performed += ctx => WeaponManager.Instance.CurrentGun.Shoot();
+	public void EnableShooting() => playerInput.Hunting.UsePrimary.performed += ctx => WeaponManager.Instance.CurrentGun.Shoot();
 }

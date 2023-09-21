@@ -64,7 +64,7 @@ public class Gun : MonoBehaviour
             float spread = Random.Range(-gunSO.spread, gunSO.spread);
 
             // decrease spread if ads is active
-            if (ads) spread /= 4;
+            if (ads) spread /= adsFactor;
 
             // get bullet at muzzle point
             Bullet currentBullet = BulletPool.Instance.GetPooledObject(muzzlePoint.position, Quaternion.identity);
