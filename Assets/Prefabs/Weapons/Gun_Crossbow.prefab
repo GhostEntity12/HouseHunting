@@ -458,9 +458,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c750834e85aa434592367f5a67ae82e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunSO: {fileID: 11400000, guid: 260cd78f5b7281843b0c646b1f74255c, type: 2}
   muzzlePoint: {fileID: 406708720872090986}
   muzzleFlashPrefab: {fileID: 1000010254994808, guid: 849b008210656a542b75ecfdc722a116, type: 3}
+  adsFactor: 4
+  gunSO: {fileID: 11400000, guid: 260cd78f5b7281843b0c646b1f74255c, type: 2}
+  <GunSO>k__BackingField: {fileID: 0}
 --- !u!95 &4847469742058228571
 Animator:
   serializedVersion: 5

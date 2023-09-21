@@ -18,7 +18,6 @@ public class HuntingManager : Singleton<HuntingManager>
 	private int currentHealth;
 	private float huntingTimerSeconds;
 
-	[field: SerializeField] public Transform Player { get; private set; }
 	public FurnitureInventory HuntingInventory { get; private set; }
 
 	protected override void Awake()
@@ -61,7 +60,7 @@ public class HuntingManager : Singleton<HuntingManager>
 		HuntingInventory.ClearInventory();
 
 		// detach the camera from the player
-		Camera camera = Player.GetComponentInChildren<Camera>();
+		Camera camera = GameManager.Instance.Player.transform.GetComponentInChildren<Camera>();
 		camera.transform.parent = null;
 
 		// destroy all children of the camera
@@ -69,7 +68,7 @@ public class HuntingManager : Singleton<HuntingManager>
 			Destroy(child.gameObject);
 
 		// destroy the player object
-		Destroy(Player.gameObject);
+		Destroy(GameManager.Instance.Player.gameObject);
 
 		GameOver();
 	}

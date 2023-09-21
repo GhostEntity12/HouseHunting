@@ -54,7 +54,7 @@ public class SpawnCommand : Command
         }
         
         Shootable spawnedShootable = Instantiate(shootable);
-        GameObject player = GameManager.Instance.player;
+        Player player = GameManager.Instance.Player;
         spawnedShootable.transform.position = player.transform.position + player.transform.forward;
         Output($"{shootable.FurnitureSO.id} spawned at {spawnedShootable.transform.position}");
     }

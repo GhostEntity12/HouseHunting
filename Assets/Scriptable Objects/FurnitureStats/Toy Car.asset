@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
+  m_Name: Toy Car
+  m_EditorClassIdentifier: 
+  id: toy car
+  name: Toy Car
+  maxHealth: 20
+  speed: 7
+  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  placeablePrefab: {fileID: 1539234630903234798, guid: b5945fe5a7f5417448096262e5b9aafe, type: 3}
+  shootablePrefab: {fileID: 2899710936797965666, guid: cf290effa00231e488018613811ecb7b, type: 3}
+  threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
+  alertnessThreshold1: 33
+  threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
+  alertnessThreshold2: 66
+  threshold2Behaviour: {fileID: 11400000, guid: d1b5f233a60fcac4d8755cfbc52da0af, type: 2}
+  alertnessThreshold3: 100
+  threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
+  timeBeforeDecay: 5
+  alertnessDecayRate: 5
+  sightAlertnessRate: 25
+  senses:
+  - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
+  special: 0
+  materials:
+  - {fileID: 239378781582670930, guid: 0f0e585de8750c24e999ce594dae10ae, type: 3}
+  basePrice: 0
