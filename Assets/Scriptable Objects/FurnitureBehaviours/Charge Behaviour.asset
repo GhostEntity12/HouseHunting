@@ -15,3 +15,5 @@ MonoBehaviour:
   damage: 10
   chargeDelay: 2
   chargeRange: 3
+  horizontalKnockbackMultiplier: 0.1
+  verticalKnockback: 4
