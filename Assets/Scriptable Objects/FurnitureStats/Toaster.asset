@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: toaster
   name: Toaster
+  description: 
   maxHealth: 10
   speed: 7
+  category: 0
   thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 399b91a45ced6b14b9adccc8816881f9, type: 3}
   shootablePrefab: {fileID: 5670009076271129424, guid: c7927adc0efe63b43bae2c85284e33bf, type: 3}
@@ -31,7 +33,3 @@ MonoBehaviour:
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
-  special: 0
-  materials:
-  - {fileID: 2100000, guid: e86089b7200e35043a5cdf794f97fbc5, type: 2}
-  basePrice: 0

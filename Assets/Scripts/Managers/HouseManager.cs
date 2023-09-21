@@ -39,7 +39,8 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
 		foreach (SaveDataPlacedFurniture item in houseItems)
 		{
-			tValue += item.inventoryItem.Value;
+			// Need to rediscuss what value means
+			tValue += 1;// item.inventoryItem.Value;
 		}
 
 		// can be changed in future
@@ -112,13 +113,13 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	public void SelectFurnitureToPlace()
 	{
 		if (ShopUIManager.Instance.SelectedFurniture?.so == null) return;
-		(FurnitureSO so, SaveDataFurniture item) selectedFurniture = ShopUIManager.Instance.SelectedFurniture.Value;
-		Placeable spawnedPlaceable = Instantiate(selectedFurniture.so.placeablePrefab);
+		(FurnitureSO so, SaveDataFurniture item) = ShopUIManager.Instance.SelectedFurniture.Value;
+		Placeable spawnedPlaceable = Instantiate(so.placeablePrefab);
 
 		holdingPlaceable = spawnedPlaceable;
 		MeshCollider meshCollider = holdingPlaceable.GetComponentInChildren<MeshCollider>();
 		meshCollider.enabled = false;
-		spawnedPlaceable.InventoryItem = selectedFurniture.item;
+		spawnedPlaceable.InventoryItem = item;
 
 		ShopUIManager.Instance.ToggleShop();
 	}

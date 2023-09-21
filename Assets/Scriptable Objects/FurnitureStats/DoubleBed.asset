@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: doubleBed
   name: Double Bed
+  description: 
   maxHealth: 30
   speed: 3
+  category: 0
   thumbnail: {fileID: 21300000, guid: 7be0f92b9e7bb1744bfe3af8adc18fd2, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 9a26f7a9a12bc8f4bb9bd8c412f1af23, type: 3}
   shootablePrefab: {fileID: 6366392969304530097, guid: 8dd7d42fbef8ba04b9398f06db5ef2b2, type: 3}
@@ -31,7 +33,3 @@ MonoBehaviour:
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
-  special: 0
-  materials:
-  - {fileID: -389402008792246631, guid: 893fef4c6c54df3448a00479c3e8ce7f, type: 3}
-  basePrice: 200

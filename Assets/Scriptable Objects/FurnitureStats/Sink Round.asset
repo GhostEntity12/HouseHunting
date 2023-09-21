@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: shadedLamp
   name: Shaded Lamp
+  description: 
   maxHealth: 20
   speed: 3
+  category: 0
   thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
   placeablePrefab: {fileID: 1539234630903234798, guid: f4aefb11ea598469f9725e5cab54e2dd, type: 3}
   shootablePrefab: {fileID: 3685072443934080641, guid: c6397f22e5db0442daf735b6b8e559ec, type: 3}
@@ -31,7 +33,3 @@ MonoBehaviour:
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
-  special: 0
-  materials:
-  - {fileID: 2100000, guid: b098f126ba88e9f44aebdb6e0584851c, type: 2}
-  basePrice: 0

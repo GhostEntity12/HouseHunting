@@ -108,7 +108,7 @@ public class Player : MonoBehaviour
 		else
 			moveState.Remove(movementState);
 
-		MoveState currentState = moveState[moveState.Count - 1];
+		MoveState currentState = moveState[^1];
 
 		switch (currentState)
 		{

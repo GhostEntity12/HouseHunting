@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: wardrobe
   name: Wardrobe
+  description: 
   maxHealth: 20
   speed: 5
+  category: 0
   thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
   placeablePrefab: {fileID: 1539234630903234798, guid: 0b3ee8bdbaf697d45b5a8324a81fd13b, type: 3}
   shootablePrefab: {fileID: 3685072443934080641, guid: 1a2ac2217ed713743acd3eab627fd946, type: 3}
@@ -31,8 +33,3 @@ MonoBehaviour:
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
-  special: 0
-  materials:
-  - {fileID: 2100000, guid: dc9a266ec49130e4c9b55f5329b7e48f, type: 2}
-  - {fileID: 2100000, guid: e86089b7200e35043a5cdf794f97fbc5, type: 2}
-  basePrice: 50

@@ -45,7 +45,7 @@ public class FurnitureInventory
 
         foreach (var item in Furniture)
         {
-            result += $"{item.id}, {item.scaleFactor}, {item.materialIndex}, {item.price}\n";
+            result += $"{item.id}\n";
         }
 
         return result;

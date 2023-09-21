@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: sofa
   name: Sofa
+  description: 
   maxHealth: 40
   speed: 4
+  category: 0
   thumbnail: {fileID: 21300000, guid: 9b837a8ec030db34e92d6403d7517937, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: f36da03e11569b644866033ffddca509, type: 3}
   shootablePrefab: {fileID: 4207542877117778773, guid: 72ec9f24d63fd614aa750b9890637395, type: 3}
@@ -31,10 +33,3 @@ MonoBehaviour:
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
-  special: 0
-  materials:
-  - {fileID: 2100000, guid: 267df59e799c5e1488d9c6d143d39cd3, type: 2}
-  - {fileID: 2100000, guid: 936649d7c6c09a24393aa524a2f8e495, type: 2}
-  - {fileID: 880774007180850119, guid: 0542432cd9555004ebac9cf90add21c8, type: 3}
-  - {fileID: 2100000, guid: 936649d7c6c09a24393aa524a2f8e495, type: 2}
-  basePrice: 750

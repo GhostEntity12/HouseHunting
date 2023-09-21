@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: fridge
   name: Fridge
+  description: 
   maxHealth: 50
   speed: 4
+  category: 0
   thumbnail: {fileID: 21300000, guid: 14d7d8dfc85d1914284313dc5bd4f03c, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 688e5ac67b3fb384d91d81fe6baa5680, type: 3}
   shootablePrefab: {fileID: 274742349716809348, guid: 2783c2dda8fd2ca45acae96f356af6b6, type: 3}
@@ -31,7 +33,3 @@ MonoBehaviour:
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
-  special: 0
-  materials:
-  - {fileID: -389402008792246631, guid: 893fef4c6c54df3448a00479c3e8ce7f, type: 3}
-  basePrice: 350

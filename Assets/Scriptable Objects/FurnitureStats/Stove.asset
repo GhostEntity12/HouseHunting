@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: stove
   name: Stove
+  description: 
   maxHealth: 20
   speed: 3
+  category: 0
   thumbnail: {fileID: 21300000, guid: 14d7d8dfc85d1914284313dc5bd4f03c, type: 3}
   placeablePrefab: {fileID: 1539234630903234798, guid: 3b501b8de80b21c49a134dc5a7ccaa70, type: 3}
   shootablePrefab: {fileID: 2899710936797965666, guid: 17c4f93df63368e42834b0e1283922c0, type: 3}
@@ -31,7 +33,3 @@ MonoBehaviour:
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
-  special: 0
-  materials:
-  - {fileID: 4419169753096415112, guid: 7fc6e1433dfb4e94ebb532223c518414, type: 3}
-  basePrice: 0

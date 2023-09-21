@@ -3,16 +3,20 @@ using UnityEngine;
 public enum AIType { Prey, Projectile, Charge, Grapple, Slam };
 public enum Ability { None, Steal, Alert, Reflect };
 public enum AlertRate { Low, Medium, High, Instant };
+public enum FurnitureCategory { Living, Dining, Bedroom, Bathroom, Misc };
 
 [CreateAssetMenu(fileName = "Furniture")]
-
 public class FurnitureSO : ScriptableObject
 {
+
 	[Header("Basic Info")]
 	public string id;
 	public new string name;
+	[TextArea(3, 5)]
+	public string description;
 	public int maxHealth;
 	public float speed;
+	public FurnitureCategory category;
 
 	[Header("System")]
 	public Sprite thumbnail;
@@ -36,9 +40,4 @@ public class FurnitureSO : ScriptableObject
 	public float alertnessDecayRate = 10;
 	public float sightAlertnessRate = 25;
 	public ViewConeSO[] senses;
-
-	[Header("Other")]
-	public Ability special;
-	public Material[] materials;
-	public int basePrice;
 }

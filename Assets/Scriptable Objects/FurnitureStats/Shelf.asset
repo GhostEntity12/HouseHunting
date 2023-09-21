@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: shelf
   name: Shelf
+  description: 
   maxHealth: 80
   speed: 3
+  category: 0
   thumbnail: {fileID: 21300000, guid: 8e8c4f63376d05d439414bbb82126a9a, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 7a92c28976aba0b44be987812d247a7d, type: 3}
   shootablePrefab: {fileID: 6900452092522998625, guid: b59a9dd65c1947b4eb388d089f4a19e5, type: 3}
@@ -31,8 +33,3 @@ MonoBehaviour:
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
-  special: 0
-  materials:
-  - {fileID: 2100000, guid: e86089b7200e35043a5cdf794f97fbc5, type: 2}
-  - {fileID: 2100000, guid: 3b4ac6656d6bf924f84cfb455e81dc87, type: 2}
-  basePrice: 150

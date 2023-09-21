@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: small dresser
   name: Small Dresser
+  description: 
   maxHealth: 10
   speed: 4
+  category: 0
   thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
   placeablePrefab: {fileID: 1539234630903234798, guid: da2597553b3354e4f86b1895dea69da2, type: 3}
   shootablePrefab: {fileID: 3685072443934080641, guid: 33ba177a7359448a3a9ce8573681c901, type: 3}
@@ -31,7 +33,3 @@ MonoBehaviour:
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
-  special: 0
-  materials:
-  - {fileID: 239378781582670930, guid: 0f0e585de8750c24e999ce594dae10ae, type: 3}
-  basePrice: 0

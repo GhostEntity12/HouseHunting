@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: cup
   name: Cup
+  description: 
   maxHealth: 10
   speed: 5
+  category: 0
   thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 6ae59c1c9532ff640becdf3da723f4dc, type: 3}
   shootablePrefab: {fileID: 1346307617691619806, guid: f66c5f23a7f5934488d000a213105943, type: 3}
@@ -31,7 +33,3 @@ MonoBehaviour:
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
-  special: 0
-  materials:
-  - {fileID: -389402008792246631, guid: 893fef4c6c54df3448a00479c3e8ce7f, type: 3}
-  basePrice: 900
