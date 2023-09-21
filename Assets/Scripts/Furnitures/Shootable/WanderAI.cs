@@ -38,7 +38,7 @@ public class WanderAI : MonoBehaviour
 	private void Start()
 	{
 		// Cache some values
-		player = HuntingManager.Instance.Player;
+		player = GameManager.Instance.Player.transform;
 		info = shootable.FurnitureSO;
 		activeBehaviour = Instantiate(info.threshold0Behaviour);
 

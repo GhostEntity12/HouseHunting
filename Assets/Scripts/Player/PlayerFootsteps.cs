@@ -22,7 +22,7 @@ public class PlayerFootsteps : MonoBehaviour
 
 	private void HandleAudio()
 	{
-		input = HuntingInputManager.Instance && HuntingInputManager.Instance.PlayerInput.Hunting.Movement.ReadValue<Vector2>().magnitude > 0;
+		input = HuntingInputManager.Instance && HuntingInputManager.Instance.PlayerInput.General.Movement.ReadValue<Vector2>().magnitude > 0;
 		if (controller.isGrounded)
 		{
 			if (!isWalking && input)

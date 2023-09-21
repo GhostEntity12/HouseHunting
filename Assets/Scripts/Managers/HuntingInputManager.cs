@@ -4,10 +4,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 {
 	[SerializeField] WeaponWheel weaponWheelController;
 
-	private new Camera camera;
 	private PlayerInput playerInput;
-	private PlayerMovement movement;
-	private PlayerLook look;
 
 	public PlayerInput PlayerInput => playerInput;
 
@@ -15,29 +12,17 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	{
         base.Awake();
 
-        playerInput = new PlayerInput();
-
-		movement = GetComponent<PlayerMovement>();
-		look = GetComponent<PlayerLook>();
-
-		camera = GetComponentInChildren<Camera>();
-
-		// interact
-		playerInput.Hunting.Interact.performed += ctx => Interact();
+		playerInput = GeneralInputManager.Instance.PlayerInput;
 
 		// weapon wheel
 		playerInput.Hunting.OpenWeaponWheel.started += ctx => OpenWeaponWheel();
 		playerInput.Hunting.OpenWeaponWheel.canceled += ctx => CloseWeaponWheel();
 
-		// pause
-        playerInput.Hunting.Pause.performed += ctx => GameManager.Instance.SetGamePause(!GameManager.Instance.IsPaused);
-
 		//removed for alpha
 		//playerInput.Hunting.OpenInventory.performed += ctx => ShopUIManager.Instance.ToggleShop();
-		playerInput.Hunting.Jump.performed += ctx => movement.Jump();
 
 		// shoot
-		playerInput.Hunting.Shoot.performed += ctx => WeaponManager.Instance.CurrentGun?.Shoot();
+		playerInput.Hunting.Shoot.performed += ctx => WeaponManager.Instance.CurrentGun.Shoot();
 
 		// reload
 		playerInput.Hunting.Reload.performed += ctx => WeaponManager.Instance.CurrentGun.Reload();
@@ -50,9 +35,6 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
         playerInput.Hunting.Quick5.performed += ctx => WeaponManager.Instance.SelectItem(4);
         playerInput.Hunting.Quick6.performed += ctx => WeaponManager.Instance.SelectItem(5);
 
-		// debug
-		playerInput.Hunting.DebugAmmo.performed += ctx => WeaponManager.Instance.GiveAmmo(100);
-
 		// ADS
 		playerInput.Hunting.ADS.performed += ctx => WeaponManager.Instance.CurrentGun.ToggleADS();
     }
@@ -62,57 +44,22 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput.Hunting.Enable();
 	}
 
-    private void FixedUpdate()
-	{
-		UpdateInteractUI();
-
-		if (ShopUIManager.Instance.IsShopOpen) return;
-
-        movement.Move(playerInput.Hunting.Movement.ReadValue<Vector2>());
-		movement.Crouch(playerInput.Hunting.Crouch.ReadValue<float>());
-		movement.Run(playerInput.Hunting.Run.ReadValue<float>());
-	}
-
-	private void LateUpdate()
-	{ 
-		if (ShopUIManager.Instance.IsShopOpen) return;
-		if (!weaponWheelController.gameObject.activeInHierarchy)
-			look.Look(playerInput.Hunting.Look.ReadValue<Vector2>());
-	}
-
 	private void OnDisable()
 	{
 		playerInput.Hunting.Disable();
 	}
 
-    private void UpdateInteractUI()
-    {
-		if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hit, 3f) && hit.transform.TryGetComponent(out IInteractable interactable) && interactable.Interactable)
-		{
-			InteractPopupManager.Instance.gameObject.SetActive(true);
-			InteractPopupManager.Instance.SetAction(interactable.InteractActionText);
-		}
-		else
-		{
-			InteractPopupManager.Instance.gameObject.SetActive(false);
-		}
-	}
-
-    private void Interact()
-    {
-        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hit, 3f) && hit.transform.TryGetComponent(out IInteractable interactable))
-        {
-			interactable.Interact();
-        }
-    }
-
 	private void OpenWeaponWheel()
 	{
+		playerInput.General.Look.Disable();
+		playerInput.Hunting.Shoot.Disable();
 		weaponWheelController.OpenWeaponWheel();
     }
 
 	private void CloseWeaponWheel()
 	{
+		playerInput.General.Look.Enable();
+		playerInput.Hunting.Shoot.Enable();
 		weaponWheelController.CloseWeaponWheel();
 	}
 
