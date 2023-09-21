@@ -31,6 +31,8 @@ public class Bullet : MonoBehaviour
         GameObject bulletHole = Instantiate(bulletHolePrefab, contact.point, Quaternion.LookRotation(contact.normal));
         bulletHole.transform.position += bulletHole.transform.forward / 500;
         Destroy(bulletHole, 1.5f);
+
+        //instantiate blood
     }
     
     private IEnumerator DestroyDelay()

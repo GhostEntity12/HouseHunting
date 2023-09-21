@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -47,12 +48,17 @@ public class WanderAI : MonoBehaviour
 
 	private void Update()
 	{	
-		if (lure != null)
+		if (lure == null)
 		{
 			lure = GameObject.FindWithTag("Lure");
-			lurePos = lure.transform.position;
+			if (lure != null)
+			{
+				lurePos = lure.transform.position;
+				StartCoroutine(ResetLure());
+			}
 		}
-			
+		
+		
 
 		if (shootable.IsDead)
 		{
@@ -272,4 +278,11 @@ public class WanderAI : MonoBehaviour
 	/// </summary>
 	/// <param name="sound"></param>
 	public void EnqueueSound(SoundAlert sound) => sounds.Enqueue(sound);
+
+	IEnumerator ResetLure()
+    {
+        yield return new WaitForSeconds(8);
+		lure = null;
+		lurePos = Vector3.zero;
+    }
 }

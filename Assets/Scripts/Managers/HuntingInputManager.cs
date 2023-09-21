@@ -96,6 +96,8 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 	private void Update()
 	{
+		//Lure throwing code
+		//TODO: bugfix on why the new input system doesn't work
 		if (lureReload == true && Input.GetKeyDown(KeyCode.G) )
 		{
 			GameObject projectile = Instantiate(objectToThrow, attackPoint.position, cam.rotation);
@@ -157,7 +159,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 	private IEnumerator LureTimer()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(8);
 		lureReload = true;
     }
 
