@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public class Gun : MonoBehaviour, IEquippable
 {
 	enum GunState { Ready, Shooting, Reloading }
 	
@@ -22,7 +22,11 @@ public class Gun : MonoBehaviour
 
 	public string AmmoInfo => $"{AmmoPouch.AmmoInGun / GunSO.bulletsPerTap} / {AmmoPouch.AmmoStored / GunSO.bulletsPerTap}";
 
-    private void Awake()
+    public string ID => gunSO.id;
+
+	public SoundAlertSO EquipSound => gunSO.equipSound;
+
+	private void Awake()
     {
         anim = GetComponent<Animator>();
         ads = false;
@@ -154,4 +158,20 @@ public class Gun : MonoBehaviour
 		
 		ReenableGun();
 	}
+
+	public void Equip()
+	{
+		gameObject.SetActive(true);
+		BulletPool.Instance.BulletPrefab = GunSO.bulletPrefab;
+		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
+	}
+
+	public void Unequip()
+	{
+		gameObject.SetActive(false);
+	}
+
+	public void UsePrimary() => Shoot();
+
+	public void UseSecondary() => ToggleADS();
 }
