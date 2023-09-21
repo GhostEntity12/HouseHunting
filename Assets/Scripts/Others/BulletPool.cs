@@ -1,12 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletPool : Singleton<BulletPool>
 {
+    // TODO: make this not a singleton? could work better in the ammo pouch
     [SerializeField] private int amountToPool;
 
-    private readonly List<Bullet> pooledObjects = new List<Bullet>();
+    private readonly List<Bullet> bullets = new List<Bullet>();
+    private readonly List<Bullet> orphans = new List<Bullet>();
+    private readonly Queue<Bullet> pooledObjects = new Queue<Bullet>();
     private Bullet bulletPrefab;
 
     public Bullet BulletPrefab 
@@ -14,9 +16,17 @@ public class BulletPool : Singleton<BulletPool>
         get { return bulletPrefab; }
         set 
         {
-            foreach(Bullet bullet in pooledObjects)
+            for (int i = bullets.Count - 1; i > 0; i--)
             {
-                Destroy(bullet.gameObject);
+                if (pooledObjects.Contains(bullets[i]))
+                {
+                    Destroy(bullets[i].gameObject);
+                }
+                else
+                {
+                    orphans.Add(bullets[i]);
+                }
+                bullets.RemoveAt(i);
             }
             pooledObjects.Clear();
             bulletPrefab = value;
@@ -24,26 +34,35 @@ public class BulletPool : Singleton<BulletPool>
             {
                 Bullet bullet = Instantiate(bulletPrefab);
                 bullet.gameObject.SetActive(false);
-                pooledObjects.Add(bullet);
+                pooledObjects.Enqueue(bullet);
+                bullets.Add(bullet);
             }
         } 
     }
 
     public Bullet GetPooledObject(Vector3 position, Quaternion rotation)
     {
-        for (int i = 0; i < pooledObjects.Count; i++)
+        if (pooledObjects.Count == 0)
         {
-            if (!pooledObjects[i].gameObject.activeInHierarchy)
-            {
-                pooledObjects[i].transform.position = position;
-                pooledObjects[i].transform.rotation = rotation;
-                pooledObjects[i].gameObject.SetActive(true);
-                return pooledObjects[i];
-            }
-        }
+			Bullet newObject = Instantiate(bulletPrefab);
+			pooledObjects.Enqueue(newObject);
+			bullets.Add(newObject);
+		}
 
-        Bullet newObject = Instantiate(bulletPrefab);
-        pooledObjects.Add(newObject);
-        return pooledObjects[0];
+		Bullet b = pooledObjects.Dequeue();
+		b.transform.SetPositionAndRotation(position, rotation);
+		b.gameObject.SetActive(true);
+        b.ResetTrail();
+        return b;
+	}
+
+    public void RepoolObject(Bullet bullet)
+    {
+        if (orphans.Contains(bullet))
+        {
+            Destroy(bullet.gameObject);
+            return;
+        }
+        pooledObjects.Enqueue(bullet);
     }
 }

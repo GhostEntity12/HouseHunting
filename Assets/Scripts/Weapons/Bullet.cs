@@ -7,15 +7,18 @@ public class Bullet : MonoBehaviour
     [SerializeField] int damage;
     [SerializeField] GameObject bulletHolePrefab;
     [SerializeField] float lifespan;
+    private TrailRenderer trailRenderer;
 
     public Rigidbody Rigidbody { get; private set; }
     public int Damage { get { return damage; } set { damage = value; } }
     public bool CanBounce { get; set; }
+    
 
 
 	private void Awake()
 	{
 		Rigidbody = GetComponent<Rigidbody>();
+        trailRenderer = GetComponentInChildren<TrailRenderer>();
 	}
 
     private void OnCollisionEnter(Collision collision)
@@ -32,10 +35,13 @@ public class Bullet : MonoBehaviour
         bulletHole.transform.position += bulletHole.transform.forward / 500;
         Destroy(bulletHole, 1.5f);
     }
+
+    public void ResetTrail() => trailRenderer.Clear();
     
     private IEnumerator DestroyDelay()
     {
         yield return new WaitForSeconds(CanBounce ? 1.5f : 0);
         gameObject.SetActive(false);
+        BulletPool.Instance.RepoolObject(this);
     }
 }
