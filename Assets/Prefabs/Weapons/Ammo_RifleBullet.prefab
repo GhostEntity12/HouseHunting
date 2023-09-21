@@ -209,6 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 150
   bulletHolePrefab: {fileID: 6181713115017043311, guid: 88e418b7c1c193748b83c8c3c95d93ce, type: 3}
+  bloodEffectPrefab: {fileID: 1962516439210982, guid: 3c657dedc43d33a4987fbf09e6363067, type: 3}
   lifespan: 3
 --- !u!54 &7373271406079112989
 Rigidbody:

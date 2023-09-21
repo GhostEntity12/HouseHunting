@@ -44,22 +44,19 @@ public class WanderAI : MonoBehaviour
 
 		// Populate the speed from the stats
 		agent.speed = info.speed;
+
+		lurePos = Vector3.zero;
 	}
 
 	private void Update()
 	{	
-		if (lure == null)
+		lure = GameObject.FindWithTag("Lure");
+		if (lure != null)
 		{
-			lure = GameObject.FindWithTag("Lure");
-			if (lure != null)
-			{
-				lurePos = lure.transform.position;
-				StartCoroutine(ResetLure());
-			}
+			lurePos = lure.transform.position;
+			StartCoroutine(ResetLure());
 		}
-		
-		
-
+	
 		if (shootable.IsDead)
 		{
 			agent.isStopped = true;

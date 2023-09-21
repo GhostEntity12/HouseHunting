@@ -6,11 +6,13 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] int damage;
     [SerializeField] GameObject bulletHolePrefab;
+    [SerializeField] GameObject bloodEffectPrefab;
     [SerializeField] float lifespan;
 
     public Rigidbody Rigidbody { get; private set; }
     public int Damage { get { return damage; } set { damage = value; } }
     public bool CanBounce { get; set; }
+
 
 
 	private void Awake()
@@ -33,6 +35,13 @@ public class Bullet : MonoBehaviour
         Destroy(bulletHole, 1.5f);
 
         //instantiate blood
+        if (collision.transform.tag == "Enemy")
+        {
+            GameObject bloodEffect = Instantiate(bloodEffectPrefab, contact.point, Quaternion.identity);
+            //bloodEffect.transform.position += bloodEffect.transform.forward / 500;
+        }
+            
+        
     }
     
     private IEnumerator DestroyDelay()
