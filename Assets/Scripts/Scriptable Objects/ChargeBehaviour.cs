@@ -7,6 +7,8 @@ public class ChargeBehaviour : AIBehaviour
     public int damage = 10;
     public float chargeDelay = 2f;
     public float chargeRange = 3f;
+    public float horizontalKnockbackMultiplier = 0.1f;
+    public float verticalKnockback = 4f;
     private float timeSinceLastCharge = 0;
     private bool charging = false;
     private Collider hitbox;
@@ -20,7 +22,7 @@ public class ChargeBehaviour : AIBehaviour
             if (!hitPlayer)
             {
 
-                Collider[] hitColliders = Physics.OverlapBox(hitbox.bounds.center, hitbox.bounds.size + new Vector3(3, 3, 3), knowledge.AITransform.rotation);
+                Collider[] hitColliders = Physics.OverlapBox(hitbox.bounds.center, hitbox.bounds.size + new Vector3(0.1f, 0.1f, 0.1f), knowledge.AITransform.rotation);
 
                 foreach (Collider hitCollider in hitColliders)
                 {
@@ -28,11 +30,12 @@ public class ChargeBehaviour : AIBehaviour
                     {
                         HuntingManager.Instance.DealDamageToPlayer(damage);
                         hitPlayer = true;
+                        hitCollider.transform.parent.GetComponent<Player>().ApplyKnockback(new Vector3(knowledge.Agent.velocity.x * horizontalKnockbackMultiplier, verticalKnockback, knowledge.Agent.velocity.z * horizontalKnockbackMultiplier));
                         break;
                     }
                 }
             }
-            if (knowledge.Agent.remainingDistance < 1)
+            if (knowledge.Agent.remainingDistance < 1f)
             {
                 charging = false;
             }
@@ -45,12 +48,12 @@ public class ChargeBehaviour : AIBehaviour
             timeSinceLastCharge += Time.deltaTime;
             if (timeSinceLastCharge >= chargeDelay)
             {
-                knowledge.Agent.speed = knowledge.Info.speed * 3;
                 knowledge.Agent.isStopped = false;
                 charging = true;
+                hitPlayer = false;
                 timeSinceLastCharge = 0;
                 Vector3 direction = Quaternion.AngleAxis(180, Vector3.up) * (knowledge.PlayerPosition - knowledge.AITransform.position).normalized;
-                Vector3 destination = knowledge.AITransform.position - (direction * 2f * chargeRange);
+                Vector3 destination = knowledge.PlayerPosition - (direction * 2f * chargeRange);
                 if (NavMesh.SamplePosition(destination, out NavMeshHit hit, chargeRange, NavMesh.AllAreas))
                 {
                     knowledge.Agent.SetDestination(hit.position);
@@ -65,6 +68,7 @@ public class ChargeBehaviour : AIBehaviour
     public override void Entry(ref Knowledge knowledge)
     {
         hitbox = knowledge.AITransform.GetComponent<Collider>();
+        knowledge.Agent.speed = knowledge.Info.speed * 3;
     }
     public override void Exit(ref Knowledge knowledge) { }
 }

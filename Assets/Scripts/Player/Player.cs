@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 	[SerializeField] private float baseSpeed = 5f;
 	[SerializeField] private float gravity = -9.81f;
 	[SerializeField] private float jumpSpeed = 15f;
+	[SerializeField] private float knockbackDrag = 1f;
 
 	[Header("Look")]
 	[SerializeField] private new Camera camera;
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
 	private float speedMultiplyer = 1f;
 	private float moveVolume = 6f;
 	private float playerVerticalVelocity;
+	private Vector3 knockbackForce = new Vector3(0,0,0);
 	private List<MoveState> moveState = new List<MoveState>();
 
 	// look
@@ -57,9 +59,12 @@ public class Player : MonoBehaviour
 		playerVerticalVelocity += gravity * Time.deltaTime;
 
 		if (controller.isGrounded && playerVerticalVelocity < 0)
-			playerVerticalVelocity = -2f;
+			playerVerticalVelocity = 0f;
 
 		movementVector.y = playerVerticalVelocity * Time.deltaTime;
+
+		movementVector += knockbackForce;
+		knockbackForce = KnockbackDecay();
 
 		controller.Move(movementVector);
 
@@ -126,6 +131,49 @@ public class Player : MonoBehaviour
 		controller.enabled = false;
 		transform.SetPositionAndRotation(warpPoint.position, warpPoint.rotation);
 		controller.enabled = true;
+	}
+
+	public void ApplyKnockback(Vector3 force)
+	{
+		float knockbackX = knockbackForce.x;
+		float knockbackZ = knockbackForce.z;
+		knockbackForce = new Vector3(knockbackForce.x + force.x,0,knockbackForce.z + force.z);
+		playerVerticalVelocity += force.y;
+	}
+
+	private Vector3 KnockbackDecay()
+	{
+		Vector3 decayedKnockback = Vector3.Lerp(knockbackForce, Vector3.zero, Time.deltaTime * knockbackDrag);
+		float knockbackX = decayedKnockback.x;
+		float knockbackZ = decayedKnockback.z;
+
+		if (knockbackX > Time.deltaTime * knockbackDrag)
+		{
+			knockbackX -= Time.deltaTime * knockbackDrag;
+		}
+		else if (knockbackX < -Time.deltaTime * knockbackDrag)
+		{
+			knockbackX += Time.deltaTime * knockbackDrag;
+		}
+		else
+		{
+			knockbackX = 0f;
+		}
+
+		if (knockbackZ > Time.deltaTime * knockbackDrag)
+		{
+			knockbackZ -= Time.deltaTime * knockbackDrag;
+		}
+		else if (knockbackZ < -Time.deltaTime * knockbackDrag)
+		{
+			knockbackZ += Time.deltaTime * knockbackDrag;
+		}
+		else
+		{
+			knockbackZ = 0f;
+		}
+
+		return new Vector3(knockbackX, 0f, knockbackZ);
 	}
     #endregion
 
