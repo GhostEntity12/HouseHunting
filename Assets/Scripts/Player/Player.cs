@@ -29,10 +29,14 @@ public class Player : MonoBehaviour
 	// look
 	private float xRotation = 0f;
 
+	public Vector3 camOffset { get; private set; }
+
     private void Awake()
     {
         moveState.Add(MoveState.Walk);
-    }
+		camOffset = Camera.main.transform.localPosition;
+
+	}
 
     private void Update()
     {
