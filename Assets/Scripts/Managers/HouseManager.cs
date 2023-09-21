@@ -91,6 +91,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		holdingPlaceable.transform.LookAt(ExploreCamera.transform.position);
 		holdingPlaceable.transform.rotation = Quaternion.Euler(0, holdingPlaceable.transform.rotation.eulerAngles.y + holdingPlaceableRotation, 0);
 
+		Debug.Log(holdingPlaceable.IsValidPosition);
 		holdingPlaceable.Mesh.material.color = holdingPlaceable.IsValidPosition ? Color.green : Color.red;
 	}
 
