@@ -52,7 +52,6 @@ public class WeaponManager : Singleton<WeaponManager>
         }
         CurrentGun = selectedGun; // swap
         selectedGun.gameObject.SetActive(true); // enable
-        BulletPool.Instance.BulletPrefab = CurrentGun.GunSO.bulletPrefab;
         SoundAlerter.MakeSound(CurrentGun.GunSO.equipSound, transform.position);
         HuntingUIManager.Instance.SetAmmoCounterText(CurrentGun.AmmoInfo);
     }

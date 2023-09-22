@@ -29,6 +29,7 @@ public class Gun : MonoBehaviour
         elapsedTime = 1;
         initialPosition = transform.localPosition;
         adsPosition = new Vector3(initialPosition.x - 0.45f, initialPosition.y, initialPosition.z);
+        AmmoPouch.SetupPool(GunSO.magSize + 1, GunSO.bulletPrefab);
     }
 
 	private void ReenableGun() => state = GunState.Ready;
@@ -46,7 +47,6 @@ public class Gun : MonoBehaviour
     public void Shoot()
     {
 		if (state != GunState.Ready || AmmoPouch.AmmoInGun <= 0) return;
-        if (BulletPool.Instance.BulletPrefab == null) return; // if bullet prefab in bullet pool is not set, do not shoot
 
 		// Set state to shooting
 		state = GunState.Shooting;
@@ -67,9 +67,7 @@ public class Gun : MonoBehaviour
             if (ads) spread /= 4;
 
             // get bullet at muzzle point
-            Bullet currentBullet = BulletPool.Instance.GetPooledObject(muzzlePoint.position, Quaternion.identity);
-			currentBullet.Rigidbody.angularVelocity = Vector3.zero;
-			currentBullet.Rigidbody.velocity = Vector3.zero;
+            Bullet currentBullet = AmmoPouch.DepoolBullet(muzzlePoint.position, Quaternion.identity);
 			currentBullet.Damage = gunSO.damagePerBullet;
             currentBullet.CanBounce = GunSO.id.ToLower() == "crossbow";
 
