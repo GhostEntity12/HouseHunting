@@ -19,10 +19,10 @@ public class Gun : MonoBehaviour, IEquippable
 	[field: SerializeField] public GunSO GunSO { get; private set; }
 	[field: SerializeField] public AmmoPouch AmmoPouch { get; private set; } = new();
 
-	public string AmmoInfo => $"{AmmoPouch.AmmoInGun / gunSO.bulletsPerTap} / {AmmoPouch.AmmoStored / gunSO.bulletsPerTap}";
-    public int NumberOfMagazineLeft => AmmoPouch.AmmoStored / gunSO.bulletsPerTap;
-    public int NumberOfShotsLeft => AmmoPouch.AmmoInGun / gunSO.bulletsPerTap;
-    public int MaxShotPerMagazine => gunSO.magSize / gunSO.bulletsPerTap;
+	public string AmmoInfo => $"{AmmoPouch.AmmoInGun / GunSO.bulletsPerTap} / {AmmoPouch.AmmoStored / GunSO.bulletsPerTap}";
+    public int NumberOfMagazineLeft => AmmoPouch.AmmoStored / GunSO.bulletsPerTap;
+    public int NumberOfShotsLeft => AmmoPouch.AmmoInGun / GunSO.bulletsPerTap;
+    public int MaxShotPerMagazine => GunSO.magSize / GunSO.bulletsPerTap;
 
 	public string ID => GunSO.id;
 
@@ -164,7 +164,7 @@ public class Gun : MonoBehaviour, IEquippable
 	public void Equip()
 	{
 		gameObject.SetActive(true);
-		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
+		HuntingUIManager.Instance.AmmoUI.Rerender(this);
 	}
 
 	public void Unequip()

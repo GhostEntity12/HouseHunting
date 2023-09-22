@@ -24,15 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "OpenWeaponWheel",
-                    "type": "Button",
-                    "id": "518864de-6e45-4afa-8848-7b6971231d07",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Reload",
                     "type": "Button",
                     "id": "7ce7cde9-a82b-4af7-806c-2da234659dd4",
@@ -103,6 +94,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OpenWeaponWheel",
+                    "type": "Button",
+                    "id": "919b20ae-5763-4bc7-948a-fef68e88cd7c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -114,17 +114,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "UsePrimary",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5b0e2deb-29db-453c-a3cf-74d911edb3f4",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "OpenWeaponWheel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -235,6 +224,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ReturnToHome",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "21da146b-f6a7-4a6e-9eac-6e10a3f027b0",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenWeaponWheel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -557,6 +557,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "OpenDevConsole",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "61eeae70-97a0-4523-b18a-890e84cb9f0d",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

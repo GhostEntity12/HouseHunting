@@ -8,9 +8,12 @@ public class Bullet : MonoBehaviour
 	[SerializeField] int damage;
 	[SerializeField] GameObject bulletHolePrefab;
 	[SerializeField] float lifespan;
+	[SerializeField] Sprite icon;
+
 	private TrailRenderer trailRenderer;
 	private AmmoPouch ammoPouch;
 
+	public Sprite Icon => icon;
 	public Rigidbody Rigidbody { get; private set; }
 	public int Damage { get { return damage; } set { damage = value; } }
 	public bool CanBounce { get; set; }
