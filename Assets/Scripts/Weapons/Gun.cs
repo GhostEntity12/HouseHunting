@@ -62,10 +62,6 @@ public class Gun : MonoBehaviour, IEquippable
 
 		AnimationTrigger("Shoot"); // fire gun animation
 
-		// decrease spread if ads is active
-		if (ads)
-			spread /= adsFactor;
-
 		for (int i = 0; i < gunSO.bulletsPerTap; i++)
 		{
 			// calculate random spread
@@ -130,7 +126,7 @@ public class Gun : MonoBehaviour, IEquippable
 
 		// Trigger reload
 		state = GunState.Reloading;
-		if (ads)
+		if(ads)
 			ToggleADS(false);
 		anim.SetBool("Reload", true);
 		AnimationTrigger("Reload");
