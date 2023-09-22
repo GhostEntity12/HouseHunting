@@ -7,7 +7,6 @@ public class Gun : MonoBehaviour, IEquippable
 	[SerializeField] private Transform muzzlePoint;
 	[SerializeField] private GameObject muzzleFlashPrefab;
 	[SerializeField] private float adsFactor = 4;
-	[SerializeField] private GunSO gunSO;
 
 	private bool ads;
 	private float elapsedTime; // for lerping ads
@@ -25,9 +24,9 @@ public class Gun : MonoBehaviour, IEquippable
     public int NumberOfShotsLeft => AmmoPouch.AmmoInGun / gunSO.bulletsPerTap;
     public int MaxShotPerMagazine => gunSO.magSize / gunSO.bulletsPerTap;
 
-	public string ID => gunSO.id;
+	public string ID => GunSO.id;
 
-	public SoundAlertSO EquipSound => gunSO.equipSound;
+	public SoundAlertSO EquipSound => GunSO.equipSound;
 
 	private void Awake()
 	{
@@ -53,49 +52,46 @@ public class Gun : MonoBehaviour, IEquippable
 	public void Shoot()
 	{
 		if (state != GunState.Ready || AmmoPouch.AmmoInGun <= 0) return;
-		if (BulletPool.Instance.BulletPrefab == null) return; // if bullet prefab in bullet pool is not set, do not shoot
 
 		// Set state to shooting
 		state = GunState.Shooting;
 
 		// If gun is not fuly loaded, only fire bullets in gun
 		int bulletsToFire = Mathf.Min(GunSO.bulletsPerTap, AmmoPouch.AmmoInGun);
-		//AnimationTrigger("Shoot"); // fire gun animation
-		Rigidbody rb = new();
 
 		AnimationTrigger("Shoot"); // fire gun animation
 
-		for (int i = 0; i < gunSO.bulletsPerTap; i++)
+		for (int i = 0; i < GunSO.bulletsPerTap; i++)
 		{
 			// calculate random spread
-			float spread = Random.Range(-gunSO.spread, gunSO.spread);
+			Vector3 spread = new(Random.Range(-GunSO.spread, GunSO.spread), Random.Range(-GunSO.spread, GunSO.spread), 0);
 
 			// decrease spread if ads is active
 			if (ads) spread /= 4;
 
 			// get bullet at muzzle point
-			Bullet currentBullet = BulletPool.Instance.GetPooledObject(muzzlePoint.position, Quaternion.identity);
-			currentBullet.Rigidbody.angularVelocity = Vector3.zero;
-			currentBullet.Rigidbody.velocity = Vector3.zero;
-			currentBullet.Damage = gunSO.damagePerBullet;
+			Bullet currentBullet = AmmoPouch.DepoolBullet();
+			currentBullet.transform.position = muzzlePoint.position;
+			currentBullet.ResetTrail();
+			currentBullet.Damage = GunSO.damagePerBullet;
 			currentBullet.CanBounce = GunSO.id.ToLower() == "crossbow";
 
-			// cast ray to crosshair, if the ray hits something, means that there are something in range that should be aimed that, otherwise, the direction can be slightly off
-			// currently, this change still does not fix the problem completely because the colliders on trees are weird
-			// so if you aim at a spot where there are no colliders present on the tree (such as very high up), the bullet will still not go to where the crosshair aims at because the raycast could not find a target
+			//cast ray to crosshair, if the ray hits something, means that there are something in range that should be aimed that, otherwise, the direction can be slightly off
+			//currently, this change still does not fix the problem completely because the colliders on trees are weird
+			//so if you aim at a spot where there are no colliders present on the tree(such as very high up), the bullet will still not go to where the crosshair aims at because the raycast could not find a target
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 			if (Physics.Raycast(ray, out RaycastHit hit))
 			{
 				currentBullet.transform.LookAt(hit.point);
-				currentBullet.transform.forward += new Vector3(spread, spread, 0);
+				currentBullet.transform.forward += spread;
 			}
 			else // if the ray doesnt hit anything, means that the target the player is trying to aim is too far away, and will not hit anything anyways. So we could just apply the forward direction of the camera to the bullet.
 			{
-				Vector3 direction = Camera.main.transform.forward + new Vector3(spread, spread, spread);
+				Vector3 direction = Camera.main.transform.forward + spread;
 				currentBullet.transform.forward = direction.normalized;
 			}
 
-			// Add force to bullet
+			//Add force to bullet
 			currentBullet.Rigidbody.AddForce(currentBullet.transform.forward.normalized * GunSO.shootForce, ForceMode.Impulse);
 		}
 
@@ -129,7 +125,8 @@ public class Gun : MonoBehaviour, IEquippable
 
 		// Trigger reload
 		state = GunState.Reloading;
-		ToggleADS(false);
+		if(ads)
+			ToggleADS(false);
 		anim.SetBool("Reload", true);
 		AnimationTrigger("Reload");
         //HuntingUIManager.Instance.ReloadBarAnimation(GunSO.reloadTime);
@@ -167,8 +164,7 @@ public class Gun : MonoBehaviour, IEquippable
 	public void Equip()
 	{
 		gameObject.SetActive(true);
-		BulletPool.Instance.BulletPrefab = GunSO.bulletPrefab;
-		HuntingUIManager.Instance.AmmoUI.Rerender(this);
+		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
 	}
 
 	public void Unequip()

@@ -20,7 +20,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 		// shoot
 		if (!FindAnyObjectByType<CampfireManager>())
-			playerInput.Hunting.Shoot.performed += ctx => EquipmentManager.Instance.EquippedItem.UsePrimary();
+			playerInput.Hunting.UsePrimary.performed += ctx => EquipmentManager.Instance.EquippedItem.UsePrimary();
 
 		// reload
 		playerInput.Hunting.Reload.performed += ctx => EquipmentManager.Instance.EquippedItem.Reload();
@@ -34,7 +34,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput.Hunting.Quick6.performed += ctx => EquipmentManager.Instance.SelectItem(5);
 
 		// ADS
-		playerInput.Hunting.ADS.performed += ctx => EquipmentManager.Instance.EquippedItem.UseSecondary();
+		playerInput.Hunting.UseSecondary.performed += ctx => EquipmentManager.Instance.EquippedItem.UseSecondary();
 	}
 
 	private void OnEnable()
@@ -50,14 +50,14 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	private void OpenWeaponWheel()
 	{
 		playerInput.General.Look.Disable();
-		playerInput.Hunting.Shoot.Disable();
+		playerInput.Hunting.UsePrimary.Disable();
 		weaponWheelController.OpenWeaponWheel();
 	}
 
 	private void CloseWeaponWheel()
 	{
 		playerInput.General.Look.Enable();
-		playerInput.Hunting.Shoot.Enable();
+		playerInput.Hunting.UsePrimary.Enable();
 		weaponWheelController.CloseWeaponWheel();
 	}
 
@@ -69,5 +69,5 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	/// <summary>
 	/// Enables firing of the gun. Not done in awake to allow for setup (campfires) without firing weapon.
 	/// </summary>
-	public void EnableShooting() => playerInput.Hunting.Shoot.performed += ctx => EquipmentManager.Instance.EquippedItem.UsePrimary();
+	public void EnableShooting() => playerInput.Hunting.UsePrimary.performed += ctx => EquipmentManager.Instance.EquippedItem.UsePrimary();
 }

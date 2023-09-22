@@ -1,8 +1,52 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 [System.Serializable]
 public class AmmoPouch
 {
+	private Queue<Bullet> bulletPool = new();
+	private Bullet bulletPrefab;
 	public int AmmoStored { get; private set; }
-	public int AmmoInGun { get ; private set; }
+	public int AmmoInGun { get; private set; }
+
+	void AddBullet()
+	{
+		Bullet bullet = Object.Instantiate(bulletPrefab);
+		bullet.SetPool(this);
+		bulletPool.Enqueue(bullet);
+		bullet.gameObject.SetActive(false);
+	}
+
+	public void SetupPool(int poolSize, Bullet prefab)
+	{
+		bulletPrefab = prefab;
+		for (int i = 0; i < poolSize; i++)
+		{
+			AddBullet();
+		}
+	}
+
+	public void PoolBullet(Bullet bullet)
+	{
+		Debug.Log("Pooling");
+		bulletPool.Enqueue(bullet);
+		bullet.gameObject.SetActive(false);
+	}
+
+	public Bullet DepoolBullet()
+	{
+		Debug.Log("Depooling");
+		if (bulletPool.Count <= 1)
+		{
+			AddBullet();
+		}
+		Bullet bullet = bulletPool.Dequeue();
+		bullet.Rigidbody.angularVelocity = Vector3.zero;
+		bullet.Rigidbody.velocity = Vector3.zero;
+		bullet.gameObject.SetActive(true);
+		return bullet;
+	}
+
 
 	public int LoadGun(int capacity)
 	{
