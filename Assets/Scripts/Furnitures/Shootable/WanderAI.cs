@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,6 +20,8 @@ public class WanderAI : MonoBehaviour
 	private Transform player;
 	private float alertness = 0;
 	private AIBehaviour activeBehaviour;
+	private GameObject lure;
+	private Vector3 lurePos;
 
 	public float Alertness
 	{
@@ -41,10 +44,19 @@ public class WanderAI : MonoBehaviour
 
 		// Populate the speed from the stats
 		agent.speed = info.speed;
+
+		lurePos = Vector3.zero;
 	}
 
 	private void Update()
 	{
+		lure = GameObject.FindWithTag("Lure");
+		if (lure != null)
+		{
+			lurePos = lure.transform.position;
+			StartCoroutine(ResetLure());
+		}
+
 		if (shootable.IsDead)
 		{
 			agent.isStopped = true;
@@ -65,7 +77,7 @@ public class WanderAI : MonoBehaviour
 		UpdateSightAlertness(canSeePlayer);
 
 		// Bundle information to pass to behaviours
-		Knowledge k = new(transform, player.position, info, agent, sound, canSeePlayer);
+		Knowledge k = new(transform, player.position, lurePos, info, agent, sound, canSeePlayer);
 
 		CheckTransitions(k);
 
@@ -263,4 +275,11 @@ public class WanderAI : MonoBehaviour
 	/// </summary>
 	/// <param name="sound"></param>
 	public void EnqueueSound(SoundAlert sound) => sounds.Enqueue(sound);
+
+	IEnumerator ResetLure()
+    {
+        yield return new WaitForSeconds(8);
+		lure = null;
+		lurePos = Vector3.zero;
+    }
 }
