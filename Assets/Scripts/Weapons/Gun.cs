@@ -126,7 +126,8 @@ public class Gun : MonoBehaviour, IEquippable
 
 		// Trigger reload
 		state = GunState.Reloading;
-		ToggleADS(false);
+		if(ads)
+			ToggleADS(false);
 		anim.SetBool("Reload", true);
 		AnimationTrigger("Reload");
 		HuntingUIManager.Instance.ReloadBarAnimation(GunSO.reloadTime);
