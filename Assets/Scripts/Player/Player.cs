@@ -23,13 +23,19 @@ public class Player : MonoBehaviour
 
 	// movement
 	private float speedMultiplyer = 1f;
-	private float moveVolume = 6f;
 	private float playerVerticalVelocity;
 	private Vector3 knockbackForce = new Vector3(0,0,0);
 	private List<MoveState> moveState = new List<MoveState>();
 
 	// look
 	private float xRotation = 0f;
+
+	[Header("Sounds")]
+	[SerializeField] SoundAlertSO moveSoundCrouch;
+	[SerializeField] SoundAlertSO moveSoundWalk;
+	[SerializeField] SoundAlertSO moveSoundSprint;
+	[SerializeField] SoundAlertSO jumpSound;
+
 
     private void Awake()
     {
@@ -69,7 +75,12 @@ public class Player : MonoBehaviour
 		controller.Move(movementVector);
 
 		if (moveDirection.magnitude > 0)
-            SoundAlerter.MakeSoundContinuous(moveVolume, transform.position, hasFalloff: false);
+            SoundAlerter.MakeSound(moveState[^1] switch
+			{
+				MoveState.Crouch => moveSoundCrouch,
+				MoveState.Walk => moveSoundWalk,
+				MoveState.Sprint => moveSoundSprint,
+			}, transform.position);
 	}
 
 	public void Jump()
@@ -82,7 +93,7 @@ public class Player : MonoBehaviour
 
 			controller.Move(playerVerticalVelocity * Time.deltaTime * Vector3.up);
 
-			SoundAlerter.MakeSoundImpulse(10, transform.position);
+			SoundAlerter.MakeSound(jumpSound, transform.position);
 		}
 	}
 
@@ -108,17 +119,14 @@ public class Player : MonoBehaviour
 		{
 			case MoveState.Crouch:
 				controller.height = 1;
-				moveVolume = 2;
 				speedMultiplyer = 0.5f;
 				break;
 			case MoveState.Walk:
 				controller.height = 2;
-				moveVolume = 6;
 				speedMultiplyer = 1f;
 				break;
 			case MoveState.Sprint:
 				controller.height = 2;
-				moveVolume = 8;
 				speedMultiplyer = 1.5f;
 				break;
 			default:
