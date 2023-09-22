@@ -24,4 +24,6 @@ MonoBehaviour:
   volume: 70
   magSize: 24
   bulletsPerTap: 12
-  bulletShopItem: {fileID: 11400000, guid: 1f61477647416ad4ca1aab1270c44416, type: 2}
+  equipSound: {fileID: 11400000, guid: 27856eb5e46000341bfaec0ddc21c1ba, type: 2}
+  fireSound: {fileID: 11400000, guid: 3658217a5a484714b94d6ae2416f54b9, type: 2}
+  reloadSound: {fileID: 11400000, guid: 9a3913b8d871204499f3d7ac6b6a8c3e, type: 2}
