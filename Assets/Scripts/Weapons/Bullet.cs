@@ -14,6 +14,7 @@ public class Bullet : MonoBehaviour
 	public int Damage { get { return damage; } set { damage = value; } }
 	public bool CanBounce { get; set; }
 
+
 	private void Awake()
 	{
 		Rigidbody = GetComponent<Rigidbody>();
@@ -27,7 +28,7 @@ public class Bullet : MonoBehaviour
 			hitbox.Damage(damage);
 		}
 
-		StartCoroutine(DestroyDelay());
+		StartCoroutine(nameof(DestroyDelay));
 
 		// Instantiate bullet hole
 		ContactPoint contact = collision.GetContact(0);
@@ -38,7 +39,7 @@ public class Bullet : MonoBehaviour
 
 	private IEnumerator DestroyDelay()
 	{
-		yield return new WaitForSeconds(CanBounce ? 1.5f : 0);
+		yield return new WaitForSeconds(CanBounce ? lifespan : 0);
 		ammoPouch.PoolBullet(this);
 	}
 

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [System.Serializable]
 public class AmmoPouch
@@ -12,9 +11,10 @@ public class AmmoPouch
 
 	void AddBullet()
 	{
-		Bullet bullet = GameObject.Instantiate(bulletPrefab);
+		Bullet bullet = Object.Instantiate(bulletPrefab);
 		bullet.SetPool(this);
-		PoolBullet(bullet);
+		bulletPool.Enqueue(bullet);
+		bullet.gameObject.SetActive(false);
 	}
 
 	public void SetupPool(int poolSize, Bullet prefab)
@@ -28,24 +28,23 @@ public class AmmoPouch
 
 	public void PoolBullet(Bullet bullet)
 	{
+		Debug.Log("Pooling");
 		bulletPool.Enqueue(bullet);
-		bullet.ResetTrail();
-		bullet.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-		bullet.Rigidbody.angularVelocity = Vector3.zero;
-		bullet.Rigidbody.velocity = Vector3.zero;
 		bullet.gameObject.SetActive(false);
 	}
 
-	public Bullet DepoolBullet(Vector3 pos, Quaternion rot)
+	public Bullet DepoolBullet()
 	{
-		if (bulletPool.Count > 0)
+		Debug.Log("Depooling");
+		if (bulletPool.Count <= 1)
 		{
 			AddBullet();
 		}
-		Bullet b = bulletPool.Dequeue();
-		b.gameObject.SetActive(true);
-		b.transform.SetPositionAndRotation(pos, rot);
-		return b;
+		Bullet bullet = bulletPool.Dequeue();
+		bullet.Rigidbody.angularVelocity = Vector3.zero;
+		bullet.Rigidbody.velocity = Vector3.zero;
+		bullet.gameObject.SetActive(true);
+		return bullet;
 	}
 
 
