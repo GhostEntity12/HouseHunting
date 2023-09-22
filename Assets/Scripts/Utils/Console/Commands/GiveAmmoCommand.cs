@@ -18,8 +18,8 @@ public class GiveAmmoCommand : Command
         try
         {
             int numberToGive = arguments.Length > 0 ? int.Parse(arguments[0]) : 10;
-            WeaponManager.Instance.GiveAmmo(numberToGive);
-            Output($"Gave {numberToGive} ammo to {WeaponManager.Instance.CurrentGun.GunSO.name}");
+            EquipmentManager.Instance.GiveAmmo(numberToGive);
+            Output($"Gave {numberToGive} ammo to {EquipmentManager.Instance.EquippedItem.ID}");
         }
         catch
         {

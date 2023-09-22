@@ -54,7 +54,7 @@ public class WeaponManager : Singleton<WeaponManager>
         selectedGun.gameObject.SetActive(true); // enable
         BulletPool.Instance.BulletPrefab = CurrentGun.GunSO.bulletPrefab;
         SoundAlerter.MakeSound(CurrentGun.GunSO.equipSound, transform.position);
-        HuntingUIManager.Instance.AmmoUI.ChangeGun(selectedGun);
+        HuntingUIManager.Instance.AmmoUI.Rerender(selectedGun);
     }
  
     // function which gives the player ammo

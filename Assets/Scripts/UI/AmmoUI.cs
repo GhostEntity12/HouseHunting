@@ -54,7 +54,7 @@ public class AmmoUI : MonoBehaviour
         }
     }
 
-    public void ChangeGun(Gun newGun)
+    public void Rerender(Gun newGun)
     {
         foreach (Image icon in bulletIcons)
             Destroy(icon.gameObject);
