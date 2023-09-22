@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304f65a922a1c7e419427ba953ffe214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canPlaceOnSurface: 0
+  canPlaceOnSurface: 1
   <Mesh>k__BackingField: {fileID: 5686951401307975793}
 --- !u!54 &-6575698546327367221
 Rigidbody:
