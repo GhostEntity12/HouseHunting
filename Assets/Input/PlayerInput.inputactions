@@ -6,9 +6,18 @@
             "id": "88fbae35-2339-47e1-bf2e-670c5074a3d0",
             "actions": [
                 {
-                    "name": "Shoot",
+                    "name": "UsePrimary",
                     "type": "Button",
                     "id": "e9511adc-4a0a-4f3c-835b-2b89b425e10f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UseSecondary",
+                    "type": "Button",
+                    "id": "ee67add1-c8de-4b4f-a68e-9b519ae2d573",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -94,15 +103,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "ADS",
-                    "type": "Button",
-                    "id": "ee67add1-c8de-4b4f-a68e-9b519ae2d573",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -113,7 +113,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shoot",
+                    "action": "UsePrimary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -223,7 +223,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ADS",
+                    "action": "UseSecondary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -285,7 +285,7 @@
                 {
                     "name": "",
                     "id": "332daacf-74d1-4426-8a59-f95f46dd2208",
-                    "path": "<Keyboard>/b",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -569,7 +569,7 @@
                 {
                     "name": "",
                     "id": "443109cc-582a-412a-b1de-46be5e720998",
-                    "path": "<Keyboard>/b",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
