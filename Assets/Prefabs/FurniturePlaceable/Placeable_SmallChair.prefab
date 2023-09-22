@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2350306671234011157}
   - component: {fileID: 2525179865123600939}
   - component: {fileID: 2935972405383345342}
+  - component: {fileID: 3306479301561497614}
   m_Layer: 6
   m_Name: Placeable_SmallChair
   m_TagString: Untagged
@@ -48,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canPlaceOnSurface: 0
-  <Mesh>k__BackingField: {fileID: 8718217451169488754}
+  <Mesh>k__BackingField: {fileID: -7511558181221131132, guid: 82827558822697c48ac870f5cb1d999d, type: 3}
 --- !u!65 &2525179865123600939
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -68,8 +69,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.9452678, y: 1.4549074, z: 0.8695931}
-  m_Center: {x: 0.00071942806, y: 0.6935333, z: 0.2169923}
+  m_Size: {x: 0.6147056, y: 1.4389124, z: 0.16581519}
+  m_Center: {x: -0.004612237, y: 0.7015308, z: 0.41959506}
 --- !u!54 &2935972405383345342
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -97,6 +98,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &3306479301561497614
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408006311470859530}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.6374478, y: 0.72275406, z: 0.6374478}
+  m_Center: {x: 0.000000044703484, y: 0.35722074, z: 0.18127614}
 --- !u!1001 &8015493872223454198
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -191,10 +213,5 @@ MeshCollider:
 --- !u!4 &7545350476465595421 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 82827558822697c48ac870f5cb1d999d, type: 3}
-  m_PrefabInstance: {fileID: 8015493872223454198}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &8718217451169488754 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 82827558822697c48ac870f5cb1d999d, type: 3}
   m_PrefabInstance: {fileID: 8015493872223454198}
   m_PrefabAsset: {fileID: 0}
