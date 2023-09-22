@@ -179,42 +179,6 @@ NavMeshProjectSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  - serializedVersion: 3
-    agentTypeID: 65107623
-    agentRadius: 3
-    agentHeight: 1
-    agentSlope: 12
-    agentClimb: 0.4
-    ledgeDropHeight: 0
-    maxJumpAcrossDistance: 0
-    minRegionArea: 2
-    manualCellSize: 0
-    cellSize: 0.16666667
-    manualTileSize: 0
-    tileSize: 256
-    buildHeightMesh: 0
-    maxJobWorkers: 0
-    preserveTilesOutsideBounds: 0
-    debug:
-      m_Flags: 0
-  - serializedVersion: 3
-    agentTypeID: -629701670
-    agentRadius: 4
-    agentHeight: 1
-    agentSlope: 10
-    agentClimb: 0.5
-    ledgeDropHeight: 0
-    maxJumpAcrossDistance: 0
-    minRegionArea: 2
-    manualCellSize: 0
-    cellSize: 0.16666667
-    manualTileSize: 0
-    tileSize: 256
-    buildHeightMesh: 0
-    maxJobWorkers: 0
-    preserveTilesOutsideBounds: 0
-    debug:
-      m_Flags: 0
   m_SettingNames:
   - Default
   - XS (<0.25m)
@@ -222,5 +186,3 @@ NavMeshProjectSettings:
   - M (<1m)
   - L (<1.5m)
   - XL (<2m)
-  - XXL (<3m)
-  - XXXL (<4m)
