@@ -23,7 +23,11 @@ public class EquipmentManager : Singleton<EquipmentManager>
 				if ((e is Gun g) && GameManager.Instance.OwnedGuns.Select(gun => gun.id).Any(id => g.GunSO.id == id))
 				{
 					// Temp to give 5x ammo at start
-					g.AmmoPouch.AddAmmo(g.GunSO.magSize * 5);
+					//g.AmmoPouch.AddAmmo(g.GunSO.magSize * 5);
+					// Hardcoded as 15 as per design doc
+					g.AmmoPouch.AddAmmo(15);
+					// Setup the pool
+					g.AmmoPouch.SetupPool(g.GunSO.magSize + 1, g.GunSO.bulletPrefab);
 					// Works as an instant reload
 					g.AmmoPouch.LoadGun(g.GunSO.magSize);
 				}
@@ -39,7 +43,7 @@ public class EquipmentManager : Singleton<EquipmentManager>
 
 		IEquippable itemToEquip = usableEquipment[index];
 
-		if (EquippedItem != null && EquippedItem.ID == itemToEquip.ID) return;
+		if (EquippedItem?.ID == itemToEquip.ID) return;
 
 		EquippedItem?.Unequip();
 		EquippedItem = itemToEquip;
