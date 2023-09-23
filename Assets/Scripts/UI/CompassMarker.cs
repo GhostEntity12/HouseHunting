@@ -5,8 +5,12 @@ using UnityEngine.UI;
 
 public class CompassMarker : MonoBehaviour
 {
-    public Sprite icon;
-    public Image image;
+    [SerializeField] private Sprite icon;
+    [SerializeField] private Image imageComponent;
+
+    public Sprite Icon => icon;
+    public Image Image {  get { return imageComponent; } set { imageComponent = value; } }
+
     
     public Vector2 position
     {
