@@ -26,6 +26,13 @@ public class PauseMenu : Singleton<PauseMenu>
         currentView = newView;
     }
 
+    public void ChangeView(CanvasGroup cGroup)
+    {
+        bool vis = cGroup.blocksRaycasts;
+        cGroup.blocksRaycasts = !vis;
+        cGroup.alpha = vis ? 0 : 1;
+    }
+
     public void SetGamePause(bool pause)
     {
         isPaused = pause;

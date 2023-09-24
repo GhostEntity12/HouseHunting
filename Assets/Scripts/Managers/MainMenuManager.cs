@@ -3,7 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : Singleton<MainMenuManager>
 {
-    private void Start() 
+    [SerializeField] CanvasGroup settingsGroup;
+	private void Start() 
     {
 		AudioManager.Instance.Play("Ambience02");
     }
@@ -18,6 +19,13 @@ public class MainMenuManager : Singleton<MainMenuManager>
     {
         DataPersistenceManager.Instance.LoadGame();
         SceneManager.LoadScene(2);
+    }
+
+
+    public void SetSettingsVisible(bool visible)
+    {
+        settingsGroup.alpha = visible ? 1 : 0;
+        settingsGroup.blocksRaycasts = visible;
     }
 
     public void QuitGame()

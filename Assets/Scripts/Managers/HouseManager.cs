@@ -23,7 +23,6 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		SpawnSerializedPlaceables();
 		houseValue = CalculateHouseRating(houseItems); // assign total value here
 		player = GameManager.Instance.Player;
-
 		AudioManager.Instance.Play("Building");
 	}
 
