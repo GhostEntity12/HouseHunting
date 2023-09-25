@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Bullet : MonoBehaviour
@@ -8,6 +7,7 @@ public class Bullet : MonoBehaviour
 	[SerializeField] int damage;
 	[SerializeField] GameObject bulletHolePrefab;
 	[SerializeField] float lifespan;
+	[SerializeField] Sprite icon;
 	[SerializeField] SoundAlertSO collisionSound;
 	private TrailRenderer trailRenderer;
 	private AmmoPouch ammoPouch;
