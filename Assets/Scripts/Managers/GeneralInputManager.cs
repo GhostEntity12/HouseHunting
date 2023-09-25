@@ -64,7 +64,7 @@ public class GeneralInputManager : Singleton<GeneralInputManager>
 
     public void SetSprintModeControls()
     {
-		if (PlayerPrefs.GetInt("ToggleSprint") == 1)
+		if (PlayerPrefs.GetInt("ToggleSprint", 0) == 1)
 		{
 			playerInput.SprintToggle.Enable();
 			playerInput.SprintHold.Disable();
