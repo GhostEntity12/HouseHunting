@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Reflection;
 
 public class GameManager : Singleton<GameManager>, IDataPersistence
 {
@@ -18,7 +20,7 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
 
         HideCursor();
         PermanentInventory = new();
-    }
+	}
 
 	public void SaveData(GameData data)
 	{

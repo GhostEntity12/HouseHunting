@@ -15,6 +15,8 @@ public class GeneralInputManager : Singleton<GeneralInputManager>
 
         playerInput = new PlayerInput();
 
+        playerInput.General.Jump.performed += ctx => player.Jump();
+
         playerInput.General.Crouch.performed += ctx => player.SetMoveState(Player.MoveState.Crouch, true);
         playerInput.General.Crouch.canceled += ctx => player.SetMoveState(Player.MoveState.Crouch, false);
 

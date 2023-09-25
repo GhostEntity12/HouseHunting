@@ -17,7 +17,7 @@ public class WanderAI : MonoBehaviour
 	private float relaxTimer = 0f;
 	private NavMeshAgent agent;
 	private readonly Queue<SoundAlert> sounds = new();
-	private Transform player;
+	private Player player;
 	private float alertness = 0;
 	private AIBehaviour activeBehaviour;
 	private float painTimer = 0f;
@@ -38,7 +38,7 @@ public class WanderAI : MonoBehaviour
 	private void Start()
 	{
 		// Cache some values
-		player = GameManager.Instance.Player.transform;
+		player = GameManager.Instance.Player;
 		info = shootable.FurnitureSO;
 		activeBehaviour = Instantiate(info.threshold0Behaviour);
 
@@ -55,7 +55,7 @@ public class WanderAI : MonoBehaviour
 		}
 
 		// Culling behaviour if outside of entity distance
-		if (!player || Vector3.Distance(player.position, transform.position) > aiEntityDistance)
+		if (!player || Vector3.Distance(player.transform.position, transform.position) > aiEntityDistance)
 			return;
 
 		// Cache player visibility
@@ -68,7 +68,7 @@ public class WanderAI : MonoBehaviour
 		UpdateSightAlertness(canSeePlayer);
 
 		// Bundle information to pass to behaviours
-		Knowledge k = new(transform, player.position, info, agent, sound, canSeePlayer);
+		Knowledge k = new(transform, player.transform.position, info, agent, sound, canSeePlayer);
 
 		CheckTransitions(k,UpdatePain());
 
@@ -83,9 +83,9 @@ public class WanderAI : MonoBehaviour
 		foreach (ViewConeSO cone in info.senses)
 		{
 			Handles.zTest = UnityEngine.Rendering.CompareFunction.LessEqual;
-			cone.DebugDraw(transform, player.position, 0.5f);
+			cone.DebugDraw(transform, player.transform.position, 0.5f);
 			Handles.zTest = UnityEngine.Rendering.CompareFunction.Greater;
-			cone.DebugDraw(transform, player.position, 0.2f);
+			cone.DebugDraw(transform, player.transform.position, 0.2f);
 		}
 	}
 #endif
@@ -168,7 +168,8 @@ public class WanderAI : MonoBehaviour
 	{
 		// Treat the player's position as the center of it's body
 		// TODO: alter if the player is crouching?
-		Vector3 playerCenter = player.position + Vector3.up;
+		// 
+		Vector3 playerCenter = player.transform.position + player.camOffset;
 
 		// Get the direction to the player
 		Vector3 targetDirection = playerCenter - transform.position;
