@@ -203,7 +203,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.05
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -531,6 +531,10 @@ MonoBehaviour:
   xSensitivity: 20
   ySensitivity: 20
   interactRange: 3
+  moveSoundCrouch: {fileID: 11400000, guid: 550edb7929537bc4f8654afe8be65a69, type: 2}
+  moveSoundWalk: {fileID: 11400000, guid: b2f43dc74a8634a46a1e5d9c4fc22796, type: 2}
+  moveSoundSprint: {fileID: 11400000, guid: 636990e3025b9bb48b4678d9a7a6464e, type: 2}
+  jumpSound: {fileID: 11400000, guid: 3bdb288e161411f4d9181ecb15b49146, type: 2}
 --- !u!114 &3589829703186494564
 MonoBehaviour:
   m_ObjectHideFlags: 0
