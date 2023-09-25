@@ -9,9 +9,9 @@ public class SoundAlerter : MonoBehaviour
 	[SerializeField] float range;
 	[SerializeField] float volume;
 
-#if UNITY_EDITOR
 	static List<(Vector3 loc, float ran, float time)> sounds = new();
 
+# if UNITY_EDITOR
 	private void OnDrawGizmos()
 	{
 		//Debug.Log(sounds.Count);
@@ -33,29 +33,60 @@ public class SoundAlerter : MonoBehaviour
 	}
 #endif
 
-	public static void MakeSound(SoundAlertSO sound, Vector3 source)
+	public void DebugSound() => MakeSoundImpulse(volume, soundOrigin == null ? soundOriginPos : soundOrigin.position, rangeOverride: range);
+
+	public static void MakeSoundContinuous(float volume, Vector3 source, float? rangeOverride = null, bool hasFalloff = true)
 	{
-		foreach (Collider hitCollider in Physics.OverlapSphere(source, sound.range))
+		foreach (Collider hitCollider in Physics.OverlapSphere(source, rangeOverride ?? volume))
 		{
 			if (hitCollider.transform.TryGetComponent(out WanderAI ai))
 			{
-				float volume = sound.falloff ?
-					Mathf.Pow(((float)Vector3.Distance(source, ai.transform.position) - sound.range) / -sound.range, 2f) :
-					sound.volume;
-
+				float distance = Vector3.Distance(source, ai.transform.position); // Get the distance between the source and furniture
+				float soundFalloff = hasFalloff ?
+					volume :
+					rangeOverride == null
+						? Mathf.Pow((distance - volume) / -volume, 2f)
+						: Mathf.Pow((distance - (float)rangeOverride) / -(float)rangeOverride, 2f); 
 				/*  Get the soundFalloff based on the distance. Max distance is 0, Point blank is 1. 
 					Original function was: 
 					((distance - max) / (min - max))^2
 					It has been simplified for now, but if we want to make the minimum distance to be that of the furniture's hitbox we can do that, 
 					but measures must be taken so nothing bad happens if the sound came from within that hitbox.
 				*/
-				ai.EnqueueSound(new(source, sound.IsContinuous ? volume * Time.deltaTime : volume));
+				ai.EnqueueSound(new(source, volume * soundFalloff * Time.deltaTime));
+			}
+		}
+# if UNITY_EDITOR
+		sounds.Add((source, rangeOverride ?? volume, Time.deltaTime));
+#endif
+	}
+	public static void MakeSoundImpulse(float volume, Vector3 source, bool hasFalloff = true, float? rangeOverride = null)
+	{
+
+		foreach (Collider hitCollider in Physics.OverlapSphere(source, rangeOverride ?? volume))
+		{
+			if (hitCollider.transform.TryGetComponent(out WanderAI ai))
+			{
+				float distance = Vector3.Distance(source, ai.transform.position); // Get the distance between the source and furniture
+				float soundFalloff = hasFalloff ?
+					volume :
+					rangeOverride == null
+						? Mathf.Pow((distance - volume) / -volume, 2f)
+						: Mathf.Pow((distance - (float)rangeOverride) / -(float)rangeOverride, 2f);
+				/*  Get the soundFalloff based on the distance. Max distance is 0, Point blank is 1. 
+					Original function was: 
+					((distance - max) / (min - max))^2
+					It has been simplified for now, but if we want to make the minimum distance to be that of the furniture's hitbox we can do that, 
+					but measures must be taken so nothing bad happens if the sound came from within that hitbox.
+				*/
+				ai.EnqueueSound(new(source, volume * soundFalloff));
 			}
 		}
 #if UNITY_EDITOR
-		sounds.Add((source, sound.range, sound.IsContinuous ? Time.deltaTime : 0.5f));
+		sounds.Add((source, rangeOverride ?? volume, 0.5f));
 #endif
 	}
+
 }
 
 public struct SoundAlert

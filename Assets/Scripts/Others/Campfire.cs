@@ -20,7 +20,8 @@ public class Campfire : MonoBehaviour, IInteractable
 
 	public void SpawnAtCampfire()
 	{
-		GameManager.Instance.Player.Warp(spawnPoint);
+		HuntingManager.Instance.Player.GetComponent<PlayerMovement>().Warp(spawnPoint);
+		//player.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
 	}
 
 	public void Interact()

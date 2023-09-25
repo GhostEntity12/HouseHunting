@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class HouseManager : Singleton<HouseManager>, IDataPersistence
 {
+	[SerializeField] private CanvasGroup decorateUI;
+	[SerializeField] private GameObject playerGameObject;
 	[SerializeField] private TMP_Text furnitureDecorateTooltipText;
     [field: SerializeField] public Camera ExploreCamera { get; private set; }
 
 
 	private Placeable holdingPlaceable;
-	private List<SaveDataPlacedFurniture> houseItems;
-	private Player player;
     private float holdingPlaceableRotation = 0;
+	private List<SaveDataPlacedFurniture> houseItems;
 	private float houseValue = 0;
 
 	public List<SaveDataPlacedFurniture> HouseItems => houseItems;
@@ -22,7 +23,6 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	{
 		SpawnSerializedPlaceables();
 		houseValue = CalculateHouseRating(houseItems); // assign total value here
-		player = GameManager.Instance.Player;
 
 		AudioManager.Instance.Play("Building");
 	}
@@ -83,7 +83,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		if (Physics.Raycast(ray, out RaycastHit hit, 3, layerMask))
             holdingPlaceable.transform.position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
         else
-            holdingPlaceable.transform.position = player.transform.position + player.transform.forward * 3;
+            holdingPlaceable.transform.position = playerGameObject.transform.position + playerGameObject.transform.forward * 3;
 
 		// clamp the position so that the y index is always on ground level
 		//holdingPlaceable.transform.position = new Vector3(holdingPlaceable.transform.position.x, 0, holdingPlaceable.transform.position.z);

@@ -15,7 +15,4 @@ public class GunSO : ScriptableObject
     public float volume;
     public int magSize;
     public int bulletsPerTap;
-    public SoundAlertSO equipSound;
-    public SoundAlertSO fireSound;
-    public SoundAlertSO reloadSound;
 }

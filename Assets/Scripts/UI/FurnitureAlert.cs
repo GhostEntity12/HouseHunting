@@ -9,7 +9,6 @@ public class FurnitureAlert : MonoBehaviour
     [SerializeField] private Sprite exclamationMark;
     [SerializeField] private Sprite skull; // currently using placeholder
     [SerializeField] private Camera mainCamera;
-    private Canvas canvas;
 
     private WanderAI AI;
     private Shootable shootableComponent;
@@ -24,7 +23,6 @@ public class FurnitureAlert : MonoBehaviour
         if (mainCamera == null)
             mainCamera = Camera.main;
         shootableComponent = GetComponentInParent<Shootable>();
-        canvas = GetComponent<Canvas>();
     }
 
     // Update is called once per frame
@@ -40,14 +38,6 @@ public class FurnitureAlert : MonoBehaviour
         else if (AI.Alertness != 100)
         {
             ChangeIcon(questionMark);
-        }
-        
-        if(AI.Alertness == 0)
-        {
-            canvas.enabled = false;
-        } else
-        {
-            canvas.enabled = true;
         }
 
         // Update the alert icon's fill amount to match the current alertness level

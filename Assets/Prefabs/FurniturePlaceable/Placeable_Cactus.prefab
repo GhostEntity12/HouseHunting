@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304f65a922a1c7e419427ba953ffe214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canPlaceOnSurface: 0
   <Mesh>k__BackingField: {fileID: 2015515570166233003}
 --- !u!64 &1191435547810342176
 MeshCollider:

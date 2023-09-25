@@ -219,6 +219,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fbf68acf72d3d4385926a6f0451aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alertness: 0
+  playerMovement: {fileID: 6098993039830378882, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
+  agent: {fileID: 736955873112452282}
+  wanderRadius: 15
+  isPredator: 0
 --- !u!195 &736955873112452282
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -370,6 +375,18 @@ PrefabInstance:
     - target: {fileID: 958545255073040575, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
       propertyPath: m_Name
       value: Alert UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 958545255073040575, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4371707135187960402, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4543745558615537537, guid: 80362cfb245937444be127a6d8389fbe, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

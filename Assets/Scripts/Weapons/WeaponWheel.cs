@@ -62,7 +62,7 @@ public class WeaponWheel : Singleton<WeaponWheel>
 
         // Not calling CloseWeaponWheel() to avoid hiding the cursor for the CampfireManager
         gameObject.SetActive(false);
-        EquipmentManager.Instance.SelectItem(selectedIndex);
+        WeaponManager.Instance.SelectItem(selectedIndex);
 	}
 
     private void Update()
@@ -77,7 +77,7 @@ public class WeaponWheel : Singleton<WeaponWheel>
             if (distanceBetweenMouseAndCenter < insideWheel.rectTransform.rect.width / 2)
             {
                 weaponWheelItems.ForEach(item => item.color = Color.gray);
-                selectedIndex = EquipmentManager.Instance.EquippedItemIndex;
+                selectedIndex = WeaponManager.Instance.CurrentGunIndex;
                 return;
             }
 
@@ -109,7 +109,7 @@ public class WeaponWheel : Singleton<WeaponWheel>
     {
         gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
-        EquipmentManager.Instance.SelectItem(selectedIndex);
+        WeaponManager.Instance.SelectItem(selectedIndex);
     }
 
     public bool GetOpen() => gameObject.activeSelf;
