@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canPlaceOnSurface: 0
-  <Mesh>k__BackingField: {fileID: 296193820105727049}
+  <Mesh>k__BackingField: {fileID: -7511558181221131132, guid: 57f36821fbacc444a83ba13036d24ba6, type: 3}
 --- !u!54 &3045520997839687616
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -228,11 +228,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3328888402392162003}
   m_SourcePrefab: {fileID: 100100000, guid: 57f36821fbacc444a83ba13036d24ba6, type: 3}
---- !u!23 &296193820105727049 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 57f36821fbacc444a83ba13036d24ba6, type: 3}
-  m_PrefabInstance: {fileID: 1431545534014013645}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1465752806568666918 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 57f36821fbacc444a83ba13036d24ba6, type: 3}

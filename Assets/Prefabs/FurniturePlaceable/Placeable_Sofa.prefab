@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8876422902019839512}
   - component: {fileID: 5570585070191368961}
   - component: {fileID: 5623496692609795552}
+  - component: {fileID: 7348355362824312564}
   m_Layer: 6
   m_Name: Placeable_Sofa
   m_TagString: Untagged
@@ -51,31 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canPlaceOnSurface: 0
-  <Mesh>k__BackingField: {fileID: 312708641932931683}
-
---- !u!64 &7348355362824312564
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408006311470859530}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -4650390976156102637, guid: c0059db36d5ba20478429fcd0e6754e6, type: 3}
-
+  <Mesh>k__BackingField: {fileID: -7511558181221131132, guid: c0059db36d5ba20478429fcd0e6754e6, type: 3}
 --- !u!54 &-231657051590127972
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -187,6 +164,28 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.7904835, y: 0.8351979, z: 1.4227515}
   m_Center: {x: 0.014114618, y: 0.56421113, z: 0.40002853}
+--- !u!64 &7348355362824312564
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408006311470859530}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4650390976156102637, guid: c0059db36d5ba20478429fcd0e6754e6, type: 3}
 --- !u!1001 &1411706391126208231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -251,11 +250,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4349288271960150526}
   m_SourcePrefab: {fileID: 100100000, guid: c0059db36d5ba20478429fcd0e6754e6, type: 3}
---- !u!23 &312708641932931683 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: c0059db36d5ba20478429fcd0e6754e6, type: 3}
-  m_PrefabInstance: {fileID: 1411706391126208231}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1449554377819064588 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c0059db36d5ba20478429fcd0e6754e6, type: 3}
