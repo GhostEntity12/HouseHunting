@@ -30,7 +30,8 @@ public class FurnitureSO : ScriptableObject
 	[Range(0, 100)]
 	public float alertnessThreshold3 = 100;
 	public AIBehaviour threshold3Behaviour;
-	
+	public AIBehaviour damageBehaviour;
+
 	[Header("Alertness and Senses")]
 	public float timeBeforeDecay = 5;
 	public float alertnessDecayRate = 10;
