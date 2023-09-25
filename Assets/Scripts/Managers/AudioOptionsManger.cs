@@ -51,7 +51,6 @@ public class AudioOptionsManager : MonoBehaviour
     {
         float volume = effectsVolumeSlider.value;
         myMixer.SetFloat("SFXVolume", (float)Mathf.Log10(volume) * 20);
-        Debug.Log(Math.Round(volume * 100, 0));
 
         effectsVolumeText.text = Math.Round(volume * 100, 0).ToString();
 

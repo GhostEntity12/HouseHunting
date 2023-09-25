@@ -150,11 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fbf68acf72d3d4385926a6f0451aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alertness: 0
-  playerMovement: {fileID: 6098993039830378882, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
-  agent: {fileID: 736955873112452282}
-  wanderRadius: 15
-  isPredator: 0
 --- !u!195 &736955873112452282
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -384,7 +379,7 @@ PrefabInstance:
     - target: {fileID: -5754084199372789682, guid: fba672230f16e0d45959f2e496c15dd5, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 3736213754101489272, guid: 90066b5f5607f7f4eac322f9e4e041b0, type: 3}
+      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: fba672230f16e0d45959f2e496c15dd5, type: 3}
       propertyPath: m_Name
       value: Plate
