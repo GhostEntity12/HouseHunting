@@ -1054,7 +1054,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 605f8bcc466ae9b47a38ce2b5ade78d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numToSpawn: 0
   percentageOfSpawnersToTrigger: 0.5
 --- !u!4 &42741603
 Transform:
@@ -7895,7 +7894,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9183740533133080826, guid: f166a2fb6f4ec1a44bdd69fceb3033ab, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000011276047
+      value: 0.000003729555
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8155,7 +8154,6 @@ MonoBehaviour:
   spawnableFurniture:
   - {fileID: 3685072443934080641, guid: fc7621cacaffc1a4e8ba5882c3f64511, type: 3}
   - {fileID: 3685072443934080641, guid: 33ba177a7359448a3a9ce8573681c901, type: 3}
-  amountToSpawn: 3
 --- !u!114 &152494371 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4810741772291673926, guid: 0881474f28346cb4f98cc31372b61cd6, type: 3}
@@ -19181,7 +19179,6 @@ MonoBehaviour:
   spawnableFurniture:
   - {fileID: 3685072443934080641, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
   - {fileID: 6366392969304530097, guid: 8dd7d42fbef8ba04b9398f06db5ef2b2, type: 3}
-  amountToSpawn: 6
 --- !u!1 &466838573
 GameObject:
   m_ObjectHideFlags: 0
@@ -19711,7 +19708,6 @@ MonoBehaviour:
   spawnableFurniture:
   - {fileID: 4207542877117778773, guid: 72ec9f24d63fd614aa750b9890637395, type: 3}
   - {fileID: 3685072443934080641, guid: 4caf49e4189411740b2dc09e3833b7bc, type: 3}
-  amountToSpawn: 5
 --- !u!114 &485837980 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4507893390298805931, guid: 0881474f28346cb4f98cc31372b61cd6, type: 3}
@@ -21160,7 +21156,6 @@ MonoBehaviour:
   spawnableFurniture:
   - {fileID: 3685072443934080641, guid: 80707375bc9c4a34db589cbf055f72ea, type: 3}
   - {fileID: 2899710936797965666, guid: 5303bb97bb384d24c95aaf56ad16e902, type: 3}
-  amountToSpawn: 5
 --- !u!4 &578146889 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3691876648615818003, guid: 21a364ddeffc797439f2a5721660b0e6, type: 3}
@@ -21279,7 +21274,6 @@ MonoBehaviour:
   spawnableFurniture:
   - {fileID: 2899710936797965666, guid: cf290effa00231e488018613811ecb7b, type: 3}
   - {fileID: 3685072443934080641, guid: 80707375bc9c4a34db589cbf055f72ea, type: 3}
-  amountToSpawn: 3
 --- !u!1001 &582548108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22866,7 +22860,6 @@ MonoBehaviour:
   spawnableFurniture:
   - {fileID: 3685072443934080641, guid: c9e85f8fa86c73e40af1e389bc50cc7f, type: 3}
   - {fileID: 3685072443934080641, guid: c6397f22e5db0442daf735b6b8e559ec, type: 3}
-  amountToSpawn: 4
 --- !u!1 &662873309
 GameObject:
   m_ObjectHideFlags: 0
@@ -25637,7 +25630,6 @@ MonoBehaviour:
   spawnableFurniture:
   - {fileID: 3685072443934080641, guid: 57840d625d3aaa846bf20a5ebadbcc56, type: 3}
   - {fileID: 3685072443934080641, guid: 4caf49e4189411740b2dc09e3833b7bc, type: 3}
-  amountToSpawn: 6
 --- !u!1001 &800183773
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26343,7 +26335,6 @@ MonoBehaviour:
   spawnableFurniture:
   - {fileID: 4207542877117778773, guid: 72ec9f24d63fd614aa750b9890637395, type: 3}
   - {fileID: 2899710936797965666, guid: 5303bb97bb384d24c95aaf56ad16e902, type: 3}
-  amountToSpawn: 5
 --- !u!1 &826738375
 GameObject:
   m_ObjectHideFlags: 0
@@ -26474,7 +26465,6 @@ MonoBehaviour:
   spawnableFurniture:
   - {fileID: 6366392969304530097, guid: e8539187ac50cf744a5e6e54af7a9808, type: 3}
   - {fileID: 2899710936797965666, guid: 17c4f93df63368e42834b0e1283922c0, type: 3}
-  amountToSpawn: 3
 --- !u!1 &830246998
 GameObject:
   m_ObjectHideFlags: 0
@@ -31844,7 +31834,6 @@ MonoBehaviour:
   spawnableFurniture:
   - {fileID: 3685072443934080641, guid: 33ba177a7359448a3a9ce8573681c901, type: 3}
   - {fileID: 3685072443934080641, guid: 80707375bc9c4a34db589cbf055f72ea, type: 3}
-  amountToSpawn: 2
 --- !u!1001 &1083426702
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34674,7 +34663,6 @@ MonoBehaviour:
   spawnableFurniture:
   - {fileID: 6366392969304530097, guid: e8539187ac50cf744a5e6e54af7a9808, type: 3}
   - {fileID: 3685072443934080641, guid: 80707375bc9c4a34db589cbf055f72ea, type: 3}
-  amountToSpawn: 3
 --- !u!1 &1221588472
 GameObject:
   m_ObjectHideFlags: 0
@@ -37257,10 +37245,6 @@ PrefabInstance:
       propertyPath: ySensitivity
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 5149770682015492609, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
-      propertyPath: baseSpeed
-      value: 60
-      objectReference: {fileID: 0}
     - target: {fileID: 5657111898024006285, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
       propertyPath: m_Name
       value: Player
@@ -37372,7 +37356,6 @@ MonoBehaviour:
   spawnableFurniture:
   - {fileID: 3685072443934080641, guid: fc7621cacaffc1a4e8ba5882c3f64511, type: 3}
   - {fileID: 3685072443934080641, guid: 80707375bc9c4a34db589cbf055f72ea, type: 3}
-  amountToSpawn: 3
 --- !u!4 &1346098532 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3691876648615818003, guid: 21a364ddeffc797439f2a5721660b0e6, type: 3}
@@ -39798,7 +39781,6 @@ MonoBehaviour:
   spawnableFurniture:
   - {fileID: 2899710936797965666, guid: 17c4f93df63368e42834b0e1283922c0, type: 3}
   - {fileID: 3685072443934080641, guid: 33ba177a7359448a3a9ce8573681c901, type: 3}
-  amountToSpawn: 3
 --- !u!1001 &1480802923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40447,7 +40429,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnableFurniture:
   - {fileID: 5670009076271129424, guid: c9cedc47b510963439aa1210cae5a74c, type: 3}
-  amountToSpawn: 2
 --- !u!1 &1518024624
 GameObject:
   m_ObjectHideFlags: 0
@@ -49542,7 +49523,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnableFurniture:
   - {fileID: 3685072443934080641, guid: c9e85f8fa86c73e40af1e389bc50cc7f, type: 3}
-  amountToSpawn: 1
 --- !u!1 &1708793188
 GameObject:
   m_ObjectHideFlags: 0
@@ -50097,7 +50077,6 @@ MonoBehaviour:
   spawnableFurniture:
   - {fileID: 3685072443934080641, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
   - {fileID: 5670009076271129424, guid: c7927adc0efe63b43bae2c85284e33bf, type: 3}
-  amountToSpawn: 3
 --- !u!1 &1722950295
 GameObject:
   m_ObjectHideFlags: 0
