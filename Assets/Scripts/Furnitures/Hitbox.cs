@@ -16,14 +16,22 @@ public class Hitbox : MonoBehaviour
 	[SerializeField] float damageModifier = 1f;
 
 	private Shootable shootable;
+	private WanderAI wanderAI;
 
 	private void Start()
 	{
 		// Disable the script if there is no collider on the object or if there is no parent shootable
 		shootable = transform.GetComponentInParent<Shootable>();
+		wanderAI = transform.GetComponentInParent<WanderAI>();
 		if (!shootable)
 		{
 			Debug.LogError("No shootable in parent!", this);
+			enabled = false;
+			return;
+		}
+		if (!wanderAI)
+		{
+			Debug.LogError("No wanderAI in parent!", this);
 			enabled = false;
 			return;
 		}
@@ -66,5 +74,6 @@ public class Hitbox : MonoBehaviour
 	{
 		// Cast to int, truncates and takes whole number.
 		shootable.TakeDamage((int)(baseDamage * damageModifier));
+		wanderAI.InducePain();
 	}
 }

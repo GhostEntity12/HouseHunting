@@ -49,8 +49,8 @@ public class Shootable : MonoBehaviour, IInteractable
 
         // add a rigid body component and apply force to make it topple
         Rigidbody rb = transform.AddComponent<Rigidbody>();
-        rb.AddForce(GameManager.Instance.player.transform.forward * 5, ForceMode.Impulse);
-        rb.AddTorque(GameManager.Instance.player.transform.forward * 5, ForceMode.Impulse);
+        rb.AddForce(GameManager.Instance.Player.transform.forward * 5, ForceMode.Impulse);
+        rb.AddTorque(GameManager.Instance.Player.transform.forward * 5, ForceMode.Impulse);
     }
 
     public void TakeDamage(int damage)
