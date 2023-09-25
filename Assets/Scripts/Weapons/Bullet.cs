@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
 	[SerializeField] int damage;
 	[SerializeField] GameObject bulletHolePrefab;
 	[SerializeField] float lifespan;
+	[SerializeField] SoundAlertSO collisionSound;
 	private TrailRenderer trailRenderer;
 	private AmmoPouch ammoPouch;
 
@@ -32,6 +33,7 @@ public class Bullet : MonoBehaviour
 
 		// Instantiate bullet hole
 		ContactPoint contact = collision.GetContact(0);
+		SoundAlerter.MakeSound(collisionSound, contact.point);
 		GameObject bulletHole = Instantiate(bulletHolePrefab, contact.point, Quaternion.LookRotation(contact.normal), collision.transform);
 		bulletHole.transform.position += bulletHole.transform.forward / 500;
 		Destroy(bulletHole, 1.5f);
