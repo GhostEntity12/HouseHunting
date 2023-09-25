@@ -3,7 +3,7 @@
 [CreateAssetMenu(fileName = "Alert Behaviour", menuName = "Behaviours/Alert")]
 public class AlertBehaviour : AIBehaviour
 {
-	public SoundAlertSO sound;
+	[SerializeField] private SoundAlertSO sound;
 	public override void Act(ref Knowledge knowledge)
 	{
 		// If we reached the end of our current path, generate a new one

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -211,15 +210,6 @@ public class WanderAI : MonoBehaviour
 		return fleeTo;
 	}
 
-	public static Vector3 Parabola(Vector3 start, Vector3 end, float height, float t)
-	{
-		Func<float, float> f = x => -4 * height * x * x + 4 * height * x;
-
-		var mid = Vector3.Lerp(start, end, t);
-
-		return new Vector3(mid.x, f(t) + Mathf.Lerp(start.y, end.y, t), mid.z);
-	}
-
 	public static bool RandomPoint(Vector3 center, float range, out Vector3 result)
 	{
 		Vector3 randomPoint = center + (UnityEngine.Random.insideUnitSphere * range); //random point in a sphere 
@@ -272,18 +262,9 @@ public class WanderAI : MonoBehaviour
 	/// </summary>
 	private bool UpdatePain()
 	{
-		if (painTimer >= Time.deltaTime)
-		{
+		if (painTimer > 0) // Optional, but good for preventing big negative numbers.
 			painTimer -= Time.deltaTime;
-		} else if (painTimer < Time.deltaTime && painTimer > 0)
-		{
-			painTimer = 0f;
-		}
-		if (painTimer <= 0)
-		{
-			return true;
-		}
-		return false;
+		return painTimer <= 0;
 	}
 
 	/// <summary>

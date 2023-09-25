@@ -4,12 +4,14 @@ using UnityEngine.AI;
 [CreateAssetMenu(fileName = "Charge Behaviour", menuName = "Behaviours/Charge")]
 public class ChargeBehaviour : AIBehaviour
 {
-    public int damage = 10; // Damage per collision
-    public float chargeDelay = 2f; // Seconds per charge
-    public float turnRange = 3f; // This is one of the parameters used to cancel a charge early; if the player has gone too far away from the furniture it will stop and turn.
-    public float horizontalKnockbackMultiplier = 0.1f; // Determines how much the horizontal knockback is multiplied. The multiplier should be small to prevent excessive flinging.
-    public float verticalKnockback = 4f; // Determines how hard the player is flung upwards. Not nearly as sensitive and varied as the horizontal one.
-    [Range(0, 180)] public float maxTurnAngle = 120; // Determines the angle in which the furniture decides to stop charging when out of range. Has to be within 0 - 180 degrees since that's the limit for Vector3.Angle
+    [SerializeField] private int damage = 10; // Damage per collision
+    [SerializeField] private float chargeDelay = 2f; // Seconds per charge
+    [SerializeField] private float turnRange = 3f; // This is one of the parameters used to cancel a charge early; if the player has gone too far away from the furniture it will stop and turn.
+    [SerializeField] private float horizontalKnockbackMultiplier = 0.1f; // Determines how much the horizontal knockback is multiplied. The multiplier should be small to prevent excessive flinging.
+    [SerializeField] private float verticalKnockback = 4f; // Determines how hard the player is flung upwards. Not nearly as sensitive and varied as the horizontal one.
+    [SerializeField, Range(0, 360)] private float maxAngle = 240;// Determines the angle in which the furniture decides to stop charging when out of range. It's actually halved, since it has to be within 0 - 180 degrees due to the limitations of Vector3.Angle
+    private float maxTurnAngle => maxAngle / 2; 
+    [SerializeField] private float turningSpeed = 5f;
     private float timeSinceLastCharge = 0;
     private bool charging = false;
     private Collider hitbox;
@@ -30,11 +32,11 @@ public class ChargeBehaviour : AIBehaviour
                 foreach (Collider hitCollider in hitColliders)
                 {
                     // If the player manages to collide with the furniture, deal damage and apply knockback! Make sure this only happens once per charge.
-                    if (hitCollider.CompareTag("Player"))
+                    if (hitCollider.transform.parent.TryGetComponent<Player>(out Player player))
                     {
                         HuntingManager.Instance.DealDamageToPlayer(damage);
                         hitPlayer = true;
-                        hitCollider.transform.parent.GetComponent<Player>().ApplyKnockback(new Vector3(knowledge.Agent.velocity.x * horizontalKnockbackMultiplier, verticalKnockback, knowledge.Agent.velocity.z * horizontalKnockbackMultiplier));
+                        player.ApplyKnockback(new Vector3(knowledge.Agent.velocity.x * horizontalKnockbackMultiplier, verticalKnockback, knowledge.Agent.velocity.z * horizontalKnockbackMultiplier));
                         break;
                     }
                 }
@@ -42,7 +44,7 @@ public class ChargeBehaviour : AIBehaviour
             // If the agent finishes pathfinding, or the player's position is out of range AND somewhere behind the furniture, stop the charge.
             Vector3 targetDir = knowledge.PlayerPosition - knowledge.AITransform.position;
             float angle = Vector3.Angle(targetDir, knowledge.AITransform.forward);
-            if (knowledge.Agent.remainingDistance < 1f || (Vector3.Distance(knowledge.AITransform.position,knowledge.PlayerPosition) > turnRange && angle > 120))
+            if (knowledge.Agent.remainingDistance < 1f || (Vector3.Distance(knowledge.AITransform.position,knowledge.PlayerPosition) > turnRange && angle > maxTurnAngle))
             {
                 charging = false;
                 knowledge.Agent.SetDestination(knowledge.AITransform.position); // Somehow relying on isStopped doesn't work. This code however, DOES work!
@@ -53,7 +55,7 @@ public class ChargeBehaviour : AIBehaviour
             // Make sure the furniture is stationary and always turning to face the player, counting on a timer.
             knowledge.Agent.isStopped = true;
             Quaternion lookRotation = Quaternion.LookRotation((new Vector3(knowledge.PlayerPosition.x, knowledge.AITransform.position.y, knowledge.PlayerPosition.z) - knowledge.AITransform.position).normalized);
-            knowledge.AITransform.rotation = Quaternion.Slerp(knowledge.AITransform.rotation, lookRotation, Time.deltaTime * 5);
+            knowledge.AITransform.rotation = Quaternion.Slerp(knowledge.AITransform.rotation, lookRotation, Time.deltaTime * turningSpeed);
             timeSinceLastCharge += Time.deltaTime;
             // Once time is up, let the agent move again, start the charge and reset some variables.
             if (timeSinceLastCharge >= chargeDelay)
@@ -82,5 +84,8 @@ public class ChargeBehaviour : AIBehaviour
         hitbox = knowledge.AITransform.GetComponent<Collider>();
         knowledge.Agent.speed = knowledge.Info.speed * 3;
     }
-    public override void Exit(ref Knowledge knowledge) { }
+    public override void Exit(ref Knowledge knowledge) 
+    {
+        knowledge.Agent.speed = knowledge.Info.speed; // Reset Speed
+    }
 }

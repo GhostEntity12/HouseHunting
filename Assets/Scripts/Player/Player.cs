@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
 		playerVerticalVelocity += gravity * Time.deltaTime;
 
 		if (controller.isGrounded && playerVerticalVelocity < 0)
-			playerVerticalVelocity = 0f;
+			playerVerticalVelocity = -2f;
 
 		movementVector.y = playerVerticalVelocity * Time.deltaTime;
 
@@ -146,45 +146,50 @@ public class Player : MonoBehaviour
 
 	public void ApplyKnockback(Vector3 force)
 	{
-		float knockbackX = knockbackForce.x;
-		float knockbackZ = knockbackForce.z;
 		knockbackForce = new Vector3(knockbackForce.x + force.x,0,knockbackForce.z + force.z);
 		playerVerticalVelocity += force.y;
 	}
-
+	/// <summary>
+	///	Knockback Decay
+	///	<para>This function does two things to directly ease knockbackForce to zero.</para>
+	///	<para>The first thing it does is apply linear interpolation to zero using deltaTime and knockbackDrag</para>
+	///	<para>The second thing it does is either add or subtract deltaTime * knockbackDrag for X and Z axis, until they reach 0.</para>
+	///	<para>The if statements are used to specifically decide whether the velocity of a specific direction needs to be incremented or decremented to eventually reach 0/para>
+	/// </summary>
 	private Vector3 KnockbackDecay()
 	{
+		// Smooth means of slowly reducing the knockbackforce
 		Vector3 decayedKnockback = Vector3.Lerp(knockbackForce, Vector3.zero, Time.deltaTime * knockbackDrag);
-		float knockbackX = decayedKnockback.x;
-		float knockbackZ = decayedKnockback.z;
-
-		if (knockbackX > Time.deltaTime * knockbackDrag)
+		// Another set of knockback decay that has the most effect when the knockback velocity is low, and sets it to 0 when low enough.
+		// For both axis they're either added or subtracted by deltatime * drag, depending on whether the number is positive or negative.
+		// The main point of these statements is to allow the knockback velocity to slow to a stop and not
+		if (decayedKnockback.x > Time.deltaTime * knockbackDrag)
 		{
-			knockbackX -= Time.deltaTime * knockbackDrag;
+			decayedKnockback.x -= Time.deltaTime * knockbackDrag;
 		}
-		else if (knockbackX < -Time.deltaTime * knockbackDrag)
+		else if (decayedKnockback.x < -Time.deltaTime * knockbackDrag)
 		{
-			knockbackX += Time.deltaTime * knockbackDrag;
-		}
-		else
-		{
-			knockbackX = 0f;
-		}
-
-		if (knockbackZ > Time.deltaTime * knockbackDrag)
-		{
-			knockbackZ -= Time.deltaTime * knockbackDrag;
-		}
-		else if (knockbackZ < -Time.deltaTime * knockbackDrag)
-		{
-			knockbackZ += Time.deltaTime * knockbackDrag;
+			decayedKnockback.x += Time.deltaTime * knockbackDrag;
 		}
 		else
 		{
-			knockbackZ = 0f;
+			decayedKnockback.x = 0f;
 		}
 
-		return new Vector3(knockbackX, 0f, knockbackZ);
+		if (decayedKnockback.z > Time.deltaTime * knockbackDrag)
+		{
+			decayedKnockback.z -= Time.deltaTime * knockbackDrag;
+		}
+		else if (decayedKnockback.z < -Time.deltaTime * knockbackDrag)
+		{
+			decayedKnockback.z += Time.deltaTime * knockbackDrag;
+		}
+		else
+		{
+			decayedKnockback.z = 0f;
+		}
+
+		return new Vector3(decayedKnockback.x, 0f, decayedKnockback.z);
 	}
     #endregion
 

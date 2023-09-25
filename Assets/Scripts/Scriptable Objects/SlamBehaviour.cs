@@ -1,13 +1,15 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 [CreateAssetMenu(fileName = "Slam Behaviour", menuName = "Behaviours/Slam")]
 public class SlamBehaviour : AIBehaviour
 {
-    public float range = 10f;
-    public float radius = 2f;
-    public int damage = 1;
-    public float cooldown = 5f;
+    [SerializeField] private float range = 10f;
+    [SerializeField] private float radius = 2f;
+    [SerializeField] private int damage = 1;
+    [SerializeField] private float cooldown = 5f;
+    [SerializeField] private float turningSpeed = 5f;
     private float timeSinceLastJump = 0;
     private bool jumping = false;
     private float slamSearchRange = 0.5f;
@@ -20,13 +22,17 @@ public class SlamBehaviour : AIBehaviour
         if (jumping)
         {
             jumpTime += (Time.deltaTime / distance) * knowledge.Info.speed;
-            knowledge.Agent.isStopped = true;
-            knowledge.AITransform.position = WanderAI.Parabola(startPosition, endPosition, Mathf.Sqrt(distance / range) * range, jumpTime);
+            knowledge.AITransform.position = Parabola(startPosition, endPosition, Mathf.Sqrt(distance / range) * range, jumpTime);
             if (jumpTime >= 1f)
             {
-                foreach (Collider hitCollider in Physics.OverlapSphere(knowledge.AITransform.position, radius))
+                int playerLayer = 9;
+                int layerMask = 1 << playerLayer;
+                layerMask = ~layerMask;
+                Collider[] hitColliders = new Collider[10];
+                int colliderCount = Physics.OverlapSphereNonAlloc(knowledge.AITransform.position, radius, hitColliders, layerMask, QueryTriggerInteraction.Collide);
+                for (int i = 0; i < colliderCount; i++)
                 {
-                    if (hitCollider.CompareTag("Player"))
+                    if (hitColliders[i].CompareTag("Player"))
                     {
                         HuntingManager.Instance.DealDamageToPlayer(damage);
                         break;
@@ -38,7 +44,7 @@ public class SlamBehaviour : AIBehaviour
         else
         {
             Quaternion lookRotation = Quaternion.LookRotation((new Vector3(knowledge.PlayerPosition.x, knowledge.AITransform.position.y, knowledge.PlayerPosition.z) - knowledge.AITransform.position).normalized);
-            knowledge.AITransform.rotation = Quaternion.Slerp(knowledge.AITransform.rotation, lookRotation, Time.deltaTime * 5);
+            knowledge.AITransform.rotation = Quaternion.Slerp(knowledge.AITransform.rotation, lookRotation, Time.deltaTime * turningSpeed);
             timeSinceLastJump += Time.deltaTime;
             if (timeSinceLastJump >= cooldown)
             {
@@ -68,4 +74,13 @@ public class SlamBehaviour : AIBehaviour
         knowledge.Agent.isStopped = true;
     }
     public override void Exit(ref Knowledge knowledge) { }
+
+    private static Vector3 Parabola(Vector3 start, Vector3 end, float height, float t)
+    {
+        Func<float, float> f = x => -4 * height * x * x + 4 * height * x;
+
+        var mid = Vector3.Lerp(start, end, t);
+
+        return new Vector3(mid.x, f(t) + Mathf.Lerp(start.y, end.y, t), mid.z);
+    }
 }
