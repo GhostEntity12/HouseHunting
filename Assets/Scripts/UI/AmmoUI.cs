@@ -66,7 +66,7 @@ public class AmmoUI : MonoBehaviour
             // create new game object and attach image component to it.
             Image newIcon = new GameObject("BulletIcon" + i).AddComponent<Image>();
             newIcon.sprite = newGun.GunSO.bulletPrefab.Icon;
-            newIcon.transform.parent = bulletIconsLayoutGroup.transform;
+            newIcon.transform.SetParent(bulletIconsLayoutGroup.transform);
 
             // Calculate the size of the child object based on the sprite's dimensions.
             float spriteWidth = newIcon.sprite.rect.width;
