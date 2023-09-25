@@ -97,7 +97,7 @@ MonoBehaviour:
   fill: {fileID: 4085110008302016232}
   questionMark: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
   exclamationMark: {fileID: 21300000, guid: fb491d3541a4eae45aea0830534210f4, type: 3}
-  skull: {fileID: 21300000, guid: 159d431f287c10d4d9803ee64350283e, type: 3}
+  skull: {fileID: 21300000, guid: 4c4534e14b124c24fbc70ae73c64d016, type: 3}
   mainCamera: {fileID: 0}
 --- !u!1 &5236622499727851553
 GameObject:
@@ -167,7 +167,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
   m_Type: 3
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 1
   m_FillAmount: 0.627
@@ -243,7 +243,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

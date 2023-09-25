@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.IO;
-using System.Reflection;
 
 public class GameManager : Singleton<GameManager>, IDataPersistence
 {
