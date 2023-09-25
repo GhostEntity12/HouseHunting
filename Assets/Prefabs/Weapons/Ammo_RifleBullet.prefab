@@ -210,6 +210,7 @@ MonoBehaviour:
   damage: 150
   bulletHolePrefab: {fileID: 6181713115017043311, guid: 88e418b7c1c193748b83c8c3c95d93ce, type: 3}
   lifespan: 3
+  collisionSound: {fileID: 11400000, guid: 9ee0fa0d99d43b944adf9a40d6c6580e, type: 2}
 --- !u!54 &7373271406079112989
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -234,7 +235,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!1 &5829384628955854427

@@ -16,9 +16,11 @@ public class WanderAI : MonoBehaviour
 	private float relaxTimer = 0f;
 	private NavMeshAgent agent;
 	private readonly Queue<SoundAlert> sounds = new();
-	private Transform player;
+	private Player player;
 	private float alertness = 0;
 	private AIBehaviour activeBehaviour;
+	private float painTimer = 0f;
+	private bool hurt = false;
 
 	public float Alertness
 	{
@@ -35,7 +37,7 @@ public class WanderAI : MonoBehaviour
 	private void Start()
 	{
 		// Cache some values
-		player = HuntingManager.Instance.Player;
+		player = GameManager.Instance.Player;
 		info = shootable.FurnitureSO;
 		activeBehaviour = Instantiate(info.threshold0Behaviour);
 
@@ -52,7 +54,7 @@ public class WanderAI : MonoBehaviour
 		}
 
 		// Culling behaviour if outside of entity distance
-		if (!player || Vector3.Distance(player.position, transform.position) > aiEntityDistance)
+		if (!player || Vector3.Distance(player.transform.position, transform.position) > aiEntityDistance)
 			return;
 
 		// Cache player visibility
@@ -65,9 +67,9 @@ public class WanderAI : MonoBehaviour
 		UpdateSightAlertness(canSeePlayer);
 
 		// Bundle information to pass to behaviours
-		Knowledge k = new(transform, player.position, info, agent, sound, canSeePlayer);
+		Knowledge k = new(transform, player.transform.position, info, agent, sound, canSeePlayer);
 
-		CheckTransitions(k);
+		CheckTransitions(k,UpdatePain());
 
 		activeBehaviour.Act(ref k);
 
@@ -80,25 +82,33 @@ public class WanderAI : MonoBehaviour
 		foreach (ViewConeSO cone in info.senses)
 		{
 			Handles.zTest = UnityEngine.Rendering.CompareFunction.LessEqual;
-			cone.DebugDraw(transform, player.position, 0.5f);
+			cone.DebugDraw(transform, player.transform.position, 0.5f);
 			Handles.zTest = UnityEngine.Rendering.CompareFunction.Greater;
-			cone.DebugDraw(transform, player.position, 0.2f);
+			cone.DebugDraw(transform, player.transform.position, 0.2f);
 		}
 	}
 #endif
 
-	private void CheckTransitions(Knowledge k)
+	private void CheckTransitions(Knowledge k, bool recovering = false)
 	{
 		switch (alertLevel)
 		{
 			case ThresholdLevels.Level0:
-				if (Alertness > info.alertnessThreshold1)
+				if (Alertness > info.alertnessThreshold1 && (painTimer <= 0 || recovering))
 				{
 					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
+				} 
+				else if (hurt)
+				{
+					Transition(info.damageBehaviour, k, ThresholdLevels.Level0);
+				}
+				else if (recovering)
+				{
+					Transition(info.threshold0Behaviour, k, ThresholdLevels.Level0);
 				}
 				break;
 			case ThresholdLevels.Level1:
-				if (Alertness == 0)
+				if (Alertness == 0 && (painTimer <= 0 || recovering))
 				{
 					Transition(info.threshold0Behaviour, k, ThresholdLevels.Level0);
 				}
@@ -106,9 +116,17 @@ public class WanderAI : MonoBehaviour
 				{
 					Transition(info.threshold2Behaviour, k, ThresholdLevels.Level2);
 				}
+				else if (hurt)
+				{
+					Transition(info.damageBehaviour, k, ThresholdLevels.Level1);
+				}
+				else if (recovering)
+				{
+					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
+				}
 				break;
 			case ThresholdLevels.Level2:
-				if (Alertness < info.alertnessThreshold1)
+				if (Alertness < info.alertnessThreshold1 && painTimer <= 0)
 				{
 					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
 				}
@@ -124,6 +142,7 @@ public class WanderAI : MonoBehaviour
 				}
 				break;
 		}
+		hurt = false;
 	}
 
 	private void Transition(AIBehaviour newBehaviour, Knowledge knowledge, ThresholdLevels newAlertLevel)
@@ -148,7 +167,8 @@ public class WanderAI : MonoBehaviour
 	{
 		// Treat the player's position as the center of it's body
 		// TODO: alter if the player is crouching?
-		Vector3 playerCenter = player.position + Vector3.up;
+		// 
+		Vector3 playerCenter = player.transform.position + player.camOffset;
 
 		// Get the direction to the player
 		Vector3 targetDirection = playerCenter - transform.position;
@@ -192,7 +212,7 @@ public class WanderAI : MonoBehaviour
 
 	public static bool RandomPoint(Vector3 center, float range, out Vector3 result)
 	{
-		Vector3 randomPoint = center + (Random.insideUnitSphere * range); //random point in a sphere 
+		Vector3 randomPoint = center + (UnityEngine.Random.insideUnitSphere * range); //random point in a sphere 
 		if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 1.0f, NavMesh.AllAreas)) //documentation: https://docs.unity3d.com/ScriptReference/AI.NavMesh.SamplePosition.html
 		{
 			//the 1.0f is the max distance from the random point to a point on the navmesh, might want to increase if range is big
@@ -203,6 +223,13 @@ public class WanderAI : MonoBehaviour
 
 		result = Vector3.zero;
 		return false;
+	}
+
+	public void InducePain()
+	{
+		alertness += 50f;
+		painTimer = 7.5f;
+		hurt = true;
 	}
 
 	/// <summary>
@@ -228,6 +255,16 @@ public class WanderAI : MonoBehaviour
 		// Decrease relaxTimer
 		else
 			Alertness -= Time.deltaTime * info.alertnessDecayRate;
+	}
+
+	/// <summary>
+	/// Counts down the furniture's painTimer.
+	/// </summary>
+	private bool UpdatePain()
+	{
+		if (painTimer > 0) // Optional, but good for preventing big negative numbers.
+			painTimer -= Time.deltaTime;
+		return painTimer <= 0;
 	}
 
 	/// <summary>

@@ -3,21 +3,21 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] List<Shootable> spawnableFurniture;
-    public int amountToSpawn;
+    [SerializeField] protected List<Shootable> spawnableFurniture;
 
-    public bool Spawn()
+    /// <summary>
+    /// Attempts to spawn a furniture from its list.
+    /// </summary>
+    /// <returns>Returns the number of furnitre spawned</returns>
+    public virtual int Spawn()
     {
         if (spawnableFurniture.Count == 0)
         {
             Debug.LogError("Spawner is empty!", this);
-            return false;
+            return 0;
         }
-        for(int i = 0; i < amountToSpawn; i++)
-        {
-            Instantiate(spawnableFurniture[Random.Range(0, spawnableFurniture.Count)], transform);
+        Instantiate(spawnableFurniture[Random.Range(0, spawnableFurniture.Count)], transform);
             //Debug.Log($"Spawn location: {transform.position}");
-        }
-        return true;
+        return 1;
     }
 }

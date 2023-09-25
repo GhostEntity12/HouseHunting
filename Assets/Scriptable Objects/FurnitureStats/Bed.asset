@@ -23,15 +23,16 @@ MonoBehaviour:
   alertnessThreshold1: 30
   threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
   alertnessThreshold2: 60
-  threshold2Behaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
+  threshold2Behaviour: {fileID: 11400000, guid: d1b5f233a60fcac4d8755cfbc52da0af, type: 2}
   alertnessThreshold3: 100
-  threshold3Behaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
+  threshold3Behaviour: {fileID: 11400000, guid: 7926fb8946feaa64088474e3af71587d, type: 2}
+  damageBehaviour: {fileID: 11400000, guid: fa0fe16bfb49e01489e042d06445e06d, type: 2}
   timeBeforeDecay: 5
   alertnessDecayRate: 10
   sightAlertnessRate: 25
   senses:
-  - {fileID: 11400000, guid: 1ec6d6abffce23b43997e79b8f25d4ca, type: 2}
+  - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
   special: 0
   materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: -389402008792246631, guid: 893fef4c6c54df3448a00479c3e8ce7f, type: 3}
   basePrice: 200
