@@ -57,7 +57,7 @@ public class EquipmentManager : Singleton<EquipmentManager>
 		if (EquippedItem is Gun gun)
 		{
 			gun.AmmoPouch.AddAmmo(number);
-			HuntingUIManager.Instance.SetAmmoCounterText(gun.AmmoInfo);
+			HuntingUIManager.Instance.AmmoUI.Rerender(gun);
 		}
 	}
 }

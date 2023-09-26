@@ -28,14 +28,12 @@ public class AmmoPouch
 
 	public void PoolBullet(Bullet bullet)
 	{
-		Debug.Log("Pooling");
 		bulletPool.Enqueue(bullet);
 		bullet.gameObject.SetActive(false);
 	}
 
 	public Bullet DepoolBullet()
 	{
-		Debug.Log("Depooling");
 		if (bulletPool.Count <= 1)
 		{
 			AddBullet();

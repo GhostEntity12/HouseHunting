@@ -14,6 +14,6 @@ public class SliderChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        sliderText.text = Math.Round(slider.value * 100, 0).ToString();
+        sliderText.text = Math.Round(slider.value).ToString();
     }
 }
