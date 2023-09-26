@@ -51,7 +51,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canPlaceOnSurface: 0
-  <Mesh>k__BackingField: {fileID: 745136825906266099}
+  <MeshRenderer>k__BackingField: {fileID: 745136825906266099}
+  <MeshFilter>k__BackingField: {fileID: 3293176650222832441}
+  <model>k__BackingField: {fileID: 0}
 --- !u!65 &2525179865123600939
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -307,5 +309,10 @@ MeshCollider:
 --- !u!4 &1881498738827691164 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 27c9356bf9a33634d95b47eb2dd83705, type: 3}
+  m_PrefabInstance: {fileID: 2132124978556363639}
+  m_PrefabAsset: {fileID: 0}
+--- !u!33 &3293176650222832441 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: 27c9356bf9a33634d95b47eb2dd83705, type: 3}
   m_PrefabInstance: {fileID: 2132124978556363639}
   m_PrefabAsset: {fileID: 0}

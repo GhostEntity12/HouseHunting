@@ -3,6 +3,7 @@ using UnityEngine;
 public enum AIType { Prey, Projectile, Charge, Grapple, Slam };
 public enum Ability { None, Steal, Alert, Reflect };
 public enum AlertRate { Low, Medium, High, Instant };
+public enum FurnitureType { Living, Dining, Bedroom, Bathroom, Misc };
 
 [CreateAssetMenu(fileName = "Furniture")]
 
@@ -40,6 +41,7 @@ public class FurnitureSO : ScriptableObject
 
 	[Header("Other")]
 	public Ability special;
+	public FurnitureType type;
 	public Material[] materials;
 	public int basePrice;
 }

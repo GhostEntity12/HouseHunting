@@ -23,7 +23,7 @@ public class DeveloperConsole : Singleton<DeveloperConsole>
 
         playerInput = new PlayerInput();
 
-        playerInput.DevConsole.CloseDevConsole.performed += ctx => Toggle();
+        playerInput.DevConsole.CloseDevConsole.performed += ctx => ToggleDevConsole();
         playerInput.DevConsole.Submit.performed += ctx => ExecuteCommand();
     }
 
@@ -47,7 +47,7 @@ public class DeveloperConsole : Singleton<DeveloperConsole>
         inputField.Select();
     }
 
-    public void Toggle()
+    public void ToggleDevConsole()
     {
         canvas.enabled = !canvas.enabled;
         // disable input when console is open, enable input when console is closed
