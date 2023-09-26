@@ -1,17 +1,12 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class Campfire : MonoBehaviour, IInteractable
+public class Campfire : MonoBehaviour
 {
 	private Transform spawnPoint;
 
-	[SerializeField] private Sprite icon;
 	[SerializeField] private string campfireID;
 
-	public (string id, Sprite icon) CampfireInfo => (campfireID, icon);
-
-	public string InteractActionText => "Return to House";
-	public bool Interactable => true;
+	public string CampfireID => campfireID;
 
     private void Awake()
 	{
@@ -22,10 +17,4 @@ public class Campfire : MonoBehaviour, IInteractable
 	{
 		GameManager.Instance.Player.Warp(spawnPoint);
 	}
-
-	public void Interact()
-	{
-		SceneManager.LoadScene(1);
-	}
-
 }

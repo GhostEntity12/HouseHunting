@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.IO;
-using System.Reflection;
 
 public class GameManager : Singleton<GameManager>, IDataPersistence
 {
@@ -53,5 +51,10 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
         Time.timeScale = 1;
         ShowCursor();
         SceneManager.LoadScene(0);
+    }
+
+    public void ReturnToHouse()
+    {
+        SceneManager.LoadScene(1);
     }
 }

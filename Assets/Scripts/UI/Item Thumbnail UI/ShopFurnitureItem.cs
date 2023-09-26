@@ -2,6 +2,6 @@ public class ShopFurnitureItem : ItemThumbnailUI
 {
     public void SelectItem()
     {
-        ShopUIManager.Instance.SelectItem((furnitureSO, inventoryItem));
+        InventoryUIManagerOld.Instance.SelectItem((furnitureSO, inventoryItem));
     }
 }
