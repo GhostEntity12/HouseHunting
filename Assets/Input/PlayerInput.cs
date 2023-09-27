@@ -406,15 +406,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Run"",
-                    ""type"": ""Button"",
-                    ""id"": ""d2fc7323-b774-4ae3-8262-f33d32a8313b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Crouch"",
                     ""type"": ""Button"",
                     ""id"": ""c7fe8c77-0d63-4112-83b4-6617b82d6d4d"",
@@ -555,17 +546,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b46e4c52-6ea1-4567-8193-087bb7a99931"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -796,6 +776,126 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""SprintToggle"",
+            ""id"": ""f35df2b2-a64f-4e8e-822e-48f3c04d0738"",
+            ""actions"": [
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""aadb3fbb-5d31-4290-b25b-7d6415a59e1c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""fc7a70be-20fc-4e43-afc7-7d79101d2f95"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a967ba3e-d758-4462-8967-6b8b1e4e025f"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""8a33f281-74ec-4f5f-9a65-4f0035c69f8c"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""65bd7be7-ea6c-4859-bef3-d7ced4cf389e"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""91765aed-b703-46ac-ad14-f86ac4ecaf00"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""bb6da862-39df-4411-894f-68de02a45d3b"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""ebb3813c-d88a-421a-b306-dc96135eb004"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
+        },
+        {
+            ""name"": ""SprintHold"",
+            ""id"": ""7c74f5cc-1f4d-42f0-b391-851c3dd14271"",
+            ""actions"": [
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""470b7fc5-d697-4987-ab1d-bfc8137e0234"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""66401666-8119-4665-9e7a-30d1cca8b1f5"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -823,7 +923,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_General = asset.FindActionMap("General", throwIfNotFound: true);
         m_General_Look = m_General.FindAction("Look", throwIfNotFound: true);
         m_General_Movement = m_General.FindAction("Movement", throwIfNotFound: true);
-        m_General_Run = m_General.FindAction("Run", throwIfNotFound: true);
         m_General_Crouch = m_General.FindAction("Crouch", throwIfNotFound: true);
         m_General_Jump = m_General.FindAction("Jump", throwIfNotFound: true);
         m_General_Interact = m_General.FindAction("Interact", throwIfNotFound: true);
@@ -846,6 +945,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // Map
         m_Map = asset.FindActionMap("Map", throwIfNotFound: true);
         m_Map_CloseMap = m_Map.FindAction("CloseMap", throwIfNotFound: true);
+        // SprintToggle
+        m_SprintToggle = asset.FindActionMap("SprintToggle", throwIfNotFound: true);
+        m_SprintToggle_Run = m_SprintToggle.FindAction("Run", throwIfNotFound: true);
+        m_SprintToggle_Movement = m_SprintToggle.FindAction("Movement", throwIfNotFound: true);
+        // SprintHold
+        m_SprintHold = asset.FindActionMap("SprintHold", throwIfNotFound: true);
+        m_SprintHold_Run = m_SprintHold.FindAction("Run", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1105,7 +1211,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IGeneralActions> m_GeneralActionsCallbackInterfaces = new List<IGeneralActions>();
     private readonly InputAction m_General_Look;
     private readonly InputAction m_General_Movement;
-    private readonly InputAction m_General_Run;
     private readonly InputAction m_General_Crouch;
     private readonly InputAction m_General_Jump;
     private readonly InputAction m_General_Interact;
@@ -1118,7 +1223,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public GeneralActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Look => m_Wrapper.m_General_Look;
         public InputAction @Movement => m_Wrapper.m_General_Movement;
-        public InputAction @Run => m_Wrapper.m_General_Run;
         public InputAction @Crouch => m_Wrapper.m_General_Crouch;
         public InputAction @Jump => m_Wrapper.m_General_Jump;
         public InputAction @Interact => m_Wrapper.m_General_Interact;
@@ -1140,9 +1244,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
-            @Run.started += instance.OnRun;
-            @Run.performed += instance.OnRun;
-            @Run.canceled += instance.OnRun;
             @Crouch.started += instance.OnCrouch;
             @Crouch.performed += instance.OnCrouch;
             @Crouch.canceled += instance.OnCrouch;
@@ -1171,9 +1272,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
-            @Run.started -= instance.OnRun;
-            @Run.performed -= instance.OnRun;
-            @Run.canceled -= instance.OnRun;
             @Crouch.started -= instance.OnCrouch;
             @Crouch.performed -= instance.OnCrouch;
             @Crouch.canceled -= instance.OnCrouch;
@@ -1447,6 +1545,106 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public MapActions @Map => new MapActions(this);
+
+    // SprintToggle
+    private readonly InputActionMap m_SprintToggle;
+    private List<ISprintToggleActions> m_SprintToggleActionsCallbackInterfaces = new List<ISprintToggleActions>();
+    private readonly InputAction m_SprintToggle_Run;
+    private readonly InputAction m_SprintToggle_Movement;
+    public struct SprintToggleActions
+    {
+        private @PlayerInput m_Wrapper;
+        public SprintToggleActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Run => m_Wrapper.m_SprintToggle_Run;
+        public InputAction @Movement => m_Wrapper.m_SprintToggle_Movement;
+        public InputActionMap Get() { return m_Wrapper.m_SprintToggle; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(SprintToggleActions set) { return set.Get(); }
+        public void AddCallbacks(ISprintToggleActions instance)
+        {
+            if (instance == null || m_Wrapper.m_SprintToggleActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_SprintToggleActionsCallbackInterfaces.Add(instance);
+            @Run.started += instance.OnRun;
+            @Run.performed += instance.OnRun;
+            @Run.canceled += instance.OnRun;
+            @Movement.started += instance.OnMovement;
+            @Movement.performed += instance.OnMovement;
+            @Movement.canceled += instance.OnMovement;
+        }
+
+        private void UnregisterCallbacks(ISprintToggleActions instance)
+        {
+            @Run.started -= instance.OnRun;
+            @Run.performed -= instance.OnRun;
+            @Run.canceled -= instance.OnRun;
+            @Movement.started -= instance.OnMovement;
+            @Movement.performed -= instance.OnMovement;
+            @Movement.canceled -= instance.OnMovement;
+        }
+
+        public void RemoveCallbacks(ISprintToggleActions instance)
+        {
+            if (m_Wrapper.m_SprintToggleActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ISprintToggleActions instance)
+        {
+            foreach (var item in m_Wrapper.m_SprintToggleActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_SprintToggleActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public SprintToggleActions @SprintToggle => new SprintToggleActions(this);
+
+    // SprintHold
+    private readonly InputActionMap m_SprintHold;
+    private List<ISprintHoldActions> m_SprintHoldActionsCallbackInterfaces = new List<ISprintHoldActions>();
+    private readonly InputAction m_SprintHold_Run;
+    public struct SprintHoldActions
+    {
+        private @PlayerInput m_Wrapper;
+        public SprintHoldActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Run => m_Wrapper.m_SprintHold_Run;
+        public InputActionMap Get() { return m_Wrapper.m_SprintHold; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(SprintHoldActions set) { return set.Get(); }
+        public void AddCallbacks(ISprintHoldActions instance)
+        {
+            if (instance == null || m_Wrapper.m_SprintHoldActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_SprintHoldActionsCallbackInterfaces.Add(instance);
+            @Run.started += instance.OnRun;
+            @Run.performed += instance.OnRun;
+            @Run.canceled += instance.OnRun;
+        }
+
+        private void UnregisterCallbacks(ISprintHoldActions instance)
+        {
+            @Run.started -= instance.OnRun;
+            @Run.performed -= instance.OnRun;
+            @Run.canceled -= instance.OnRun;
+        }
+
+        public void RemoveCallbacks(ISprintHoldActions instance)
+        {
+            if (m_Wrapper.m_SprintHoldActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ISprintHoldActions instance)
+        {
+            foreach (var item in m_Wrapper.m_SprintHoldActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_SprintHoldActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public SprintHoldActions @SprintHold => new SprintHoldActions(this);
     public interface IHuntingActions
     {
         void OnUsePrimary(InputAction.CallbackContext context);
@@ -1472,7 +1670,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnLook(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
-        void OnRun(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
@@ -1500,5 +1697,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public interface IMapActions
     {
         void OnCloseMap(InputAction.CallbackContext context);
+    }
+    public interface ISprintToggleActions
+    {
+        void OnRun(InputAction.CallbackContext context);
+        void OnMovement(InputAction.CallbackContext context);
+    }
+    public interface ISprintHoldActions
+    {
+        void OnRun(InputAction.CallbackContext context);
     }
 }
