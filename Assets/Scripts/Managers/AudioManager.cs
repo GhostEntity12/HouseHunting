@@ -68,7 +68,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void UpdateMixerVolume()
     {
-        musicMixerGroup.audioMixer.SetFloat("MusicVolume", Mathf.Log10(AudioOptionsManager.musicVolume) * 20);
-        sfxMixerGroup.audioMixer.SetFloat("SFXVolume", Mathf.Log10(AudioOptionsManager.sfxVolume) * 20);
+        musicMixerGroup.audioMixer.SetFloat("MusicVolume", Mathf.Log10(AudioOptionsManager.MusicVolume) * 20);
+        sfxMixerGroup.audioMixer.SetFloat("SFXVolume", Mathf.Log10(AudioOptionsManager.SfxVolume) * 20);
     }
 }
