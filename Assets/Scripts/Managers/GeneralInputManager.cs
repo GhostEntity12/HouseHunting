@@ -14,6 +14,8 @@ public class GeneralInputManager : Singleton<GeneralInputManager>
 
         player = GetComponent<Player>();
 
+        if (!player) return;
+
         playerInput = new PlayerInput();
 
         playerInput.General.Jump.performed += ctx => player.Jump();
