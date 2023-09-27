@@ -72,4 +72,6 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	/// Enables firing of the gun. Not done in awake to allow for setup (campfires) without firing weapon.
 	/// </summary>
 	public void EnableShooting() => playerInput.Hunting.UsePrimary.performed += ctx => EquipmentManager.Instance.EquippedItem.UsePrimary();
+
+	private void OnDestroy() => playerInput.Dispose();
 }

@@ -85,9 +85,5 @@ public class GeneralInputManager : Singleton<GeneralInputManager>
         SetSprintModeControls();
     }
 
-	private void OnDestroy()
-	{
-		playerInput.SprintHold.Disable();
-        playerInput.SprintToggle.Disable();
-	}
+	private void OnDestroy() => playerInput.Dispose();
 }

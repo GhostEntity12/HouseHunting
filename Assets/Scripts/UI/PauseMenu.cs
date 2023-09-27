@@ -60,5 +60,6 @@ public class PauseMenu : Singleton<PauseMenu>
             playerInput.PauseMenu.Disable();
             GameManager.Instance.HideCursor();
         }
-    }
+	}
+	private void OnDestroy() => playerInput.Dispose();
 }
