@@ -84,4 +84,10 @@ public class GeneralInputManager : Singleton<GeneralInputManager>
         PlayerPrefs.SetInt("ToggleSprint", dropdown.value);
         SetSprintModeControls();
     }
+
+	private void OnDestroy()
+	{
+		playerInput.SprintHold.Disable();
+        playerInput.SprintToggle.Disable();
+	}
 }
