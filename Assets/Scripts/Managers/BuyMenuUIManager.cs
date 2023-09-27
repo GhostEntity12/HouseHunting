@@ -44,7 +44,7 @@ public class BuyMenuUIManager : Singleton<BuyMenuUIManager>
         if (open)
         {
             gameObject.SetActive(true);
-            ShopUIManager.Instance.SelectItem(null);
+            InventoryUIManagerOld.Instance.SelectItem(null);
         }
         else
         {

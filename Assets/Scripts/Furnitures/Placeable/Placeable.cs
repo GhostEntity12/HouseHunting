@@ -8,7 +8,8 @@ public class Placeable : MonoBehaviour, IInteractable
 
     private MeshCollider childMeshCollider;
 
-    [field: SerializeField] public MeshRenderer Mesh { get; private set; }
+    [field: SerializeField] public MeshRenderer MeshRenderer { get; private set; }
+    [field: SerializeField] public MeshFilter MeshFilter { get; private set; }
 
     public bool IsValidPosition { get; private set; } = true;
 	public SaveDataFurniture InventoryItem { get; set; }
@@ -21,9 +22,9 @@ public class Placeable : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        Mesh.transform.localScale *= InventoryItem.scaleFactor;
+        MeshRenderer.transform.localScale *= InventoryItem.scaleFactor;
         Material = DataPersistenceManager.Instance.AllFurnitureSO.Find(x => x.id == InventoryItem.id).materials[InventoryItem.materialIndex];
-        Mesh.material = Material;
+        MeshRenderer.material = Material;
 
         childMeshCollider = GetComponentInChildren<MeshCollider>();
     }
@@ -47,7 +48,7 @@ public class Placeable : MonoBehaviour, IInteractable
 
 	public void RotateToAngle(float angle)
     {
-        Mesh.transform.rotation = Quaternion.Euler(0, angle, 0);
+        MeshRenderer.transform.rotation = Quaternion.Euler(0, angle, 0);
     }
 
     public void Interact()

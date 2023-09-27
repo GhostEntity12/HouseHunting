@@ -46,15 +46,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""OpenWeaponWheel"",
-                    ""type"": ""Button"",
-                    ""id"": ""518864de-6e45-4afa-8848-7b6971231d07"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Reload"",
                     ""type"": ""Button"",
                     ""id"": ""7ce7cde9-a82b-4af7-806c-2da234659dd4"",
@@ -125,6 +116,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenWeaponWheel"",
+                    ""type"": ""Button"",
+                    ""id"": ""919b20ae-5763-4bc7-948a-fef68e88cd7c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GoBackToHouse"",
+                    ""type"": ""Button"",
+                    ""id"": ""395b010d-e3ea-486f-8637-d7ebe485bf46"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -136,17 +145,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""UsePrimary"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5b0e2deb-29db-453c-a3cf-74d911edb3f4"",
-                    ""path"": ""<Keyboard>/tab"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""OpenWeaponWheel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -248,6 +246,39 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""UseSecondary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7bafdd7-d91b-448e-a209-ad69c4c5f15c"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReturnToHome"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""21da146b-f6a7-4a6e-9eac-6e10a3f027b0"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenWeaponWheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f6e88a6b-0f1f-47af-ac58-1f4da88a61c0"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GoBackToHouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -277,15 +308,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": ""PlaceHoldingFurniture"",
                     ""type"": ""Button"",
                     ""id"": ""fd1574a3-773f-413f-a57c-6f4a84434b6e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""OpenInventory"",
-                    ""type"": ""Button"",
-                    ""id"": ""b2d5ae4d-16a6-4fe4-a692-adc4a0c7a53b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -384,6 +406,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""d2fc7323-b774-4ae3-8262-f33d32a8313b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Crouch"",
                     ""type"": ""Button"",
                     ""id"": ""c7fe8c77-0d63-4112-83b4-6617b82d6d4d"",
@@ -423,6 +454,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": ""OpenDevConsole"",
                     ""type"": ""Button"",
                     ""id"": ""bdbddca0-1f3d-4805-9d52-ce0b5878f744"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""f821b925-9a00-4603-8bb5-989a5b89ab64"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -520,6 +560,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""b46e4c52-6ea1-4567-8193-087bb7a99931"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""1e12c38c-4909-488c-a7bf-d1bac427b34a"",
                     ""path"": ""<Keyboard>/ctrl"",
                     ""interactions"": """",
@@ -548,6 +599,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""OpenDevConsole"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61eeae70-97a0-4523-b18a-890e84cb9f0d"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenInventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -581,12 +643,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f6536dbd-3e34-4b07-8217-ba1a8716bf60"",
-                    ""path"": ""<Keyboard>/escape"",
+                    ""id"": ""1b58cc4d-d3ff-4e5f-b7fa-704cdbf4ff59"",
+                    ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""CloseShop"",
+                    ""action"": ""OpenInventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -669,13 +731,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""SprintHold"",
-            ""id"": ""0c39118d-f3f8-4e42-8918-4635b960bf71"",
+            ""name"": ""Inventory"",
+            ""id"": ""4888e5af-9b84-4b0d-9c67-6f7bbc451e76"",
             ""actions"": [
                 {
-                    ""name"": ""Run"",
+                    ""name"": ""CloseInventory"",
                     ""type"": ""Button"",
-                    ""id"": ""f968f7ff-cc62-4e48-b257-72d32ea83397"",
+                    ""id"": ""3e4fe52f-712b-48a0-a56b-6dc307440499"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -685,34 +747,36 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""004a9b40-927f-41cb-a4f2-badda0df4697"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""id"": ""2abbe691-4ec8-4df3-92ee-b903d63ae9f1"",
+                    ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Run"",
+                    ""action"": ""CloseInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""044c9025-bd35-4206-bc1f-9fb0a4ab50ea"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseInventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
             ]
         },
         {
-            ""name"": ""SprintToggle"",
-            ""id"": ""6dcd7e9e-fd6a-4722-9122-a8f62b8085ab"",
+            ""name"": ""Map"",
+            ""id"": ""f4535245-2ef7-4265-a5d6-b35fb60e531f"",
             ""actions"": [
                 {
-                    ""name"": ""Movement"",
-                    ""type"": ""Value"",
-                    ""id"": ""63c74a31-8725-4dba-ae80-093e4a54235f"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Run"",
+                    ""name"": ""CloseMap"",
                     ""type"": ""Button"",
-                    ""id"": ""90632846-37ef-4cd5-b40f-ef91c82f1bf7"",
+                    ""id"": ""d45b92b8-6cd8-40c8-a665-31e06a287b2a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -722,69 +786,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""69e820e6-9752-4c2e-ad23-65162e0ba152"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""id"": ""8b453d67-1d49-46b6-9cfa-2b80a85b88d6"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Run"",
+                    ""action"": ""CloseMap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""WASD"",
-                    ""id"": ""d7d3946b-755b-46f9-9277-da69328a016b"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""bec9026a-8ba4-4ead-b937-29daaeca5627"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""c170bc8f-b22f-434a-96c9-2fa19b882792"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""1ed91812-47d3-48b3-a9cb-c4fabca42ba9"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""23d881c9-cb80-4e87-8fbc-6e2ddfde6d3e"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -795,7 +804,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Hunting = asset.FindActionMap("Hunting", throwIfNotFound: true);
         m_Hunting_UsePrimary = m_Hunting.FindAction("UsePrimary", throwIfNotFound: true);
         m_Hunting_UseSecondary = m_Hunting.FindAction("UseSecondary", throwIfNotFound: true);
-        m_Hunting_OpenWeaponWheel = m_Hunting.FindAction("OpenWeaponWheel", throwIfNotFound: true);
         m_Hunting_Reload = m_Hunting.FindAction("Reload", throwIfNotFound: true);
         m_Hunting_OpenInventory = m_Hunting.FindAction("OpenInventory", throwIfNotFound: true);
         m_Hunting_Quick1 = m_Hunting.FindAction("Quick1", throwIfNotFound: true);
@@ -804,21 +812,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Hunting_Quick4 = m_Hunting.FindAction("Quick4", throwIfNotFound: true);
         m_Hunting_Quick5 = m_Hunting.FindAction("Quick5", throwIfNotFound: true);
         m_Hunting_Quick6 = m_Hunting.FindAction("Quick6", throwIfNotFound: true);
+        m_Hunting_OpenWeaponWheel = m_Hunting.FindAction("OpenWeaponWheel", throwIfNotFound: true);
+        m_Hunting_GoBackToHouse = m_Hunting.FindAction("GoBackToHouse", throwIfNotFound: true);
         // House
         m_House = asset.FindActionMap("House", throwIfNotFound: true);
         m_House_RemoveHoldingFurniture = m_House.FindAction("RemoveHoldingFurniture", throwIfNotFound: true);
         m_House_RotateHoldingFurniture = m_House.FindAction("RotateHoldingFurniture", throwIfNotFound: true);
         m_House_PlaceHoldingFurniture = m_House.FindAction("PlaceHoldingFurniture", throwIfNotFound: true);
-        m_House_OpenInventory = m_House.FindAction("OpenInventory", throwIfNotFound: true);
         // General
         m_General = asset.FindActionMap("General", throwIfNotFound: true);
         m_General_Look = m_General.FindAction("Look", throwIfNotFound: true);
         m_General_Movement = m_General.FindAction("Movement", throwIfNotFound: true);
+        m_General_Run = m_General.FindAction("Run", throwIfNotFound: true);
         m_General_Crouch = m_General.FindAction("Crouch", throwIfNotFound: true);
         m_General_Jump = m_General.FindAction("Jump", throwIfNotFound: true);
         m_General_Interact = m_General.FindAction("Interact", throwIfNotFound: true);
         m_General_Pause = m_General.FindAction("Pause", throwIfNotFound: true);
         m_General_OpenDevConsole = m_General.FindAction("OpenDevConsole", throwIfNotFound: true);
+        m_General_OpenInventory = m_General.FindAction("OpenInventory", throwIfNotFound: true);
         // Shop
         m_Shop = asset.FindActionMap("Shop", throwIfNotFound: true);
         m_Shop_CloseShop = m_Shop.FindAction("CloseShop", throwIfNotFound: true);
@@ -829,13 +840,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_DevConsole = asset.FindActionMap("DevConsole", throwIfNotFound: true);
         m_DevConsole_CloseDevConsole = m_DevConsole.FindAction("CloseDevConsole", throwIfNotFound: true);
         m_DevConsole_Submit = m_DevConsole.FindAction("Submit", throwIfNotFound: true);
-        // SprintHold
-        m_SprintHold = asset.FindActionMap("SprintHold", throwIfNotFound: true);
-        m_SprintHold_Run = m_SprintHold.FindAction("Run", throwIfNotFound: true);
-        // SprintToggle
-        m_SprintToggle = asset.FindActionMap("SprintToggle", throwIfNotFound: true);
-        m_SprintToggle_Movement = m_SprintToggle.FindAction("Movement", throwIfNotFound: true);
-        m_SprintToggle_Run = m_SprintToggle.FindAction("Run", throwIfNotFound: true);
+        // Inventory
+        m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
+        m_Inventory_CloseInventory = m_Inventory.FindAction("CloseInventory", throwIfNotFound: true);
+        // Map
+        m_Map = asset.FindActionMap("Map", throwIfNotFound: true);
+        m_Map_CloseMap = m_Map.FindAction("CloseMap", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -899,7 +909,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IHuntingActions> m_HuntingActionsCallbackInterfaces = new List<IHuntingActions>();
     private readonly InputAction m_Hunting_UsePrimary;
     private readonly InputAction m_Hunting_UseSecondary;
-    private readonly InputAction m_Hunting_OpenWeaponWheel;
     private readonly InputAction m_Hunting_Reload;
     private readonly InputAction m_Hunting_OpenInventory;
     private readonly InputAction m_Hunting_Quick1;
@@ -908,13 +917,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_Quick4;
     private readonly InputAction m_Hunting_Quick5;
     private readonly InputAction m_Hunting_Quick6;
+    private readonly InputAction m_Hunting_OpenWeaponWheel;
+    private readonly InputAction m_Hunting_GoBackToHouse;
     public struct HuntingActions
     {
         private @PlayerInput m_Wrapper;
         public HuntingActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @UsePrimary => m_Wrapper.m_Hunting_UsePrimary;
         public InputAction @UseSecondary => m_Wrapper.m_Hunting_UseSecondary;
-        public InputAction @OpenWeaponWheel => m_Wrapper.m_Hunting_OpenWeaponWheel;
         public InputAction @Reload => m_Wrapper.m_Hunting_Reload;
         public InputAction @OpenInventory => m_Wrapper.m_Hunting_OpenInventory;
         public InputAction @Quick1 => m_Wrapper.m_Hunting_Quick1;
@@ -923,6 +933,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Quick4 => m_Wrapper.m_Hunting_Quick4;
         public InputAction @Quick5 => m_Wrapper.m_Hunting_Quick5;
         public InputAction @Quick6 => m_Wrapper.m_Hunting_Quick6;
+        public InputAction @OpenWeaponWheel => m_Wrapper.m_Hunting_OpenWeaponWheel;
+        public InputAction @GoBackToHouse => m_Wrapper.m_Hunting_GoBackToHouse;
         public InputActionMap Get() { return m_Wrapper.m_Hunting; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -938,9 +950,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @UseSecondary.started += instance.OnUseSecondary;
             @UseSecondary.performed += instance.OnUseSecondary;
             @UseSecondary.canceled += instance.OnUseSecondary;
-            @OpenWeaponWheel.started += instance.OnOpenWeaponWheel;
-            @OpenWeaponWheel.performed += instance.OnOpenWeaponWheel;
-            @OpenWeaponWheel.canceled += instance.OnOpenWeaponWheel;
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
@@ -965,6 +974,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Quick6.started += instance.OnQuick6;
             @Quick6.performed += instance.OnQuick6;
             @Quick6.canceled += instance.OnQuick6;
+            @OpenWeaponWheel.started += instance.OnOpenWeaponWheel;
+            @OpenWeaponWheel.performed += instance.OnOpenWeaponWheel;
+            @OpenWeaponWheel.canceled += instance.OnOpenWeaponWheel;
+            @GoBackToHouse.started += instance.OnGoBackToHouse;
+            @GoBackToHouse.performed += instance.OnGoBackToHouse;
+            @GoBackToHouse.canceled += instance.OnGoBackToHouse;
         }
 
         private void UnregisterCallbacks(IHuntingActions instance)
@@ -975,9 +990,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @UseSecondary.started -= instance.OnUseSecondary;
             @UseSecondary.performed -= instance.OnUseSecondary;
             @UseSecondary.canceled -= instance.OnUseSecondary;
-            @OpenWeaponWheel.started -= instance.OnOpenWeaponWheel;
-            @OpenWeaponWheel.performed -= instance.OnOpenWeaponWheel;
-            @OpenWeaponWheel.canceled -= instance.OnOpenWeaponWheel;
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
@@ -1002,6 +1014,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Quick6.started -= instance.OnQuick6;
             @Quick6.performed -= instance.OnQuick6;
             @Quick6.canceled -= instance.OnQuick6;
+            @OpenWeaponWheel.started -= instance.OnOpenWeaponWheel;
+            @OpenWeaponWheel.performed -= instance.OnOpenWeaponWheel;
+            @OpenWeaponWheel.canceled -= instance.OnOpenWeaponWheel;
+            @GoBackToHouse.started -= instance.OnGoBackToHouse;
+            @GoBackToHouse.performed -= instance.OnGoBackToHouse;
+            @GoBackToHouse.canceled -= instance.OnGoBackToHouse;
         }
 
         public void RemoveCallbacks(IHuntingActions instance)
@@ -1026,7 +1044,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_House_RemoveHoldingFurniture;
     private readonly InputAction m_House_RotateHoldingFurniture;
     private readonly InputAction m_House_PlaceHoldingFurniture;
-    private readonly InputAction m_House_OpenInventory;
     public struct HouseActions
     {
         private @PlayerInput m_Wrapper;
@@ -1034,7 +1051,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @RemoveHoldingFurniture => m_Wrapper.m_House_RemoveHoldingFurniture;
         public InputAction @RotateHoldingFurniture => m_Wrapper.m_House_RotateHoldingFurniture;
         public InputAction @PlaceHoldingFurniture => m_Wrapper.m_House_PlaceHoldingFurniture;
-        public InputAction @OpenInventory => m_Wrapper.m_House_OpenInventory;
         public InputActionMap Get() { return m_Wrapper.m_House; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1053,9 +1069,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @PlaceHoldingFurniture.started += instance.OnPlaceHoldingFurniture;
             @PlaceHoldingFurniture.performed += instance.OnPlaceHoldingFurniture;
             @PlaceHoldingFurniture.canceled += instance.OnPlaceHoldingFurniture;
-            @OpenInventory.started += instance.OnOpenInventory;
-            @OpenInventory.performed += instance.OnOpenInventory;
-            @OpenInventory.canceled += instance.OnOpenInventory;
         }
 
         private void UnregisterCallbacks(IHouseActions instance)
@@ -1069,9 +1082,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @PlaceHoldingFurniture.started -= instance.OnPlaceHoldingFurniture;
             @PlaceHoldingFurniture.performed -= instance.OnPlaceHoldingFurniture;
             @PlaceHoldingFurniture.canceled -= instance.OnPlaceHoldingFurniture;
-            @OpenInventory.started -= instance.OnOpenInventory;
-            @OpenInventory.performed -= instance.OnOpenInventory;
-            @OpenInventory.canceled -= instance.OnOpenInventory;
         }
 
         public void RemoveCallbacks(IHouseActions instance)
@@ -1095,22 +1105,26 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IGeneralActions> m_GeneralActionsCallbackInterfaces = new List<IGeneralActions>();
     private readonly InputAction m_General_Look;
     private readonly InputAction m_General_Movement;
+    private readonly InputAction m_General_Run;
     private readonly InputAction m_General_Crouch;
     private readonly InputAction m_General_Jump;
     private readonly InputAction m_General_Interact;
     private readonly InputAction m_General_Pause;
     private readonly InputAction m_General_OpenDevConsole;
+    private readonly InputAction m_General_OpenInventory;
     public struct GeneralActions
     {
         private @PlayerInput m_Wrapper;
         public GeneralActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Look => m_Wrapper.m_General_Look;
         public InputAction @Movement => m_Wrapper.m_General_Movement;
+        public InputAction @Run => m_Wrapper.m_General_Run;
         public InputAction @Crouch => m_Wrapper.m_General_Crouch;
         public InputAction @Jump => m_Wrapper.m_General_Jump;
         public InputAction @Interact => m_Wrapper.m_General_Interact;
         public InputAction @Pause => m_Wrapper.m_General_Pause;
         public InputAction @OpenDevConsole => m_Wrapper.m_General_OpenDevConsole;
+        public InputAction @OpenInventory => m_Wrapper.m_General_OpenInventory;
         public InputActionMap Get() { return m_Wrapper.m_General; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1126,6 +1140,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @Run.started += instance.OnRun;
+            @Run.performed += instance.OnRun;
+            @Run.canceled += instance.OnRun;
             @Crouch.started += instance.OnCrouch;
             @Crouch.performed += instance.OnCrouch;
             @Crouch.canceled += instance.OnCrouch;
@@ -1141,6 +1158,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @OpenDevConsole.started += instance.OnOpenDevConsole;
             @OpenDevConsole.performed += instance.OnOpenDevConsole;
             @OpenDevConsole.canceled += instance.OnOpenDevConsole;
+            @OpenInventory.started += instance.OnOpenInventory;
+            @OpenInventory.performed += instance.OnOpenInventory;
+            @OpenInventory.canceled += instance.OnOpenInventory;
         }
 
         private void UnregisterCallbacks(IGeneralActions instance)
@@ -1151,6 +1171,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @Run.started -= instance.OnRun;
+            @Run.performed -= instance.OnRun;
+            @Run.canceled -= instance.OnRun;
             @Crouch.started -= instance.OnCrouch;
             @Crouch.performed -= instance.OnCrouch;
             @Crouch.canceled -= instance.OnCrouch;
@@ -1166,6 +1189,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @OpenDevConsole.started -= instance.OnOpenDevConsole;
             @OpenDevConsole.performed -= instance.OnOpenDevConsole;
             @OpenDevConsole.canceled -= instance.OnOpenDevConsole;
+            @OpenInventory.started -= instance.OnOpenInventory;
+            @OpenInventory.performed -= instance.OnOpenInventory;
+            @OpenInventory.canceled -= instance.OnOpenInventory;
         }
 
         public void RemoveCallbacks(IGeneralActions instance)
@@ -1330,110 +1356,101 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     }
     public DevConsoleActions @DevConsole => new DevConsoleActions(this);
 
-    // SprintHold
-    private readonly InputActionMap m_SprintHold;
-    private List<ISprintHoldActions> m_SprintHoldActionsCallbackInterfaces = new List<ISprintHoldActions>();
-    private readonly InputAction m_SprintHold_Run;
-    public struct SprintHoldActions
+    // Inventory
+    private readonly InputActionMap m_Inventory;
+    private List<IInventoryActions> m_InventoryActionsCallbackInterfaces = new List<IInventoryActions>();
+    private readonly InputAction m_Inventory_CloseInventory;
+    public struct InventoryActions
     {
         private @PlayerInput m_Wrapper;
-        public SprintHoldActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Run => m_Wrapper.m_SprintHold_Run;
-        public InputActionMap Get() { return m_Wrapper.m_SprintHold; }
+        public InventoryActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @CloseInventory => m_Wrapper.m_Inventory_CloseInventory;
+        public InputActionMap Get() { return m_Wrapper.m_Inventory; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(SprintHoldActions set) { return set.Get(); }
-        public void AddCallbacks(ISprintHoldActions instance)
+        public static implicit operator InputActionMap(InventoryActions set) { return set.Get(); }
+        public void AddCallbacks(IInventoryActions instance)
         {
-            if (instance == null || m_Wrapper.m_SprintHoldActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_SprintHoldActionsCallbackInterfaces.Add(instance);
-            @Run.started += instance.OnRun;
-            @Run.performed += instance.OnRun;
-            @Run.canceled += instance.OnRun;
+            if (instance == null || m_Wrapper.m_InventoryActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_InventoryActionsCallbackInterfaces.Add(instance);
+            @CloseInventory.started += instance.OnCloseInventory;
+            @CloseInventory.performed += instance.OnCloseInventory;
+            @CloseInventory.canceled += instance.OnCloseInventory;
         }
 
-        private void UnregisterCallbacks(ISprintHoldActions instance)
+        private void UnregisterCallbacks(IInventoryActions instance)
         {
-            @Run.started -= instance.OnRun;
-            @Run.performed -= instance.OnRun;
-            @Run.canceled -= instance.OnRun;
+            @CloseInventory.started -= instance.OnCloseInventory;
+            @CloseInventory.performed -= instance.OnCloseInventory;
+            @CloseInventory.canceled -= instance.OnCloseInventory;
         }
 
-        public void RemoveCallbacks(ISprintHoldActions instance)
+        public void RemoveCallbacks(IInventoryActions instance)
         {
-            if (m_Wrapper.m_SprintHoldActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_InventoryActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(ISprintHoldActions instance)
+        public void SetCallbacks(IInventoryActions instance)
         {
-            foreach (var item in m_Wrapper.m_SprintHoldActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_InventoryActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_SprintHoldActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_InventoryActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public SprintHoldActions @SprintHold => new SprintHoldActions(this);
+    public InventoryActions @Inventory => new InventoryActions(this);
 
-    // SprintToggle
-    private readonly InputActionMap m_SprintToggle;
-    private List<ISprintToggleActions> m_SprintToggleActionsCallbackInterfaces = new List<ISprintToggleActions>();
-    private readonly InputAction m_SprintToggle_Movement;
-    private readonly InputAction m_SprintToggle_Run;
-    public struct SprintToggleActions
+    // Map
+    private readonly InputActionMap m_Map;
+    private List<IMapActions> m_MapActionsCallbackInterfaces = new List<IMapActions>();
+    private readonly InputAction m_Map_CloseMap;
+    public struct MapActions
     {
         private @PlayerInput m_Wrapper;
-        public SprintToggleActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_SprintToggle_Movement;
-        public InputAction @Run => m_Wrapper.m_SprintToggle_Run;
-        public InputActionMap Get() { return m_Wrapper.m_SprintToggle; }
+        public MapActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @CloseMap => m_Wrapper.m_Map_CloseMap;
+        public InputActionMap Get() { return m_Wrapper.m_Map; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(SprintToggleActions set) { return set.Get(); }
-        public void AddCallbacks(ISprintToggleActions instance)
+        public static implicit operator InputActionMap(MapActions set) { return set.Get(); }
+        public void AddCallbacks(IMapActions instance)
         {
-            if (instance == null || m_Wrapper.m_SprintToggleActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_SprintToggleActionsCallbackInterfaces.Add(instance);
-            @Movement.started += instance.OnMovement;
-            @Movement.performed += instance.OnMovement;
-            @Movement.canceled += instance.OnMovement;
-            @Run.started += instance.OnRun;
-            @Run.performed += instance.OnRun;
-            @Run.canceled += instance.OnRun;
+            if (instance == null || m_Wrapper.m_MapActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MapActionsCallbackInterfaces.Add(instance);
+            @CloseMap.started += instance.OnCloseMap;
+            @CloseMap.performed += instance.OnCloseMap;
+            @CloseMap.canceled += instance.OnCloseMap;
         }
 
-        private void UnregisterCallbacks(ISprintToggleActions instance)
+        private void UnregisterCallbacks(IMapActions instance)
         {
-            @Movement.started -= instance.OnMovement;
-            @Movement.performed -= instance.OnMovement;
-            @Movement.canceled -= instance.OnMovement;
-            @Run.started -= instance.OnRun;
-            @Run.performed -= instance.OnRun;
-            @Run.canceled -= instance.OnRun;
+            @CloseMap.started -= instance.OnCloseMap;
+            @CloseMap.performed -= instance.OnCloseMap;
+            @CloseMap.canceled -= instance.OnCloseMap;
         }
 
-        public void RemoveCallbacks(ISprintToggleActions instance)
+        public void RemoveCallbacks(IMapActions instance)
         {
-            if (m_Wrapper.m_SprintToggleActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_MapActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(ISprintToggleActions instance)
+        public void SetCallbacks(IMapActions instance)
         {
-            foreach (var item in m_Wrapper.m_SprintToggleActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_MapActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_SprintToggleActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_MapActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public SprintToggleActions @SprintToggle => new SprintToggleActions(this);
+    public MapActions @Map => new MapActions(this);
     public interface IHuntingActions
     {
         void OnUsePrimary(InputAction.CallbackContext context);
         void OnUseSecondary(InputAction.CallbackContext context);
-        void OnOpenWeaponWheel(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnOpenInventory(InputAction.CallbackContext context);
         void OnQuick1(InputAction.CallbackContext context);
@@ -1442,23 +1459,26 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnQuick4(InputAction.CallbackContext context);
         void OnQuick5(InputAction.CallbackContext context);
         void OnQuick6(InputAction.CallbackContext context);
+        void OnOpenWeaponWheel(InputAction.CallbackContext context);
+        void OnGoBackToHouse(InputAction.CallbackContext context);
     }
     public interface IHouseActions
     {
         void OnRemoveHoldingFurniture(InputAction.CallbackContext context);
         void OnRotateHoldingFurniture(InputAction.CallbackContext context);
         void OnPlaceHoldingFurniture(InputAction.CallbackContext context);
-        void OnOpenInventory(InputAction.CallbackContext context);
     }
     public interface IGeneralActions
     {
         void OnLook(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnOpenDevConsole(InputAction.CallbackContext context);
+        void OnOpenInventory(InputAction.CallbackContext context);
     }
     public interface IShopActions
     {
@@ -1473,13 +1493,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnCloseDevConsole(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
     }
-    public interface ISprintHoldActions
+    public interface IInventoryActions
     {
-        void OnRun(InputAction.CallbackContext context);
+        void OnCloseInventory(InputAction.CallbackContext context);
     }
-    public interface ISprintToggleActions
+    public interface IMapActions
     {
-        void OnMovement(InputAction.CallbackContext context);
-        void OnRun(InputAction.CallbackContext context);
+        void OnCloseMap(InputAction.CallbackContext context);
     }
 }

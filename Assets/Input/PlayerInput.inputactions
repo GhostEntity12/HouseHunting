@@ -24,15 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "OpenWeaponWheel",
-                    "type": "Button",
-                    "id": "518864de-6e45-4afa-8848-7b6971231d07",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Reload",
                     "type": "Button",
                     "id": "7ce7cde9-a82b-4af7-806c-2da234659dd4",
@@ -103,6 +94,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OpenWeaponWheel",
+                    "type": "Button",
+                    "id": "919b20ae-5763-4bc7-948a-fef68e88cd7c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GoBackToHouse",
+                    "type": "Button",
+                    "id": "395b010d-e3ea-486f-8637-d7ebe485bf46",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -114,17 +123,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "UsePrimary",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5b0e2deb-29db-453c-a3cf-74d911edb3f4",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "OpenWeaponWheel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -226,6 +224,39 @@
                     "action": "UseSecondary",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e7bafdd7-d91b-448e-a209-ad69c4c5f15c",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReturnToHome",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "21da146b-f6a7-4a6e-9eac-6e10a3f027b0",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenWeaponWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f6e88a6b-0f1f-47af-ac58-1f4da88a61c0",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GoBackToHouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -255,15 +286,6 @@
                     "name": "PlaceHoldingFurniture",
                     "type": "Button",
                     "id": "fd1574a3-773f-413f-a57c-6f4a84434b6e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "OpenInventory",
-                    "type": "Button",
-                    "id": "b2d5ae4d-16a6-4fe4-a692-adc4a0c7a53b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -362,6 +384,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "d2fc7323-b774-4ae3-8262-f33d32a8313b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Crouch",
                     "type": "Button",
                     "id": "c7fe8c77-0d63-4112-83b4-6617b82d6d4d",
@@ -401,6 +432,15 @@
                     "name": "OpenDevConsole",
                     "type": "Button",
                     "id": "bdbddca0-1f3d-4805-9d52-ce0b5878f744",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenInventory",
+                    "type": "Button",
+                    "id": "f821b925-9a00-4603-8bb5-989a5b89ab64",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -498,6 +538,17 @@
                 },
                 {
                     "name": "",
+                    "id": "b46e4c52-6ea1-4567-8193-087bb7a99931",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "1e12c38c-4909-488c-a7bf-d1bac427b34a",
                     "path": "<Keyboard>/ctrl",
                     "interactions": "",
@@ -526,6 +577,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "OpenDevConsole",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "61eeae70-97a0-4523-b18a-890e84cb9f0d",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -559,12 +621,12 @@
                 },
                 {
                     "name": "",
-                    "id": "f6536dbd-3e34-4b07-8217-ba1a8716bf60",
-                    "path": "<Keyboard>/escape",
+                    "id": "1b58cc4d-d3ff-4e5f-b7fa-704cdbf4ff59",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "CloseShop",
+                    "action": "OpenInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -647,13 +709,13 @@
             ]
         },
         {
-            "name": "SprintHold",
-            "id": "0c39118d-f3f8-4e42-8918-4635b960bf71",
+            "name": "Inventory",
+            "id": "4888e5af-9b84-4b0d-9c67-6f7bbc451e76",
             "actions": [
                 {
-                    "name": "Run",
+                    "name": "CloseInventory",
                     "type": "Button",
-                    "id": "f968f7ff-cc62-4e48-b257-72d32ea83397",
+                    "id": "3e4fe52f-712b-48a0-a56b-6dc307440499",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -663,34 +725,36 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "004a9b40-927f-41cb-a4f2-badda0df4697",
-                    "path": "<Keyboard>/shift",
+                    "id": "2abbe691-4ec8-4df3-92ee-b903d63ae9f1",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Run",
+                    "action": "CloseInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "044c9025-bd35-4206-bc1f-9fb0a4ab50ea",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "SprintToggle",
-            "id": "6dcd7e9e-fd6a-4722-9122-a8f62b8085ab",
+            "name": "Map",
+            "id": "f4535245-2ef7-4265-a5d6-b35fb60e531f",
             "actions": [
                 {
-                    "name": "Movement",
-                    "type": "Value",
-                    "id": "63c74a31-8725-4dba-ae80-093e4a54235f",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Run",
+                    "name": "CloseMap",
                     "type": "Button",
-                    "id": "90632846-37ef-4cd5-b40f-ef91c82f1bf7",
+                    "id": "d45b92b8-6cd8-40c8-a665-31e06a287b2a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -700,69 +764,14 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "69e820e6-9752-4c2e-ad23-65162e0ba152",
-                    "path": "<Keyboard>/shift",
+                    "id": "8b453d67-1d49-46b6-9cfa-2b80a85b88d6",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Run",
+                    "action": "CloseMap",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "WASD",
-                    "id": "d7d3946b-755b-46f9-9277-da69328a016b",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "bec9026a-8ba4-4ead-b937-29daaeca5627",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "c170bc8f-b22f-434a-96c9-2fa19b882792",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "1ed91812-47d3-48b3-a9cb-c4fabca42ba9",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "23d881c9-cb80-4e87-8fbc-6e2ddfde6d3e",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 }
             ]
         }
