@@ -35,6 +35,8 @@ public class GeneralInputManager : Singleton<GeneralInputManager>
 
 		SetSprintModeControls();
 
+        playerInput.General.Jump.performed += ctx => player.Jump();
+
         playerInput.General.Interact.performed += ctx => player.Interact();
 
         playerInput.General.Pause.performed += ctx => PauseMenu.Instance.SetGamePause(true);

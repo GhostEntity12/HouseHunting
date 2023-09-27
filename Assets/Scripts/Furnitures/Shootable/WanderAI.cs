@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,10 +20,13 @@ public class WanderAI : MonoBehaviour
 	private Player player;
 	private float alertness = 0;
 	private AIBehaviour activeBehaviour;
-	private float painTimer = 0f;
-	private bool hurt = false;
+	private Transform lure;
+    private float painTimer = 0f;
+    private bool hurt = false;
 
-	public float Alertness
+	public Transform Lure { set { lure = value; } }
+
+    public float Alertness
 	{
 		get => alertness;
 		private set => alertness = Mathf.Clamp(value, 0, 100);
@@ -67,7 +71,7 @@ public class WanderAI : MonoBehaviour
 		UpdateSightAlertness(canSeePlayer);
 
 		// Bundle information to pass to behaviours
-		Knowledge k = new(transform, player.transform.position, info, agent, sound, canSeePlayer);
+		Knowledge k = new(transform, player.transform.position, lure == null ? Vector3.zero : lure.position, info, agent, sound, canSeePlayer);
 
 		CheckTransitions(k,UpdatePain());
 
