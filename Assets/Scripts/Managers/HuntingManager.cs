@@ -10,13 +10,15 @@ public class HuntingManager : Singleton<HuntingManager>
 	[SerializeField] private Image hurtOverlay;
 
 	[SerializeField] private HealthUI healthUI;
+	[SerializeField] private Lure lurePrefab;
 
 	private float currentHealth;
 
 	public FurnitureInventory HuntingInventory { get; private set; }
-	public int MaxHealth => maxHealth;
-
-	protected override void Awake()
+	public int MaxHealth => maxHealth; 
+	public Lure LurePrefab => lurePrefab; 
+	
+	protected override void Awake() 
 	{
 		base.Awake();
 

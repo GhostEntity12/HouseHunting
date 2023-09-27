@@ -143,6 +143,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ADS"",
+                    ""type"": ""Button"",
+                    ""id"": ""0960c267-951d-4bb6-aef1-1cdd68baf605"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -297,6 +306,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Lure"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""60104f68-d2ec-4f8c-af7a-3dca8442c7c3"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ADS"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -932,8 +952,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Hunting_Quick4 = m_Hunting.FindAction("Quick4", throwIfNotFound: true);
         m_Hunting_Quick5 = m_Hunting.FindAction("Quick5", throwIfNotFound: true);
         m_Hunting_Quick6 = m_Hunting.FindAction("Quick6", throwIfNotFound: true);
-        m_Hunting_ADS = m_Hunting.FindAction("ADS", throwIfNotFound: true);
+        m_Hunting_OpenWeaponWheel = m_Hunting.FindAction("OpenWeaponWheel", throwIfNotFound: true);
+        m_Hunting_GoBackToHouse = m_Hunting.FindAction("GoBackToHouse", throwIfNotFound: true);
         m_Hunting_Lure = m_Hunting.FindAction("Lure", throwIfNotFound: true);
+        m_Hunting_ADS = m_Hunting.FindAction("ADS", throwIfNotFound: true);
         // House
         m_House = asset.FindActionMap("House", throwIfNotFound: true);
         m_House_RemoveHoldingFurniture = m_House.FindAction("RemoveHoldingFurniture", throwIfNotFound: true);
@@ -1043,8 +1065,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_Quick4;
     private readonly InputAction m_Hunting_Quick5;
     private readonly InputAction m_Hunting_Quick6;
-    private readonly InputAction m_Hunting_ADS;
+    private readonly InputAction m_Hunting_OpenWeaponWheel;
+    private readonly InputAction m_Hunting_GoBackToHouse;
     private readonly InputAction m_Hunting_Lure;
+    private readonly InputAction m_Hunting_ADS;
     public struct HuntingActions
     {
         private @PlayerInput m_Wrapper;
@@ -1059,8 +1083,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Quick4 => m_Wrapper.m_Hunting_Quick4;
         public InputAction @Quick5 => m_Wrapper.m_Hunting_Quick5;
         public InputAction @Quick6 => m_Wrapper.m_Hunting_Quick6;
-        public InputAction @ADS => m_Wrapper.m_Hunting_ADS;
+        public InputAction @OpenWeaponWheel => m_Wrapper.m_Hunting_OpenWeaponWheel;
+        public InputAction @GoBackToHouse => m_Wrapper.m_Hunting_GoBackToHouse;
         public InputAction @Lure => m_Wrapper.m_Hunting_Lure;
+        public InputAction @ADS => m_Wrapper.m_Hunting_ADS;
         public InputActionMap Get() { return m_Wrapper.m_Hunting; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1100,12 +1126,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Quick6.started += instance.OnQuick6;
             @Quick6.performed += instance.OnQuick6;
             @Quick6.canceled += instance.OnQuick6;
-            @ADS.started += instance.OnADS;
-            @ADS.performed += instance.OnADS;
-            @ADS.canceled += instance.OnADS;
+            @OpenWeaponWheel.started += instance.OnOpenWeaponWheel;
+            @OpenWeaponWheel.performed += instance.OnOpenWeaponWheel;
+            @OpenWeaponWheel.canceled += instance.OnOpenWeaponWheel;
+            @GoBackToHouse.started += instance.OnGoBackToHouse;
+            @GoBackToHouse.performed += instance.OnGoBackToHouse;
+            @GoBackToHouse.canceled += instance.OnGoBackToHouse;
             @Lure.started += instance.OnLure;
             @Lure.performed += instance.OnLure;
             @Lure.canceled += instance.OnLure;
+            @ADS.started += instance.OnADS;
+            @ADS.performed += instance.OnADS;
+            @ADS.canceled += instance.OnADS;
         }
 
         private void UnregisterCallbacks(IHuntingActions instance)
@@ -1140,12 +1172,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Quick6.started -= instance.OnQuick6;
             @Quick6.performed -= instance.OnQuick6;
             @Quick6.canceled -= instance.OnQuick6;
-            @ADS.started -= instance.OnADS;
-            @ADS.performed -= instance.OnADS;
-            @ADS.canceled -= instance.OnADS;
+            @OpenWeaponWheel.started -= instance.OnOpenWeaponWheel;
+            @OpenWeaponWheel.performed -= instance.OnOpenWeaponWheel;
+            @OpenWeaponWheel.canceled -= instance.OnOpenWeaponWheel;
+            @GoBackToHouse.started -= instance.OnGoBackToHouse;
+            @GoBackToHouse.performed -= instance.OnGoBackToHouse;
+            @GoBackToHouse.canceled -= instance.OnGoBackToHouse;
             @Lure.started -= instance.OnLure;
             @Lure.performed -= instance.OnLure;
             @Lure.canceled -= instance.OnLure;
+            @ADS.started -= instance.OnADS;
+            @ADS.performed -= instance.OnADS;
+            @ADS.canceled -= instance.OnADS;
         }
 
         public void RemoveCallbacks(IHuntingActions instance)
@@ -1677,8 +1715,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnQuick4(InputAction.CallbackContext context);
         void OnQuick5(InputAction.CallbackContext context);
         void OnQuick6(InputAction.CallbackContext context);
-        void OnADS(InputAction.CallbackContext context);
+        void OnOpenWeaponWheel(InputAction.CallbackContext context);
+        void OnGoBackToHouse(InputAction.CallbackContext context);
         void OnLure(InputAction.CallbackContext context);
+        void OnADS(InputAction.CallbackContext context);
     }
     public interface IHouseActions
     {

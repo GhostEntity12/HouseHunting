@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
 	[Header("Interact")]
 	[SerializeField] private float interactRange = 3f;
 
+	[Header("Lure")]
+	[SerializeField] private Lure lurePrefab;
+
 	// movement
 	private float speedMultiplyer = 1f;
 	private float playerVerticalVelocity;
@@ -80,11 +83,12 @@ public class Player : MonoBehaviour
 
 		if (moveDirection.magnitude > 0)
             SoundAlerter.MakeSound(moveState[^1] switch
-			{
-				MoveState.Crouch => moveSoundCrouch,
-				MoveState.Walk => moveSoundWalk,
-				MoveState.Sprint => moveSoundSprint,
-			}, transform.position);
+            {
+                MoveState.Crouch => moveSoundCrouch,
+                MoveState.Walk => moveSoundWalk,
+                MoveState.Sprint => moveSoundSprint,
+                _ => throw new System.Exception("Invalid move state at Player script's move function"),
+            }, transform.position);
 	}
 
 	public void Jump()

@@ -1,26 +1,20 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class HuntingInputManager : Singleton<HuntingInputManager>
 {
-	[SerializeField] WeaponWheel weaponWheelController;
+	[SerializeField] private WeaponWheel weaponWheelController;
 
 	private PlayerInput playerInput;
 
 	public PlayerInput PlayerInput => playerInput;
-
-	public Transform cam;
-	public GameObject objectToThrow;
-	private bool lureReload;
-	public float throwForce;
-	public float throwUpwardForce;
 
 	protected override void Awake()
 	{
 		base.Awake();
 
 		playerInput = GeneralInputManager.Instance.PlayerInput;
-		lureReload = true;
 
 		// weapon wheel
 		playerInput.Hunting.OpenWeaponWheel.started += ctx => OpenWeaponWheel();
@@ -45,22 +39,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput.Hunting.ADS.performed += ctx => EquipmentManager.Instance.EquippedItem.UseSecondary();
 
 		// Lure
-		playerInput.Hunting.Lure.performed += ctx => Lure();
-	}
-
-
-	private void Lure()
-	{
-		if (lureReload == true)
-		{
-			GameObject projectile = Instantiate(objectToThrow, cam.position, cam.rotation);
-			Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
-			Vector3 forceToAdd = cam.transform.forward * throwForce + transform.up * throwUpwardForce;
-
-			projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
-			lureReload = false;
-			StartCoroutine("LureTimer");
-		}
+		playerInput.Hunting.Lure.performed += ctx => ThrowLure();
 	}
 
 	private void OnEnable()
@@ -92,11 +71,13 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		return weaponWheelController.GetOpen();
 	}
 
-	private IEnumerator LureTimer()
-    {
-        yield return new WaitForSeconds(8);
-		lureReload = true;
-    }
+	public void ThrowLure()
+	{
+		if (Lure.lureNotOnCooldown)
+		{
+			GameObject lure = Instantiate(HuntingManager.Instance.LurePrefab.gameObject, Camera.main.transform.position, Camera.main.transform.rotation);
+		}
+	}
 
 	/// <summary>
 	/// Enables firing of the gun. Not done in awake to allow for setup (campfires) without firing weapon.

@@ -20,10 +20,13 @@ public class WanderAI : MonoBehaviour
 	private Player player;
 	private float alertness = 0;
 	private AIBehaviour activeBehaviour;
-	private GameObject lure;
-	private Vector3 lurePos;
+	private Transform lure;
+    private float painTimer = 0f;
+    private bool hurt = false;
 
-	public float Alertness
+	public Transform Lure { set { lure = value; } }
+
+    public float Alertness
 	{
 		get => alertness;
 		private set => alertness = Mathf.Clamp(value, 0, 100);
@@ -44,19 +47,10 @@ public class WanderAI : MonoBehaviour
 
 		// Populate the speed from the stats
 		agent.speed = info.speed;
-
-		lurePos = Vector3.zero;
 	}
 
 	private void Update()
 	{
-		lure = GameObject.FindWithTag("Lure");
-		if (lure != null)
-		{
-			lurePos = lure.transform.position;
-			StartCoroutine(ResetLure());
-		}
-
 		if (shootable.IsDead)
 		{
 			agent.isStopped = true;
@@ -77,7 +71,7 @@ public class WanderAI : MonoBehaviour
 		UpdateSightAlertness(canSeePlayer);
 
 		// Bundle information to pass to behaviours
-		Knowledge k = new(transform, player.position, lurePos, info, agent, sound, canSeePlayer);
+		Knowledge k = new(transform, player.transform.position, lure == null ? Vector3.zero : lure.position, info, agent, sound, canSeePlayer);
 
 		CheckTransitions(k,UpdatePain());
 
@@ -310,11 +304,4 @@ public class WanderAI : MonoBehaviour
 	/// </summary>
 	/// <param name="sound"></param>
 	public void EnqueueSound(SoundAlert sound) => sounds.Enqueue(sound);
-
-	IEnumerator ResetLure()
-    {
-        yield return new WaitForSeconds(8);
-		lure = null;
-		lurePos = Vector3.zero;
-    }
 }
