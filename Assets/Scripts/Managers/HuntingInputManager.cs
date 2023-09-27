@@ -10,7 +10,6 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	public PlayerInput PlayerInput => playerInput;
 
 	public Transform cam;
-	public Transform attackPoint;
 	public GameObject objectToThrow;
 	private bool lureReload;
 	public float throwForce;
@@ -57,7 +56,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	{
 		if (lureReload == true)
 		{
-			GameObject projectile = Instantiate(objectToThrow, attackPoint.position, cam.rotation);
+			GameObject projectile = Instantiate(objectToThrow, cam.position, cam.rotation);
 			Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
 			Vector3 forceToAdd = cam.transform.forward * throwForce + transform.up * throwUpwardForce;
 
