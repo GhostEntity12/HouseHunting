@@ -75,7 +75,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	{
 		if (Lure.lureNotOnCooldown)
 		{
-			GameObject lure = Instantiate(HuntingManager.Instance.LurePrefab.gameObject, Camera.main.transform.position, Camera.main.transform.rotation);
+			Instantiate(HuntingManager.Instance.LurePrefab.gameObject, Camera.main.transform.position, Camera.main.transform.rotation);
 		}
 	}
 
