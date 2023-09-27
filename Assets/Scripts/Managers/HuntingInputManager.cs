@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class HuntingInputManager : Singleton<HuntingInputManager>
 {
@@ -8,11 +9,18 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 	public PlayerInput PlayerInput => playerInput;
 
+	public Transform cam;
+	public GameObject objectToThrow;
+	private bool lureReload;
+	public float throwForce;
+	public float throwUpwardForce;
+
 	protected override void Awake()
 	{
 		base.Awake();
 
 		playerInput = GeneralInputManager.Instance.PlayerInput;
+		lureReload = true;
 
 		// weapon wheel
 		playerInput.Hunting.OpenWeaponWheel.started += ctx => OpenWeaponWheel();
@@ -34,9 +42,25 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput.Hunting.Quick6.performed += ctx => EquipmentManager.Instance.SelectItem(5);
 
 		// ADS
-		playerInput.Hunting.UseSecondary.performed += ctx => EquipmentManager.Instance.EquippedItem.UseSecondary();
+		playerInput.Hunting.ADS.performed += ctx => EquipmentManager.Instance.EquippedItem.UseSecondary();
 
-		playerInput.Hunting.GoBackToHouse.performed += ctx => HuntingManager.Instance.RespawnInHouse();
+		// Lure
+		playerInput.Hunting.Lure.performed += ctx => Lure();
+	}
+
+
+	private void Lure()
+	{
+		if (lureReload == true)
+		{
+			GameObject projectile = Instantiate(objectToThrow, cam.position, cam.rotation);
+			Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+			Vector3 forceToAdd = cam.transform.forward * throwForce + transform.up * throwUpwardForce;
+
+			projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
+			lureReload = false;
+			StartCoroutine("LureTimer");
+		}
 	}
 
 	private void OnEnable()
@@ -67,6 +91,12 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	{
 		return weaponWheelController.GetOpen();
 	}
+
+	private IEnumerator LureTimer()
+    {
+        yield return new WaitForSeconds(8);
+		lureReload = true;
+    }
 
 	/// <summary>
 	/// Enables firing of the gun. Not done in awake to allow for setup (campfires) without firing weapon.

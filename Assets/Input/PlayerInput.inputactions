@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Lure",
+                    "type": "Button",
+                    "id": "5a343cb8-494f-42f0-962c-de90d14a6fd4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -255,6 +264,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "GoBackToHouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8adfc544-9208-4f4a-bc8c-b8f2d30e8a48",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lure",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
