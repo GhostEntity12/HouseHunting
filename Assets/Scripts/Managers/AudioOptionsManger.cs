@@ -9,62 +9,44 @@ using System;
 public class AudioOptionsManager : MonoBehaviour
 {
     [SerializeField] private AudioMixer myMixer;
-    [SerializeField] private TextMeshProUGUI musicVolumeText;
-    [SerializeField] private TextMeshProUGUI effectsVolumeText;
-    [SerializeField] private TextMeshProUGUI masterVolumeText;
-    [SerializeField] private Slider effectsVolumeSlider;
-    [SerializeField] private Slider musicVolumeSlider;
-    [SerializeField] private Slider masterVolumeSlider;
+    [SerializeField] private SliderContainer effectsVolumeSlider;
+    [SerializeField] private SliderContainer musicVolumeSlider;
+    [SerializeField] private SliderContainer masterVolumeSlider;
 
-    public static float musicVolume { get; private set;}
-    public static float sfxVolume { get; private set;}
+    public static float MusicVolume { get; private set;}
+    public static float SfxVolume { get; private set;}
     
     private void Start() {
-        if (PlayerPrefs.HasKey("MasterVolume") == true || PlayerPrefs.HasKey("MusicVolume") == true || PlayerPrefs.HasKey("SFXVolume") == true )
+        if (PlayerPrefs.HasKey("MasterVolume") || PlayerPrefs.HasKey("MusicVolume") || PlayerPrefs.HasKey("SFXVolume"))
         {
-            LoadVolume();
+            LoadVolume(masterVolumeSlider);
+            LoadVolume(effectsVolumeSlider);
+            LoadVolume(musicVolumeSlider);
         }
         else
         {
-            SetMasterVolume();
-            SetMusicVolume();
-            SetEffectVolume();
-        }
+			SetVolume(masterVolumeSlider);
+			SetVolume(effectsVolumeSlider);
+			SetVolume(musicVolumeSlider);
+		}
     }
 
-    public void SetMasterVolume()
+    public void SetVolume(SliderContainer sliderContainer) => SetVolume(sliderContainer, sliderContainer.Slider.value);
+
+    public void SetVolume(SliderContainer sliderContainer, float volume)
     {
-        float volume = masterVolumeSlider.value;
-        myMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
-        masterVolumeText.text = ((int)(volume * 100)).ToString();
-        PlayerPrefs.SetFloat("MasterVolume", volume);
-    }
-    public void SetMusicVolume()
-    {
-        float volume = musicVolumeSlider.value;
-        myMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
-        musicVolumeText.text = ((int)(volume * 100)).ToString();
-        PlayerPrefs.SetFloat("MusicVolume", volume);
+        sliderContainer.Slider.value = volume;
+        float scaledVolume = Mathf.Clamp(volume / 100f, 0.001f, 1);
+        myMixer.SetFloat(sliderContainer.Key, Mathf.Log10(scaledVolume) * 20);
+        sliderContainer.SliderValueText.text = sliderContainer.Slider.value.ToString();
+        PlayerPrefs.SetFloat(sliderContainer.Key, sliderContainer.Slider.value);
     }
 
-    public void SetEffectVolume()
+    private void LoadVolume(SliderContainer sliderContainer)
     {
-        float volume = effectsVolumeSlider.value;
-        myMixer.SetFloat("SFXVolume", (float)Mathf.Log10(volume) * 20);
-
-        effectsVolumeText.text = Math.Round(volume * 100, 0).ToString();
-
-        PlayerPrefs.SetFloat("SFXVolume", volume);
-    }
-
-    private void LoadVolume()
-    {
-        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
-        musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
-        effectsVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
-
-        SetMasterVolume();
-        SetMusicVolume();
-        SetEffectVolume();
+        Debug.Log(sliderContainer);
+        Debug.Log(sliderContainer.Key);
+        Debug.Log(PlayerPrefs.GetFloat(sliderContainer.Key));
+        SetVolume(sliderContainer, PlayerPrefs.GetFloat(sliderContainer.Key, 1f));
     }
 }
