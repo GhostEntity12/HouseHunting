@@ -36080,6 +36080,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2104275911902857365, guid: 07442bb6e932c004092e81447a1fc715, type: 3}
   m_PrefabInstance: {fileID: 1296637173}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1302321177 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 306865349511134645, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
+  m_PrefabInstance: {fileID: 1344009821}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1308921046 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3691876648615818003, guid: 21a364ddeffc797439f2a5721660b0e6, type: 3}
@@ -37045,6 +37050,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 942944589, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 1302321177}
+    - target: {fileID: 942944589, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
+      propertyPath: throwForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 942944589, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
+      propertyPath: throwUpwardForce
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 942944589, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
       propertyPath: weaponWheelController
       value: 
@@ -57791,6 +57808,7 @@ MonoBehaviour:
   gameOverUI: {fileID: 1310588880}
   hurtOverlay: {fileID: 1418690289}
   healthUI: {fileID: 457018288}
+  lurePrefab: {fileID: 1248066445842482226, guid: 7e88470835e56f649bd141ca4dd9b37a, type: 3}
 --- !u!4 &2067825355
 Transform:
   m_ObjectHideFlags: 0

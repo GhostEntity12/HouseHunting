@@ -511,6 +511,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponWheelController: {fileID: 0}
+  objectToThrow: {fileID: 6514108547567938585, guid: 7e88470835e56f649bd141ca4dd9b37a, type: 3}
+  throwForce: 0
+  throwUpwardForce: 0
 --- !u!114 &5149770682015492609
 MonoBehaviour:
   m_ObjectHideFlags: 0

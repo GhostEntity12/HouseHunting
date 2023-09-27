@@ -1,8 +1,10 @@
 using UnityEngine;
+using System.Collections;
+using Unity.VisualScripting;
 
 public class HuntingInputManager : Singleton<HuntingInputManager>
 {
-	[SerializeField] WeaponWheel weaponWheelController;
+	[SerializeField] private WeaponWheel weaponWheelController;
 
 	private PlayerInput playerInput;
 
@@ -34,9 +36,10 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput.Hunting.Quick6.performed += ctx => EquipmentManager.Instance.SelectItem(5);
 
 		// ADS
-		playerInput.Hunting.UseSecondary.performed += ctx => EquipmentManager.Instance.EquippedItem.UseSecondary();
+		playerInput.Hunting.ADS.performed += ctx => EquipmentManager.Instance.EquippedItem.UseSecondary();
 
-		playerInput.Hunting.GoBackToHouse.performed += ctx => HuntingManager.Instance.RespawnInHouse();
+		// Lure
+		playerInput.Hunting.Lure.performed += ctx => ThrowLure();
 	}
 
 	private void OnEnable()
@@ -66,6 +69,14 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	public bool WeaponWheelIsOpen()
 	{
 		return weaponWheelController.GetOpen();
+	}
+
+	public void ThrowLure()
+	{
+		if (Lure.lureNotOnCooldown)
+		{
+			Instantiate(HuntingManager.Instance.LurePrefab.gameObject, Camera.main.transform.position, Camera.main.transform.rotation);
+		}
 	}
 
 	/// <summary>
