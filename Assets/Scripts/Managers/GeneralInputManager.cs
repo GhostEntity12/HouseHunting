@@ -21,6 +21,8 @@ public class GeneralInputManager : Singleton<GeneralInputManager>
         playerInput.General.Run.performed += ctx => player.SetMoveState(Player.MoveState.Sprint, true);
         playerInput.General.Run.canceled += ctx => player.SetMoveState(Player.MoveState.Sprint, false);
 
+        playerInput.General.Jump.performed += ctx => player.Jump();
+
         playerInput.General.Interact.performed += ctx => player.Interact();
 
         playerInput.General.Pause.performed += ctx => PauseMenu.Instance.SetGamePause(true);

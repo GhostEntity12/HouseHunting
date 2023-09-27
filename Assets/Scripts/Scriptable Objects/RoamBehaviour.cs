@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 [CreateAssetMenu(fileName = "Roam Behaviour", menuName = "Behaviours/Roam")]
 public class RoamBehaviour : AIBehaviour
@@ -40,9 +39,4 @@ public class RoamBehaviour : AIBehaviour
 	{
 		knowledge.Agent.ResetPath();
 	}
-
-	IEnumerator waitForLure()
-    {
-        yield return new WaitForSeconds(3);
-    }
 }

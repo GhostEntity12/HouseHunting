@@ -49,14 +49,13 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput.Hunting.ADS.performed += ctx => EquipmentManager.Instance.EquippedItem.UseSecondary();
 
 		// Lure
-		//playerInput.Hunting.ThrowLure.performed += ctx => Lure();
+		playerInput.Hunting.Lure.performed += ctx => Lure();
 	}
 
-	private void Update()
+
+	private void Lure()
 	{
-		//Lure throwing code
-		//TODO: bugfix on why the new input system doesn't work
-		if (lureReload == true && Input.GetKeyDown(KeyCode.G) )
+		if (lureReload == true)
 		{
 			GameObject projectile = Instantiate(objectToThrow, attackPoint.position, cam.rotation);
 			Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
@@ -65,7 +64,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 			projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
 			lureReload = false;
 			StartCoroutine("LureTimer");
-		}	
+		}
 	}
 
 	private void OnEnable()
