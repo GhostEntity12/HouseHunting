@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 	[SerializeField] private float baseSpeed = 5f;
 	[SerializeField] private float gravity = -9.81f;
 	[SerializeField] private float jumpSpeed = 15f;
+	[SerializeField] private float knockbackDrag = 1f;
 
 	[Header("Look")]
 	[SerializeField] private new Camera camera;
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
 	// movement
 	private float speedMultiplyer = 1f;
 	private float playerVerticalVelocity;
+	private Vector3 knockbackForce = new Vector3(0,0,0);
 	private List<MoveState> moveState = new List<MoveState>();
 
 	// look
@@ -69,6 +71,9 @@ public class Player : MonoBehaviour
 			playerVerticalVelocity = -2f;
 
 		movementVector.y = playerVerticalVelocity * Time.deltaTime;
+
+		movementVector += knockbackForce;
+		knockbackForce = KnockbackDecay();
 
 		controller.Move(movementVector);
 
@@ -137,6 +142,54 @@ public class Player : MonoBehaviour
 		controller.enabled = false;
 		transform.SetPositionAndRotation(warpPoint.position, warpPoint.rotation);
 		controller.enabled = true;
+	}
+
+	public void ApplyKnockback(Vector3 force)
+	{
+		knockbackForce = new Vector3(knockbackForce.x + force.x,0,knockbackForce.z + force.z);
+		playerVerticalVelocity += force.y;
+	}
+	/// <summary>
+	///	Knockback Decay
+	///	<para>This function does two things to directly ease knockbackForce to zero.</para>
+	///	<para>The first thing it does is apply linear interpolation to zero using deltaTime and knockbackDrag</para>
+	///	<para>The second thing it does is either add or subtract deltaTime * knockbackDrag for X and Z axis, until they reach 0.</para>
+	///	<para>The if statements are used to specifically decide whether the velocity of a specific direction needs to be incremented or decremented to eventually reach 0/para>
+	/// </summary>
+	private Vector3 KnockbackDecay()
+	{
+		// Smooth means of slowly reducing the knockbackforce
+		Vector3 decayedKnockback = Vector3.Lerp(knockbackForce, Vector3.zero, Time.deltaTime * knockbackDrag);
+		// Another set of knockback decay that has the most effect when the knockback velocity is low, and sets it to 0 when low enough.
+		// For both axis they're either added or subtracted by deltatime * drag, depending on whether the number is positive or negative.
+		// The main point of these statements is to allow the knockback velocity to slow to a stop and not
+		if (decayedKnockback.x > Time.deltaTime * knockbackDrag)
+		{
+			decayedKnockback.x -= Time.deltaTime * knockbackDrag;
+		}
+		else if (decayedKnockback.x < -Time.deltaTime * knockbackDrag)
+		{
+			decayedKnockback.x += Time.deltaTime * knockbackDrag;
+		}
+		else
+		{
+			decayedKnockback.x = 0f;
+		}
+
+		if (decayedKnockback.z > Time.deltaTime * knockbackDrag)
+		{
+			decayedKnockback.z -= Time.deltaTime * knockbackDrag;
+		}
+		else if (decayedKnockback.z < -Time.deltaTime * knockbackDrag)
+		{
+			decayedKnockback.z += Time.deltaTime * knockbackDrag;
+		}
+		else
+		{
+			decayedKnockback.z = 0f;
+		}
+
+		return new Vector3(decayedKnockback.x, 0f, decayedKnockback.z);
 	}
     #endregion
 

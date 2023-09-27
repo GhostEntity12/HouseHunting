@@ -527,6 +527,7 @@ MonoBehaviour:
   baseSpeed: 5
   gravity: -9.81
   jumpSpeed: 15
+  knockbackDrag: 1
   camera: {fileID: 306865349511134642}
   xSensitivity: 20
   ySensitivity: 20

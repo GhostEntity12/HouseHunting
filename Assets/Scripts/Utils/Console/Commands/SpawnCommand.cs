@@ -45,7 +45,7 @@ public class SpawnCommand : Command
         if (arguments.Length == 0)
             shootable = allFurnitures[0].shootablePrefab;
         else
-            shootable = allFurnitures.Find(f => f.id.ToLower().Replace(" ", "") == arguments[0].ToLower()).shootablePrefab;
+            shootable = allFurnitures.Find(f => f.id.ToLower().Replace(" ", "") == arguments[0].ToLower())?.shootablePrefab;
                     
         if (shootable == null)
         {

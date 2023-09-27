@@ -20,6 +20,9 @@ public class Gun : MonoBehaviour, IEquippable
 	[field: SerializeField] public AmmoPouch AmmoPouch { get; private set; } = new();
 
 	public string AmmoInfo => $"{AmmoPouch.AmmoInGun / GunSO.bulletsPerTap} / {AmmoPouch.AmmoStored / GunSO.bulletsPerTap}";
+    public int NumberOfMagazineLeft => AmmoPouch.AmmoStored / GunSO.bulletsPerTap;
+    public int NumberOfShotsLeft => AmmoPouch.AmmoInGun / GunSO.bulletsPerTap;
+    public int MaxShotPerMagazine => GunSO.magSize / GunSO.bulletsPerTap;
 
 	public string ID => GunSO.id;
 
@@ -98,7 +101,7 @@ public class Gun : MonoBehaviour, IEquippable
 		AmmoPouch.RemoveAmmo(bulletsToFire);
 
 		// Update UI
-		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
+        HuntingUIManager.Instance.AmmoUI.SetBulletsLeft(NumberOfShotsLeft);
 
 		//Muzzle flash
 		Instantiate(muzzleFlashPrefab, muzzlePoint.position, Quaternion.identity);
@@ -126,8 +129,10 @@ public class Gun : MonoBehaviour, IEquippable
 			ToggleADS(false);
 		anim.SetBool("Reload", true);
 		AnimationTrigger("Reload");
-		HuntingUIManager.Instance.ReloadBarAnimation(GunSO.reloadTime);
-		HuntingUIManager.OnReloadFinishEvent += OnReloadFinish;
+        //HuntingUIManager.Instance.ReloadBarAnimation(GunSO.reloadTime);
+        HuntingUIManager.Instance.AmmoUI.isReloading = true;
+        HuntingUIManager.Instance.AmmoUI.reloadTime = GunSO.reloadTime;
+		AmmoUI.OnReloadFinishEvent += OnReloadFinish;
 	}
 
 	public void ToggleADS()
@@ -148,18 +153,18 @@ public class Gun : MonoBehaviour, IEquippable
 		anim.SetBool("Reload", false);
 
 		// Reload the gun
-		HuntingUIManager.OnReloadFinishEvent -= OnReloadFinish;
+		AmmoUI.OnReloadFinishEvent -= OnReloadFinish;
 		// Update UI
-		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
 		SoundAlerter.MakeSound(GunSO.reloadSound, transform.position);
 
+		HuntingUIManager.Instance.AmmoUI.Rerender(this);
 		ReenableGun();
 	}
 
 	public void Equip()
 	{
 		gameObject.SetActive(true);
-		HuntingUIManager.Instance.SetAmmoCounterText(AmmoInfo);
+		HuntingUIManager.Instance.AmmoUI.Rerender(this);
 	}
 
 	public void Unequip()

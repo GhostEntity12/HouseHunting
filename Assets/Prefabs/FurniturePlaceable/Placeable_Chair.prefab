@@ -53,7 +53,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canPlaceOnSurface: 0
-  <Mesh>k__BackingField: {fileID: 8301608726232889003}
+  <MeshRenderer>k__BackingField: {fileID: 8301608726232889003}
+  <MeshFilter>k__BackingField: {fileID: 6111888747365925473}
 --- !u!54 &3045520997839687616
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -142,8 +143,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.11499749, y: 0.34334594, z: 0.040550936}
-  m_Center: {x: -0.21296078, y: 0.16563585, z: -0.27778506}
+  m_Size: {x: 0.11499748, y: 0.50395894, z: 0.040550936}
+  m_Center: {x: -0.21296078, y: 0.24594235, z: -0.27778506}
 --- !u!65 &8484113142299187713
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -287,6 +288,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1519670019520189274}
   m_SourcePrefab: {fileID: 100100000, guid: 9464a6a1b5f93ea41b09b06dd93aa191, type: 3}
+--- !u!33 &6111888747365925473 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: 9464a6a1b5f93ea41b09b06dd93aa191, type: 3}
+  m_PrefabInstance: {fileID: 7274624594907392559}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7169187429700275652 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9464a6a1b5f93ea41b09b06dd93aa191, type: 3}

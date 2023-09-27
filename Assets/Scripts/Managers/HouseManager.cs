@@ -90,7 +90,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		holdingPlaceable.transform.LookAt(ExploreCamera.transform.position);
 		holdingPlaceable.transform.rotation = Quaternion.Euler(0, holdingPlaceable.transform.rotation.eulerAngles.y + holdingPlaceableRotation, 0);
 
-		holdingPlaceable.Mesh.material.color = holdingPlaceable.IsValidPosition ? Color.green : Color.red;
+		holdingPlaceable.MeshRenderer.material.color = holdingPlaceable.IsValidPosition ? Color.green : Color.red;
 	}
 
 	public void UnlockTier(string tier)
@@ -108,10 +108,11 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
         data.placedFurniture = houseItems;
 	}
 
-	public void SelectFurnitureToPlace()
+	public void PlaceSelectedFurnitureFromInventory()
 	{
-		if (ShopUIManager.Instance.SelectedFurniture?.so == null) return;
-		(FurnitureSO so, SaveDataFurniture item) selectedFurniture = ShopUIManager.Instance.SelectedFurniture.Value;
+		if (InventoryUIManager.Instance.SelectedFurniture?.so == null) return;
+		(FurnitureSO so, SaveDataFurniture item) selectedFurniture = InventoryUIManager.Instance.SelectedFurniture.Value;
+		InventoryUIManager.Instance.SelectedFurniture = null;
 		Placeable spawnedPlaceable = Instantiate(selectedFurniture.so.placeablePrefab);
 
 		holdingPlaceable = spawnedPlaceable;
@@ -119,7 +120,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		meshCollider.enabled = false;
 		spawnedPlaceable.InventoryItem = selectedFurniture.item;
 
-		ShopUIManager.Instance.ToggleShop();
+		InventoryUIManager.Instance.ToggleInventory();
 	}
 
 	public void RotateHoldingPlaceable(float angle)
@@ -138,7 +139,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
         MeshRenderer meshRenderer = holdingPlaceable.GetComponentInChildren<MeshRenderer>();
         houseItems.Add(new SaveDataPlacedFurniture(holdingPlaceable.InventoryItem, holdingPlaceable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
 
-		holdingPlaceable.Mesh.material = holdingPlaceable.Material;
+		holdingPlaceable.MeshRenderer.material = holdingPlaceable.Material;
 		holdingPlaceable.ChildMeshCollider.enabled = true;
 		holdingPlaceable = null;
 		holdingPlaceableRotation = 0;

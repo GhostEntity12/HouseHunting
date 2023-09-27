@@ -3,6 +3,7 @@ using UnityEngine;
 public enum AIType { Prey, Projectile, Charge, Grapple, Slam };
 public enum Ability { None, Steal, Alert, Reflect };
 public enum AlertRate { Low, Medium, High, Instant };
+public enum FurnitureType { Living, Dining, Bedroom, Bathroom, Misc };
 
 [CreateAssetMenu(fileName = "Furniture")]
 
@@ -30,7 +31,8 @@ public class FurnitureSO : ScriptableObject
 	[Range(0, 100)]
 	public float alertnessThreshold3 = 100;
 	public AIBehaviour threshold3Behaviour;
-	
+	public AIBehaviour damageBehaviour;
+
 	[Header("Alertness and Senses")]
 	public float timeBeforeDecay = 5;
 	public float alertnessDecayRate = 10;
@@ -39,6 +41,7 @@ public class FurnitureSO : ScriptableObject
 
 	[Header("Other")]
 	public Ability special;
+	public FurnitureType type;
 	public Material[] materials;
 	public int basePrice;
 }
