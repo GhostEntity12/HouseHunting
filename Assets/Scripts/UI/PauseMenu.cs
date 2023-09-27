@@ -1,9 +1,12 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseMenu : Singleton<PauseMenu>
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private GameObject currentView;
+    [SerializeField] private TMP_Dropdown sprintType;
 
     private PlayerInput playerInput;
     private bool isPaused;
@@ -17,7 +20,10 @@ public class PauseMenu : Singleton<PauseMenu>
 
         playerInput.PauseMenu.ResumeGame.performed += ctx => SetGamePause(false);
         canvas.enabled = false;
-    }
+
+		sprintType.value = PlayerPrefs.GetInt("ToggleSprint");
+		GeneralInputManager.Instance.SetSprintModeControls();
+	}
 
     public void ChangeView(GameObject newView)
     {
@@ -54,5 +60,5 @@ public class PauseMenu : Singleton<PauseMenu>
             playerInput.PauseMenu.Disable();
             GameManager.Instance.HideCursor();
         }
-    }    
+    }
 }
