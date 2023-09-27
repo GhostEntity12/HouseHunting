@@ -44,6 +44,9 @@ public class AudioOptionsManager : MonoBehaviour
 
     private void LoadVolume(SliderContainer sliderContainer)
     {
+        Debug.Log(sliderContainer);
+        Debug.Log(sliderContainer.Key);
+        Debug.Log(PlayerPrefs.GetFloat(sliderContainer.Key));
         SetVolume(sliderContainer, PlayerPrefs.GetFloat(sliderContainer.Key, 1f));
     }
 }

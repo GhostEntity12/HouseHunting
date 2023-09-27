@@ -2316,6 +2316,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5184376757824887288, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
+      propertyPath: m_text
+      value: Master Volume
+      objectReference: {fileID: 0}
     - target: {fileID: 7502362509079126235, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2432,6 +2436,10 @@ PrefabInstance:
     - target: {fileID: 2820835222825005601, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184376757824887288, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
+      propertyPath: m_text
+      value: Music Volume
       objectReference: {fileID: 0}
     - target: {fileID: 7502362509079126235, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2938,6 +2946,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5184376757824887288, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
+      propertyPath: m_text
+      value: SFX Volume
+      objectReference: {fileID: 0}
     - target: {fileID: 7502362509079126235, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2975,7 +2987,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6201750898637644499}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
