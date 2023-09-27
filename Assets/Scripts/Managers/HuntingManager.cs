@@ -1,57 +1,33 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 using UnityEngine.UI;
 
 public class HuntingManager : Singleton<HuntingManager>
 {
 	[SerializeField] private int maxHealth;
 	[SerializeField] private GameObject gameOverUI;
-	[SerializeField] private float huntingDurationSeconds;
-	[SerializeField] private TextMeshProUGUI huntingTimerText;
 
 	[SerializeField] private Image hurtOverlay;
 
-	[SerializeField] private Image healthFill;
-	[SerializeField] private TextMeshProUGUI healthText;
+	[SerializeField] private HealthUI healthUI;
 
-	private int currentHealth;
-	private float huntingTimerSeconds;
+	private float currentHealth;
 
 	public FurnitureInventory HuntingInventory { get; private set; }
+	public int MaxHealth => maxHealth;
 
 	protected override void Awake()
 	{
 		base.Awake();
 
 		currentHealth = maxHealth;
-		huntingTimerSeconds = huntingDurationSeconds;
 
 		HuntingInventory = new FurnitureInventory();
 	}
 
 	private void Start()
 	{
-		huntingTimerText.text = FormatTime(huntingDurationSeconds);
 		AudioManager.Instance.Play("Ambience");
-	}
-
-	private void Update()
-	{
-		//health UI
-		healthText.text = currentHealth.ToString();
-		healthFill.fillAmount = (float)currentHealth / (float)maxHealth;
-
-		if (huntingTimerSeconds > 0)
-		{
-			huntingTimerSeconds -= Time.deltaTime;
-			huntingTimerText.text = FormatTime(huntingTimerSeconds);
-		}
-		else
-		{
-			huntingTimerText.text = "00:00";
-			RespawnInHouse();
-		}
 	}
 
 	private void Die()
@@ -73,15 +49,7 @@ public class HuntingManager : Singleton<HuntingManager>
 		GameOver();
 	}
 
-	// converts seconds to a string in the format "mm:ss"
-	private string FormatTime(float seconds)
-	{
-		int minutes = Mathf.FloorToInt(seconds / 60);
-		int remainingSeconds = Mathf.FloorToInt(seconds % 60);
-		return string.Format("{0:00}:{1:00}", minutes, remainingSeconds);
-	}
-
-	public void DealDamageToPlayer(int damage)
+	public void DealDamageToPlayer(float damage)
 	{
 		// Set initial alpha to 0.5
 		hurtOverlay.color = new Color(hurtOverlay.color.r, hurtOverlay.color.g, hurtOverlay.color.b, 0.5f);
@@ -95,7 +63,7 @@ public class HuntingManager : Singleton<HuntingManager>
 		});
 
 		currentHealth -= damage;
-		Debug.Log("Player took " + damage + " damage. Current health: " + currentHealth);
+		healthUI.SetHealth(currentHealth);
 		if (currentHealth <= 0) Die();
 	}
 
