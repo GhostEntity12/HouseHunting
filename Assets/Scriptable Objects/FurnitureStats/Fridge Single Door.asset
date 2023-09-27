@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
+  m_Name: Fridge Single Door
+  m_EditorClassIdentifier: 
+  id: fridgesingledoor
+  name: Fridge Single Door
+  maxHealth: 20
+  speed: 4
+  thumbnail: {fileID: 21300000, guid: 14d7d8dfc85d1914284313dc5bd4f03c, type: 3}
+  placeablePrefab: {fileID: 2350306671234011157, guid: f1f16dd0ff9d3cf46bff60c3546614f7, type: 3}
+  shootablePrefab: {fileID: 274742349716809348, guid: 9ec8576a2a39b3f468e25abc09aef032, type: 3}
+  threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
+  alertnessThreshold1: 33
+  threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
+  alertnessThreshold2: 66
+  threshold2Behaviour: {fileID: 11400000, guid: d1b5f233a60fcac4d8755cfbc52da0af, type: 2}
+  alertnessThreshold3: 100
+  threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
+  timeBeforeDecay: 5
+  alertnessDecayRate: 10
+  sightAlertnessRate: 25
+  senses:
+  - {fileID: 11400000, guid: c343645932c55df428b2bdec5aa7fce5, type: 2}
+  special: 0
+  materials:
+  - {fileID: -3963241562183589234, guid: 17de0526c044c88448911ae74c5d6411, type: 3}
+  basePrice: 0
