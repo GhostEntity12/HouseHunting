@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showHitbox: 1
-  damageModifier: 2
+  damageModifier: 1
 --- !u!65 &6671691250738304244
 BoxCollider:
   m_ObjectHideFlags: 0

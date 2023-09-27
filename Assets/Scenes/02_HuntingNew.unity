@@ -9214,7 +9214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 50593baf3e1e07c4b91602c407d1ed0f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.37
+      value: -0.62
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 50593baf3e1e07c4b91602c407d1ed0f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9222,32 +9222,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 50593baf3e1e07c4b91602c407d1ed0f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.4002387
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 50593baf3e1e07c4b91602c407d1ed0f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.40023872
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 50593baf3e1e07c4b91602c407d1ed0f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5829314
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 50593baf3e1e07c4b91602c407d1ed0f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.5829314
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 50593baf3e1e07c4b91602c407d1ed0f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 21.053
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50593baf3e1e07c4b91602c407d1ed0f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
       value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 50593baf3e1e07c4b91602c407d1ed0f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 50593baf3e1e07c4b91602c407d1ed0f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 50593baf3e1e07c4b91602c407d1ed0f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ec885db3c95ba84ca7186dd19c2587f, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 50593baf3e1e07c4b91602c407d1ed0f, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 90ecdcee1ebe3d04cb12ddd6238c52a7, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 50593baf3e1e07c4b91602c407d1ed0f, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: f8a57329795826f4890657244ab39d70, type: 2}
     - target: {fileID: 919132149155446097, guid: 50593baf3e1e07c4b91602c407d1ed0f, type: 3}
       propertyPath: m_Name
       value: Environment_Cabin_Wood
