@@ -26,12 +26,14 @@ MonoBehaviour:
   threshold2Behaviour: {fileID: 11400000, guid: d1b5f233a60fcac4d8755cfbc52da0af, type: 2}
   alertnessThreshold3: 100
   threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
+  damageBehaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
   timeBeforeDecay: 5
   alertnessDecayRate: 10
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 48c2ac73c0afdfc4f86a44be35c52776, type: 2}
   special: 0
+  type: 0
   materials:
   - {fileID: -3963241562183589234, guid: 57f36821fbacc444a83ba13036d24ba6, type: 3}
   basePrice: 0
