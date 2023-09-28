@@ -19,18 +19,20 @@ MonoBehaviour:
   thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: aee31b76859f2be4491c89342e812d85, type: 3}
   shootablePrefab: {fileID: 274742349716809348, guid: 7932e317c711a6a49b2d641064d3cb3b, type: 3}
-  threshold0Behaviour: {fileID: 0}
+  threshold0Behaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
   alertnessThreshold1: 33
-  threshold1Behaviour: {fileID: 0}
+  threshold1Behaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
   alertnessThreshold2: 66
-  threshold2Behaviour: {fileID: 0}
+  threshold2Behaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
   alertnessThreshold3: 100
-  threshold3Behaviour: {fileID: 0}
+  threshold3Behaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
+  damageBehaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
   timeBeforeDecay: 0
   alertnessDecayRate: 0
   sightAlertnessRate: 0
   senses: []
   special: 0
+  type: 0
   materials:
   - {fileID: -3963241562183589234, guid: 7ae0efd3dc5f4f6498d03a9d4395fe21, type: 3}
   basePrice: 0

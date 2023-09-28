@@ -182,9 +182,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c885e5e7b9ef1b47a46ba79c5ae906b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Key>k__BackingField: 
-  <Slider>k__BackingField: {fileID: 0}
-  <SliderValueText>k__BackingField: {fileID: 0}
+  <Key>k__BackingField: mouseSensitivity
+  <Slider>k__BackingField: {fileID: 4507893390298805931}
+  <SliderValueText>k__BackingField: {fileID: 6739616481524724722}
 --- !u!1 &474807469426466757
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,7 +519,7 @@ RectTransform:
   - {fileID: 6677193877672503246}
   - {fileID: 7112306287369044733}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
