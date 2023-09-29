@@ -3,9 +3,14 @@ guid: 40c8e2e5ca893b342ad1da66184a7fcc
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Blender
+    second: {fileID: 2100000, guid: efcb8bdc54471ad49bd2efd72045c2b0, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

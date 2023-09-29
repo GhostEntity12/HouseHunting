@@ -3,9 +3,14 @@ guid: d6348fe85feb90a4baac728e43233eb7
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Couch_Corner
+    second: {fileID: 2100000, guid: 5df09d250bb6f804daadcba783e4374b, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

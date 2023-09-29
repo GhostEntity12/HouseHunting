@@ -3,9 +3,14 @@ guid: 7fe4b582cbf4a5f488685c61b46bcec4
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_CoffeeMaker
+    second: {fileID: 2100000, guid: 6614e022dac8eef4c97f8b2d3ffaba0b, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
