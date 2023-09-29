@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4408006311470859530
+--- !u!1 &1883660066550859740
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,11 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6130737722407600114}
-  - component: {fileID: 2350306671234011157}
-  - component: {fileID: 8568587000754051143}
-  - component: {fileID: 3513748201916874118}
-  - component: {fileID: 1928146574511252700}
+  - component: {fileID: 942951875658882792}
+  - component: {fileID: 565568011727460166}
+  - component: {fileID: 51473088231591971}
+  - component: {fileID: 263610843230905577}
+  - component: {fileID: 8878821013206798230}
   m_Layer: 6
   m_Name: Placeable_Fridge
   m_TagString: Untagged
@@ -20,43 +20,44 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6130737722407600114
+--- !u!4 &942951875658882792
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408006311470859530}
+  m_GameObject: {fileID: 1883660066550859740}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2600209277316791421}
+  - {fileID: 5545912806308717695}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2350306671234011157
+--- !u!114 &565568011727460166
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408006311470859530}
+  m_GameObject: {fileID: 1883660066550859740}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 304f65a922a1c7e419427ba953ffe214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   canPlaceOnSurface: 0
-  <Mesh>k__BackingField: {fileID: -7511558181221131132, guid: 0077cf35555164b49a751fcbfe247ec2, type: 3}
---- !u!54 &8568587000754051143
+  <MeshRenderer>k__BackingField: {fileID: 0}
+  <MeshFilter>k__BackingField: {fileID: 0}
+--- !u!54 &51473088231591971
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408006311470859530}
+  m_GameObject: {fileID: 1883660066550859740}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -77,13 +78,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &3513748201916874118
+--- !u!65 &263610843230905577
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408006311470859530}
+  m_GameObject: {fileID: 1883660066550859740}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -98,13 +99,13 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.91866505, y: 2.2900865, z: 1.0007237}
   m_Center: {x: 0.040667474, y: 1.1544265, z: 0.0003618598}
---- !u!64 &1928146574511252700
+--- !u!64 &8878821013206798230
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408006311470859530}
+  m_GameObject: {fileID: 1883660066550859740}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -120,17 +121,29 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3082250236548730855, guid: d510b612783b94441b25fb8b3533fcf1, type: 3}
---- !u!1001 &2566899998400256918
+--- !u!1001 &5439700931491873684
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6130737722407600114}
+    m_TransformParent: {fileID: 942951875658882792}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 0077cf35555164b49a751fcbfe247ec2, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0077cf35555164b49a751fcbfe247ec2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0077cf35555164b49a751fcbfe247ec2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0077cf35555164b49a751fcbfe247ec2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0077cf35555164b49a751fcbfe247ec2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -172,6 +185,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0077cf35555164b49a751fcbfe247ec2, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0077cf35555164b49a751fcbfe247ec2, type: 3}
       propertyPath: m_Name
       value: Furniture_Fridge
@@ -182,25 +199,20 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0077cf35555164b49a751fcbfe247ec2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5777921137257818132}
+      addedObject: {fileID: 4767445571341650237}
   m_SourcePrefab: {fileID: 100100000, guid: 0077cf35555164b49a751fcbfe247ec2, type: 3}
---- !u!4 &2600209277316791421 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0077cf35555164b49a751fcbfe247ec2, type: 3}
-  m_PrefabInstance: {fileID: 2566899998400256918}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3413196505158526663 stripped
+--- !u!1 &5169247251635273413 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0077cf35555164b49a751fcbfe247ec2, type: 3}
-  m_PrefabInstance: {fileID: 2566899998400256918}
+  m_PrefabInstance: {fileID: 5439700931491873684}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &5777921137257818132
+--- !u!64 &4767445571341650237
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3413196505158526663}
+  m_GameObject: {fileID: 5169247251635273413}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -216,3 +228,8 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3082250236548730855, guid: 0077cf35555164b49a751fcbfe247ec2, type: 3}
+--- !u!4 &5545912806308717695 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0077cf35555164b49a751fcbfe247ec2, type: 3}
+  m_PrefabInstance: {fileID: 5439700931491873684}
+  m_PrefabAsset: {fileID: 0}
