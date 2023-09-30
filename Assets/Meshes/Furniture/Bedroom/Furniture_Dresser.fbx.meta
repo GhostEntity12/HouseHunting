@@ -3,9 +3,14 @@ guid: 57f36821fbacc444a83ba13036d24ba6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Small_Dresser
+    second: {fileID: 2100000, guid: d9304efeb3c00184ca4e4cdf298e7f99, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

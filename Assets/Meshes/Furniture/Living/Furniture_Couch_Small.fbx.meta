@@ -3,9 +3,14 @@ guid: 7036917a35da47540ac61a22c60a34bd
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Couch_Small
+    second: {fileID: 2100000, guid: 1e139b801279bd74fbba837fd09ca44d, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
