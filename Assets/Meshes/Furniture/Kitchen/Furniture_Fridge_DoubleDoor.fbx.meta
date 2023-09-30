@@ -3,9 +3,14 @@ guid: 2c0f214635240df4c8c72fc783693ffc
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Fridge_DoubleDoor.001
+    second: {fileID: 2100000, guid: b312e0352e87af146844432560986198, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

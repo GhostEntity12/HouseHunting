@@ -3,9 +3,14 @@ guid: df441881ab6e5484dab8faed4589f2b0
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Microwave_Buttons
+    second: {fileID: 2100000, guid: e0308b4740d04f04ca0f53078b96375c, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

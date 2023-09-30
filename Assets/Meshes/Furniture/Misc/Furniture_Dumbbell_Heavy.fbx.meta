@@ -3,9 +3,14 @@ guid: ff738d293233528478447791ba68d085
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Dumbbell_Heavy
+    second: {fileID: 2100000, guid: 213beda1a6ce6664691dc2c18ec4793a, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
