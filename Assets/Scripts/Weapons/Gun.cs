@@ -37,7 +37,7 @@ public class Gun : MonoBehaviour, IEquippable
 		adsPosition = new Vector3(initialPosition.x - 0.45f, initialPosition.y, initialPosition.z);
 	}
 
-	private void ReenableGun() => state = GunState.Ready;
+	protected void ReenableGun() => state = GunState.Ready;
 
 	private void Update()
 	{
@@ -49,7 +49,7 @@ public class Gun : MonoBehaviour, IEquippable
 		Camera.main.fieldOfView = Mathf.Lerp(ads ? 60 : 40, cameraFov, elapsedTime);
 	}
 
-	public void Shoot()
+	public virtual void Shoot()
 	{
 		if (state != GunState.Ready || AmmoPouch.AmmoInGun <= 0) return;
 
