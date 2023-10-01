@@ -1,18 +1,51 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class MainMenuManager : Singleton<MainMenuManager>
 {
     [SerializeField] CanvasGroup settingsGroup;
+    [SerializeField] VideoPlayer animaticPlayer;
+    [SerializeField] RawImage animatic;
+    [SerializeField] TextMeshProUGUI skipText;
+
+    PlayerInput inputs = new PlayerInput();
 	private void Start() 
     {
 		AudioManager.Instance.Play("Ambience02");
+        (animatic.texture as RenderTexture).Release();
     }
 
-    public void NewGame()
+    private void SkipAnimatic(InputAction.CallbackContext ctx)
     {
-        DataPersistenceManager.Instance.NewGame();
-        SceneManager.LoadScene(1);
+        if (skipText.enabled)
+        {
+            inputs.Dispose();
+            OnAnimaticEnd(animaticPlayer);
+        }
+        else
+        {
+            skipText.enabled = true;
+        }
+    }
+
+	private void OnAnimaticEnd(VideoPlayer vp)
+	{
+		animaticPlayer.loopPointReached -= OnAnimaticEnd;
+		DataPersistenceManager.Instance.NewGame();
+		SceneManager.LoadScene(1);
+	}
+
+	public void NewGame()
+    {
+        animaticPlayer.Play();
+        inputs.Animatic.Enable();
+        animatic.raycastTarget = true;
+        inputs.Animatic.Skip.performed += SkipAnimatic;
+        animaticPlayer.loopPointReached += OnAnimaticEnd;
     }
 
     public void Continue()
@@ -20,7 +53,6 @@ public class MainMenuManager : Singleton<MainMenuManager>
         DataPersistenceManager.Instance.LoadGame();
         SceneManager.LoadScene(2);
     }
-
 
     public void SetSettingsVisible(bool visible)
     {

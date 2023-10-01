@@ -121,15 +121,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "ADS",
-                    "type": "Button",
-                    "id": "0960c267-951d-4bb6-aef1-1cdd68baf605",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -284,17 +275,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Lure",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "60104f68-d2ec-4f8c-af7a-3dca8442c7c3",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ADS",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -910,6 +890,34 @@
                     "processors": "",
                     "groups": "",
                     "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Animatic",
+            "id": "dc1bc059-cd15-4026-96f9-5f959c735574",
+            "actions": [
+                {
+                    "name": "Skip",
+                    "type": "Button",
+                    "id": "84e90234-b776-40a7-9881-809f503b1443",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5ede7368-c9b0-4c95-8afd-fc0d0cd68774",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skip",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
