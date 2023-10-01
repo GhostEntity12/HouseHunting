@@ -33,9 +33,8 @@ MonoBehaviour:
   senses:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
   special: 0
+  type: 0
   materials:
-  - {fileID: 2100000, guid: 267df59e799c5e1488d9c6d143d39cd3, type: 2}
-  - {fileID: 2100000, guid: 936649d7c6c09a24393aa524a2f8e495, type: 2}
-  - {fileID: 880774007180850119, guid: 0542432cd9555004ebac9cf90add21c8, type: 3}
-  - {fileID: 2100000, guid: 936649d7c6c09a24393aa524a2f8e495, type: 2}
+  - {fileID: -5283888208800200948, guid: aec1243e7d8baf54e840a2c5116c3293, type: 3}
+  - {fileID: 2100000, guid: e59762c171c5c7d469693524119d7f23, type: 2}
   basePrice: 750
