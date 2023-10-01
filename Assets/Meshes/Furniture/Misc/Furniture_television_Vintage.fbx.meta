@@ -3,9 +3,14 @@ guid: c7e6f8639932fcb41b2219e7b1cf8176
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Tv_Vintage
+    second: {fileID: 2100000, guid: 6adb6ffc46f6d6743a68ce3438b7bd63, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

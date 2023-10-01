@@ -3,9 +3,14 @@ guid: 1e49b884147a5344082ab1ee90eca860
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Armchair_Single
+    second: {fileID: 2100000, guid: 316040a19e0eae64f9792850195c6f0a, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

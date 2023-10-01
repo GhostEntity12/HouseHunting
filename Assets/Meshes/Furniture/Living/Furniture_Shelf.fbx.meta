@@ -3,9 +3,14 @@ guid: 09e87d08a93f10943a795fef0c082bf9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MDF Antiqua - Guaraarapes
+    second: {fileID: 2100000, guid: d79ef863f7fc0d44095118cc4667e66d, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
