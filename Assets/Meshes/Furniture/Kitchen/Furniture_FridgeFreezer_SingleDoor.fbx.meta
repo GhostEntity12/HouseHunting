@@ -3,9 +3,14 @@ guid: 732e45f79dc444c439122f14a9ce6d6f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_FridgeFreezer_SingleDoor
+    second: {fileID: 2100000, guid: ed913478aba5e174797163806e732250, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
