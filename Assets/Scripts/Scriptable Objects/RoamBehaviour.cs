@@ -9,8 +9,8 @@ public class RoamBehaviour : AIBehaviour
 		if (knowledge.LurePosition == Vector3.zero)
 		{
 			// If the agent is close to it's destination, choose a new one
-			if (knowledge.Agent.remainingDistance < 1)
-			{
+			//if (knowledge.Agent.remainingDistance < 1)
+			//{
 				// Get a point in front of the furniture, and a random point
 				// in a circle centered on that point, then navigate to it
 				// This favours the AI moving generally forward
@@ -22,7 +22,7 @@ public class RoamBehaviour : AIBehaviour
 				{
 					knowledge.Agent.SetDestination(destination);
 				}
-			}
+			//}
 		}
 
 		//if lure is active then set destination for lure
