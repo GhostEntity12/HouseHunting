@@ -52,7 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canPlaceOnSurface: 0
-  <Mesh>k__BackingField: {fileID: -7511558181221131132, guid: c0059db36d5ba20478429fcd0e6754e6, type: 3}
+  <MeshRenderer>k__BackingField: {fileID: 312708641932931683}
+  <MeshFilter>k__BackingField: {fileID: 2572120070378194601}
 --- !u!54 &-231657051590127972
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -250,6 +251,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4349288271960150526}
   m_SourcePrefab: {fileID: 100100000, guid: c0059db36d5ba20478429fcd0e6754e6, type: 3}
+--- !u!23 &312708641932931683 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: c0059db36d5ba20478429fcd0e6754e6, type: 3}
+  m_PrefabInstance: {fileID: 1411706391126208231}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1449554377819064588 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c0059db36d5ba20478429fcd0e6754e6, type: 3}
@@ -282,3 +288,8 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4650390976156102637, guid: c0059db36d5ba20478429fcd0e6754e6, type: 3}
+--- !u!33 &2572120070378194601 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: c0059db36d5ba20478429fcd0e6754e6, type: 3}
+  m_PrefabInstance: {fileID: 1411706391126208231}
+  m_PrefabAsset: {fileID: 0}

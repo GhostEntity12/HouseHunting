@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class GameData
 {
     public List<SaveDataFurniture> storedFurniture;
+    public List<SaveDataFurniture> huntingInventoryFurniture;
     public List<SaveDataPlacedFurniture> placedFurniture;
     public List<SaveDataGun> gunSaveData;
     public int currency;
@@ -13,6 +14,7 @@ public class GameData
     {
         storedFurniture = new();
         placedFurniture = new();
+        huntingInventoryFurniture= new();
         gunSaveData = new();
         currency = 0;
     }
