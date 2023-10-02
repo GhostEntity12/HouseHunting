@@ -36,6 +36,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	{
 		playerInput.House.Disable();
 	}
+	private void OnDestroy() => playerInput.Dispose();
 
 	/// <summary>
 	/// Removes the selected placeable from the scene and returns it to the inventory

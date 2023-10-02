@@ -3,9 +3,34 @@ guid: 7fc6e1433dfb4e94ebb532223c518414
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_stove
+    second: {fileID: 2100000, guid: 7064d2bfcf9f2544a93721fa9819f574, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBlanco
+    second: {fileID: 2100000, guid: d2090391bd8c1a140a91d65a5b45da2d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalNegroHornito
+    second: {fileID: 2100000, guid: d2090391bd8c1a140a91d65a5b45da2d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PlasticoGrisClaro
+    second: {fileID: 2100000, guid: d2090391bd8c1a140a91d65a5b45da2d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Realistic Glass PLANE
+    second: {fileID: 2100000, guid: 90ecdcee1ebe3d04cb12ddd6238c52a7, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

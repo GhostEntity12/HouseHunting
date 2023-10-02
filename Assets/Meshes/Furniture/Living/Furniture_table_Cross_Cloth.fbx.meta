@@ -3,9 +3,14 @@ guid: 22694a58f82aa7141a55f136dec7ad44
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_PicnicTable
+    second: {fileID: 2100000, guid: 4db34db7014330545942214e94b248c0, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

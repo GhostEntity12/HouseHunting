@@ -3,9 +3,14 @@ guid: 5dc46d215fc9b55429e324675df9956f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Dryer
+    second: {fileID: 2100000, guid: 72db2de3d70f40742a7f75fe84174249, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

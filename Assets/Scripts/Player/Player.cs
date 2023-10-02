@@ -15,8 +15,7 @@ public class Player : MonoBehaviour
 
 	[Header("Look")]
 	[SerializeField] private new Camera camera;
-	[SerializeField] private float xSensitivity = 20f;
-	[SerializeField] private float ySensitivity = 20f;
+	[SerializeField] private float sensitivity = 10f;
 
 	[Header("Interact")]
 	[SerializeField] private float interactRange = 3f;
@@ -201,18 +200,18 @@ public class Player : MonoBehaviour
     #region Look
     public void Look(Vector2 input)
     {
-        xRotation -= (input.y * Time.deltaTime) * ySensitivity;
+        xRotation -= (input.y * Time.deltaTime) * sensitivity;
         xRotation = Mathf.Clamp(xRotation, -80f, 80f);
 
         camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
-        transform.Rotate(Vector3.up * (input.x * Time.deltaTime) * xSensitivity);
+        transform.Rotate(Vector3.up * (input.x * Time.deltaTime) * sensitivity);
     }
 
     public void ChangeSensitivity(Slider slider)
     {
-        xSensitivity = slider.value;
-        ySensitivity = slider.value;
+		sensitivity = slider.value;
+		PlayerPrefs.SetFloat("mouseSensitivity", sensitivity);
     }
     #endregion
 
