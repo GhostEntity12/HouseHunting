@@ -1,18 +1,71 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class MainMenuManager : Singleton<MainMenuManager>
 {
     [SerializeField] CanvasGroup settingsGroup;
-	private void Start() 
+    [SerializeField] VideoPlayer animaticPlayer;
+    [SerializeField] RawImage animatic;
+    [SerializeField] TextMeshProUGUI skipText;
+
+    private PlayerInput inputs;
+
+    protected override void Awake()
     {
-		AudioManager.Instance.Play("Ambience02");
+        base.Awake();
+        inputs = new PlayerInput();
     }
 
-    public void NewGame()
+    private void Start() 
     {
-        DataPersistenceManager.Instance.NewGame();
-        SceneManager.LoadScene(1);
+		AudioManager.Instance.Play("Ambience02");
+        (animatic.texture as RenderTexture).Release();
+	}
+
+    private void OnEnable()
+    {
+        inputs.Animatic.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputs.Animatic.Disable();
+    }
+
+    private void SkipAnimatic(InputAction.CallbackContext ctx)
+    {
+        if (skipText && skipText.enabled)
+        {
+            inputs.Dispose();
+            OnAnimaticEnd(animaticPlayer);
+        }
+        else
+        {
+            skipText.enabled = true;
+            inputs.Animatic.SkipInitial.performed -= SkipAnimatic;
+            inputs.Animatic.SkipConfirm.performed += SkipAnimatic;
+
+        }
+    }
+
+	private void OnAnimaticEnd(VideoPlayer vp)
+	{
+		animaticPlayer.loopPointReached -= OnAnimaticEnd;
+		DataPersistenceManager.Instance.NewGame();
+		SceneManager.LoadScene(1);
+	}
+
+	public void NewGame()
+    {
+        animaticPlayer.Play();
+        inputs.Animatic.Enable();
+        animatic.raycastTarget = true;
+        inputs.Animatic.SkipInitial.performed += SkipAnimatic;
+        animaticPlayer.loopPointReached += OnAnimaticEnd;
     }
 
     public void Continue()
@@ -20,7 +73,6 @@ public class MainMenuManager : Singleton<MainMenuManager>
         DataPersistenceManager.Instance.LoadGame();
         SceneManager.LoadScene(2);
     }
-
 
     public void SetSettingsVisible(bool visible)
     {

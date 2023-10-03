@@ -36,7 +36,7 @@ public class Placeable : MonoBehaviour, IInteractable
 
     private void OnTriggerStay(Collider other) 
     {
-        if (other.TryGetComponent(out Placeable _) && HouseManager.Instance.HoldingPlaceable == this)
+        if ((other.TryGetComponent(out Placeable _) && HouseManager.Instance.HoldingPlaceable == this) || other.CompareTag("HouseWall"))
             IsValidPosition = false;
     }
 

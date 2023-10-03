@@ -34,7 +34,6 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
     private void OnDisable() 
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-        SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -53,7 +52,10 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
         SaveGame();
     }
 
-	private List<IDataPersistence> FindAllDataPersistenceObjects() => new(FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>());
+    private List<IDataPersistence> FindAllDataPersistenceObjects() 
+    {
+        return new(FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>()); 
+    }
 
 	public void NewGame()
     {
@@ -85,6 +87,7 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
         }
 
         fileDataHandler.Save(gameData);
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
     public Placeable GetPlaceablePrefabById(string id)

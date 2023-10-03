@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class HuntingManager : Singleton<HuntingManager>
+public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 {
 	[SerializeField] private int maxHealth;
 	[SerializeField] private GameObject gameOverUI;
@@ -82,4 +82,14 @@ public class HuntingManager : Singleton<HuntingManager>
 		GameManager.Instance.HideCursor();
 		SceneManager.LoadScene(1);
 	}
+
+    public void LoadData(GameData data)
+    {
+		HuntingInventory.Furniture = data.huntingInventoryFurniture;
+    }
+
+    public void SaveData(GameData data)
+    {
+		data.huntingInventoryFurniture = HuntingInventory.Furniture;
+    }
 }
