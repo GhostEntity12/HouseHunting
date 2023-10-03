@@ -48,9 +48,10 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
                 rightPanel.gameObject.SetActive(true);
                 selectedFurniture = value;
                 furnitureNameText.text = selectedFurniture.Value.so.name;
-                modelPreview.MeshFilter.mesh = value.Value.so.placeablePrefab.MeshFilter.sharedMesh;
-                modelPreview.MeshRenderer.materials = value.Value.so.placeablePrefab.MeshRenderer.sharedMaterials;
-                modelPreview.MeshRenderer.material = value.Value.so.materials[value.Value.inventoryItem.materialIndex];
+                //modelPreview.MeshFilter.mesh = value.Value.so.placeablePrefab.MeshFilter.sharedMesh;
+                //modelPreview.MeshRenderer.materials = value.Value.so.placeablePrefab.MeshRenderer.sharedMaterials;
+                //modelPreview.MeshRenderer.material = value.Value.so.materials[value.Value.inventoryItem.materialIndex];
+                modelPreview.ChangeModel(value.Value.so.placeablePrefab.GetComponentInChildren<MeshFilter>().gameObject);
             }
             else
             {
