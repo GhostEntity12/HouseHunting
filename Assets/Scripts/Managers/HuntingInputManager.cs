@@ -34,7 +34,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput.Hunting.Quick6.performed += ctx => EquipmentManager.Instance.SelectItem(5);
 
 		// ADS
-		playerInput.Hunting.ADS.performed += ctx => EquipmentManager.Instance.EquippedItem.UseSecondary();
+		playerInput.Hunting.UseSecondary.performed += ctx => EquipmentManager.Instance.EquippedItem.UseSecondary();
 
 		// Lure
 		playerInput.Hunting.Lure.performed += ctx => ThrowLure();
