@@ -30,5 +30,6 @@ MonoBehaviour:
   timeBeforeDecay: 0
   alertnessDecayRate: 0
   sightAlertnessRate: 0
-  senses: []
+  senses:
+  - {fileID: 11400000, guid: 2c8cf42ef01449c4bbaf1d16d11c8696, type: 2}
   type: 4
