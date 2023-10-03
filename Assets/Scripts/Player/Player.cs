@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
 	private float xRotation = 0f;
 
 	public Vector3 camOffset { get; private set; }
+	public float InteractRange => interactRange;
 
 	[Header("Sounds")]
 	[SerializeField] SoundAlertSO moveSoundCrouch;

@@ -47,10 +47,8 @@ public class GiveCommand : Command
             foreach (FurnitureSO item in DataPersistenceManager.Instance.AllFurnitureSO)
             {
                 Output($"Added {item.name} into inventory");
-                inventory.AddItem(new SaveDataFurniture(item.id, 1, 0, item.basePrice));
+                inventory.AddItem(new SaveDataFurniture(item.id));
             }
-
-
             return;
         }
         else

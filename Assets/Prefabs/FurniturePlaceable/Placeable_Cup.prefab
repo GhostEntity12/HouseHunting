@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5228054645807947279}
   - component: {fileID: 2673709920028327740}
   - component: {fileID: 7028257411524390558}
+  - component: {fileID: -3652671672295354785}
   m_Layer: 6
   m_Name: Placeable_Cup
   m_TagString: Untagged
@@ -70,6 +71,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.4162196, y: 0.39173013, z: 0.4928856}
   m_Center: {x: -0.0039156675, y: 0.20074156, z: -0.023226254}
+--- !u!54 &-3652671672295354785
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8864933972227123919}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &5214281569735384080
 PrefabInstance:
   m_ObjectHideFlags: 0
