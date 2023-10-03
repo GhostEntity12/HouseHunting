@@ -208,6 +208,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Furniture_Couch_Single
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 581b65132bf09cc44874fbb94198371e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

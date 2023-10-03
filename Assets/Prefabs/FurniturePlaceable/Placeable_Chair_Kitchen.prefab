@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3197452800884314889}
   - component: {fileID: 247929434274547232}
   m_Layer: 6
-  m_Name: Placeable_Kitchen_Chair
+  m_Name: Placeable_Chair_Kitchen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -185,6 +185,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e8ea8c9f86334bf4d80519304a2339f9, type: 3}
       propertyPath: m_Name
       value: Furniture_kitchen_Chair_PlasticBack
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e8ea8c9f86334bf4d80519304a2339f9, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

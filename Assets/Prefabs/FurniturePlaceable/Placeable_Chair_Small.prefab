@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2525179865123600939}
   - component: {fileID: 3306479301561497614}
   m_Layer: 6
-  m_Name: Placeable_SmallChair
+  m_Name: Placeable_Chair_Small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,6 +147,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7f284dac90fc6534ba96db59faa091b5, type: 3}
       propertyPath: m_Name
       value: Furniture_Chair_Wood
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7f284dac90fc6534ba96db59faa091b5, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

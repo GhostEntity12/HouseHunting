@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5033076828032319390}
   - component: {fileID: 8216446744321739456}
   m_Layer: 6
-  m_Name: Placeable_Toy_Car
+  m_Name: Placeable_ToyCar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,6 +171,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9078577fbb5684347a05cb750ecf7c1f, type: 3}
       propertyPath: m_Name
       value: Furniture_toy_car
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9078577fbb5684347a05cb750ecf7c1f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

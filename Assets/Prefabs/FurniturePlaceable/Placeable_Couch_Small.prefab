@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2613246895670267790}
   - component: {fileID: 3956786617447174247}
   m_Layer: 6
-  m_Name: Placeable_Small_Couch
+  m_Name: Placeable_Couch_Small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,6 +125,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7036917a35da47540ac61a22c60a34bd, type: 3}
       propertyPath: m_Name
       value: Furniture_Couch_Small
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7036917a35da47540ac61a22c60a34bd, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

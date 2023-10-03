@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7868789311105796980}
   - component: {fileID: 18974372987390580}
   m_Layer: 6
-  m_Name: Placeable_Arcade_Machine
+  m_Name: Placeable_ArcadeMachine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,12 +64,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3999367, y: 3.2472458, z: 1.6377245}
-  m_Center: {x: -0.0046203136, y: 1.6131649, z: 0.15620261}
+  m_Size: {x: 0.6768336, y: 1.6408552, z: 0.82472336}
+  m_Center: {x: -0.0027386993, y: 0.80791503, z: 0.08763826}
 --- !u!1001 &623698591630346526
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -141,6 +141,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 893fef4c6c54df3448a00479c3e8ce7f, type: 3}
       propertyPath: m_Name
       value: Furniture_ArcadeMachine
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 893fef4c6c54df3448a00479c3e8ce7f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
