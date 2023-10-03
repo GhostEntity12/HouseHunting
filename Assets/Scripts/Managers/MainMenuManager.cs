@@ -12,12 +12,13 @@ public class MainMenuManager : Singleton<MainMenuManager>
     [SerializeField] RawImage animatic;
     [SerializeField] TextMeshProUGUI skipText;
 
-    PlayerInput inputs = new PlayerInput();
+    private PlayerInput inputs;
 	private void Start() 
     {
 		AudioManager.Instance.Play("Ambience02");
         (animatic.texture as RenderTexture).Release();
-    }
+        inputs = new PlayerInput();
+	}
 
     private void SkipAnimatic(InputAction.CallbackContext ctx)
     {
