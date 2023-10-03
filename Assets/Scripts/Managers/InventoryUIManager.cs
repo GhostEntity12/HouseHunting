@@ -100,6 +100,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
                 button.onClick.AddListener(() => SelectedFurniture = (savedFurnitureSO, savedFurniture));
 
                 Image buttonBackground = furnitureItem.AddComponent<Image>();
+                buttonBackground.color = new(0, 0, 0, 0);
                 buttonBackground.sprite = furnitureItemButtonBackground;
 
                 Image furnitureItemImage = new GameObject(savedFurnitureSO.id + " sprite").AddComponent<Image>();
