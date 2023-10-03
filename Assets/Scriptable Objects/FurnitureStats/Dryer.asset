@@ -16,24 +16,20 @@ MonoBehaviour:
   name: Dryer
   maxHealth: 30
   speed: 3
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: c0833445dcdd3dc4083bad819a2aa1a5, type: 3}
   placeablePrefab: {fileID: 7392784574685569863, guid: 71531347d6886ae40b0d858d65e8270f, type: 3}
   shootablePrefab: {fileID: 274742349716809348, guid: 063a2c06213b464478cc8960ae4e15d1, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
   alertnessThreshold1: 33
   threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
   alertnessThreshold2: 66
-  threshold2Behaviour: {fileID: 11400000, guid: d1b5f233a60fcac4d8755cfbc52da0af, type: 2}
+  threshold2Behaviour: {fileID: 11400000, guid: 217112832d3f55c4e8f13aef0f12578c, type: 2}
   alertnessThreshold3: 100
   threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
-  damageBehaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
+  damageBehaviour: {fileID: 11400000, guid: fa0fe16bfb49e01489e042d06445e06d, type: 2}
   timeBeforeDecay: 5
   alertnessDecayRate: 10
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 5bbb7af49ac2b974085ddb16125dab02, type: 2}
-  special: 0
   type: 4
-  materials:
-  - {fileID: 2100000, guid: 72db2de3d70f40742a7f75fe84174249, type: 2}
-  basePrice: 0

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
-  m_Name: Fridge Double Door
+  m_Name: Dresser
   m_EditorClassIdentifier: 
-  id: fridgedoubledoor
-  name: Fridge Double Door
-  maxHealth: 30
-  speed: 3
-  thumbnail: {fileID: 21300000, guid: a5a23a15f0554c044871dd59dced9e7f, type: 3}
-  placeablePrefab: {fileID: 2350306671234011157, guid: a63a461294992b549990648403e6471e, type: 3}
-  shootablePrefab: {fileID: 274742349716809348, guid: 81564218266b193478a4864e2d8cb646, type: 3}
+  id: dresser
+  name: Dresser
+  maxHealth: 20
+  speed: 4
+  thumbnail: {fileID: 21300000, guid: 4517803e7a2dfa54699a9484d1fa6465, type: 3}
+  placeablePrefab: {fileID: 1539234630903234798, guid: dca93defbfa52ce4bb9be0a6f06bd1aa, type: 3}
+  shootablePrefab: {fileID: 3685072443934080641, guid: 33ba177a7359448a3a9ce8573681c901, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
   alertnessThreshold1: 33
   threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
@@ -31,5 +31,5 @@ MonoBehaviour:
   alertnessDecayRate: 10
   sightAlertnessRate: 25
   senses:
-  - {fileID: 11400000, guid: c343645932c55df428b2bdec5aa7fce5, type: 2}
-  type: 1
+  - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
+  type: 0

@@ -24,11 +24,6 @@ public class Shootable : MonoBehaviour, IInteractable
         currentHealth = furnitureSO.maxHealth;
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         furnitureAlert = GetComponentInChildren<FurnitureAlert>();
-
-        price = Mathf.RoundToInt(furnitureSO.basePrice * Random.Range(0.5f, 1.5f));
-        materialIndex = Random.Range(0, furnitureSO.materials.Length);
-        scaleFactor = Random.Range(0.95f, 1.05f);
-        meshRenderer.material = furnitureSO.materials[materialIndex];
     }
 
     private void Start()
@@ -65,7 +60,7 @@ public class Shootable : MonoBehaviour, IInteractable
 
 	public SaveDataFurniture GetInventoryItem()
     {
-        return new SaveDataFurniture(furnitureSO.id, scaleFactor, materialIndex, price);
+        return new SaveDataFurniture(furnitureSO.id);
     }
 
     public void Interact()

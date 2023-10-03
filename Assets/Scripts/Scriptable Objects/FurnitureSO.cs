@@ -40,8 +40,5 @@ public class FurnitureSO : ScriptableObject
 	public ViewConeSO[] senses;
 
 	[Header("Other")]
-	public Ability special;
 	public FurnitureType type;
-	public Material[] materials;
-	public int basePrice;
 }

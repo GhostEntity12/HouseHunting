@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
-  m_Name: ShadedLamp
+  m_Name: UNUSED_Arcade Machine
   m_EditorClassIdentifier: 
-  id: shadedlamp
-  name: Shaded Lamp
-  maxHealth: 10
-  speed: 3
+  id: arcademachine
+  name: Arcade Machine
+  maxHealth: 0
+  speed: 0
   thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
-  placeablePrefab: {fileID: 2350306671234011157, guid: 654580f10998d7a43a99efafde95c5d8, type: 3}
-  shootablePrefab: {fileID: 3685072443934080641, guid: c9e85f8fa86c73e40af1e389bc50cc7f, type: 3}
+  placeablePrefab: {fileID: 2350306671234011157, guid: 250a3668a5655064d9ba83a2549acffa, type: 3}
+  shootablePrefab: {fileID: 274742349716809348, guid: b245d270fbc7b164c8a82b06ea62eca1, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
   alertnessThreshold1: 33
   threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
@@ -26,14 +26,9 @@ MonoBehaviour:
   threshold2Behaviour: {fileID: 11400000, guid: 217112832d3f55c4e8f13aef0f12578c, type: 2}
   alertnessThreshold3: 100
   threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
-  damageBehaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
-  timeBeforeDecay: 5
-  alertnessDecayRate: 10
-  sightAlertnessRate: 25
-  senses:
-  - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
-  special: 0
-  type: 0
-  materials:
-  - {fileID: 2100000, guid: 21b9581beca988f4395d28dac7d28ff1, type: 2}
-  basePrice: 900
+  damageBehaviour: {fileID: 11400000, guid: fa0fe16bfb49e01489e042d06445e06d, type: 2}
+  timeBeforeDecay: 0
+  alertnessDecayRate: 0
+  sightAlertnessRate: 0
+  senses: []
+  type: 4
