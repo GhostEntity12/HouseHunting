@@ -19,6 +19,7 @@ public class MainMenuManager : Singleton<MainMenuManager>
     {
         base.Awake();
         inputs = new PlayerInput();
+        SetCreditsVisible(false);
     }
 
     private void Start() 
