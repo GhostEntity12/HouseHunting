@@ -13,16 +13,32 @@ public class MainMenuManager : Singleton<MainMenuManager>
     [SerializeField] TextMeshProUGUI skipText;
 
     private PlayerInput inputs;
-	private void Start() 
+
+    protected override void Awake()
+    {
+        base.Awake();
+        inputs = new PlayerInput();
+    }
+
+    private void Start() 
     {
 		AudioManager.Instance.Play("Ambience02");
         (animatic.texture as RenderTexture).Release();
-        inputs = new PlayerInput();
 	}
+
+    private void OnEnable()
+    {
+        inputs.Animatic.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputs.Animatic.Disable();
+    }
 
     private void SkipAnimatic(InputAction.CallbackContext ctx)
     {
-        if (skipText.enabled)
+        if (skipText && skipText.enabled)
         {
             inputs.Dispose();
             OnAnimaticEnd(animaticPlayer);
