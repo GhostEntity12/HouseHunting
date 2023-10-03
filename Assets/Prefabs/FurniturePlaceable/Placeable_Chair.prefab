@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8484113142299187713}
   - component: {fileID: 4153847670547853120}
   - component: {fileID: 6063184161147651276}
+  - component: {fileID: 5099742900248695356}
   m_Layer: 6
   m_Name: Placeable_Chair
   m_TagString: Untagged
@@ -180,6 +181,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.06463216, y: 0.4998934, z: 0.039002888}
   m_Center: {x: 0.47470224, y: 0.24906848, z: 0.3437966}
+--- !u!54 &5099742900248695356
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6687055942871566689}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &7274624594907392559
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -218,7 +246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9464a6a1b5f93ea41b09b06dd93aa191, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.8452559
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9464a6a1b5f93ea41b09b06dd93aa191, type: 3}
       propertyPath: m_LocalRotation.x
@@ -226,7 +254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9464a6a1b5f93ea41b09b06dd93aa191, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.5343617
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9464a6a1b5f93ea41b09b06dd93aa191, type: 3}
       propertyPath: m_LocalRotation.z

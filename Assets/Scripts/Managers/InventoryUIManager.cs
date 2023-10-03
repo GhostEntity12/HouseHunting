@@ -29,9 +29,6 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
     [SerializeField] private Sprite inventoryPage4;
     [SerializeField] private Sprite inventoryPage5;
 
-    [Header("Assets")]
-    [SerializeField] private Sprite furnitureItemButtonBackground;
-
     private PlayerInput playerInput;
 
     private FurnitureType selectedTab;
@@ -101,7 +98,6 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 
                 Image buttonBackground = furnitureItem.AddComponent<Image>();
                 buttonBackground.color = new(0, 0, 0, 0);
-                buttonBackground.sprite = furnitureItemButtonBackground;
 
                 Image furnitureItemImage = new GameObject(savedFurnitureSO.id + " sprite").AddComponent<Image>();
                 furnitureItemImage.transform.parent = furnitureItem.transform;

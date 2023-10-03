@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7866954711529743003}
   - component: {fileID: 2458217501239438309}
   - component: {fileID: 2904483379574174650}
+  - component: {fileID: -4373141894086000354}
   m_Layer: 6
   m_Name: Placeable_CokeBottle
   m_TagString: Untagged
@@ -70,6 +71,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.19752088, y: 0.44535646, z: 0.22461037}
   m_Center: {x: -0.00018896163, y: 0.24146067, z: -0.0046620145}
+--- !u!54 &-4373141894086000354
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4355600959773709241}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &650613540235793264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -96,7 +124,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 08a09b6582c350148bf10ee1d73c1642, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.10629617
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 08a09b6582c350148bf10ee1d73c1642, type: 3}
       propertyPath: m_LocalRotation.x
@@ -104,11 +132,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 08a09b6582c350148bf10ee1d73c1642, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.9943345
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 08a09b6582c350148bf10ee1d73c1642, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 08a09b6582c350148bf10ee1d73c1642, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
