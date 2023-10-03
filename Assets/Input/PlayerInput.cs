@@ -143,15 +143,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ADS"",
-                    ""type"": ""Button"",
-                    ""id"": ""0960c267-951d-4bb6-aef1-1cdd68baf605"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -306,17 +297,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Lure"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""60104f68-d2ec-4f8c-af7a-3dca8442c7c3"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ADS"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -936,6 +916,65 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Animatic"",
+            ""id"": ""dc1bc059-cd15-4026-96f9-5f959c735574"",
+            ""actions"": [
+                {
+                    ""name"": ""SkipInitial"",
+                    ""type"": ""Button"",
+                    ""id"": ""84e90234-b776-40a7-9881-809f503b1443"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SkipConfirm"",
+                    ""type"": ""Button"",
+                    ""id"": ""8725d3a2-e496-4fee-b9aa-999da737b671"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""cfdbc6bb-ca58-4069-bc22-7ddbf4bb1ff8"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SkipInitial"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8974bc06-c8ad-448f-af07-76ddcb62441c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SkipInitial"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a9395b4-6e16-4cfe-91db-9a7de5447f48"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SkipConfirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -955,7 +994,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Hunting_OpenWeaponWheel = m_Hunting.FindAction("OpenWeaponWheel", throwIfNotFound: true);
         m_Hunting_GoBackToHouse = m_Hunting.FindAction("GoBackToHouse", throwIfNotFound: true);
         m_Hunting_Lure = m_Hunting.FindAction("Lure", throwIfNotFound: true);
-        m_Hunting_ADS = m_Hunting.FindAction("ADS", throwIfNotFound: true);
         // House
         m_House = asset.FindActionMap("House", throwIfNotFound: true);
         m_House_RemoveHoldingFurniture = m_House.FindAction("RemoveHoldingFurniture", throwIfNotFound: true);
@@ -994,6 +1032,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // SprintHold
         m_SprintHold = asset.FindActionMap("SprintHold", throwIfNotFound: true);
         m_SprintHold_Run = m_SprintHold.FindAction("Run", throwIfNotFound: true);
+        // Animatic
+        m_Animatic = asset.FindActionMap("Animatic", throwIfNotFound: true);
+        m_Animatic_SkipInitial = m_Animatic.FindAction("SkipInitial", throwIfNotFound: true);
+        m_Animatic_SkipConfirm = m_Animatic.FindAction("SkipConfirm", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1068,7 +1110,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Hunting_OpenWeaponWheel;
     private readonly InputAction m_Hunting_GoBackToHouse;
     private readonly InputAction m_Hunting_Lure;
-    private readonly InputAction m_Hunting_ADS;
     public struct HuntingActions
     {
         private @PlayerInput m_Wrapper;
@@ -1086,7 +1127,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @OpenWeaponWheel => m_Wrapper.m_Hunting_OpenWeaponWheel;
         public InputAction @GoBackToHouse => m_Wrapper.m_Hunting_GoBackToHouse;
         public InputAction @Lure => m_Wrapper.m_Hunting_Lure;
-        public InputAction @ADS => m_Wrapper.m_Hunting_ADS;
         public InputActionMap Get() { return m_Wrapper.m_Hunting; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1135,9 +1175,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Lure.started += instance.OnLure;
             @Lure.performed += instance.OnLure;
             @Lure.canceled += instance.OnLure;
-            @ADS.started += instance.OnADS;
-            @ADS.performed += instance.OnADS;
-            @ADS.canceled += instance.OnADS;
         }
 
         private void UnregisterCallbacks(IHuntingActions instance)
@@ -1181,9 +1218,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Lure.started -= instance.OnLure;
             @Lure.performed -= instance.OnLure;
             @Lure.canceled -= instance.OnLure;
-            @ADS.started -= instance.OnADS;
-            @ADS.performed -= instance.OnADS;
-            @ADS.canceled -= instance.OnADS;
         }
 
         public void RemoveCallbacks(IHuntingActions instance)
@@ -1703,6 +1737,60 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public SprintHoldActions @SprintHold => new SprintHoldActions(this);
+
+    // Animatic
+    private readonly InputActionMap m_Animatic;
+    private List<IAnimaticActions> m_AnimaticActionsCallbackInterfaces = new List<IAnimaticActions>();
+    private readonly InputAction m_Animatic_SkipInitial;
+    private readonly InputAction m_Animatic_SkipConfirm;
+    public struct AnimaticActions
+    {
+        private @PlayerInput m_Wrapper;
+        public AnimaticActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @SkipInitial => m_Wrapper.m_Animatic_SkipInitial;
+        public InputAction @SkipConfirm => m_Wrapper.m_Animatic_SkipConfirm;
+        public InputActionMap Get() { return m_Wrapper.m_Animatic; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(AnimaticActions set) { return set.Get(); }
+        public void AddCallbacks(IAnimaticActions instance)
+        {
+            if (instance == null || m_Wrapper.m_AnimaticActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_AnimaticActionsCallbackInterfaces.Add(instance);
+            @SkipInitial.started += instance.OnSkipInitial;
+            @SkipInitial.performed += instance.OnSkipInitial;
+            @SkipInitial.canceled += instance.OnSkipInitial;
+            @SkipConfirm.started += instance.OnSkipConfirm;
+            @SkipConfirm.performed += instance.OnSkipConfirm;
+            @SkipConfirm.canceled += instance.OnSkipConfirm;
+        }
+
+        private void UnregisterCallbacks(IAnimaticActions instance)
+        {
+            @SkipInitial.started -= instance.OnSkipInitial;
+            @SkipInitial.performed -= instance.OnSkipInitial;
+            @SkipInitial.canceled -= instance.OnSkipInitial;
+            @SkipConfirm.started -= instance.OnSkipConfirm;
+            @SkipConfirm.performed -= instance.OnSkipConfirm;
+            @SkipConfirm.canceled -= instance.OnSkipConfirm;
+        }
+
+        public void RemoveCallbacks(IAnimaticActions instance)
+        {
+            if (m_Wrapper.m_AnimaticActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IAnimaticActions instance)
+        {
+            foreach (var item in m_Wrapper.m_AnimaticActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_AnimaticActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public AnimaticActions @Animatic => new AnimaticActions(this);
     public interface IHuntingActions
     {
         void OnUsePrimary(InputAction.CallbackContext context);
@@ -1718,7 +1806,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnOpenWeaponWheel(InputAction.CallbackContext context);
         void OnGoBackToHouse(InputAction.CallbackContext context);
         void OnLure(InputAction.CallbackContext context);
-        void OnADS(InputAction.CallbackContext context);
     }
     public interface IHouseActions
     {
@@ -1766,5 +1853,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public interface ISprintHoldActions
     {
         void OnRun(InputAction.CallbackContext context);
+    }
+    public interface IAnimaticActions
+    {
+        void OnSkipInitial(InputAction.CallbackContext context);
+        void OnSkipConfirm(InputAction.CallbackContext context);
     }
 }
