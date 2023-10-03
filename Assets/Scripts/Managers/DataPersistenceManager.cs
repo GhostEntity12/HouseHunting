@@ -81,13 +81,14 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
 
     public void SaveGame()
     {
+        Debug.Log("saviung");
         foreach (IDataPersistence dataPersistenceObject in dataPersistenceObjects)
         {
             dataPersistenceObject.SaveData(gameData);
         }
 
         fileDataHandler.Save(gameData);
-        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+        //SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
     public Placeable GetPlaceablePrefabById(string id)
