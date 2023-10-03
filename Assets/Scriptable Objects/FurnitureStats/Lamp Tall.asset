@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Lamp Tall
   maxHealth: 10
   speed: 3
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: 6b2dae30a44a79f40944ea25d1e5574f, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 0fd398abb94016d489a9111a42511dc1, type: 3}
   shootablePrefab: {fileID: 1708161194996407248, guid: 8c8823706d60a1f4786ada53f96f97c3, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

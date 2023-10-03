@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Plushie Bear
   maxHealth: 0
   speed: 0
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: 62a9e997f5ccd884cbd403773bc47f94, type: 3}
   placeablePrefab: {fileID: 3776786984490140175, guid: aee31b76859f2be4491c89342e812d85, type: 3}
   shootablePrefab: {fileID: 274742349716809348, guid: 7932e317c711a6a49b2d641064d3cb3b, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

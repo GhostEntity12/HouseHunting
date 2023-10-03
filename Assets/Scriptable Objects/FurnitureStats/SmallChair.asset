@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Small Chair
   maxHealth: 10
   speed: 5
-  thumbnail: {fileID: 21300000, guid: 166e5dc9494bfeb4f8094bc130d8669c, type: 3}
+  thumbnail: {fileID: 21300000, guid: ec605de95ba585740ae843dd469353a7, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 9a26f7a9a12bc8f4bb9bd8c412f1af23, type: 3}
   shootablePrefab: {fileID: 6366392969304530097, guid: 8dd7d42fbef8ba04b9398f06db5ef2b2, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

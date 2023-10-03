@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Toaster
   maxHealth: 10
   speed: 6
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: af99e8f4726919c4b831d1bbe026dfac, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 399b91a45ced6b14b9adccc8816881f9, type: 3}
   shootablePrefab: {fileID: 5670009076271129424, guid: c7927adc0efe63b43bae2c85284e33bf, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

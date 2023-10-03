@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Coffee Maker
   maxHealth: 20
   speed: 4
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: bafec5dc47cc11048a726aeb8364879a, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 3849c1d167d87f349a7b3e9a906b6adc, type: 3}
   shootablePrefab: {fileID: 274742349716809348, guid: ed8d8a336efe83b46b1bda490d4f1683, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

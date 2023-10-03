@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Cactus
   maxHealth: 10
   speed: 6
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: 980123fee51bba643899464b9d49032b, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: db606379ba6a40a46bf1bf55df6a0590, type: 3}
   shootablePrefab: {fileID: 1321375191118770268, guid: 3d99d20caa0dee94cb093efa19525613, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

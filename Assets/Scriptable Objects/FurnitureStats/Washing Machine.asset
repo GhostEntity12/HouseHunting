@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Washing Machine
   maxHealth: 20
   speed: 4
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: 1c568ea6ff6b98e4ea939aa0e2df07a0, type: 3}
   placeablePrefab: {fileID: 1539234630903234798, guid: 6b608ac294185ac45aaf947188450477, type: 3}
   shootablePrefab: {fileID: 2899710936797965666, guid: 5303bb97bb384d24c95aaf56ad16e902, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

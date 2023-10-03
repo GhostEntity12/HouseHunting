@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Couch Double
   maxHealth: 20
   speed: 3
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: b3b424803552fc5408f0c7a07ea9a202, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: c033a155c979b134b8c402246cc36546, type: 3}
   shootablePrefab: {fileID: 4207542877117778773, guid: d710ac96f6321a34bb2fd8a156ed0bcc, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

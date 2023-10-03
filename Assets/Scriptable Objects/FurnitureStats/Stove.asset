@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Stove
   maxHealth: 20
   speed: 3
-  thumbnail: {fileID: 21300000, guid: 14d7d8dfc85d1914284313dc5bd4f03c, type: 3}
+  thumbnail: {fileID: 21300000, guid: 7568e7d4d8768d7449804aa820c8c0d9, type: 3}
   placeablePrefab: {fileID: 1539234630903234798, guid: 3b501b8de80b21c49a134dc5a7ccaa70, type: 3}
   shootablePrefab: {fileID: 2899710936797965666, guid: 17c4f93df63368e42834b0e1283922c0, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

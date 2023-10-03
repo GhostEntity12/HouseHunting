@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Laptop
   maxHealth: 10
   speed: 5
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: 442ca142d123d734094a5296a28c0512, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: f1f16dd0ff9d3cf46bff60c3546614f7, type: 3}
   shootablePrefab: {fileID: 274742349716809348, guid: 759575ff2571bcb41b3942194bdf5a61, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

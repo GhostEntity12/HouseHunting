@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Fridge Freezer
   maxHealth: 30
   speed: 3
-  thumbnail: {fileID: 21300000, guid: 14d7d8dfc85d1914284313dc5bd4f03c, type: 3}
+  thumbnail: {fileID: 21300000, guid: 56071b2f4efa3ff4a8d40ab07a318380, type: 3}
   placeablePrefab: {fileID: 4075114003427025146, guid: c3e1fee8a169e3247bcd86e9f6048c56, type: 3}
   shootablePrefab: {fileID: 274742349716809348, guid: fa5ad76c40d404d4ba33577926df3e55, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

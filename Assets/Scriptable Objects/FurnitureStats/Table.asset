@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Table
   maxHealth: 20
   speed: 4
-  thumbnail: {fileID: 21300000, guid: cef2f2757602f4745ba2b681b13173a0, type: 3}
+  thumbnail: {fileID: 21300000, guid: e2f8adcbcadb20e4480d7582f76ff506, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 2f4b06969d53f434aa6b152cc4776240, type: 3}
   shootablePrefab: {fileID: 2899710936797965666, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

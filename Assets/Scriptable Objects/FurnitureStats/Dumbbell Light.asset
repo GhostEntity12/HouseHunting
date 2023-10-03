@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Dumbell Light
   maxHealth: 10
   speed: 6
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: b85142067df31a742bc849622e913eb8, type: 3}
   placeablePrefab: {fileID: 7992764398691385180, guid: a261c686cb2b5fd4a9ffd1dd6e2a326b, type: 3}
   shootablePrefab: {fileID: -1363456017480070556, guid: 67b2aef939c98e543a53bcf94a447314, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

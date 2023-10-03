@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Chair
   maxHealth: 20
   speed: 4
-  thumbnail: {fileID: 21300000, guid: 166e5dc9494bfeb4f8094bc130d8669c, type: 3}
+  thumbnail: {fileID: 21300000, guid: 9e483e5254180874b9f55e2b318f34f1, type: 3}
   placeablePrefab: {fileID: 1539234630903234798, guid: 3a32fa9bd96e69a45a45bce94bf15c16, type: 3}
   shootablePrefab: {fileID: 3685072443934080641, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

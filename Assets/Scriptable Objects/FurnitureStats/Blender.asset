@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Blender
   maxHealth: 10
   speed: 5
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 0}
   placeablePrefab: {fileID: 2350306671234011157, guid: 9144bf197de90d24db5c0153debba42c, type: 3}
   shootablePrefab: {fileID: 274742349716809348, guid: f0fff63349c88ae4da81df4f907be3a4, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

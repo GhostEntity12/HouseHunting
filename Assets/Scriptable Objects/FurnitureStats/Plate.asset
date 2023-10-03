@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Plate
   maxHealth: 10
   speed: 6
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: 83bff1dc7597eeb4098324e029aa3df7, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 0331d8c56f4df504eb0be8b23ea32637, type: 3}
   shootablePrefab: {fileID: -1363456017480070556, guid: 2f430d09af36fd341aadc2318819177b, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
