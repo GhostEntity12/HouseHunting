@@ -77,7 +77,8 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
 
 		// Perform the raycast and check if it hits something within the specified distance
-		int layerMask = holdingPlaceable.CanPlaceOnSurface ? LayerMask.GetMask("Floor") | LayerMask.GetMask("PlaceableSurface") : LayerMask.GetMask("Floor");
+		int baseMask = LayerMask.GetMask("Floor") | LayerMask.GetMask("House Wall");
+		int layerMask = holdingPlaceable.CanPlaceOnSurface ? baseMask | LayerMask.GetMask("PlaceableSurface") : baseMask;
 
 		if (Physics.Raycast(ray, out RaycastHit hit, 3, layerMask))
             holdingPlaceable.transform.position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
@@ -85,7 +86,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
             holdingPlaceable.transform.position = player.transform.position + player.transform.forward * 3;
 
 		// clamp the position so that the y index is always on ground level
-		//holdingPlaceable.transform.position = new Vector3(holdingPlaceable.transform.position.x, 0, holdingPlaceable.transform.position.z);
+		holdingPlaceable.transform.position = new Vector3(holdingPlaceable.transform.position.x, 0, holdingPlaceable.transform.position.z);
 		// rotate the furniture so that it faces the player
 		holdingPlaceable.transform.LookAt(ExploreCamera.transform.position);
 		holdingPlaceable.transform.rotation = Quaternion.Euler(0, holdingPlaceable.transform.rotation.eulerAngles.y + holdingPlaceableRotation, 0);

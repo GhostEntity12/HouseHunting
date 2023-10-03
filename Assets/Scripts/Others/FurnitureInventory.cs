@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FurnitureInventory
 {
-	private const int maxInventorySize = 10; // Set the maximum inventory size to 10
+	private const int maxInventorySize = 1000; // Set the maximum inventory size to 10
 
 	public List<SaveDataFurniture> Furniture { get; set; }
 

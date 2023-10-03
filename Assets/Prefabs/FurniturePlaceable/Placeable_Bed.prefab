@@ -52,7 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canPlaceOnSurface: 0
-  <Mesh>k__BackingField: {fileID: -7511558181221131132, guid: ea699233096c09544836fbf927035d34, type: 3}
+  <MeshRenderer>k__BackingField: {fileID: 1740197161819649422}
+  <MeshFilter>k__BackingField: {fileID: 4594405340714877252}
 --- !u!54 &-231657051590127972
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -99,8 +100,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.9378514, y: 0.3543066, z: 1.4902315}
-  m_Center: {x: -0.8952198, y: 0.15664376, z: -0.00000008940697}
+  m_Size: {x: 2.1009612, y: 0.3543066, z: 2.5022922}
+  m_Center: {x: -0.8136649, y: 0.15664376, z: 0.26749492}
 --- !u!65 &6709149465565957218
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -120,8 +121,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.4795744, y: 0.4138534, z: 1.5471473}
-  m_Center: {x: -0.6127895, y: 0.5381892, z: 0.0071433783}
+  m_Size: {x: 1.6038218, y: 0.4138534, z: 2.505104}
+  m_Center: {x: -0.55066586, y: 0.5381892, z: 0.25097507}
 --- !u!65 &7107676215796086297
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -141,8 +142,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5713296, y: 0.3042891, z: 1.5270534}
-  m_Center: {x: -1.6408935, y: 0.48840296, z: -0.003513664}
+  m_Size: {x: 0.5713296, y: 0.3042891, z: 2.3682494}
+  m_Center: {x: -1.6408935, y: 0.48840296, z: 0.2760733}
 --- !u!65 &6754296279492008616
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -162,8 +163,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.40267253, y: 0.1356321, z: 1.4919167}
-  m_Center: {x: -1.5776471, y: 0.7343613, z: 0.0070273876}
+  m_Size: {x: 0.40267253, y: 0.13563204, z: 2.4773283}
+  m_Center: {x: -1.5776471, y: 0.7343613, z: 0.22685677}
 --- !u!65 &4387307260796570101
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -183,8 +184,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.15671444, y: 0.78215134, z: 1.5551631}
-  m_Center: {x: -1.862256, y: 0.7132792, z: 0.0035136938}
+  m_Size: {x: 0.15671444, y: 0.78215134, z: 2.534227}
+  m_Center: {x: -1.862256, y: 0.7132792, z: 0.2368362}
 --- !u!1001 &1146159201404692746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -196,6 +197,18 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ea699233096c09544836fbf927035d34, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea699233096c09544836fbf927035d34, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea699233096c09544836fbf927035d34, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea699233096c09544836fbf927035d34, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ea699233096c09544836fbf927035d34, type: 3}
       propertyPath: m_LocalPosition.x
@@ -279,5 +292,15 @@ MeshCollider:
 --- !u!4 &607212743534628577 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ea699233096c09544836fbf927035d34, type: 3}
+  m_PrefabInstance: {fileID: 1146159201404692746}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1740197161819649422 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: ea699233096c09544836fbf927035d34, type: 3}
+  m_PrefabInstance: {fileID: 1146159201404692746}
+  m_PrefabAsset: {fileID: 0}
+--- !u!33 &4594405340714877252 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: ea699233096c09544836fbf927035d34, type: 3}
   m_PrefabInstance: {fileID: 1146159201404692746}
   m_PrefabAsset: {fileID: 0}

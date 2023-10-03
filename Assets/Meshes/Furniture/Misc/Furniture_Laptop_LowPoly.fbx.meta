@@ -3,9 +3,14 @@ guid: b8d833a3d9411984da74c0ed962bf814
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Laptop
+    second: {fileID: 2100000, guid: 66e184d3bec44c6409752340b22f037d, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

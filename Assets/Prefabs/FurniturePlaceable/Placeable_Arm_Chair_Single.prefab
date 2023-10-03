@@ -51,7 +51,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canPlaceOnSurface: 0
-  <Mesh>k__BackingField: {fileID: -7511558181221131132, guid: 1e49b884147a5344082ab1ee90eca860, type: 3}
+  <MeshRenderer>k__BackingField: {fileID: 911387565948650238}
+  <MeshFilter>k__BackingField: {fileID: 3116791523061216820}
 --- !u!54 &-231657051590127972
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -231,6 +232,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7897630587547476802}
   m_SourcePrefab: {fileID: 100100000, guid: 1e49b884147a5344082ab1ee90eca860, type: 3}
+--- !u!23 &911387565948650238 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 1e49b884147a5344082ab1ee90eca860, type: 3}
+  m_PrefabInstance: {fileID: 1973829565917781626}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1703797006532371243 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e49b884147a5344082ab1ee90eca860, type: 3}
@@ -261,5 +267,10 @@ MeshCollider:
 --- !u!4 &2084826832024910225 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1e49b884147a5344082ab1ee90eca860, type: 3}
+  m_PrefabInstance: {fileID: 1973829565917781626}
+  m_PrefabAsset: {fileID: 0}
+--- !u!33 &3116791523061216820 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: 1e49b884147a5344082ab1ee90eca860, type: 3}
   m_PrefabInstance: {fileID: 1973829565917781626}
   m_PrefabAsset: {fileID: 0}

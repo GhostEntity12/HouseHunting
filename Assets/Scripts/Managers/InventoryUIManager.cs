@@ -36,7 +36,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 
     private FurnitureType selectedTab;
     private (FurnitureSO so, SaveDataFurniture inventoryItem)? selectedFurniture;
-    private List<SaveDataFurniture> furnitureInventory;
+    private FurnitureInventory furnitureInventory;
 
     public (FurnitureSO so, SaveDataFurniture inventoryItem)? SelectedFurniture 
     {
@@ -81,7 +81,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 
     private void Start()
     {
-        furnitureInventory = HuntingManager.Instance != null ? HuntingManager.Instance.HuntingInventory.Furniture : GameManager.Instance.PermanentInventory.Furniture;
+        furnitureInventory = HuntingManager.Instance != null ? HuntingManager.Instance.HuntingInventory : GameManager.Instance.PermanentInventory;
         SetTab(0);
     }
 
@@ -90,7 +90,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
         foreach (Transform child in furnitureItemContainer.transform)
             Destroy(child.gameObject);
 
-        foreach (SaveDataFurniture savedFurniture in furnitureInventory)
+        foreach (SaveDataFurniture savedFurniture in furnitureInventory.Furniture)
         {
             FurnitureSO savedFurnitureSO = DataPersistenceManager.Instance.AllFurnitureSO.Find(f => f.id == savedFurniture.id);
             if (savedFurnitureSO != null && savedFurnitureSO.type == selectedTab)
@@ -155,7 +155,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
     // referenced in discard button in inventory UI
     public void DiscardSelectedFurniture()
     {
-        furnitureInventory.Remove(selectedFurniture.Value.inventoryItem);
+        furnitureInventory.RemoveItem(selectedFurniture.Value.inventoryItem);
         SelectedFurniture = null;
         RedrawInventoryItems();
     }
