@@ -8,6 +8,7 @@ using UnityEngine.Video;
 public class MainMenuManager : Singleton<MainMenuManager>
 {
     [SerializeField] CanvasGroup settingsGroup;
+    [SerializeField] CanvasGroup creditsGroup;
     [SerializeField] VideoPlayer animaticPlayer;
     [SerializeField] RawImage animatic;
     [SerializeField] TextMeshProUGUI skipText;
@@ -18,6 +19,7 @@ public class MainMenuManager : Singleton<MainMenuManager>
     {
         base.Awake();
         inputs = new PlayerInput();
+        SetCreditsVisible(false);
     }
 
     private void Start() 
@@ -79,6 +81,11 @@ public class MainMenuManager : Singleton<MainMenuManager>
     {
         settingsGroup.alpha = visible ? 1 : 0;
         settingsGroup.blocksRaycasts = visible;
+    }
+    public void SetCreditsVisible(bool visible)
+    {
+        creditsGroup.alpha = visible ? 1 : 0;
+        creditsGroup.blocksRaycasts = visible;
     }
 
     public void QuitGame()
