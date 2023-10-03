@@ -17,7 +17,7 @@ MonoBehaviour:
   maxHealth: 10
   speed: 4
   thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
-  placeablePrefab: {fileID: 2350306671234011157, guid: a261c686cb2b5fd4a9ffd1dd6e2a326b, type: 3}
+  placeablePrefab: {fileID: 7992764398691385180, guid: a261c686cb2b5fd4a9ffd1dd6e2a326b, type: 3}
   shootablePrefab: {fileID: -1363456017480070556, guid: 67b2aef939c98e543a53bcf94a447314, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
   alertnessThreshold1: 33
@@ -33,7 +33,7 @@ MonoBehaviour:
   senses:
   - {fileID: 11400000, guid: 69b4f43b023774b49887123e4b12b973, type: 2}
   special: 0
-  type: 0
+  type: 4
   materials:
   - {fileID: 2100000, guid: c9d69a56512a3eb42a4ba77bfd35d040, type: 2}
   basePrice: 0

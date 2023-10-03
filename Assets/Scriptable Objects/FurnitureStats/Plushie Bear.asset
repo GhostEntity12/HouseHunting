@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Plushie Bear
   m_EditorClassIdentifier: 
   id: plushiebear
-  name: Mr. Snugglemuffins
+  name: Plushie Bear
   maxHealth: 0
   speed: 0
   thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
-  placeablePrefab: {fileID: 2350306671234011157, guid: aee31b76859f2be4491c89342e812d85, type: 3}
+  placeablePrefab: {fileID: 3776786984490140175, guid: aee31b76859f2be4491c89342e812d85, type: 3}
   shootablePrefab: {fileID: 274742349716809348, guid: 7932e317c711a6a49b2d641064d3cb3b, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
   alertnessThreshold1: 33
@@ -32,7 +32,7 @@ MonoBehaviour:
   sightAlertnessRate: 0
   senses: []
   special: 0
-  type: 0
+  type: 4
   materials:
   - {fileID: 2100000, guid: 5fdbb0a1833c9450aaa23d75c810db3b, type: 2}
   basePrice: 0

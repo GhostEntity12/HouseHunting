@@ -162,6 +162,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3ba519f39a1de742ad8f74fafe70b46, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a3ba519f39a1de742ad8f74fafe70b46, type: 3}
       propertyPath: m_Name
       value: Furniture_Fridge_SingleDoor
