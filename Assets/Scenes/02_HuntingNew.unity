@@ -60577,6 +60577,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1712198217}
     m_Modifications:
+    - target: {fileID: 1092212637876961615, guid: dac9d255651fe1141a38eff99f69e195, type: 3}
+      propertyPath: m_Name
+      value: ModelHolder
+      objectReference: {fileID: 0}
     - target: {fileID: 1292165167911695890, guid: dac9d255651fe1141a38eff99f69e195, type: 3}
       propertyPath: m_Name
       value: Model Preview

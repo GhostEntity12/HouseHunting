@@ -1455,7 +1455,7 @@ RectTransform:
   - {fileID: 4172260049220781487}
   - {fileID: 496749739037225320}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1553,7 +1553,7 @@ MonoBehaviour:
   inventoryPage3: {fileID: 21300000, guid: a60119e188e68449f9976f86aa731f70, type: 3}
   inventoryPage4: {fileID: 21300000, guid: fef2a15935d794c1e8e0bdf86ffa1d10, type: 3}
   inventoryPage5: {fileID: 21300000, guid: 55959607e02bc4145a791ad5bc64f7a2, type: 3}
-  furnitureItemButtonBackground: {fileID: 21300000, guid: 471729660ea5474459b3c68937f8b9c2, type: 3}
+  furnitureItemButtonBackground: {fileID: 0}
 --- !u!1 &7291770962766624306
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,8 +22,6 @@ public class Placeable : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        MeshRenderer.material = Material;
-
         childMeshCollider = GetComponentInChildren<MeshCollider>();
     }
 
