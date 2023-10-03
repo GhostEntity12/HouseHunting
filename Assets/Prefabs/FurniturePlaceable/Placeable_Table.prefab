@@ -48,7 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canPlaceOnSurface: 0
-  <Mesh>k__BackingField: {fileID: 3082429393603250123}
+  <MeshRenderer>k__BackingField: {fileID: 3082429393603250123}
+  <MeshFilter>k__BackingField: {fileID: 946330392160449281}
 --- !u!65 &8127022634081417968
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -149,6 +150,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.00216006
       objectReference: {fileID: 0}
@@ -200,6 +213,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7454258119363628894}
   m_SourcePrefab: {fileID: 100100000, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
+--- !u!33 &946330392160449281 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
+  m_PrefabInstance: {fileID: 4397598539175385935}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &3082429393603250123 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: fb603754ef13fc442b8fe9b9df50ab57, type: 3}
