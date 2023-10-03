@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc70e39678bc67499528b7f8300526d, type: 3}
   m_Name: MovementCrouchSoundSO
   m_EditorClassIdentifier: 
-  falloff: 1
-  range: 5
-  volume: 2
+  falloff: 0
+  range: 20
+  volume: 5
   soundType: 1
