@@ -38,6 +38,8 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 		// Lure
 		playerInput.Hunting.Lure.performed += ctx => ThrowLure();
+
+		playerInput.Hunting.GoBackToHouse.performed += ctx => HuntingManager.Instance.RespawnInHouse();
 	}
 
 	private void OnEnable()
