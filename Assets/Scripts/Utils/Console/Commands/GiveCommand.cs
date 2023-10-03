@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Give Command", menuName = "Command/Give")]
 public class GiveCommand : Command
 {
-    public GiveCommand() : base("give", "Gives an inventory item, can be called in house or hunting scene.\nUsage: give <furniture id>\nDefault to first furniture in the data persistence manager list.")
+    public GiveCommand() : base("give", "Gives an inventory item, can be called in house or hunting scene.\nUsage: give <furniture id>\nDefault to first furniture in the data persistence manager list.\nUse give all to give one of every furniture.")
     {
     }
 
@@ -34,10 +34,27 @@ public class GiveCommand : Command
         }
 
         FurnitureSO furniture;
+        FurnitureInventory inventory;
+
+        inventory = HuntingManager.Instance ? HuntingManager.Instance.HuntingInventory : GameManager.Instance.PermanentInventory;
+
         if (arguments.Length == 0)
+        {
              furniture = DataPersistenceManager.Instance.AllFurnitureSO[0];
+        }
+        else if (arguments[0].ToLower() == "all")
+        {
+            foreach (FurnitureSO item in DataPersistenceManager.Instance.AllFurnitureSO)
+            {
+                Output($"Added {item.name} into inventory");
+                inventory.AddItem(new SaveDataFurniture(item.id));
+            }
+            return;
+        }
         else
+        {
             furniture = DataPersistenceManager.Instance.AllFurnitureSO.Find(f => f.id.ToLower().Replace(" ", "") == arguments[0].ToLower());
+        }
                     
         if (furniture == null)
         {

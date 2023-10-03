@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2019720006946243018}
   - component: {fileID: 4075114003427025146}
   - component: {fileID: 942697772459097206}
+  - component: {fileID: -3059282769950002985}
   m_Layer: 6
   m_Name: Placeable_FridgeFreezer_SingleDoor
   m_TagString: Untagged
@@ -70,6 +71,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0755014, y: 2.7902558, z: 1.1557301}
   m_Center: {x: -0.0014671087, y: 1.4139103, z: 0.048629105}
+--- !u!54 &-3059282769950002985
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5036292826158594064}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &8131227400173363883
 PrefabInstance:
   m_ObjectHideFlags: 0
