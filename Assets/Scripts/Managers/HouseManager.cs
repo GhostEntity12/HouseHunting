@@ -12,19 +12,26 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	private List<SaveDataPlacedFurniture> houseItems;
 	private Player player;
     private float holdingPlaceableRotation = 0;
+	private Color holdingPlaceableOriginalColor = Color.white;
 	private float houseValue = 0;
 
 	public List<SaveDataPlacedFurniture> HouseItems => houseItems;
-    public Placeable HoldingPlaceable { get => holdingPlaceable; set => holdingPlaceable = value; }
+    public Placeable HoldingPlaceable 
+	{ 
+		get => holdingPlaceable; 
+		set
+		{
+			holdingPlaceable = value;
+			holdingPlaceableOriginalColor = holdingPlaceable.MeshRenderer.material.color;
+		}
+	}
 	public float HoldingPlaceableRotation { get => holdingPlaceableRotation; set => holdingPlaceableRotation = value; }
 
 	private void Start()
 	{
 		SpawnSerializedPlaceables();
 		houseValue = CalculateHouseRating(houseItems); // assign total value here
-		Debug.Log(GameManager.Instance.Player);
 		player = GameManager.Instance.Player;
-		Debug.Log(player);
 		AudioManager.Instance.Play("Building");
 	}
 
@@ -75,15 +82,20 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
 		// Perform the raycast and check if it hits something within the specified distance
 		int baseMask = LayerMask.GetMask("Floor") | LayerMask.GetMask("House Wall");
-		int layerMask = holdingPlaceable.CanPlaceOnSurface ? baseMask | LayerMask.GetMask("PlaceableSurface") : baseMask;
 
-		if (Physics.Raycast(ray, out RaycastHit hit, 3, layerMask))
-            holdingPlaceable.transform.position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+		// if hit floor or wall, set y the position to 0
+		// else if holding placeable can place on surface and hit on surface, set y to the height of the surface
+		// else set the position to be 3 units in front of player
+		if (Physics.Raycast(ray, out RaycastHit hitFloorOrWall, 3, baseMask))
+            holdingPlaceable.transform.position = new Vector3(hitFloorOrWall.point.x, 0, hitFloorOrWall.point.z);
+		else if (Physics.Raycast(ray, out RaycastHit hit2, GameManager.Instance.Player.InteractRange, LayerMask.GetMask("PlaceableSurface")) && holdingPlaceable.CanPlaceOnSurface)
+            holdingPlaceable.transform.position = new Vector3(hit2.point.x, hit2.point.y, hit2.point.z);
         else
             holdingPlaceable.transform.position = player.transform.position + player.transform.forward * 3;
 
 		// clamp the position so that the y index is always on ground level
-		holdingPlaceable.transform.position = new Vector3(holdingPlaceable.transform.position.x, 0, holdingPlaceable.transform.position.z);
+		holdingPlaceable.transform.position = new Vector3(holdingPlaceable.transform.position.x, holdingPlaceable.transform.position.y, holdingPlaceable.transform.position.z);
+		//holdingPlaceable.transform.position = new Vector3(holdingPlaceable.transform.position.x, 0, holdingPlaceable.transform.position.z);
 		// rotate the furniture so that it faces the player
 		holdingPlaceable.transform.LookAt(ExploreCamera.transform.position);
 		holdingPlaceable.transform.rotation = Quaternion.Euler(0, holdingPlaceable.transform.rotation.eulerAngles.y + holdingPlaceableRotation, 0);
@@ -136,9 +148,9 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
         MeshRenderer meshRenderer = holdingPlaceable.GetComponentInChildren<MeshRenderer>();
         houseItems.Add(new SaveDataPlacedFurniture(holdingPlaceable.InventoryItem, holdingPlaceable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
-		
+
+		holdingPlaceable.MeshRenderer.material.color = holdingPlaceableOriginalColor;
 		holdingPlaceable.ChildMeshCollider.enabled = true;
-		holdingPlaceable.MeshRenderer.material.color = Color.white;
 		holdingPlaceable = null;
 		holdingPlaceableRotation = 0;
     }

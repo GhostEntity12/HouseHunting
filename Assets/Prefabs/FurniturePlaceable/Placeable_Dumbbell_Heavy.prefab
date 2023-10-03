@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7655280343042253195}
   - component: {fileID: 7787829924122325220}
   - component: {fileID: 463394201265053751}
+  - component: {fileID: -5029318500303643107}
   m_Layer: 6
   m_Name: Placeable_Dumbbell_Heavy
   m_TagString: Untagged
@@ -70,6 +71,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.6209573, y: 0.36674628, z: 0.37069368}
   m_Center: {x: 0.0010209978, y: 0.17806293, z: -0.36559248}
+--- !u!54 &-5029318500303643107
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2693705804478566311}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1130471939425324775
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -108,19 +136,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ff738d293233528478447791ba68d085, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.6639402
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ff738d293233528478447791ba68d085, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.00000003774895
+      value: -0.000000025063077
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ff738d293233528478447791ba68d085, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7477857
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ff738d293233528478447791ba68d085, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.000000028228142
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ff738d293233528478447791ba68d085, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
