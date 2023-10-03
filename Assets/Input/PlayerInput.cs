@@ -922,9 +922,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ""id"": ""dc1bc059-cd15-4026-96f9-5f959c735574"",
             ""actions"": [
                 {
-                    ""name"": ""Skip"",
+                    ""name"": ""SkipInitial"",
                     ""type"": ""Button"",
                     ""id"": ""84e90234-b776-40a7-9881-809f503b1443"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SkipConfirm"",
+                    ""type"": ""Button"",
+                    ""id"": ""8725d3a2-e496-4fee-b9aa-999da737b671"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -934,12 +943,34 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""5ede7368-c9b0-4c95-8afd-fc0d0cd68774"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""id"": ""cfdbc6bb-ca58-4069-bc22-7ddbf4bb1ff8"",
+                    ""path"": ""<Keyboard>/anyKey"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Skip"",
+                    ""action"": ""SkipInitial"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8974bc06-c8ad-448f-af07-76ddcb62441c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SkipInitial"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a9395b4-6e16-4cfe-91db-9a7de5447f48"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SkipConfirm"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1003,7 +1034,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_SprintHold_Run = m_SprintHold.FindAction("Run", throwIfNotFound: true);
         // Animatic
         m_Animatic = asset.FindActionMap("Animatic", throwIfNotFound: true);
-        m_Animatic_Skip = m_Animatic.FindAction("Skip", throwIfNotFound: true);
+        m_Animatic_SkipInitial = m_Animatic.FindAction("SkipInitial", throwIfNotFound: true);
+        m_Animatic_SkipConfirm = m_Animatic.FindAction("SkipConfirm", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1709,12 +1741,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     // Animatic
     private readonly InputActionMap m_Animatic;
     private List<IAnimaticActions> m_AnimaticActionsCallbackInterfaces = new List<IAnimaticActions>();
-    private readonly InputAction m_Animatic_Skip;
+    private readonly InputAction m_Animatic_SkipInitial;
+    private readonly InputAction m_Animatic_SkipConfirm;
     public struct AnimaticActions
     {
         private @PlayerInput m_Wrapper;
         public AnimaticActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Skip => m_Wrapper.m_Animatic_Skip;
+        public InputAction @SkipInitial => m_Wrapper.m_Animatic_SkipInitial;
+        public InputAction @SkipConfirm => m_Wrapper.m_Animatic_SkipConfirm;
         public InputActionMap Get() { return m_Wrapper.m_Animatic; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1724,16 +1758,22 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_AnimaticActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_AnimaticActionsCallbackInterfaces.Add(instance);
-            @Skip.started += instance.OnSkip;
-            @Skip.performed += instance.OnSkip;
-            @Skip.canceled += instance.OnSkip;
+            @SkipInitial.started += instance.OnSkipInitial;
+            @SkipInitial.performed += instance.OnSkipInitial;
+            @SkipInitial.canceled += instance.OnSkipInitial;
+            @SkipConfirm.started += instance.OnSkipConfirm;
+            @SkipConfirm.performed += instance.OnSkipConfirm;
+            @SkipConfirm.canceled += instance.OnSkipConfirm;
         }
 
         private void UnregisterCallbacks(IAnimaticActions instance)
         {
-            @Skip.started -= instance.OnSkip;
-            @Skip.performed -= instance.OnSkip;
-            @Skip.canceled -= instance.OnSkip;
+            @SkipInitial.started -= instance.OnSkipInitial;
+            @SkipInitial.performed -= instance.OnSkipInitial;
+            @SkipInitial.canceled -= instance.OnSkipInitial;
+            @SkipConfirm.started -= instance.OnSkipConfirm;
+            @SkipConfirm.performed -= instance.OnSkipConfirm;
+            @SkipConfirm.canceled -= instance.OnSkipConfirm;
         }
 
         public void RemoveCallbacks(IAnimaticActions instance)
@@ -1816,6 +1856,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     }
     public interface IAnimaticActions
     {
-        void OnSkip(InputAction.CallbackContext context);
+        void OnSkipInitial(InputAction.CallbackContext context);
+        void OnSkipConfirm(InputAction.CallbackContext context);
     }
 }

@@ -900,9 +900,18 @@
             "id": "dc1bc059-cd15-4026-96f9-5f959c735574",
             "actions": [
                 {
-                    "name": "Skip",
+                    "name": "SkipInitial",
                     "type": "Button",
                     "id": "84e90234-b776-40a7-9881-809f503b1443",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SkipConfirm",
+                    "type": "Button",
+                    "id": "8725d3a2-e496-4fee-b9aa-999da737b671",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -912,12 +921,34 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "5ede7368-c9b0-4c95-8afd-fc0d0cd68774",
-                    "path": "<Keyboard>/space",
+                    "id": "cfdbc6bb-ca58-4069-bc22-7ddbf4bb1ff8",
+                    "path": "<Keyboard>/anyKey",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Skip",
+                    "action": "SkipInitial",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8974bc06-c8ad-448f-af07-76ddcb62441c",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SkipInitial",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2a9395b4-6e16-4cfe-91db-9a7de5447f48",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SkipConfirm",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

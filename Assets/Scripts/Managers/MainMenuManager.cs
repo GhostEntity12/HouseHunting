@@ -30,6 +30,9 @@ public class MainMenuManager : Singleton<MainMenuManager>
         else
         {
             skipText.enabled = true;
+            inputs.Animatic.SkipInitial.performed -= SkipAnimatic;
+            inputs.Animatic.SkipConfirm.performed += SkipAnimatic;
+
         }
     }
 
@@ -45,7 +48,7 @@ public class MainMenuManager : Singleton<MainMenuManager>
         animaticPlayer.Play();
         inputs.Animatic.Enable();
         animatic.raycastTarget = true;
-        inputs.Animatic.Skip.performed += SkipAnimatic;
+        inputs.Animatic.SkipInitial.performed += SkipAnimatic;
         animaticPlayer.loopPointReached += OnAnimaticEnd;
     }
 
