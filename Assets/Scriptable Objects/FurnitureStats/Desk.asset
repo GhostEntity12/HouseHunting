@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
-  m_Name: Glass Table
+  m_Name: Desk
   m_EditorClassIdentifier: 
-  id: glasstable
-  name: Glass Table
-  maxHealth: 10
-  speed: 3
-  thumbnail: {fileID: 21300000, guid: cef2f2757602f4745ba2b681b13173a0, type: 3}
-  placeablePrefab: {fileID: 2350306671234011157, guid: 14fa754a63549f84f8174f3a5588e0e8, type: 3}
-  shootablePrefab: {fileID: 2899710936797965666, guid: 04f2faa8a33b19b43b609c19912c5f0d, type: 3}
+  id: desk
+  name: Desk
+  maxHealth: 20
+  speed: 2
+  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  placeablePrefab: {fileID: 2350306671234011157, guid: f6a44b66ba2f0ae46b01f2d34279da11, type: 3}
+  shootablePrefab: {fileID: 2899710936797965666, guid: 9e22b75356fecb147b3c4dd8d9b0fdc4, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
   alertnessThreshold1: 33
   threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
@@ -31,9 +31,9 @@ MonoBehaviour:
   alertnessDecayRate: 10
   sightAlertnessRate: 25
   senses:
-  - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
+  - {fileID: 11400000, guid: 2968357f690929640ae30ed7c4389653, type: 2}
   special: 0
-  type: 0
+  type: 2
   materials:
   - {fileID: -3963241562183589234, guid: 320ec18bf87cbd84dbdadaf4f918996d, type: 3}
   basePrice: 0
