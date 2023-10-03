@@ -14,8 +14,5 @@ public class FurnitureDetailsUI : MonoBehaviour
     {
         thumbnail.sprite = furniture.so.thumbnail;
         nameText.text = furniture.so.name;
-        scaleFactorText.text = furniture.inventoryItem.scaleFactor.ToString();
-        materialText.text = furniture.so.materials[furniture.inventoryItem.materialIndex].name ?? "None";
-        priceText.text = furniture.inventoryItem.price.ToString();
     }
 }

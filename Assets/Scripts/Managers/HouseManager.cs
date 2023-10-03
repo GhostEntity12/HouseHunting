@@ -34,12 +34,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
     // function to calculate house rating, on certain threseholds (to be determined later), unlockTier is called to unlock that tier.
     private float CalculateHouseRating(List<SaveDataPlacedFurniture> houseItems)
 	{
-		float tValue = 0;
-
-		foreach (SaveDataPlacedFurniture item in houseItems)
-		{
-			tValue += item.inventoryItem.Value;
-		}
+		float tValue = houseItems.Count;
 
 		// can be changed in future
 		if (tValue > 9000)
