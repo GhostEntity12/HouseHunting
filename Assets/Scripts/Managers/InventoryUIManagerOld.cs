@@ -143,7 +143,6 @@ public class InventoryUIManagerOld : Singleton<InventoryUIManagerOld>
     {
         if (selectedFurniture is null) return;
 
-        GameManager.Instance.Currency += (int)selectedFurniture?.inventoryItem.price;
         inventory.RemoveItem((SaveDataFurniture)selectedFurniture?.inventoryItem);
         SetTab(selectedFurniture?.inventoryItem.id);
         RepaintTab();

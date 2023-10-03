@@ -49,8 +49,6 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
                 selectedFurniture = value;
                 furnitureNameText.text = selectedFurniture.Value.so.name;
                 modelPreview.MeshFilter.mesh = value.Value.so.placeablePrefab.MeshFilter.sharedMesh;
-                modelPreview.MeshRenderer.materials = value.Value.so.placeablePrefab.MeshRenderer.sharedMaterials;
-                modelPreview.MeshRenderer.material = value.Value.so.materials[value.Value.inventoryItem.materialIndex];
             }
             else
             {
