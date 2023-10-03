@@ -14,26 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: washing machine
   name: Washing Machine
-  maxHealth: 30
-  speed: 3
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  maxHealth: 20
+  speed: 4
+  thumbnail: {fileID: 21300000, guid: 1c568ea6ff6b98e4ea939aa0e2df07a0, type: 3}
   placeablePrefab: {fileID: 1539234630903234798, guid: 6b608ac294185ac45aaf947188450477, type: 3}
   shootablePrefab: {fileID: 2899710936797965666, guid: 5303bb97bb384d24c95aaf56ad16e902, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
   alertnessThreshold1: 33
   threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
   alertnessThreshold2: 66
-  threshold2Behaviour: {fileID: 11400000, guid: d1b5f233a60fcac4d8755cfbc52da0af, type: 2}
+  threshold2Behaviour: {fileID: 11400000, guid: 217112832d3f55c4e8f13aef0f12578c, type: 2}
   alertnessThreshold3: 100
   threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
-  damageBehaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
+  damageBehaviour: {fileID: 11400000, guid: fa0fe16bfb49e01489e042d06445e06d, type: 2}
   timeBeforeDecay: 5
   alertnessDecayRate: 8
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
-  special: 0
   type: 4
-  materials:
-  - {fileID: 2100000, guid: bf6653a628f925c49908e76bcfb5febd, type: 2}
-  basePrice: 0

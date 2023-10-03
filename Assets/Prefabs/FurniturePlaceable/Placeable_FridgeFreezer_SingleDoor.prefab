@@ -10,11 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2019720006946243018}
   - component: {fileID: 4075114003427025146}
-  - component: {fileID: 8259774198486558328}
-  - component: {fileID: 8955040048555624467}
   - component: {fileID: 942697772459097206}
   m_Layer: 6
-  m_Name: Placeable_Fridge_Freezer_Single_Door
+  m_Name: Placeable_FridgeFreezer_SingleDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5036292826158594064}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.00000035762784}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -35,7 +33,7 @@ Transform:
   - {fileID: 8601124597686650176}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &4075114003427025146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51,55 +49,6 @@ MonoBehaviour:
   canPlaceOnSurface: 0
   <MeshRenderer>k__BackingField: {fileID: 7428258348830768687}
   <MeshFilter>k__BackingField: {fileID: 4679960010417228517}
---- !u!54 &8259774198486558328
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5036292826158594064}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!64 &8955040048555624467
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5036292826158594064}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3082250236548730855, guid: d510b612783b94441b25fb8b3533fcf1, type: 3}
 --- !u!65 &942697772459097206
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -192,6 +141,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 732e45f79dc444c439122f14a9ce6d6f, type: 3}
       propertyPath: m_Name
       value: Furniture_FridgeFreezer_SingleDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 732e45f79dc444c439122f14a9ce6d6f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
