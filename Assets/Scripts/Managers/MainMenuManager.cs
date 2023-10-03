@@ -62,6 +62,7 @@ public class MainMenuManager : Singleton<MainMenuManager>
 
 	public void NewGame()
     {
+        AudioManager.Instance.Pause("Ambience02");
         animaticPlayer.Play();
         inputs.Animatic.Enable();
         animatic.raycastTarget = true;

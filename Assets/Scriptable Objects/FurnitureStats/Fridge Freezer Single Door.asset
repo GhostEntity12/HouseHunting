@@ -16,24 +16,20 @@ MonoBehaviour:
   name: Fridge Freezer
   maxHealth: 30
   speed: 3
-  thumbnail: {fileID: 21300000, guid: 14d7d8dfc85d1914284313dc5bd4f03c, type: 3}
-  placeablePrefab: {fileID: 2350306671234011157, guid: c3e1fee8a169e3247bcd86e9f6048c56, type: 3}
+  thumbnail: {fileID: 21300000, guid: 56071b2f4efa3ff4a8d40ab07a318380, type: 3}
+  placeablePrefab: {fileID: 4075114003427025146, guid: c3e1fee8a169e3247bcd86e9f6048c56, type: 3}
   shootablePrefab: {fileID: 274742349716809348, guid: fa5ad76c40d404d4ba33577926df3e55, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
   alertnessThreshold1: 33
   threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
   alertnessThreshold2: 66
-  threshold2Behaviour: {fileID: 11400000, guid: d1b5f233a60fcac4d8755cfbc52da0af, type: 2}
+  threshold2Behaviour: {fileID: 11400000, guid: 217112832d3f55c4e8f13aef0f12578c, type: 2}
   alertnessThreshold3: 100
   threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
-  damageBehaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
+  damageBehaviour: {fileID: 11400000, guid: fa0fe16bfb49e01489e042d06445e06d, type: 2}
   timeBeforeDecay: 5
   alertnessDecayRate: 10
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: c343645932c55df428b2bdec5aa7fce5, type: 2}
-  special: 0
-  type: 0
-  materials:
-  - {fileID: 2100000, guid: ed913478aba5e174797163806e732250, type: 2}
-  basePrice: 0
+  type: 1

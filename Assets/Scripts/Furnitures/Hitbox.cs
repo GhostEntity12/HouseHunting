@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+#if UNITY_EDITOR
 using UnityEngine;
+#endif
 
 public class Hitbox : MonoBehaviour
 {
@@ -54,9 +57,10 @@ public class Hitbox : MonoBehaviour
 			Color end = colors[(int)scaled + 1];
 			Color c = Color.Lerp(start, end, scaled - (int)scaled);
 			Gizmos.color = new(c.r, c.g, c.b, 0.3f);
-			
+
 			// Render
-			switch (hitbox) {
+			switch (hitbox)
+			{
 				case BoxCollider bc:
 					Gizmos.DrawCube(bc.center + GetComponentInParent<Transform>().position, bc.size);
 					break;
@@ -67,6 +71,47 @@ public class Hitbox : MonoBehaviour
 					break;
 			}
 		}
+	}
+	[ContextMenu("Normalize")]
+	public void NormalizePosition()
+	{
+		using var editingScope = new PrefabUtility.EditPrefabContentsScope($"Assets/Prefabs/FurnitureShootable/{transform.root.gameObject.name}.prefab");
+
+		var root = editingScope.prefabContentsRoot;
+
+		// Reparent to new position
+		Transform newParent = new GameObject("Hitboxes").transform;
+		newParent.parent = root.transform;
+		Debug.Log(newParent.name);
+		Transform oldParent = transform.parent;
+		newParent.SetSiblingIndex(oldParent.GetSiblingIndex());
+		oldParent = root.transform.GetChild(newParent.GetSiblingIndex() + 1);
+		oldParent.name = "OldHitboxes";
+		while (oldParent.childCount > 0)
+		{
+			Transform child = oldParent.GetChild(0);
+			// Set position to be at center of collider
+			switch (child.GetComponent<Collider>())
+			{
+				case BoxCollider bc:
+					child.localPosition = bc.center + child.localPosition;
+					bc.center = Vector3.zero;
+					break;
+				case SphereCollider sc:
+					child.localPosition = sc.center + child.localPosition;
+					sc.center = Vector3.zero;
+					break;
+				case CapsuleCollider cc:
+					child.localPosition = cc.center + child.localPosition;
+					cc.center = Vector3.zero;
+					break;
+				default:
+					break;
+			}
+			child.SetParent(newParent);
+			child.rotation = Quaternion.identity;
+		}
+		DestroyImmediate(oldParent.gameObject);
 	}
 #endif
 

@@ -15,8 +15,8 @@ MonoBehaviour:
   id: toaster
   name: Toaster
   maxHealth: 10
-  speed: 7
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  speed: 6
+  thumbnail: {fileID: 21300000, guid: af99e8f4726919c4b831d1bbe026dfac, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 399b91a45ced6b14b9adccc8816881f9, type: 3}
   shootablePrefab: {fileID: 5670009076271129424, guid: c7927adc0efe63b43bae2c85284e33bf, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
@@ -26,14 +26,10 @@ MonoBehaviour:
   threshold2Behaviour: {fileID: 11400000, guid: d1b5f233a60fcac4d8755cfbc52da0af, type: 2}
   alertnessThreshold3: 100
   threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
-  damageBehaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
+  damageBehaviour: {fileID: 11400000, guid: fa0fe16bfb49e01489e042d06445e06d, type: 2}
   timeBeforeDecay: 5
   alertnessDecayRate: 5
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
-  special: 0
-  type: 0
-  materials:
-  - {fileID: 2100000, guid: 0b8da7bc6c150a04f9ef436e72f5db90, type: 2}
-  basePrice: 0
+  type: 1

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4408006311470859530
+--- !u!1 &5036292826158594064
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,105 +8,54 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6130737722407600114}
-  - component: {fileID: 2350306671234011157}
-  - component: {fileID: 8568587000754051143}
-  - component: {fileID: 1928146574511252700}
-  - component: {fileID: 556699787903210872}
+  - component: {fileID: 2019720006946243018}
+  - component: {fileID: 4075114003427025146}
+  - component: {fileID: 942697772459097206}
   m_Layer: 6
-  m_Name: Placeable_Fridge_Freezer_Single_Door
+  m_Name: Placeable_FridgeFreezer_SingleDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6130737722407600114
+--- !u!4 &2019720006946243018
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408006311470859530}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 5036292826158594064}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.00000035762784}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3654154578035954028}
+  - {fileID: 8601124597686650176}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2350306671234011157
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &4075114003427025146
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408006311470859530}
+  m_GameObject: {fileID: 5036292826158594064}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 304f65a922a1c7e419427ba953ffe214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   canPlaceOnSurface: 0
-  <MeshRenderer>k__BackingField: {fileID: 2521178954634406403}
-  <MeshFilter>k__BackingField: {fileID: 367590579271130825}
---- !u!54 &8568587000754051143
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408006311470859530}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!64 &1928146574511252700
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408006311470859530}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3082250236548730855, guid: d510b612783b94441b25fb8b3533fcf1, type: 3}
---- !u!65 &556699787903210872
+  <MeshRenderer>k__BackingField: {fileID: 7428258348830768687}
+  <MeshFilter>k__BackingField: {fileID: 4679960010417228517}
+--- !u!65 &942697772459097206
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408006311470859530}
+  m_GameObject: {fileID: 5036292826158594064}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -121,13 +70,13 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0755014, y: 2.7902558, z: 1.1557301}
   m_Center: {x: -0.0014671087, y: 1.4139103, z: 0.048629105}
---- !u!1001 &3836102916109645447
+--- !u!1001 &8131227400173363883
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6130737722407600114}
+    m_TransformParent: {fileID: 2019720006946243018}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 732e45f79dc444c439122f14a9ce6d6f, type: 3}
       propertyPath: m_RootOrder
@@ -185,9 +134,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 732e45f79dc444c439122f14a9ce6d6f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 732e45f79dc444c439122f14a9ce6d6f, type: 3}
       propertyPath: m_Name
       value: Furniture_FridgeFreezer_SingleDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 732e45f79dc444c439122f14a9ce6d6f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -195,35 +152,35 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 732e45f79dc444c439122f14a9ce6d6f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6471348585841580006}
+      addedObject: {fileID: 104792020478000818}
   m_SourcePrefab: {fileID: 100100000, guid: 732e45f79dc444c439122f14a9ce6d6f, type: 3}
---- !u!33 &367590579271130825 stripped
+--- !u!33 &4679960010417228517 stripped
 MeshFilter:
   m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: 732e45f79dc444c439122f14a9ce6d6f, type: 3}
-  m_PrefabInstance: {fileID: 3836102916109645447}
+  m_PrefabInstance: {fileID: 8131227400173363883}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &2521178954634406403 stripped
+--- !u!23 &7428258348830768687 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 732e45f79dc444c439122f14a9ce6d6f, type: 3}
-  m_PrefabInstance: {fileID: 3836102916109645447}
+  m_PrefabInstance: {fileID: 8131227400173363883}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &3654154578035954028 stripped
+--- !u!4 &8601124597686650176 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 732e45f79dc444c439122f14a9ce6d6f, type: 3}
-  m_PrefabInstance: {fileID: 3836102916109645447}
+  m_PrefabInstance: {fileID: 8131227400173363883}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4178771555456846806 stripped
+--- !u!1 &8941481361589182458 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 732e45f79dc444c439122f14a9ce6d6f, type: 3}
-  m_PrefabInstance: {fileID: 3836102916109645447}
+  m_PrefabInstance: {fileID: 8131227400173363883}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &6471348585841580006
+--- !u!64 &104792020478000818
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4178771555456846806}
+  m_GameObject: {fileID: 8941481361589182458}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

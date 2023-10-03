@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Small Chair
   maxHealth: 10
   speed: 5
-  thumbnail: {fileID: 21300000, guid: 166e5dc9494bfeb4f8094bc130d8669c, type: 3}
+  thumbnail: {fileID: 21300000, guid: ec605de95ba585740ae843dd469353a7, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 9a26f7a9a12bc8f4bb9bd8c412f1af23, type: 3}
   shootablePrefab: {fileID: 6366392969304530097, guid: 8dd7d42fbef8ba04b9398f06db5ef2b2, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
@@ -26,14 +26,10 @@ MonoBehaviour:
   threshold2Behaviour: {fileID: 11400000, guid: 217112832d3f55c4e8f13aef0f12578c, type: 2}
   alertnessThreshold3: 100
   threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
-  damageBehaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
+  damageBehaviour: {fileID: 11400000, guid: fa0fe16bfb49e01489e042d06445e06d, type: 2}
   timeBeforeDecay: 5
   alertnessDecayRate: 10
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
-  special: 0
   type: 0
-  materials:
-  - {fileID: 2100000, guid: d79ef863f7fc0d44095118cc4667e66d, type: 2}
-  basePrice: 100
