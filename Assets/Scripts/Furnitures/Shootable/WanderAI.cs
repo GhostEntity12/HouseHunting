@@ -147,7 +147,6 @@ public class WanderAI : MonoBehaviour
 
 	private void Transition(AIBehaviour newBehaviour, Knowledge knowledge, ThresholdLevels newAlertLevel)
 	{
-		Debug.Log("Transitioning");
 		// Call the behaviour's exit
 		activeBehaviour.Exit(ref knowledge); 
 		// Destroy the old behaviour
