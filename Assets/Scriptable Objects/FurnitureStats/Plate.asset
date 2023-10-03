@@ -15,7 +15,7 @@ MonoBehaviour:
   id: plate
   name: Plate
   maxHealth: 10
-  speed: 5
+  speed: 6
   thumbnail: {fileID: 21300000, guid: 83bff1dc7597eeb4098324e029aa3df7, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 0331d8c56f4df504eb0be8b23ea32637, type: 3}
   shootablePrefab: {fileID: -1363456017480070556, guid: 2f430d09af36fd341aadc2318819177b, type: 3}
@@ -23,17 +23,13 @@ MonoBehaviour:
   alertnessThreshold1: 33
   threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
   alertnessThreshold2: 66
-  threshold2Behaviour: {fileID: 11400000, guid: 217112832d3f55c4e8f13aef0f12578c, type: 2}
+  threshold2Behaviour: {fileID: 11400000, guid: d1b5f233a60fcac4d8755cfbc52da0af, type: 2}
   alertnessThreshold3: 100
-  threshold3Behaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
+  threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
   damageBehaviour: {fileID: 11400000, guid: fa0fe16bfb49e01489e042d06445e06d, type: 2}
   timeBeforeDecay: 5
   alertnessDecayRate: 10
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
-  special: 0
   type: 0
-  materials:
-  - {fileID: 2100000, guid: 6c810a731ffdf2f4baafb97b6803d539, type: 2}
-  basePrice: 900

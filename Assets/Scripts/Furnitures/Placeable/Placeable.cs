@@ -22,10 +22,6 @@ public class Placeable : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        MeshRenderer.transform.localScale *= InventoryItem.scaleFactor;
-        Material = DataPersistenceManager.Instance.AllFurnitureSO.Find(x => x.id == InventoryItem.id).materials[InventoryItem.materialIndex];
-        MeshRenderer.material = Material;
-
         childMeshCollider = GetComponentInChildren<MeshCollider>();
     }
 

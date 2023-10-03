@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Sink Round
   name: Sink Round
-  maxHealth: 20
+  maxHealth: 10
   speed: 3
   thumbnail: {fileID: 21300000, guid: 7fe04fb249aa33a4d9ce72f2034f4b9f, type: 3}
   placeablePrefab: {fileID: 1539234630903234798, guid: f4aefb11ea598469f9725e5cab54e2dd, type: 3}
@@ -26,14 +26,10 @@ MonoBehaviour:
   threshold2Behaviour: {fileID: 11400000, guid: 217112832d3f55c4e8f13aef0f12578c, type: 2}
   alertnessThreshold3: 100
   threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
-  damageBehaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
+  damageBehaviour: {fileID: 11400000, guid: fa0fe16bfb49e01489e042d06445e06d, type: 2}
   timeBeforeDecay: 5
   alertnessDecayRate: 10
   sightAlertnessRate: 25
   senses:
   - {fileID: 11400000, guid: 9771baf6f921ffe40af7616d5ac74df4, type: 2}
-  special: 0
-  type: 0
-  materials:
-  - {fileID: 2100000, guid: 939bfb314e5068b4b89997a12bbde1ef, type: 2}
-  basePrice: 0
+  type: 3

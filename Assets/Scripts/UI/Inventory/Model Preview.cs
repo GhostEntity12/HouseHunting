@@ -5,17 +5,20 @@ public class ModelPreview : MonoBehaviour
     [Range(1, 20)]
     [SerializeField] private float secondsPerRotation;
 
-    [SerializeField] private GameObject modelGameObject;
+    [SerializeField] private Transform modelHolder;
 
     private void Update()
     {
         float degreesToRotate = 360.0f / secondsPerRotation * Time.deltaTime;
-        modelGameObject.transform.Rotate(Vector3.up * degreesToRotate);
+        modelHolder.Rotate(Vector3.up * degreesToRotate);
     }
 
-    public void ChangeModel(GameObject model)
+    public void SetModel(GameObject newModel)
     {
-        Destroy(modelGameObject);
-        modelGameObject = Instantiate(model, transform);
+        if (modelHolder.childCount != 0)
+        {
+            Destroy(modelHolder.GetChild(0).gameObject);
+        }
+        Instantiate(newModel, modelHolder);
     }
 }

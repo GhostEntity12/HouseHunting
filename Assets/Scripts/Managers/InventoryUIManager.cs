@@ -45,10 +45,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
                 rightPanel.gameObject.SetActive(true);
                 selectedFurniture = value;
                 furnitureNameText.text = selectedFurniture.Value.so.name;
-                //modelPreview.MeshFilter.mesh = value.Value.so.placeablePrefab.MeshFilter.sharedMesh;
-                //modelPreview.MeshRenderer.materials = value.Value.so.placeablePrefab.MeshRenderer.sharedMaterials;
-                //modelPreview.MeshRenderer.material = value.Value.so.materials[value.Value.inventoryItem.materialIndex];
-                modelPreview.ChangeModel(value.Value.so.placeablePrefab.GetComponentInChildren<MeshFilter>().gameObject);
+                modelPreview.SetModel(DataPersistenceManager.Instance.GetPlaceablePrefabById(SelectedFurniture.Value.inventoryItem.id).gameObject);
             }
             else
             {
@@ -100,7 +97,8 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
                 button.onClick.AddListener(() => SelectedFurniture = (savedFurnitureSO, savedFurniture));
 
                 Image buttonBackground = furnitureItem.AddComponent<Image>();
-                buttonBackground.color = new Color(1, 1, 1, 0);
+                buttonBackground.color = new(0, 0, 0, 0);
+                buttonBackground.sprite = furnitureItemButtonBackground;
 
                 Image furnitureItemImage = new GameObject(savedFurnitureSO.id + " sprite").AddComponent<Image>();
                 furnitureItemImage.transform.parent = furnitureItem.transform;

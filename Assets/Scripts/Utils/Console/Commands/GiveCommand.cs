@@ -66,12 +66,12 @@ public class GiveCommand : Command
 
         if (HuntingManager.Instance != null)
         {
-            HuntingManager.Instance.HuntingInventory.AddItem(new SaveDataFurniture(furniture.id, 1, 0, furniture.basePrice));
+            HuntingManager.Instance.HuntingInventory.AddItem(new SaveDataFurniture(furniture.id));
             Output($"{furniture.name} has been added to hunting inventory.");
         }
         else if (HouseManager.Instance != null)
         {
-            GameManager.Instance.PermanentInventory.AddItem(new SaveDataFurniture(furniture.id, 1, 0, furniture.basePrice));
+            GameManager.Instance.PermanentInventory.AddItem(new SaveDataFurniture(furniture.id));
             Output($"{furniture.name} has been added to permanent inventory.");
         }
     }

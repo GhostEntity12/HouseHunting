@@ -152,7 +152,7 @@ public class WanderAI : MonoBehaviour
 	private void Transition(AIBehaviour newBehaviour, Knowledge knowledge, ThresholdLevels newAlertLevel)
 	{
 		// Call the behaviour's exit
-		activeBehaviour.Exit(ref knowledge);
+		activeBehaviour.Exit(ref knowledge); 
 		// Destroy the old behaviour
 		Destroy(activeBehaviour);
 		// Make a copy of the new behaviour

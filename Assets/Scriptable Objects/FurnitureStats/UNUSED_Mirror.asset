@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
+  m_Name: UNUSED_Mirror
+  m_EditorClassIdentifier: 
+  id: mirror
+  name: Mirror
+  maxHealth: 10
+  speed: 3
+  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  placeablePrefab: {fileID: 2350306671234011157, guid: 957718b8129619c4da60d4f58f261863, type: 3}
+  shootablePrefab: {fileID: 274742349716809348, guid: efeacbf10d7164d48aec12593011f6c6, type: 3}
+  threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
+  alertnessThreshold1: 33
+  threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
+  alertnessThreshold2: 66
+  threshold2Behaviour: {fileID: 11400000, guid: 217112832d3f55c4e8f13aef0f12578c, type: 2}
+  alertnessThreshold3: 100
+  threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
+  damageBehaviour: {fileID: 11400000, guid: fa0fe16bfb49e01489e042d06445e06d, type: 2}
+  timeBeforeDecay: 5
+  alertnessDecayRate: 10
+  sightAlertnessRate: 25
+  senses:
+  - {fileID: 11400000, guid: dca978069f6341d4782a4663ac7f4f58, type: 2}
+  type: 0
