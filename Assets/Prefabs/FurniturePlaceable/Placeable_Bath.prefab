@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 844572056603279389}
   - component: {fileID: 2560133545874813605}
-  - component: {fileID: 5842321722218293267}
   - component: {fileID: 5629017588972787387}
   - component: {fileID: 4273042122600376374}
   - component: {fileID: 6706500749561103689}
@@ -18,7 +17,7 @@ GameObject:
   - component: {fileID: 3808311969536583533}
   - component: {fileID: 4828912878094970129}
   m_Layer: 6
-  m_Name: Placable_Bath
+  m_Name: Placeable_Bath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,33 +54,6 @@ MonoBehaviour:
   canPlaceOnSurface: 0
   <MeshRenderer>k__BackingField: {fileID: 7183088613686129203}
   <MeshFilter>k__BackingField: {fileID: 4921170232224696057}
---- !u!54 &5842321722218293267
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3565079300895175974}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &5629017588972787387
 BoxCollider:
   m_ObjectHideFlags: 0

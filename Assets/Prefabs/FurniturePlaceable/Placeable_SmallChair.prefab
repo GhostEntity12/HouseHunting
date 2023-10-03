@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6130737722407600114}
   - component: {fileID: 2350306671234011157}
   - component: {fileID: 2525179865123600939}
-  - component: {fileID: 2935972405383345342}
   - component: {fileID: 3306479301561497614}
   m_Layer: 6
   m_Name: Placeable_SmallChair
@@ -72,33 +71,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.6147056, y: 1.4389124, z: 0.16581519}
   m_Center: {x: -0.004612237, y: 0.7015308, z: 0.41959506}
---- !u!54 &2935972405383345342
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408006311470859530}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &3306479301561497614
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -114,7 +86,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

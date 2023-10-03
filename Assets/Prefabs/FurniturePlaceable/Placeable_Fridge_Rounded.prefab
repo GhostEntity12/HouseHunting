@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3492946803732807947}
   - component: {fileID: 6179649444048933784}
-  - component: {fileID: 6869911357924266359}
-  - component: {fileID: 4145741205739478166}
   - component: {fileID: 2527082037451949600}
   m_Layer: 6
   m_Name: Placeable_Fridge_Rounded
@@ -51,55 +49,6 @@ MonoBehaviour:
   canPlaceOnSurface: 0
   <MeshRenderer>k__BackingField: {fileID: 9015337272154847354}
   <MeshFilter>k__BackingField: {fileID: 6555022458795068592}
---- !u!54 &6869911357924266359
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6683237863212357599}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!64 &4145741205739478166
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6683237863212357599}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3082250236548730855, guid: d510b612783b94441b25fb8b3533fcf1, type: 3}
 --- !u!65 &2527082037451949600
 BoxCollider:
   m_ObjectHideFlags: 0
