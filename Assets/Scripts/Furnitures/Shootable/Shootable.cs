@@ -6,12 +6,8 @@ public class Shootable : MonoBehaviour, IInteractable
 {
     [SerializeField] private FurnitureSO furnitureSO;
 
-    private MeshRenderer meshRenderer;
     private int currentHealth;
     private bool isDead = false;
-    private int price;
-    private int materialIndex;
-    private float scaleFactor;
     private FurnitureAlert furnitureAlert;
 
     public bool IsDead => isDead;
@@ -22,13 +18,7 @@ public class Shootable : MonoBehaviour, IInteractable
 	private void Awake()
     {
         currentHealth = furnitureSO.maxHealth;
-        meshRenderer = GetComponentInChildren<MeshRenderer>();
         furnitureAlert = GetComponentInChildren<FurnitureAlert>();
-    }
-
-    private void Start()
-    {
-        transform.localScale *= scaleFactor;
     }
 
     public void Die()
