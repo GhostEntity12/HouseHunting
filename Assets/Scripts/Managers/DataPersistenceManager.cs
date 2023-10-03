@@ -87,7 +87,6 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
         }
 
         fileDataHandler.Save(gameData);
-        SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
     public Placeable GetPlaceablePrefabById(string id)
