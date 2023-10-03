@@ -22,7 +22,9 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	{
 		SpawnSerializedPlaceables();
 		houseValue = CalculateHouseRating(houseItems); // assign total value here
+		Debug.Log(GameManager.Instance.Player);
 		player = GameManager.Instance.Player;
+		Debug.Log(player);
 		AudioManager.Instance.Play("Building");
 	}
 
@@ -134,9 +136,9 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
         MeshRenderer meshRenderer = holdingPlaceable.GetComponentInChildren<MeshRenderer>();
         houseItems.Add(new SaveDataPlacedFurniture(holdingPlaceable.InventoryItem, holdingPlaceable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
-
-		holdingPlaceable.MeshRenderer.material = holdingPlaceable.Material;
+		
 		holdingPlaceable.ChildMeshCollider.enabled = true;
+		holdingPlaceable.MeshRenderer.material.color = Color.white;
 		holdingPlaceable = null;
 		holdingPlaceableRotation = 0;
     }
