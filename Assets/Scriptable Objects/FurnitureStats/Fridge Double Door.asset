@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Fridge Double Door
   maxHealth: 30
   speed: 3
-  thumbnail: {fileID: 21300000, guid: 14d7d8dfc85d1914284313dc5bd4f03c, type: 3}
+  thumbnail: {fileID: 21300000, guid: a5a23a15f0554c044871dd59dced9e7f, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: dda15a7b683015c449c2fcaf2c460e82, type: 3}
   shootablePrefab: {fileID: 274742349716809348, guid: 81564218266b193478a4864e2d8cb646, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

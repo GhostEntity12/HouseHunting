@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Sink Round
   maxHealth: 20
   speed: 3
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: 7fe04fb249aa33a4d9ce72f2034f4b9f, type: 3}
   placeablePrefab: {fileID: 1539234630903234798, guid: f4aefb11ea598469f9725e5cab54e2dd, type: 3}
   shootablePrefab: {fileID: 3685072443934080641, guid: c6397f22e5db0442daf735b6b8e559ec, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

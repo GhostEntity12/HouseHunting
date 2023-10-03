@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Bed
   maxHealth: 30
   speed: 3
-  thumbnail: {fileID: 21300000, guid: 7be0f92b9e7bb1744bfe3af8adc18fd2, type: 3}
+  thumbnail: {fileID: 21300000, guid: 346acbc8f47fab34884a2a50566b8699, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: c20f478f636a2e244ae1457817647b17, type: 3}
   shootablePrefab: {fileID: 4207542877117778773, guid: bd24c24fd5ad4d741892ce478fba20ea, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

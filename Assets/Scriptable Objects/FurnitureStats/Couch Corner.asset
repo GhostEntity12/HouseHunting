@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Corner Couch
   maxHealth: 30
   speed: 3
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: e24ead24e86a98248bb5bc5de6f2b90e, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: f64264d401d2c3f4b94558d8eb5a4d06, type: 3}
   shootablePrefab: {fileID: 4207542877117778773, guid: 1ab0e7105bba90b45a811384e6e6c9d9, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

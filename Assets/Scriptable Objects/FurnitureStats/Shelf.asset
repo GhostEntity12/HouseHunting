@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Shelf
   maxHealth: 80
   speed: 3
-  thumbnail: {fileID: 21300000, guid: 8e8c4f63376d05d439414bbb82126a9a, type: 3}
+  thumbnail: {fileID: 21300000, guid: f90d07a306549744885273a388096a55, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 7a92c28976aba0b44be987812d247a7d, type: 3}
   shootablePrefab: {fileID: 6900452092522998625, guid: b59a9dd65c1947b4eb388d089f4a19e5, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

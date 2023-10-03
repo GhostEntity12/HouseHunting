@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Wardrobe
   maxHealth: 20
   speed: 5
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: 5fa9bfd9b55d9cf49824aaf7c7e7c15d, type: 3}
   placeablePrefab: {fileID: 1539234630903234798, guid: 0b3ee8bdbaf697d45b5a8324a81fd13b, type: 3}
   shootablePrefab: {fileID: 3685072443934080641, guid: 1a2ac2217ed713743acd3eab627fd946, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

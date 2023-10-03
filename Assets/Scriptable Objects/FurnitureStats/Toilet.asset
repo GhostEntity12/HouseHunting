@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Toilet
   maxHealth: 30
   speed: 2
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: 397ff5da0a90bd5438e38c4185d20fa6, type: 3}
   placeablePrefab: {fileID: -2862497397986654166, guid: 727861dafb62a4d41963a4fef24defe1, type: 3}
   shootablePrefab: {fileID: 3685072443934080641, guid: 57840d625d3aaa846bf20a5ebadbcc56, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

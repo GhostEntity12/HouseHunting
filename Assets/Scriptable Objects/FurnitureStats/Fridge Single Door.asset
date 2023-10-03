@@ -16,8 +16,8 @@ MonoBehaviour:
   name: Fridge Single Door
   maxHealth: 20
   speed: 4
-  thumbnail: {fileID: 21300000, guid: 14d7d8dfc85d1914284313dc5bd4f03c, type: 3}
-  placeablePrefab: {fileID: 2350306671234011157, guid: f1f16dd0ff9d3cf46bff60c3546614f7, type: 3}
+  thumbnail: {fileID: 21300000, guid: a5a23a15f0554c044871dd59dced9e7f, type: 3}
+  placeablePrefab: {fileID: 2350306671234011157, guid: eb7d8c654d8237949a43a21e30026d76, type: 3}
   shootablePrefab: {fileID: 274742349716809348, guid: 9ec8576a2a39b3f468e25abc09aef032, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
   alertnessThreshold1: 33

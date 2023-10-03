@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Toy Car
   maxHealth: 20
   speed: 7
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: 602574b33ad023141a673078662102da, type: 3}
   placeablePrefab: {fileID: 1539234630903234798, guid: b5945fe5a7f5417448096262e5b9aafe, type: 3}
   shootablePrefab: {fileID: 2899710936797965666, guid: cf290effa00231e488018613811ecb7b, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Dresser Small
   maxHealth: 20
   speed: 2
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: acbf008998a587a41814eb0399fe3fdb, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: dca93defbfa52ce4bb9be0a6f06bd1aa, type: 3}
   shootablePrefab: {fileID: 274742349716809348, guid: ef6f41e08bc0ed44b99f587e0bd8632d, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

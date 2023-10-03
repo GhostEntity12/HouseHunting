@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Couch Single
   maxHealth: 10
   speed: 4
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: 058c64614a27d4e40929722b172e6740, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 67b509d65fa0de942b18933a0ba67888, type: 3}
   shootablePrefab: {fileID: 4207542877117778773, guid: c09dc40eb5fc4f24086f6ff507ab7fba, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Small Couch
   maxHealth: 20
   speed: 5
-  thumbnail: {fileID: 21300000, guid: 9b837a8ec030db34e92d6403d7517937, type: 3}
+  thumbnail: {fileID: 21300000, guid: b63c3e9a2f3513140b9a9aed1f1a0217, type: 3}
   placeablePrefab: {fileID: 1539234630903234798, guid: 19c6bfdfea16bc84991cca45f3d8f6b5, type: 3}
   shootablePrefab: {fileID: 3685072443934080641, guid: 4caf49e4189411740b2dc09e3833b7bc, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}

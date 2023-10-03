@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Vintage TV
   maxHealth: 20
   speed: 5
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: 911ee7d63319009459c2d099962c173f, type: 3}
   placeablePrefab: {fileID: 1539234630903234798, guid: d7a2c493ccb0b34488f7881c37b54245, type: 3}
   shootablePrefab: {fileID: 3685072443934080641, guid: fc7621cacaffc1a4e8ba5882c3f64511, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
