@@ -115,7 +115,7 @@ Transform:
   - {fileID: 8972154025105047453}
   - {fileID: 407198717534296964}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7056183516498374261
 MonoBehaviour:
@@ -130,8 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsPerRotation: 5
-  meshFilter: {fileID: 7412978311605944703}
-  meshRenderer: {fileID: 7640916142629206381}
+  modelHolder: {fileID: 407198717534296964}
 --- !u!1 &3629017945967972027
 GameObject:
   m_ObjectHideFlags: 0

@@ -48,7 +48,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
                 rightPanel.gameObject.SetActive(true);
                 selectedFurniture = value;
                 furnitureNameText.text = selectedFurniture.Value.so.name;
-                modelPreview.MeshFilter.mesh = value.Value.so.placeablePrefab.MeshFilter.sharedMesh;
+                modelPreview.SetModel(DataPersistenceManager.Instance.GetPlaceablePrefabById(SelectedFurniture.Value.inventoryItem.id).gameObject);
             }
             else
             {
