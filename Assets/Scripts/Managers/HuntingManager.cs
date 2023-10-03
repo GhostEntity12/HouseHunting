@@ -90,7 +90,6 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 
     public void SaveData(GameData data)
     {
-		Debug.Log("Saving");
 		data.huntingInventoryFurniture = HuntingInventory.Furniture;
     }
 }
