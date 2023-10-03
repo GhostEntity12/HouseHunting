@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinValue: 1
   m_MaxValue: 20
   m_WholeNumbers: 1
-  m_Value: 20
+  m_Value: 10
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -519,7 +519,7 @@ RectTransform:
   - {fileID: 6677193877672503246}
   - {fileID: 7112306287369044733}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1167,6 +1167,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MasterVolume
       objectReference: {fileID: 0}
+    - target: {fileID: 1121416595504046822, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 4c8b28d051782dc47953ac6df3a35620, type: 2}
+    - target: {fileID: 1121416595504046822, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1868620915536672879, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1254,6 +1262,10 @@ PrefabInstance:
     - target: {fileID: 5184376757824887288, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
       propertyPath: m_text
       value: Master Volume
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184376757824887288, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1500,6 +1512,10 @@ PrefabInstance:
     - target: {fileID: 499830059901095763, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
       propertyPath: m_Name
       value: MusicVolume
+      objectReference: {fileID: 0}
+    - target: {fileID: 1121416595504046822, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1868620915536672879, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
       propertyPath: m_Pivot.x

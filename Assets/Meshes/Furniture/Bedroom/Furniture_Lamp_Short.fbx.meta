@@ -3,9 +3,14 @@ guid: 764f56dde2dbf564a8aaa0ede46f1549
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Lamp_Short
+    second: {fileID: 2100000, guid: cc55470b71cc4eb479d143b008f0d287, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1

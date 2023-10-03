@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using Unity.VisualScripting;
 
 public class HuntingInputManager : Singleton<HuntingInputManager>
 {
