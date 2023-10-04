@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +8,9 @@ public class AmmoUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI magazineLeftText;
     [SerializeField] private HorizontalLayoutGroup bulletIconsLayoutGroup;
+    [SerializeField] private AmmoIcon ammoIconPrefab;
 
-    private readonly List<Image> bulletIcons = new List<Image>();
+    private readonly List<AmmoIcon> bulletIcons = new();
     
     // reload animation stuff
     private float reloadTimer = 0f;
@@ -37,11 +37,11 @@ public class AmmoUI : MonoBehaviour
             float progress = reloadTimer / reloadTime;
 
             // Update the reload bar fill amount
-            foreach (Image image in bulletIcons)
+            foreach (AmmoIcon icon in bulletIcons)
             {
                 // only trigger animations on icons that are not filled
-                if (image.fillAmount != 1)
-                    image.fillAmount = progress;
+                if (icon.fillAmount != 1)
+                    icon.SetFill(progress);
             }
 
             if (reloadTimer >= reloadTime)
@@ -56,47 +56,29 @@ public class AmmoUI : MonoBehaviour
 
     public void Rerender(Gun newGun)
     {
-        foreach (Image icon in bulletIcons)
+        foreach (AmmoIcon icon in bulletIcons)
             Destroy(icon.gameObject);
 
         bulletIcons.Clear();
 
         for (int i = 0; i < newGun.MaxShotPerMagazine; i++)
         {
-            // create new game object and attach image component to it.
-            Image newIcon = new GameObject("BulletIcon" + i).AddComponent<Image>();
-            newIcon.sprite = newGun.GunSO.bulletPrefab.Icon;
-            newIcon.transform.SetParent(bulletIconsLayoutGroup.transform);
+            AmmoIcon icon = Instantiate(ammoIconPrefab, bulletIconsLayoutGroup.transform);
+            icon.Initiate(newGun.GunSO.bulletPrefab.Icon);
 
-            // Calculate the size of the child object based on the sprite's dimensions.
-            float spriteWidth = newIcon.sprite.rect.width;
-            float spriteHeight = newIcon.sprite.rect.height;
-            float aspectRatio = spriteWidth / spriteHeight;
-
-            // Set the calculated size to the RectTransform of the child object.
-            RectTransform rectTransform = newIcon.GetComponent<RectTransform>();
-            rectTransform.sizeDelta = new Vector2(100 * aspectRatio, 100); // You can adjust the 100 as needed.
-
-            // set new icon to type filled
-            newIcon.type = Image.Type.Filled;
-            newIcon.fillMethod = Image.FillMethod.Vertical;
-            newIcon.fillAmount = 1;
-            newIcon.preserveAspect = true;
-
-            bulletIcons.Add(newIcon);
+            bulletIcons.Add(icon);
         }
         SetBulletsLeft(newGun.NumberOfShotsLeft);
         MagazineLeft = newGun.NumberOfMagazineLeft;
-    }
+        bulletIconsLayoutGroup.spacing = newGun.GunSO.uiAmmoSpacing;
+
+	}
 
     public void SetBulletsLeft(int bulletsLeft)
     {
-        foreach (Image icon in bulletIcons)
-            icon.fillAmount = 0;
-
-        for (int i = 0; i < bulletsLeft; i++)
+        for (int i = 0; i < bulletIcons.Count; i++)
         {
-            bulletIcons[bulletIcons.Count - i - 1].fillAmount = 1;
+            bulletIcons[bulletIcons.Count - i - 1].SetFill(i >= bulletsLeft ? 0 : 1);
         }
     }
 }

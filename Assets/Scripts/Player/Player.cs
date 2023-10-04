@@ -53,12 +53,12 @@ public class Player : MonoBehaviour
     {
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, interactRange) && hit.transform.TryGetComponent(out IInteractable interactable) && interactable.Interactable)
         {
-			InteractPopupManager.Instance.gameObject.SetActive(true);
+			InteractPopupManager.Instance.SetVisibility(true);
 			InteractPopupManager.Instance.SetAction(interactable.InteractActionText);
         } 
 		else
 		{
-			InteractPopupManager.Instance.gameObject.SetActive(false);
+			InteractPopupManager.Instance.SetVisibility(false);
 		}
     }
 
