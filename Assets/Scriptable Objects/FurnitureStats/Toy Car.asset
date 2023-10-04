@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
   m_Name: Toy Car
   m_EditorClassIdentifier: 
-  id: toy car
-  name: Toy Car
+  id: toycar
+  name: The Speed Demon 3000
   maxHealth: 10
   speed: 6
   thumbnail: {fileID: 21300000, guid: 602574b33ad023141a673078662102da, type: 3}
