@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fbf68acf72d3d4385926a6f0451aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawCones: 1
 --- !u!195 &736955873112452282
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -399,10 +400,6 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 3f9bd42926ea27142bb80b25e9f8f244, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 3f9bd42926ea27142bb80b25e9f8f244, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 3f9bd42926ea27142bb80b25e9f8f244, type: 3}
       propertyPath: m_Materials.Array.data[0]
