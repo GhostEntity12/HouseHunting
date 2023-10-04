@@ -24,7 +24,7 @@ public class Shootable : MonoBehaviour, IInteractable
     public void Die()
     {
         isDead = true;
-        furnitureAlert.OnDead();
+        furnitureAlert.SetDead();
 
         // disable AI when dead
         WanderAI wanderAI = transform.GetComponent<WanderAI>();
