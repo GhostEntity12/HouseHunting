@@ -212,7 +212,7 @@ public class Player : MonoBehaviour
 
 	public void UpdateSensitivity()
 	{
-		sensitivity = PlayerPrefs.GetFloat("mouseSensitivity", 10);
+		sensitivity = PlayerPrefs.GetInt("mouseSensitivity", 10);
 	}
     #endregion
 

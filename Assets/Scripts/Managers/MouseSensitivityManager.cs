@@ -5,18 +5,25 @@ using UnityEngine.UI;
 
 public class MouseSensitivityManager : MonoBehaviour
 {
-	private Slider slider;
+	[SerializeField] private SliderContainer slider;
 
 	private void Awake()
 	{
-		slider = GetComponent<Slider>();
-
-		slider.onValueChanged.AddListener(value =>
-		{
-			PlayerPrefs.SetFloat("mouseSensitivity", slider.value);
-
-			if (GameManager.Instance.Player)
-				GameManager.Instance.Player.UpdateSensitivity();
-		});
+		slider.InitAsSensitivity(this);
+		PlayerPrefs.Save();
 	}
+
+	public void SetSensitivity(SliderContainer sliderContainer, int sensitivity) => sliderContainer.Slider.value = sensitivity;
+	public void SetSensitivity(SliderContainer sliderContainer)
+	{
+		int sensitivity = (int)sliderContainer.Slider.value;
+		Debug.Log(sensitivity);
+		sliderContainer.SliderValueText.text = sensitivity.ToString();
+		PlayerPrefs.SetInt(sliderContainer.Key, sensitivity);
+
+		if (GameManager.Instance.Player)
+			GameManager.Instance.Player.UpdateSensitivity();
+	}
+
+
 }
