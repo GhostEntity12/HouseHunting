@@ -15,8 +15,8 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput = GeneralInputManager.Instance.PlayerInput;
 
 		// weapon wheel
-		playerInput.Hunting.OpenWeaponWheel.started += ctx => OpenWeaponWheel();
-		playerInput.Hunting.OpenWeaponWheel.canceled += ctx => CloseWeaponWheel();
+		//playerInput.Hunting.OpenWeaponWheel.started += ctx => OpenWeaponWheel();
+		//playerInput.Hunting.OpenWeaponWheel.canceled += ctx => CloseWeaponWheel();
 
 		// shoot
 		if (!FindAnyObjectByType<CampfireManager>())
@@ -26,18 +26,18 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput.Hunting.Reload.performed += ctx => EquipmentManager.Instance.EquippedItem.Reload();
 
 		// select weapon
-		playerInput.Hunting.Quick1.performed += ctx => EquipmentManager.Instance.SelectItem(0);
-		playerInput.Hunting.Quick2.performed += ctx => EquipmentManager.Instance.SelectItem(1);
-		playerInput.Hunting.Quick3.performed += ctx => EquipmentManager.Instance.SelectItem(2);
-		playerInput.Hunting.Quick4.performed += ctx => EquipmentManager.Instance.SelectItem(3);
-		playerInput.Hunting.Quick5.performed += ctx => EquipmentManager.Instance.SelectItem(4);
-		playerInput.Hunting.Quick6.performed += ctx => EquipmentManager.Instance.SelectItem(5);
+		//playerInput.Hunting.Quick1.performed += ctx => EquipmentManager.Instance.SelectItem(0);
+		//playerInput.Hunting.Quick2.performed += ctx => EquipmentManager.Instance.SelectItem(1);
+		//playerInput.Hunting.Quick3.performed += ctx => EquipmentManager.Instance.SelectItem(2);
+		//playerInput.Hunting.Quick4.performed += ctx => EquipmentManager.Instance.SelectItem(3);
+		//playerInput.Hunting.Quick5.performed += ctx => EquipmentManager.Instance.SelectItem(4);
+		//playerInput.Hunting.Quick6.performed += ctx => EquipmentManager.Instance.SelectItem(5);
 
 		// ADS
 		playerInput.Hunting.UseSecondary.performed += ctx => EquipmentManager.Instance.EquippedItem.UseSecondary();
 
 		// Lure
-		playerInput.Hunting.Lure.performed += ctx => ThrowLure();
+		//playerInput.Hunting.Lure.performed += ctx => ThrowLure();
 
 		playerInput.Hunting.GoBackToHouse.performed += ctx => HuntingManager.Instance.RespawnInHouse();
 	}
