@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class InventoryUIManager : Singleton<InventoryUIManager>
@@ -45,13 +46,26 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
                 rightPanel.gameObject.SetActive(true);
                 selectedFurniture = value;
                 furnitureNameText.text = selectedFurniture.Value.so.name;
-                modelPreview.SetModel(DataPersistenceManager.Instance.GetPlaceablePrefabById(SelectedFurniture.Value.inventoryItem.id).gameObject);
+                modelPreview.SetModel(DataPersistenceManager.Instance.GetPlaceablePrefabById(SelectedFurniture.Value.inventoryItem.id).gameObject, NavMesh.GetSettingsByID(value.Value.so.shootablePrefab.GetComponent<NavMeshAgent>().agentTypeID).agentRadius);
             }
             else
             {
                 rightPanel.gameObject.SetActive(false);
             }
         }
+    }
+
+    private int? GetNavMeshAgentID(string name)
+    {
+        for (int i = 0; i < NavMesh.GetSettingsCount(); i++)
+        {
+            NavMeshBuildSettings settings = NavMesh.GetSettingsByIndex(index: i);
+            if (name == NavMesh.GetSettingsNameFromID(agentTypeID: settings.agentTypeID))
+            {
+                return settings.agentTypeID;
+            }
+        }
+        return null;
     }
 
     protected override void Awake()
