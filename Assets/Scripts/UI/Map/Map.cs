@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,14 +8,12 @@ public class Map : Singleton<Map>
     [SerializeField] private CampfireButton campfireButtonPrefab;
     [SerializeField] private Image mapBackgroundImageObject;
     [SerializeField] private Button teleportButton;
+    [SerializeField] private CanvasGroup fade;
 
     [Header("Bounds")]
     [SerializeField] private RectTransform mapBoundCanvas;
 
     private Campfire[] campfires;
-    private Campfire selectedCampfire = null;
-
-    public Campfire SelectedCampfire => selectedCampfire;
 
     protected override void Awake()
     {
@@ -28,7 +25,8 @@ public class Map : Singleton<Map>
         foreach (Campfire campfire in campfires)
         {
             CampfireButton campfireButton = Instantiate(campfireButtonPrefab, mapBackgroundImageObject.transform);
-            campfireButton.AddListener(campfire);
+            campfireButton.AddListener(this, fade, campfire);
+            campfireButton.SetName(campfire.CampfireID);
 
             // Translate the campfire position to the mapBackgroundImage's local space
             Vector3 translatedPosition = TranslateToFixedBound(campfire.transform.localPosition);
@@ -55,8 +53,6 @@ public class Map : Singleton<Map>
         GeneralInputManager.Instance.enabled = false;
         HuntingInputManager.Instance.enabled = false;
         mapCanvas.enabled = true;
-
-        SelectCampfire(null);
     }
 
     public void CloseMap()
@@ -66,26 +62,5 @@ public class Map : Singleton<Map>
         GeneralInputManager.Instance.enabled = true;
         HuntingInputManager.Instance.enabled = true;
         mapCanvas.enabled = false;
-    }
-
-    public void SelectCampfire(Campfire campfire)
-    {
-        selectedCampfire = campfire;
-        
-        if (selectedCampfire)
-        {
-            teleportButton.gameObject.SetActive(true);
-            teleportButton.GetComponentInChildren<TextMeshProUGUI>().text = "Teleport to " + selectedCampfire.CampfireID;
-            teleportButton.onClick.AddListener(() =>
-            {
-                selectedCampfire.SpawnAtCampfire();
-                CloseMap();
-            });
-        }
-        else
-        {
-            teleportButton.gameObject.SetActive(false);
-            teleportButton.onClick.RemoveAllListeners();
-        }
     }
 }
