@@ -42,11 +42,11 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	{
 		if (available)
 		{
-			playerInput.General.OpenInventory.Enable();
+			playerInput.Inventory.Enable();
 		}
 		else
 		{
-			playerInput.General.OpenInventory.Disable();
+			playerInput.Inventory.Disable();
 		}
 	}
 
