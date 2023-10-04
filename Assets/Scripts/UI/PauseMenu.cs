@@ -37,7 +37,6 @@ public class PauseMenu : Singleton<PauseMenu>
 
 	public void SetGamePause(bool pause)
 	{
-		Debug.Log("Pausing " + pause);
 		isPaused = pause;
 
 		if (pause)
