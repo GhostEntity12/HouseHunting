@@ -7,8 +7,9 @@ using UnityEngine.Video;
 
 public class MainMenuManager : Singleton<MainMenuManager>
 {
-    [SerializeField] CanvasGroup settingsGroup;
-    [SerializeField] CanvasGroup creditsGroup;
+    [SerializeField] CanvasGroup fade;
+    [SerializeField] RectTransform settings;
+    [SerializeField] RectTransform credits;
     [SerializeField] VideoPlayer animaticPlayer;
     [SerializeField] RawImage animatic;
     [SerializeField] TextMeshProUGUI skipText;
@@ -79,14 +80,30 @@ public class MainMenuManager : Singleton<MainMenuManager>
 
     public void SetSettingsVisible(bool visible)
     {
-        settingsGroup.alpha = visible ? 1 : 0;
-        settingsGroup.blocksRaycasts = visible;
+        if (visible)
+        {
+		    LeanTween.alphaCanvas(fade, 1, 0.2f);
+            LeanTween.moveY(settings, 0, 0.3f).setEaseOutBack();
+        }
+        else
+        {
+			LeanTween.alphaCanvas(fade, 0, 0.2f).setDelay(0.2f);
+			LeanTween.moveY(settings, 1080, 0.3f).setEaseInBack();
+		}
     }
     public void SetCreditsVisible(bool visible)
     {
-        creditsGroup.alpha = visible ? 1 : 0;
-        creditsGroup.blocksRaycasts = visible;
-    }
+		if (visible)
+		{
+			LeanTween.alphaCanvas(fade, 1, 0.2f);
+			LeanTween.moveY(credits, 0, 0.3f).setEaseOutBack();
+		}
+		else
+		{
+			LeanTween.alphaCanvas(fade, 0, 0.2f).setDelay(0.2f);
+			LeanTween.moveY(credits, 1080, 0.3f).setEaseInBack();
+		}
+	}
 
     public void QuitGame()
     {
