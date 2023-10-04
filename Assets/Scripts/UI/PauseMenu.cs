@@ -6,6 +6,7 @@ public class PauseMenu : Singleton<PauseMenu>
 {
 	[SerializeField] private CanvasGroup bg;
 	[SerializeField] private RectTransform pauseButtons;
+	[SerializeField] private RectTransform settings;
 	[SerializeField] private GameObject currentView;
 	[SerializeField] private TMP_Dropdown sprintType;
 
@@ -51,7 +52,13 @@ public class PauseMenu : Singleton<PauseMenu>
 		}
 		else
 		{
-			LeanTween.moveY(pauseButtons, 1080, 0.3f).setEaseInBack().setIgnoreTimeScale(true);
+			// bit of a bodgy fix for resettign the settings...
+			// TODO: fix properly
+			LeanTween.moveY(pauseButtons, 1080, 0.3f).setEaseInBack().setIgnoreTimeScale(true).setOnComplete(() => {
+				ChangeView(pauseButtons.gameObject);
+				settings.position = new(Screen.width / 2, Screen.height / 2);
+			});
+			LeanTween.moveY(settings, 1080, 0.3f).setEaseInBack().setIgnoreTimeScale(true);
 			LeanTween.alphaCanvas(bg, 0, 0.2f).setIgnoreTimeScale(true).setDelay(0.2f);
 			Time.timeScale = 1;
 			GameManager.Instance.HideCursor();
