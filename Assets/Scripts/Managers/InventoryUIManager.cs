@@ -8,6 +8,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 {
     [Header("Layouts Items")]
     [SerializeField] private Canvas canvas;
+    [SerializeField] private RectTransform book;
     [SerializeField] private Image backgroundImageComponent;
     [SerializeField] private GridLayoutGroup furnitureItemContainer;
     [SerializeField] private RectTransform rightPanel;
@@ -35,6 +36,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
     private FurnitureType selectedTab;
     private (FurnitureSO so, SaveDataFurniture inventoryItem)? selectedFurniture;
     private FurnitureInventory furnitureInventory;
+    bool isVisible = false;
 
     public (FurnitureSO so, SaveDataFurniture inventoryItem)? SelectedFurniture 
     {
@@ -71,8 +73,6 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
     protected override void Awake()
     {
         base.Awake();
-
-        canvas.enabled = false;
 
         SelectedFurniture = null; // this is here to force the prop setter to set null
 
@@ -140,22 +140,22 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 
     public void ToggleInventory()
     {
-        bool open = !canvas.enabled;
+		isVisible = !isVisible;
 
-        canvas.enabled = open;
+        GeneralInputManager.Instance.enabled = !isVisible;
+        if (HouseInputManager.Instance) HouseInputManager.Instance.enabled = !isVisible;
+        else if (HuntingInputManager.Instance) HuntingInputManager.Instance.enabled = !isVisible;
 
-        GeneralInputManager.Instance.enabled = !open;
-        if (HouseInputManager.Instance) HouseInputManager.Instance.enabled = !open;
-        else if (HuntingInputManager.Instance) HuntingInputManager.Instance.enabled = !open;
-
-        if (open)
+        if (isVisible)
         {
-            playerInput.Inventory.Enable();
+            LeanTween.moveY(book, 0, 0.3f).setEaseOutBack();
+			playerInput.Inventory.Enable();
             GameManager.Instance.ShowCursor();
             RedrawInventoryItems();
         }
         else
         {
+            LeanTween.moveY(book, -1080, 0.3f).setEaseInBack();
             playerInput.Inventory.Disable();
             GameManager.Instance.HideCursor();
         }

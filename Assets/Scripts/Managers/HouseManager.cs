@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class HouseManager : Singleton<HouseManager>, IDataPersistence
 {
-	[SerializeField] private TMP_Text furnitureDecorateTooltipText;
+	[SerializeField] private CanvasGroup furnitureDecorateTooltips;
+	bool decorateTooltipsActive = false;
     [field: SerializeField] public Camera ExploreCamera { get; private set; }
 
 
@@ -63,20 +63,35 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		}
 	}
 
+	private void SetTooltipVisibility(bool visible)
+	{
+		if (visible)
+		{
+			LeanTween.moveX(furnitureDecorateTooltips.gameObject, 0, 0.3f).setEaseOutBack();
+		}
+		else
+		{
+			LeanTween.moveX(furnitureDecorateTooltips.gameObject, -200, 0.3f).setEaseInBack();
+		}
+	}
+
 	/// <summary>
 	/// This should run every frame to make the held furniture follow the player
 	/// </summary>
 	private void HoldPlaceable()
 	{
-		if (holdingPlaceable == null)
+		if (!holdingPlaceable && decorateTooltipsActive)
 		{
-			furnitureDecorateTooltipText.enabled = false;
+			SetTooltipVisibility(false);
+			decorateTooltipsActive = false;
 			return;
 		}
-		else
+		else if (holdingPlaceable && !decorateTooltipsActive)
 		{
-			furnitureDecorateTooltipText.enabled = true;
+			SetTooltipVisibility(true);
+			decorateTooltipsActive = true;
 		}
+		else if (!holdingPlaceable) return;
 
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
 
@@ -131,6 +146,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		spawnedPlaceable.InventoryItem = selectedFurniture.item;
 
 		InventoryUIManager.Instance.ToggleInventory();
+		HouseInputManager.Instance.SetInventoryAvailability(false);
 	}
 
 	public void RotateHoldingPlaceable(float angle)
@@ -153,5 +169,6 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		holdingPlaceable.ChildMeshCollider.enabled = true;
 		holdingPlaceable = null;
 		holdingPlaceableRotation = 0;
-    }
+		HouseInputManager.Instance.SetInventoryAvailability(true);
+	}
 }
