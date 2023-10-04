@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304f65a922a1c7e419427ba953ffe214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canPlaceOnSurface: 1
+  canPlaceOnSurface: 0
   <MeshRenderer>k__BackingField: {fileID: 597850242789035665}
   <MeshFilter>k__BackingField: {fileID: 3435977037561641563}
 --- !u!65 &3123562760376253747

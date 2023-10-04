@@ -3,9 +3,14 @@ guid: 7f6b450306b68144ea6b3f3b1e56bbe9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AllColors_Material
+    second: {fileID: 2100000, guid: faf9de5ad44900349808e18d2fa36664, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
