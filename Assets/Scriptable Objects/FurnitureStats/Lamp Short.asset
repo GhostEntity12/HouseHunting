@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Lamp Short
   maxHealth: 10
   speed: 5
-  thumbnail: {fileID: 21300000, guid: 8ccf79fd0d24aa04d85adff3f7636efb, type: 3}
+  thumbnail: {fileID: 21300000, guid: e983970b2a8006145958052217a3dcd6, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 06e85a0c7916a7a418470a2a48e582a1, type: 3}
   shootablePrefab: {fileID: 6090958504537676759, guid: 625fb83031f75a4468847b3f2e0f1b1a, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
