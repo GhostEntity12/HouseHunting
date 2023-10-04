@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
   m_Name: RectRug
   m_EditorClassIdentifier: 
-  id: RectRug
-  name: Rectangle Rug
+  id: rectrug
+  name: Rug
   maxHealth: 10
   speed: 5
   thumbnail: {fileID: 21300000, guid: 16e3cd90055850045b0c2cf003d79bb6, type: 3}

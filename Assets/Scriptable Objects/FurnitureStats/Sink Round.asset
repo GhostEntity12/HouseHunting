@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a2923bd2e4d395429fe6c09407c2591, type: 3}
   m_Name: Sink Round
   m_EditorClassIdentifier: 
-  id: Sink Round
-  name: Sink Round
+  id: sinkround
+  name: Sink
   maxHealth: 10
   speed: 3
   thumbnail: {fileID: 21300000, guid: 7fe04fb249aa33a4d9ce72f2034f4b9f, type: 3}
