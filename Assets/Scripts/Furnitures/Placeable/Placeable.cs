@@ -24,7 +24,8 @@ public class Placeable : MonoBehaviour, IInteractable
     private void Start()
     {
         childMeshCollider = GetComponentInChildren<MeshCollider>();
-        furnitureName = DataPersistenceManager.Instance.AllFurnitureSO.First(i => i.id == InventoryItem.id).name;
+        if (InventoryItem.id != null)
+            furnitureName = DataPersistenceManager.Instance.AllFurnitureSO.First(i => i.id == InventoryItem.id).name;
 	}
 
     private void OnTriggerExit(Collider other) 
