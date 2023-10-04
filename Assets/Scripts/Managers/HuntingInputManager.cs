@@ -28,7 +28,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 		// select weapon
 		//playerInput.Hunting.Quick1.performed += ctx => EquipmentManager.Instance.SelectItem(0);
-		playerInput.Hunting.Quick2.performed += ctx => EquipmentManager.Instance.SelectItem(1);
+		//playerInput.Hunting.Quick2.performed += ctx => EquipmentManager.Instance.SelectItem(1);
 		//playerInput.Hunting.Quick3.performed += ctx => EquipmentManager.Instance.SelectItem(2);
 		//playerInput.Hunting.Quick4.performed += ctx => EquipmentManager.Instance.SelectItem(3);
 		//playerInput.Hunting.Quick5.performed += ctx => EquipmentManager.Instance.SelectItem(4);
