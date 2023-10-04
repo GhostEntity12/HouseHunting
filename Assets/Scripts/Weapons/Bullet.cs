@@ -6,6 +6,8 @@ public class Bullet : MonoBehaviour
 {
 	[SerializeField] int damage;
 	[SerializeField] GameObject bulletHolePrefab;
+	[SerializeField] GameObject bloodEffectPrefab;
+	[SerializeField] GameObject splinterEffectPrefab;
 	[SerializeField] float lifespan;
 	[SerializeField] Sprite icon;
 	[SerializeField] SoundAlertSO collisionSound;
@@ -39,6 +41,14 @@ public class Bullet : MonoBehaviour
 		GameObject bulletHole = Instantiate(bulletHolePrefab, contact.point, Quaternion.LookRotation(contact.normal), collision.transform);
 		bulletHole.transform.position += bulletHole.transform.forward / 500;
 		Destroy(bulletHole, 1.5f);
+
+		//instantiate blood and wood chips
+        if (collision.transform.tag == "Enemy")
+        {
+            GameObject bloodEffect = Instantiate(bloodEffectPrefab, contact.point, Quaternion.identity);
+			GameObject splinterEffect = Instantiate(splinterEffectPrefab, contact.point, Quaternion.identity);
+			bloodEffect.transform.parent = collision.transform;
+        }
 	}
 
 	private IEnumerator DestroyDelay()
@@ -46,6 +56,7 @@ public class Bullet : MonoBehaviour
 		yield return new WaitForSeconds(CanBounce ? lifespan : 0);
 		ammoPouch.PoolBullet(this);
 	}
+
 
 	public void ResetTrail() => trailRenderer.Clear();
 	public void SetPool(AmmoPouch pouch) => ammoPouch = pouch;
