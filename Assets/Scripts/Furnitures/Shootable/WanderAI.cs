@@ -23,6 +23,9 @@ public class WanderAI : MonoBehaviour
 	private Transform lure;
     private float painTimer = 0f;
     private bool tookDamageThisFrame;
+#if UNITY_EDITOR
+	[SerializeField] private bool drawCones = true;
+#endif
 
 	public Transform Lure { set { lure = value; } }
 
@@ -83,6 +86,7 @@ public class WanderAI : MonoBehaviour
 #if UNITY_EDITOR
 	private void OnDrawGizmos()
 	{
+		if (!drawCones) return;
 		if (info && info.senses.Length == 0 || !Application.isPlaying) return;
 		foreach (ViewConeSO cone in info.senses)
 		{
@@ -203,10 +207,9 @@ public class WanderAI : MonoBehaviour
 		// Calculate the position to flee to
 		Vector3 fleeTo = currentPosition + ((currentPosition - fleeFrom).normalized * distance);
 		// Debug draws
-		Debug.DrawLine(fleeFrom, currentPosition, Color.cyan, 15);
-		Debug.DrawLine(currentPosition, fleeTo, Color.blue, 15);
-		Debug.DrawLine(fleeTo, fleeTo + (Vector3.up * 10), Color.red, 15);
-
+		//Debug.DrawLine(fleeFrom, currentPosition, Color.cyan, 15);
+		//Debug.DrawLine(currentPosition, fleeTo, Color.blue, 15);
+		//Debug.DrawLine(fleeTo, fleeTo + (Vector3.up * 10), Color.red, 15);
 		return fleeTo;
 	}
 

@@ -119,7 +119,7 @@ public class Gun : MonoBehaviour, IEquippable
 	public void Reload()
 	{
 		// Skip if the gun can't be fired yet, no ammo in pouch or if already at max ammo
-		if (state != GunState.Ready || AmmoPouch.AmmoStored == 0 || AmmoPouch.AmmoInGun == GunSO.magSize) return;
+		if (state != GunState.Ready || AmmoPouch.AmmoStored <= 0 || AmmoPouch.AmmoInGun == GunSO.magSize) return;
 
 		AudioManager.Instance.Play(GunSO.name + " Reload");
 

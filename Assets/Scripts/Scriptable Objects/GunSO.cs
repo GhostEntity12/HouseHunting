@@ -18,4 +18,5 @@ public class GunSO : ScriptableObject
     public SoundAlertSO equipSound;
     public SoundAlertSO fireSound;
     public SoundAlertSO reloadSound;
+    public float uiAmmoSpacing;
 }

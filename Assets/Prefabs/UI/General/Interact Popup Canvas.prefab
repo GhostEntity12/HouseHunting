@@ -34,7 +34,7 @@ RectTransform:
   m_Children:
   - {fileID: 4900438069499582024}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db3a2fa4909804142bb3b56b7486021d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prompt: {fileID: 4900438069499582024}
   interactText: {fileID: 7262658836864928535}
   interactKeyBindingText: {fileID: 3018437117609067170}
 --- !u!1 &2158127313192391026
@@ -387,7 +388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 90}
+  m_AnchoredPosition: {x: 0, y: -60}
   m_SizeDelta: {x: 0, y: 60}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &8461126734828082888
