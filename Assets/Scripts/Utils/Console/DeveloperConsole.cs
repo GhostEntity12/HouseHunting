@@ -21,7 +21,7 @@ public class DeveloperConsole : Singleton<DeveloperConsole>
 
         canvas.enabled = false;
 
-        playerInput = new PlayerInput();
+        playerInput = GeneralInputManager.Instance.PlayerInput;
 
         playerInput.DevConsole.CloseDevConsole.performed += ctx => ToggleDevConsole();
         playerInput.DevConsole.Submit.performed += ctx => ExecuteCommand();
@@ -61,14 +61,23 @@ public class DeveloperConsole : Singleton<DeveloperConsole>
             inputField.Select();
             playerInput.DevConsole.Enable();
             GameManager.Instance.ShowCursor();
-        } 
+
+			playerInput.General.Disable();
+            playerInput.Inventory.Disable();
+            playerInput.Pause.Disable();
+		} 
         else
         {
             inputField.DeactivateInputField();
             inputField.text = "";
             playerInput.DevConsole.Disable();
             GameManager.Instance.HideCursor();
-        }
+
+			playerInput.General.Enable();
+			playerInput.Inventory.Enable();
+			playerInput.Inventory.Close.Disable();
+			playerInput.Pause.Enable();
+		}
     }
 
     public void SetOutput(string text)

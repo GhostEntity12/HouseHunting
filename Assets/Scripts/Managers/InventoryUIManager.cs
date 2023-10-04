@@ -84,6 +84,8 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 		bedroomTabButton.onClick.AddListener(() => SetTab(FurnitureType.Bedroom));
 		bathroomTabButton.onClick.AddListener(() => SetTab(FurnitureType.Bathroom));
 		miscTabButton.onClick.AddListener(() => SetTab(FurnitureType.Misc));
+
+		playerInput.Inventory.Close.Disable();
 	}
 
 	private void Start()
@@ -139,11 +141,6 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 	public void ToggleInventory()
 	{
 		isVisible = !isVisible;
-		Debug.Log(playerInput.Inventory.Open.enabled);
-		Debug.Log(playerInput.Inventory.Close.enabled);
-
-		if (HouseInputManager.Instance) HouseInputManager.Instance.enabled = !isVisible;
-		if (HuntingInputManager.Instance) HuntingInputManager.Instance.enabled = !isVisible;
 
 		if (isVisible)
 		{
@@ -151,8 +148,9 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 			GameManager.Instance.ShowCursor();
 			RedrawInventoryItems();
 
-			playerInput.Pause.Disable();
+			playerInput.Inventory.Close.Enable();
 			playerInput.Inventory.Open.Disable();
+			playerInput.Pause.Disable();
 			playerInput.General.Disable();
 			if (HouseInputManager.Instance) HouseInputManager.Instance.PlayerInput.General.Disable();
 			if (HuntingInputManager.Instance) HuntingInputManager.Instance.PlayerInput.General.Disable();
@@ -162,13 +160,13 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 			LeanTween.moveY(book, -1080, 0.3f).setEaseInBack();
 			GameManager.Instance.HideCursor();
 
-			playerInput.Pause.Enable();
+			playerInput.Inventory.Open.Enable();
 			playerInput.Inventory.Close.Disable();
+			playerInput.Pause.Enable();
 			playerInput.General.Enable();
 			if (HouseInputManager.Instance) HouseInputManager.Instance.PlayerInput.General.Enable();
 			if (HuntingInputManager.Instance) HuntingInputManager.Instance.PlayerInput.General.Enable();
 		}
-		StartCoroutine(SetInventoryControlsDelayed(isVisible));
 	}
 
 	// referenced in discard button in inventory UI
@@ -177,19 +175,5 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 		furnitureInventory.RemoveItem(selectedFurniture.Value.inventoryItem);
 		SelectedFurniture = null;
 		RedrawInventoryItems();
-	}
-
-	IEnumerator SetInventoryControlsDelayed(bool enabled)
-	{
-		Debug.Log($"crt {enabled}");
-		yield return 0;
-		if (enabled)
-		{
-			playerInput.Inventory.Close.Enable();
-		}
-		else
-		{
-			playerInput.Inventory.Open.Enable();
-		}
 	}
 }
