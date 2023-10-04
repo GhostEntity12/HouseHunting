@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 #if UNITY_EDITOR
-using UnityEngine;
+using UnityEditor;
 #endif
+using UnityEngine;
 
 public class Hitbox : MonoBehaviour
 {
