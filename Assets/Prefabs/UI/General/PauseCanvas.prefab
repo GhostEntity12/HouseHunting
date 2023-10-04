@@ -642,6 +642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bg: {fileID: 1755666774770919883}
   pauseButtons: {fileID: 6677193877672503246}
+  settings: {fileID: 7112306287369044733}
   currentView: {fileID: 8515731362758926771}
   sprintType: {fileID: 0}
 --- !u!1 &5766050799647456386
@@ -1353,7 +1354,7 @@ PrefabInstance:
       objectReference: {fileID: 1119861197781442097, guid: 4c8b28d051782dc47953ac6df3a35620, type: 2}
     - target: {fileID: 1121416595504046822, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1868620915536672879, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
       propertyPath: m_Pivot.x
@@ -1461,7 +1462,7 @@ PrefabInstance:
       objectReference: {fileID: 1119861197781442097, guid: 4c8b28d051782dc47953ac6df3a35620, type: 2}
     - target: {fileID: 5184376757824887288, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7502362509079126235, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1751,7 +1752,7 @@ PrefabInstance:
       objectReference: {fileID: 1119861197781442097, guid: 4c8b28d051782dc47953ac6df3a35620, type: 2}
     - target: {fileID: 1121416595504046822, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1868620915536672879, guid: a9aacce939e8cbc4c97123fe9cca63d4, type: 3}
       propertyPath: m_Pivot.x

@@ -150,6 +150,8 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
 		InventoryUIManager.Instance.ToggleInventory();
 		HouseInputManager.Instance.SetInventoryAvailability(false);
+
+		GameManager.Instance.PermanentInventory.RemoveItem(holdingPlaceable.InventoryItem);
 	}
 
 	public void RotateHoldingPlaceable(float angle)
@@ -162,8 +164,6 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	public void PlaceHoldingPlaceable()
 	{
 		if (holdingPlaceable == null || !holdingPlaceable.IsValidPosition) return;
-
-		GameManager.Instance.PermanentInventory.RemoveItem(holdingPlaceable.InventoryItem);
 
 		MeshRenderer meshRenderer = holdingPlaceable.GetComponentInChildren<MeshRenderer>();
 		houseItems.Add(new SaveDataPlacedFurniture(holdingPlaceable.InventoryItem, holdingPlaceable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
