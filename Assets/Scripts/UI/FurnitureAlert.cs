@@ -3,84 +3,84 @@ using UnityEngine.UI;
 
 public class FurnitureAlert : MonoBehaviour
 {
-    [SerializeField] private Image outline;
-    [SerializeField] private Image fill;
-    [SerializeField] private Sprite questionMark;
-    [SerializeField] private Sprite exclamationMark;
-    [SerializeField] private Sprite skull; // currently using placeholder
-    [SerializeField] private Camera mainCamera;
-    private Canvas canvas;
+	[SerializeField] private Image outline;
+	[SerializeField] private Image fill;
+	[SerializeField] private Sprite questionMark;
+	[SerializeField] private Sprite exclamationMark;
+	[SerializeField] private Sprite skull; 
+	[SerializeField] Gradient colorLerpGradient;
 
-    private WanderAI AI;
-    private Shootable shootableComponent;
+	private Canvas canvas;
+	private Camera mainCamera;
+	private WanderAI AI;
+	private Shootable shootableComponent;
+	private float percentage = 0;
 
-    private Color alertnessLowColor = Color.green;
-    private Color alertnessHighColor = Color.red;
 
-    // Start is called before the first frame update
-    private void Awake()
-    {
-        AI = GetComponentInParent<WanderAI>();
-        if (mainCamera == null)
-            mainCamera = Camera.main;
-        shootableComponent = GetComponentInParent<Shootable>();
-        canvas = GetComponent<Canvas>();
-    }
+	// Start is called before the first frame update
+	private void Awake()
+	{
+		AI = GetComponentInParent<WanderAI>();
+		shootableComponent = GetComponentInParent<Shootable>();
+		canvas = GetComponent<Canvas>();
+		mainCamera = Camera.main;
+	}
 
-    // Update is called once per frame
-    private void Update()
-    {
-        if (shootableComponent.IsDead) return;
+	// Update is called once per frame
+	private void Update()
+	{
+		if (shootableComponent.IsDead) return;
 
-        //change icon depending on alertness
-        if(AI.Alertness == 100 && fill.sprite != exclamationMark)
-        {
-            AnimateIcon(exclamationMark);
-        }
-        else if (AI.Alertness != 100)
-        {
-            ChangeIcon(questionMark);
-        }
-        
-        if(AI.Alertness == 0)
-        {
-            canvas.enabled = false;
-        } else
-        {
-            canvas.enabled = true;
-        }
+		// divide by 100 to convert alertness to a percentage
+		percentage = AI.Alertness / 100f;
 
-        // Update the alert icon's fill amount to match the current alertness level
-        fill.fillAmount = AI.Alertness / 100f;  // divide by 100 to convert alertness to a percentage
+		canvas.enabled = percentage != 0;
 
-        // Lerp between the low and high alertness colors based on the current alertness level
-        fill.color = Color.Lerp(alertnessLowColor, alertnessHighColor, AI.Alertness / 100f);
+		// Update the alert icon's fill amount to match the current alertness level
+		fill.fillAmount = percentage;
 
-        // Make sure the canvas always faces the camera
-        transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward, mainCamera.transform.rotation * Vector3.up);
-    }
+		// Lerp between the low and high alertness colors based on the current alertness level
+		fill.color = colorLerpGradient.Evaluate(percentage);
 
-    public void ChangeIcon(Sprite sprite)
-    {
-        outline.sprite = sprite;
-        fill.sprite = sprite;
-    }
+		//change icon depending on alertness
+		if (percentage == 1 && fill.sprite != exclamationMark)
+		{
+			// Reached 100, set sprite
+			AnimateIcon(exclamationMark);
+		}
+		else if (percentage != 1 && fill.sprite == exclamationMark)
+		{
+			// Dropped below 100
+			SetIcon(questionMark);
+		}
 
-    private void AnimateIcon(Sprite sprite)
-    {
-        ChangeIcon(sprite);
-        LeanTween.scale(gameObject, new Vector3(1.6f, 1.6f, 1.6f), 0.25f).setEaseOutBounce().setOnComplete(() => {
-            LeanTween.scale(gameObject, Vector3.one, 0.25f);
-        });
-        LeanTween.scale(gameObject, new Vector3(1.6f, 1.6f, 1.6f), 0.25f).setEaseInExpo().setDelay(0.5f).setOnComplete(() => {
-            LeanTween.scale(gameObject, Vector3.one, 0.25f);
-        });
-    }
+		// Make sure the canvas always faces the camera
+		transform.rotation = mainCamera.transform.rotation;
+	}
 
-    public void OnDead()
-    {
-        ChangeIcon(skull);
-        fill.fillAmount = 1;
-        fill.color = Color.white;
-    }
+	public void SetIcon(Sprite sprite)
+	{
+		outline.sprite = sprite;
+		fill.sprite = sprite;
+	}
+
+	private void AnimateIcon(Sprite sprite)
+	{
+		SetIcon(sprite);
+		LeanTween.scale(gameObject, new Vector3(1.6f, 1.6f, 1.6f), 0.25f).setEaseOutBounce().setOnComplete(() =>
+		{
+			LeanTween.scale(gameObject, Vector3.one, 0.25f);
+		});
+		LeanTween.scale(gameObject, new Vector3(1.6f, 1.6f, 1.6f), 0.25f).setEaseInExpo().setDelay(0.5f).setOnComplete(() =>
+		{
+			LeanTween.scale(gameObject, Vector3.one, 0.25f);
+		});
+	}
+
+	public void SetDead()
+	{
+		SetIcon(skull);
+		fill.fillAmount = 0;
+		canvas.enabled = true;
+	}
 }
