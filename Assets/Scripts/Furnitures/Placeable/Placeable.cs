@@ -1,5 +1,6 @@
 using UnityEngine;
 using Newtonsoft.Json;
+using System.Linq;
 
 [JsonObject(MemberSerialization.OptIn)]
 public class Placeable : MonoBehaviour, IInteractable
@@ -16,13 +17,16 @@ public class Placeable : MonoBehaviour, IInteractable
     public MeshCollider ChildMeshCollider => childMeshCollider;
     public bool CanPlaceOnSurface => canPlaceOnSurface;
     public bool Interactable => HouseManager.Instance.HoldingPlaceable == null;
-    public string InteractActionText => "Pickup " + InventoryItem.id;
+    private string furnitureName;
+    public string InteractActionText => $"Pickup {furnitureName}";
 
 
     private void Start()
     {
         childMeshCollider = GetComponentInChildren<MeshCollider>();
-    }
+        if (InventoryItem.id != null)
+            furnitureName = DataPersistenceManager.Instance.AllFurnitureSO.First(i => i.id == InventoryItem.id).name;
+	}
 
     private void OnTriggerExit(Collider other) 
     {
