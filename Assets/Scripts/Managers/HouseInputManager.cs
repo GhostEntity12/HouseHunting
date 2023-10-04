@@ -18,10 +18,10 @@ public class HouseInputManager : Singleton<HouseInputManager>
 		playerInput.House.RemoveHoldingFurniture.performed += ctx => RemoveHoldingPlaceable();
 	}
 
-    private void OnEnable()
-    {
+	private void OnEnable()
+	{
 		playerInput.House.Enable();
-    }
+	}
 
 	private void LateUpdate()
 	{
@@ -38,6 +38,18 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	}
 	private void OnDestroy() => playerInput.Dispose();
 
+	public void SetInventoryAvailability(bool available)
+	{
+		if (available)
+		{
+			playerInput.Inventory.Enable();
+		}
+		else
+		{
+			playerInput.Inventory.Disable();
+		}
+	}
+
 	/// <summary>
 	/// Removes the selected placeable from the scene and returns it to the inventory
 	/// </summary>
@@ -47,5 +59,6 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
 		GameManager.Instance.PermanentInventory.AddItem(HouseManager.Instance.HoldingPlaceable.InventoryItem);
 		Destroy(HouseManager.Instance.HoldingPlaceable.gameObject);
+		SetInventoryAvailability(true);
 	}
 }

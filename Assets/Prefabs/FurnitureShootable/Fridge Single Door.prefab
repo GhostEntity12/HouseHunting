@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fbf68acf72d3d4385926a6f0451aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawCones: 1
 --- !u!195 &736955873112452282
 NavMeshAgent:
   m_ObjectHideFlags: 0

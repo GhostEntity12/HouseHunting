@@ -1,24 +1,25 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class HouseManager : Singleton<HouseManager>, IDataPersistence
 {
-	[SerializeField] private TMP_Text furnitureDecorateTooltipText;
-    [field: SerializeField] public Camera ExploreCamera { get; private set; }
+	[SerializeField] private RectTransform furnitureDecorateTooltips;
+	[SerializeField] private RectTransform inventoryTooltip;
+	bool decorateTooltipsActive = false;
+	[field: SerializeField] public Camera ExploreCamera { get; private set; }
 
 
 	private Placeable holdingPlaceable;
 	private List<SaveDataPlacedFurniture> houseItems;
 	private Player player;
-    private float holdingPlaceableRotation = 0;
+	private float holdingPlaceableRotation = 0;
 	private Color holdingPlaceableOriginalColor = Color.white;
 	private float houseValue = 0;
 
 	public List<SaveDataPlacedFurniture> HouseItems => houseItems;
-    public Placeable HoldingPlaceable 
-	{ 
-		get => holdingPlaceable; 
+	public Placeable HoldingPlaceable
+	{
+		get => holdingPlaceable;
 		set
 		{
 			holdingPlaceable = value;
@@ -35,13 +36,13 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		AudioManager.Instance.Play("Building");
 	}
 
-    private void Update()
-    {
-        HoldPlaceable();
-    }
+	private void Update()
+	{
+		HoldPlaceable();
+	}
 
-    // function to calculate house rating, on certain threseholds (to be determined later), unlockTier is called to unlock that tier.
-    private float CalculateHouseRating(List<SaveDataPlacedFurniture> houseItems)
+	// function to calculate house rating, on certain threseholds (to be determined later), unlockTier is called to unlock that tier.
+	private float CalculateHouseRating(List<SaveDataPlacedFurniture> houseItems)
 	{
 		float tValue = houseItems.Count;
 
@@ -63,22 +64,39 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		}
 	}
 
+	private void SetTooltipVisibility(bool visible)
+	{
+		if (visible)
+		{
+			LeanTween.moveX(inventoryTooltip.gameObject, -200, 0.3f).setEaseInBack().setOnComplete(() =>
+				LeanTween.moveX(furnitureDecorateTooltips.gameObject, 20, 0.3f).setEaseOutBack());
+		}
+		else
+		{
+			LeanTween.moveX(furnitureDecorateTooltips.gameObject, -200, 0.3f).setEaseInBack().setOnComplete(() =>
+				LeanTween.moveX(inventoryTooltip.gameObject, 20, 0.3f).setEaseOutBack());
+		}
+	}
+
 	/// <summary>
 	/// This should run every frame to make the held furniture follow the player
 	/// </summary>
 	private void HoldPlaceable()
 	{
-		if (holdingPlaceable == null)
+		if (!holdingPlaceable && decorateTooltipsActive)
 		{
-			furnitureDecorateTooltipText.enabled = false;
+			SetTooltipVisibility(false);
+			decorateTooltipsActive = false;
 			return;
 		}
-		else
+		else if (holdingPlaceable && !decorateTooltipsActive)
 		{
-			furnitureDecorateTooltipText.enabled = true;
+			SetTooltipVisibility(true);
+			decorateTooltipsActive = true;
 		}
+		else if (!holdingPlaceable) return;
 
-        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+		Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
 
 		// Perform the raycast and check if it hits something within the specified distance
 		int baseMask = LayerMask.GetMask("Floor") | LayerMask.GetMask("House Wall");
@@ -115,7 +133,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 
 	public void SaveData(GameData data)
 	{
-        data.placedFurniture = houseItems;
+		data.placedFurniture = houseItems;
 	}
 
 	public void PlaceSelectedFurnitureFromInventory()
@@ -131,6 +149,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		spawnedPlaceable.InventoryItem = selectedFurniture.item;
 
 		InventoryUIManager.Instance.ToggleInventory();
+		HouseInputManager.Instance.SetInventoryAvailability(false);
 	}
 
 	public void RotateHoldingPlaceable(float angle)
@@ -144,14 +163,15 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	{
 		if (holdingPlaceable == null || !holdingPlaceable.IsValidPosition) return;
 
-        GameManager.Instance.PermanentInventory.RemoveItem(holdingPlaceable.InventoryItem);
+		GameManager.Instance.PermanentInventory.RemoveItem(holdingPlaceable.InventoryItem);
 
-        MeshRenderer meshRenderer = holdingPlaceable.GetComponentInChildren<MeshRenderer>();
-        houseItems.Add(new SaveDataPlacedFurniture(holdingPlaceable.InventoryItem, holdingPlaceable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
+		MeshRenderer meshRenderer = holdingPlaceable.GetComponentInChildren<MeshRenderer>();
+		houseItems.Add(new SaveDataPlacedFurniture(holdingPlaceable.InventoryItem, holdingPlaceable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
 
 		holdingPlaceable.MeshRenderer.material.color = holdingPlaceableOriginalColor;
 		holdingPlaceable.ChildMeshCollider.enabled = true;
 		holdingPlaceable = null;
 		holdingPlaceableRotation = 0;
-    }
+		HouseInputManager.Instance.SetInventoryAvailability(true);
+	}
 }
