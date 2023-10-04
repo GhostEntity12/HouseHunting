@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Fruitbowl
   maxHealth: 10
   speed: 6
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: ddf4d965834d8a3428e366dc11e7577d, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: 3bc38a42485152d44954b621bf216537, type: 3}
   shootablePrefab: {fileID: -1363456017480070556, guid: 0aa3fb46f8085d04884e36d59fe30759, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
