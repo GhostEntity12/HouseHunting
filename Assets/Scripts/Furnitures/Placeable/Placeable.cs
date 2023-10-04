@@ -18,13 +18,15 @@ public class Placeable : MonoBehaviour, IInteractable
     public MeshCollider ChildMeshCollider => childMeshCollider;
     public bool CanPlaceOnSurface => canPlaceOnSurface;
     public bool Interactable => HouseManager.Instance.HoldingPlaceable == null;
-    public string InteractActionText => "Pickup " + DataPersistenceManager.Instance.AllFurnitureSO.First(i => i.id == InventoryItem.id).name;
+    private string furnitureName;
+    public string InteractActionText => $"Pickup {furnitureName}";
 
 
     private void Start()
     {
         childMeshCollider = GetComponentInChildren<MeshCollider>();
-    }
+        furnitureName = DataPersistenceManager.Instance.AllFurnitureSO.First(i => i.id == InventoryItem.id).name;
+	}
 
     private void OnTriggerExit(Collider other) 
     {
