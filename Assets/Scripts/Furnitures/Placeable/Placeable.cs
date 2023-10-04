@@ -13,7 +13,6 @@ public class Placeable : MonoBehaviour, IInteractable
 
     public bool IsValidPosition { get; private set; } = true;
 	public SaveDataFurniture InventoryItem { get; set; }
-    public Material Material { get; set; }
     public MeshCollider ChildMeshCollider => childMeshCollider;
     public bool CanPlaceOnSurface => canPlaceOnSurface;
     public bool Interactable => HouseManager.Instance.HoldingPlaceable == null;
