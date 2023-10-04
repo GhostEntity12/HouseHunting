@@ -19,6 +19,7 @@ public class WeaponWheelCommand : Command
 			if (arguments.Length == 0)
 			{
 				HuntingInputManager.Instance.WeaponWheelActive(false);
+				Output($"Disabled weaponwheel");
 			}
 			else
 			{
@@ -38,7 +39,7 @@ public class WeaponWheelCommand : Command
 					Output($"Invalid argument {arg}");
 				}
 			}
-			
+
 		}
 		catch
 		{
