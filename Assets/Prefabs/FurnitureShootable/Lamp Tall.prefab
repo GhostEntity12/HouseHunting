@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 1708161194996407248}
   m_Layer: 0
   m_Name: Lamp Tall
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -288,6 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fbf68acf72d3d4385926a6f0451aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawCones: 1
 --- !u!195 &736955873112452282
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -470,10 +471,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1778503834011940512}
     m_Modifications:
-    - target: {fileID: -5754084199372789682, guid: fba672230f16e0d45959f2e496c15dd5, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 3468755486377148355, guid: 68dd307209deb9548b7688fe2d2d756f, type: 3}
     - target: {fileID: -8679921383154817045, guid: e78d980d5b51056428682e11b1671511, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -494,6 +491,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: fba672230f16e0d45959f2e496c15dd5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3468755486377148355, guid: 68dd307209deb9548b7688fe2d2d756f, type: 3}
     - target: {fileID: -8679921383154817045, guid: f9f669d1cb755c54b908d3bb821bacd4, type: 3}
       propertyPath: m_RootOrder
       value: 0
