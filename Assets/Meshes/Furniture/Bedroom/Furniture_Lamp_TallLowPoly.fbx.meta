@@ -3,9 +3,14 @@ guid: bd5b1a691e7695243ac31f6d6c36fc4a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Lamp_TallLowPoly
+    second: {fileID: 2100000, guid: 21b9581beca988f4395d28dac7d28ff1, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
