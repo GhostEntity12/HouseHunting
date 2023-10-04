@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class WanderAI : MonoBehaviour
 {
-	enum ThresholdLevels { Level0, Level1, Level2, Level3 }
+	enum ThresholdLevels { Level0, Level1, Level2, Level3, Damaged, Lured }
 	const float aiEntityDistance = 100f; // This distance will be used to determine whether or not the AI should run or not.
 
 	private FurnitureSO info;
@@ -22,7 +22,7 @@ public class WanderAI : MonoBehaviour
 	private AIBehaviour activeBehaviour;
 	private Transform lure;
     private float painTimer = 0f;
-    private bool hurt = false;
+    private bool tookDamageThisFrame;
 
 	public Transform Lure { set { lure = value; } }
 
@@ -73,10 +73,11 @@ public class WanderAI : MonoBehaviour
 		// Bundle information to pass to behaviours
 		Knowledge k = new(transform, player.transform.position, lure == null ? Vector3.zero : lure.position, info, agent, sound, canSeePlayer);
 
-		CheckTransitions(k,UpdatePain());
+		CheckTransitions(k);
 
 		activeBehaviour.Act(ref k);
 
+		tookDamageThisFrame = false;
 	}
 
 #if UNITY_EDITOR
@@ -93,26 +94,22 @@ public class WanderAI : MonoBehaviour
 	}
 #endif
 
-	private void CheckTransitions(Knowledge k, bool recovering = false)
+	private void CheckTransitions(Knowledge k)
 	{
 		switch (alertLevel)
 		{
 			case ThresholdLevels.Level0:
-				if (Alertness > info.alertnessThreshold1 && (painTimer <= 0 || recovering))
+				if (tookDamageThisFrame)
+				{
+					Transition(info.damageBehaviour, k, ThresholdLevels.Damaged);
+				}
+				else if (Alertness > info.alertnessThreshold1)
 				{
 					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
-				} 
-				else if (hurt)
-				{
-					Transition(info.damageBehaviour, k, ThresholdLevels.Level0);
-				}
-				else if (recovering)
-				{
-					Transition(info.threshold0Behaviour, k, ThresholdLevels.Level0);
 				}
 				break;
 			case ThresholdLevels.Level1:
-				if (Alertness == 0 && (painTimer <= 0 || recovering))
+				if (Alertness == 0)
 				{
 					Transition(info.threshold0Behaviour, k, ThresholdLevels.Level0);
 				}
@@ -120,17 +117,9 @@ public class WanderAI : MonoBehaviour
 				{
 					Transition(info.threshold2Behaviour, k, ThresholdLevels.Level2);
 				}
-				else if (hurt)
-				{
-					Transition(info.damageBehaviour, k, ThresholdLevels.Level1);
-				}
-				else if (recovering)
-				{
-					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
-				}
 				break;
 			case ThresholdLevels.Level2:
-				if (Alertness < info.alertnessThreshold1 && painTimer <= 0)
+				if (Alertness < info.alertnessThreshold1)
 				{
 					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
 				}
@@ -145,8 +134,15 @@ public class WanderAI : MonoBehaviour
 					Transition(info.threshold0Behaviour, k, ThresholdLevels.Level0);
 				}
 				break;
+			case ThresholdLevels.Damaged:
+				if (DecrementPainTimer())
+				{
+					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
+				}
+				break;
+			case ThresholdLevels.Lured:
+				break;
 		}
-		hurt = false;
 	}
 
 	private void Transition(AIBehaviour newBehaviour, Knowledge knowledge, ThresholdLevels newAlertLevel)
@@ -233,7 +229,7 @@ public class WanderAI : MonoBehaviour
 	{
 		alertness += 50f;
 		painTimer = 7.5f;
-		hurt = true;
+		tookDamageThisFrame = true;
 	}
 
 	/// <summary>
@@ -264,7 +260,7 @@ public class WanderAI : MonoBehaviour
 	/// <summary>
 	/// Counts down the furniture's painTimer.
 	/// </summary>
-	private bool UpdatePain()
+	private bool DecrementPainTimer()
 	{
 		if (painTimer > 0) // Optional, but good for preventing big negative numbers.
 			painTimer -= Time.deltaTime;
