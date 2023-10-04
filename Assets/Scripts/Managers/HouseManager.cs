@@ -149,7 +149,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		spawnedPlaceable.InventoryItem = selectedFurniture.item;
 
 		InventoryUIManager.Instance.ToggleInventory();
-		HouseInputManager.Instance.SetInventoryAvailability(false);
+		//HouseInputManager.Instance.SetInventoryAvailability(false);
 
 		GameManager.Instance.PermanentInventory.RemoveItem(holdingPlaceable.InventoryItem);
 	}
@@ -172,6 +172,6 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		holdingPlaceable.ChildMeshCollider.enabled = true;
 		holdingPlaceable = null;
 		holdingPlaceableRotation = 0;
-		HouseInputManager.Instance.SetInventoryAvailability(true);
+		//HouseInputManager.Instance.SetInventoryAvailability(true);
 	}
 }
