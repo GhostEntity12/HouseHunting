@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
     {
         moveState.Add(MoveState.Walk);
 		camOffset = Camera.main.transform.localPosition;
+		UpdateSensitivity();
 
 	}
 
@@ -209,11 +210,10 @@ public class Player : MonoBehaviour
         transform.Rotate(Vector3.up * (input.x * Time.deltaTime) * sensitivity);
     }
 
-    public void ChangeSensitivity(Slider slider)
-    {
-		sensitivity = slider.value;
-		PlayerPrefs.SetFloat("mouseSensitivity", sensitivity);
-    }
+	public void UpdateSensitivity()
+	{
+		sensitivity = PlayerPrefs.GetInt("mouseSensitivity", 10);
+	}
     #endregion
 
 	public void Interact()
