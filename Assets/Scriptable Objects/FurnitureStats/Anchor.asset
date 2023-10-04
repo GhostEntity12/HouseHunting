@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Anchor
   maxHealth: 0
   speed: 0
-  thumbnail: {fileID: 21300000, guid: e9755bcd0e0ff4146811ac8887efbf1b, type: 3}
+  thumbnail: {fileID: 21300000, guid: 82d80e440866ef94d9c13e76ea55c429, type: 3}
   placeablePrefab: {fileID: 3776786984490140175, guid: 59305fb56f644624480854b02c44b843, type: 3}
   shootablePrefab: {fileID: 274742349716809348, guid: 5bec8ad78ba7be748814c059c3e517a8, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: c84849e941ed86442af021fb4cfd9db9, type: 2}
@@ -31,8 +31,4 @@ MonoBehaviour:
   alertnessDecayRate: 0
   sightAlertnessRate: 0
   senses: []
-  special: 0
   type: 4
-  materials:
-  - {fileID: 2100000, guid: e654e4d722112f84da82de084d799f5f, type: 2}
-  basePrice: 0
