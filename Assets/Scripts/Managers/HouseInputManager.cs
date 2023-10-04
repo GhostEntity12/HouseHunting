@@ -36,6 +36,7 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	{
 		playerInput.House.Disable();
 	}
+
 	private void OnDestroy() => playerInput.Dispose();
 
 	public void SetInventoryAvailability(bool available)
