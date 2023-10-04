@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HuntingInputManager : Singleton<HuntingInputManager>
 {
@@ -15,8 +16,8 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput = GeneralInputManager.Instance.PlayerInput;
 
 		// weapon wheel
-		//playerInput.Hunting.OpenWeaponWheel.started += ctx => OpenWeaponWheel();
-		//playerInput.Hunting.OpenWeaponWheel.canceled += ctx => CloseWeaponWheel();
+		//playerInput.Hunting.OpenWeaponWheel.started += OpenWeaponWheel;
+		//playerInput.Hunting.OpenWeaponWheel.canceled += CloseWeaponWheel;
 
 		// shoot
 		if (!FindAnyObjectByType<CampfireManager>())
@@ -27,7 +28,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 
 		// select weapon
 		//playerInput.Hunting.Quick1.performed += ctx => EquipmentManager.Instance.SelectItem(0);
-		playerInput.Hunting.Quick2.performed += ctx => EquipmentManager.Instance.SelectItem(1);
+		//playerInput.Hunting.Quick2.performed += ctx => EquipmentManager.Instance.SelectItem(1);
 		//playerInput.Hunting.Quick3.performed += ctx => EquipmentManager.Instance.SelectItem(2);
 		//playerInput.Hunting.Quick4.performed += ctx => EquipmentManager.Instance.SelectItem(3);
 		//playerInput.Hunting.Quick5.performed += ctx => EquipmentManager.Instance.SelectItem(4);
@@ -52,14 +53,14 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput.Hunting.Disable();
 	}
 
-	private void OpenWeaponWheel()
+	private void OpenWeaponWheel(InputAction.CallbackContext ctx)
 	{
 		playerInput.General.Look.Disable();
 		playerInput.Hunting.UsePrimary.Disable();
 		weaponWheelController.OpenWeaponWheel();
 	}
 
-	private void CloseWeaponWheel()
+	private void CloseWeaponWheel(InputAction.CallbackContext ctx)
 	{
 		playerInput.General.Look.Enable();
 		playerInput.Hunting.UsePrimary.Enable();
@@ -83,6 +84,20 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	/// Enables firing of the gun. Not done in awake to allow for setup (campfires) without firing weapon.
 	/// </summary>
 	public void EnableShooting() => playerInput.Hunting.UsePrimary.performed += ctx => EquipmentManager.Instance.EquippedItem.UsePrimary();
+
+	public void WeaponWheelActive(bool active = false)
+	{
+		if (active)
+		{
+			playerInput.Hunting.OpenWeaponWheel.started += OpenWeaponWheel;
+			playerInput.Hunting.OpenWeaponWheel.canceled += CloseWeaponWheel;
+		}
+		else
+		{
+			playerInput.Hunting.OpenWeaponWheel.started -= OpenWeaponWheel;
+			playerInput.Hunting.OpenWeaponWheel.canceled -= CloseWeaponWheel;
+		}
+	}
 
 	private void OnDestroy() => playerInput.Dispose();
 }
