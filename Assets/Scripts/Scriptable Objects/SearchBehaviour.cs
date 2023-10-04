@@ -4,7 +4,7 @@
 public class SearchBehaviour : AIBehaviour
 {
 	private Vector3? dangerPosition = null;
-	private float holdLookTimer;
+	private float holdLookTimer = 0;
 	[SerializeField] private float holdLookLength = 1;
 	public override void Act(ref Knowledge knowledge)
 	{
@@ -28,7 +28,7 @@ public class SearchBehaviour : AIBehaviour
 				knowledge.AITransform.position.x + circle.x,
 				knowledge.AITransform.position.y,
 				knowledge.AITransform.position.z + circle.y);
-			holdLookTimer = holdLookLength;
+			holdLookTimer = holdLookLength + Random.value - 0.5f;
 		}
 		Quaternion targetRotation = Quaternion.LookRotation((Vector3)(dangerPosition - knowledge.AITransform.position), Vector3.up);
 		// Rotate towards dangerPosition
