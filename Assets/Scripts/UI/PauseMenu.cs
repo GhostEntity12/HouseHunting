@@ -17,10 +17,6 @@ public class PauseMenu : Singleton<PauseMenu>
 	protected override void Awake()
 	{
 		base.Awake();
-		playerInput = GeneralInputManager.Instance.PlayerInput;
-
-		playerInput.PauseMenu.ResumeGame.performed += ctx => SetGamePause(false);
-
 		sprintType.value = PlayerPrefs.GetInt("ToggleSprint");
 		GeneralInputManager.Instance.SetSprintModeControls();
 	}
@@ -43,26 +39,25 @@ public class PauseMenu : Singleton<PauseMenu>
 	{
 		isPaused = pause;
 
-		GeneralInputManager.Instance.enabled = !pause;
-		if (HouseInputManager.Instance) HouseInputManager.Instance.enabled = !pause;
-		if (HuntingInputManager.Instance) HuntingInputManager.Instance.enabled = !pause;
-
 		if (pause)
 		{
 			LeanTween.moveY(pauseButtons, 0, 0.3f).setEaseOutBack().setIgnoreTimeScale(true);
 			LeanTween.alphaCanvas(bg, 1, 0.2f).setIgnoreTimeScale(true);
 			Time.timeScale = 0;
-			playerInput.PauseMenu.Enable();
 			GameManager.Instance.ShowCursor();
+			GeneralInputManager.Instance.PlayerInput.General.Disable();
+			if (HouseInputManager.Instance) HouseInputManager.Instance.PlayerInput.House.Disable();
+			if (HuntingInputManager.Instance) HuntingInputManager.Instance.PlayerInput.Hunting.Disable();
 		}
 		else
 		{
 			LeanTween.moveY(pauseButtons, 1080, 0.3f).setEaseInBack().setIgnoreTimeScale(true);
 			LeanTween.alphaCanvas(bg, 0, 0.2f).setIgnoreTimeScale(true).setDelay(0.2f);
 			Time.timeScale = 1;
-			playerInput.PauseMenu.Disable();
 			GameManager.Instance.HideCursor();
+			GeneralInputManager.Instance.PlayerInput.General.Enable();
+			if (HouseInputManager.Instance) HouseInputManager.Instance.PlayerInput.House.Enable();
+			if (HuntingInputManager.Instance) HuntingInputManager.Instance.PlayerInput.Hunting.Enable();
 		}
 	}
-	private void OnDestroy() => playerInput.Dispose();
 }

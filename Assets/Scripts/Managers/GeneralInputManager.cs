@@ -38,15 +38,18 @@ public class GeneralInputManager : Singleton<GeneralInputManager>
         playerInput.General.Jump.performed += ctx => player.Jump();
 
         playerInput.General.Interact.performed += ctx => player.Interact();
-
-        playerInput.General.Pause.performed += ctx => PauseMenu.Instance.SetGamePause(true);
-        playerInput.General.OpenInventory.performed += ctx => InventoryUIManager.Instance.ToggleInventory();
         playerInput.General.OpenDevConsole.performed += ctx => DeveloperConsole.Instance.ToggleDevConsole();
-    }
+
+        playerInput.Inventory.Open.performed += ctx => InventoryUIManager.Instance.ToggleInventory();
+        playerInput.Inventory.Close.performed += ctx => InventoryUIManager.Instance.ToggleInventory();
+        playerInput.Pause.Pause.performed += ctx => PauseMenu.Instance.SetGamePause(!PauseMenu.Instance.IsPaused);
+	}
 
     private void OnEnable()
     {
         playerInput.General.Enable();
+        playerInput.Inventory.Enable();
+        playerInput.Pause.Enable();
     }
 
     private void FixedUpdate()
