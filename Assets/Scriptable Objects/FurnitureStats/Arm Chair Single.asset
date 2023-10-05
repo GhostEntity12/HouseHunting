@@ -18,7 +18,7 @@ MonoBehaviour:
   speed: 4
   thumbnail: {fileID: 21300000, guid: 62357e27772b48d43978e78805c7500f, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: ebd9db9f445d0274b8d9d1a8f414fb93, type: 3}
-  shootablePrefab: {fileID: 4207542877117778773, guid: 3d0baff2a22d11d4e9a1f24d7d2561bf, type: 3}
+  shootablePrefab: {fileID: 2176156443133163853, guid: 3d0baff2a22d11d4e9a1f24d7d2561bf, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
   alertnessThreshold1: 33
   threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}

@@ -141,7 +141,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 	public void ToggleInventory()
 	{
 		// do not open inventory when holding furniture
-		if (HouseManager.Instance.HoldingPlaceable != null) return;
+		if (HouseManager.Instance && HouseManager.Instance.HoldingPlaceable != null) return;
 
 		isVisible = !isVisible;
 
