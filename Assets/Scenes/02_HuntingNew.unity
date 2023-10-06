@@ -1384,6 +1384,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cd0ea56f167fb0744b3659e533a3932e, type: 3}
   m_PrefabInstance: {fileID: 1083426702}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &50766490 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 274742349716809348, guid: 5bec8ad78ba7be748814c059c3e517a8, type: 3}
+  m_PrefabInstance: {fileID: 1642425188}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e772e154071c25f42835ff5ac02f8388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &56504065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29401,7 +29412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableFurniture:
-  - {fileID: 4207542877117778773, guid: 3d0baff2a22d11d4e9a1f24d7d2561bf, type: 3}
+  - {fileID: 274742349716809348, guid: 063a2c06213b464478cc8960ae4e15d1, type: 3}
   - {fileID: 4207542877117778773, guid: 2a15453909090174295fce65df0adea7, type: 3}
   - {fileID: 2899710936797965666, guid: 5303bb97bb384d24c95aaf56ad16e902, type: 3}
   numToSpawn: 5
@@ -43118,6 +43129,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 927d672d3d2d3ca4ca4a66422cdd2904, type: 3}
   m_PrefabInstance: {fileID: 1357124693}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1358603738 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 274742349716809348, guid: 7932e317c711a6a49b2d641064d3cb3b, type: 3}
+  m_PrefabInstance: {fileID: 717775735}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e772e154071c25f42835ff5ac02f8388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1359679510
 GameObject:
   m_ObjectHideFlags: 0
@@ -46278,7 +46300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnableFurniture:
   - {fileID: 3685072443934080641, guid: e349d4d7f03c8d34e83e199dc0870a66, type: 3}
-  - {fileID: 4207542877117778773, guid: 3d0baff2a22d11d4e9a1f24d7d2561bf, type: 3}
+  - {fileID: 50766490}
   - {fileID: 4207542877117778773, guid: 2a15453909090174295fce65df0adea7, type: 3}
   numToSpawn: 5
   range: 15
@@ -56207,7 +56229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableFurniture:
-  - {fileID: 4207542877117778773, guid: 3d0baff2a22d11d4e9a1f24d7d2561bf, type: 3}
+  - {fileID: 1358603738}
   - {fileID: 4207542877117778773, guid: 2a15453909090174295fce65df0adea7, type: 3}
   - {fileID: 2899710936797965666, guid: cf290effa00231e488018613811ecb7b, type: 3}
   numToSpawn: 5

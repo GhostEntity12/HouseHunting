@@ -139,6 +139,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	public void PlaceSelectedFurnitureFromInventory()
 	{
 		if (InventoryUIManager.Instance.SelectedFurniture?.so == null) return;
+		InventoryUIManager.Instance.ToggleInventory();
 		(FurnitureSO so, SaveDataFurniture item) selectedFurniture = InventoryUIManager.Instance.SelectedFurniture.Value;
 		InventoryUIManager.Instance.SelectedFurniture = null;
 		Placeable spawnedPlaceable = Instantiate(selectedFurniture.so.placeablePrefab);
@@ -148,8 +149,6 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		meshCollider.enabled = false;
 		spawnedPlaceable.InventoryItem = selectedFurniture.item;
 
-		InventoryUIManager.Instance.ToggleInventory();
-		HouseInputManager.Instance.SetInventoryAvailability(false);
 
 		GameManager.Instance.PermanentInventory.RemoveItem(holdingPlaceable.InventoryItem);
 	}
@@ -172,6 +171,5 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		holdingPlaceable.ChildMeshCollider.enabled = true;
 		holdingPlaceable = null;
 		holdingPlaceableRotation = 0;
-		HouseInputManager.Instance.SetInventoryAvailability(true);
 	}
 }

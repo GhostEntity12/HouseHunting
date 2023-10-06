@@ -140,6 +140,9 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 
 	public void ToggleInventory()
 	{
+		// do not open inventory when holding furniture
+		if (HouseManager.Instance && HouseManager.Instance.HoldingPlaceable != null) return;
+
 		isVisible = !isVisible;
 
 		if (isVisible)
@@ -152,8 +155,8 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 			playerInput.Inventory.Open.Disable();
 			playerInput.Pause.Disable();
 			playerInput.General.Disable();
-			if (HouseInputManager.Instance) HouseInputManager.Instance.PlayerInput.General.Disable();
-			if (HuntingInputManager.Instance) HuntingInputManager.Instance.PlayerInput.General.Disable();
+			if (HouseInputManager.Instance) HouseInputManager.Instance.enabled = false;
+			if (HuntingInputManager.Instance) HuntingInputManager.Instance.enabled = false;
 		}
 		else
 		{
@@ -164,8 +167,8 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 			playerInput.Inventory.Close.Disable();
 			playerInput.Pause.Enable();
 			playerInput.General.Enable();
-			if (HouseInputManager.Instance) HouseInputManager.Instance.PlayerInput.General.Enable();
-			if (HuntingInputManager.Instance) HuntingInputManager.Instance.PlayerInput.General.Enable();
+			if (HouseInputManager.Instance) HouseInputManager.Instance.enabled = true;
+			if (HuntingInputManager.Instance) HuntingInputManager.Instance.enabled = true;
 		}
 	}
 
