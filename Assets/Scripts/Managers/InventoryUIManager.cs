@@ -104,8 +104,9 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 			FurnitureSO savedFurnitureSO = DataPersistenceManager.Instance.AllFurnitureSO.Find(f => f.id == savedFurniture.id);
 			if (savedFurnitureSO != null && savedFurnitureSO.type == selectedTab)
 			{
-				GameObject furnitureItem = new GameObject(savedFurnitureSO.id + " item");
+				GameObject furnitureItem = new GameObject($"{savedFurnitureSO.id} item");
 				furnitureItem.transform.SetParent(furnitureItemContainer.transform);
+				furnitureItem.transform.localScale = Vector3.one;
 
 				Button button = furnitureItem.AddComponent<Button>();
 				button.onClick.AddListener(() => SelectedFurniture = (savedFurnitureSO, savedFurniture));
@@ -115,6 +116,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 
 				Image furnitureItemImage = new GameObject(savedFurnitureSO.id + " sprite").AddComponent<Image>();
 				furnitureItemImage.transform.SetParent(furnitureItem.transform);
+				furnitureItemImage.transform.localScale = Vector3.one;
 				furnitureItemImage.sprite = savedFurnitureSO.thumbnail;
 				furnitureItemImage.preserveAspect = true;
 				furnitureItemImage.rectTransform.localPosition = new Vector3(0, 0, 0);
