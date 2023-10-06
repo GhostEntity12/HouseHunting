@@ -36,19 +36,8 @@ public class HouseInputManager : Singleton<HouseInputManager>
 	{
 		playerInput.House.Disable();
 	}
-	private void OnDestroy() => playerInput.Dispose();
 
-	public void SetInventoryAvailability(bool available)
-	{
-		if (available)
-		{
-			playerInput.General.OpenInventory.Enable();
-		}
-		else
-		{
-			playerInput.General.OpenInventory.Disable();
-		}
-	}
+	private void OnDestroy() => playerInput.Dispose();
 
 	/// <summary>
 	/// Removes the selected placeable from the scene and returns it to the inventory
@@ -59,6 +48,5 @@ public class HouseInputManager : Singleton<HouseInputManager>
 
 		GameManager.Instance.PermanentInventory.AddItem(HouseManager.Instance.HoldingPlaceable.InventoryItem);
 		Destroy(HouseManager.Instance.HoldingPlaceable.gameObject);
-		SetInventoryAvailability(true);
 	}
 }
