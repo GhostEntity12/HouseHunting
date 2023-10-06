@@ -68,13 +68,13 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	{
 		if (visible)
 		{
-			LeanTween.moveX(inventoryTooltip.gameObject, -200, 0.3f).setEaseInBack().setOnComplete(() =>
-				LeanTween.moveX(furnitureDecorateTooltips.gameObject, 20, 0.3f).setEaseOutBack());
+			LeanTween.moveX(inventoryTooltip.gameObject, -200 * inventoryTooltip.transform.parent.localScale.x, 0.3f).setEaseInBack().setOnComplete(() =>
+				LeanTween.moveX(furnitureDecorateTooltips.gameObject, 20 * inventoryTooltip.transform.parent.localScale.x, 0.3f).setEaseOutBack());
 		}
 		else
 		{
-			LeanTween.moveX(furnitureDecorateTooltips.gameObject, -200, 0.3f).setEaseInBack().setOnComplete(() =>
-				LeanTween.moveX(inventoryTooltip.gameObject, 20, 0.3f).setEaseOutBack());
+			LeanTween.moveX(furnitureDecorateTooltips.gameObject, -200 * furnitureDecorateTooltips.transform.parent.localScale.x, 0.3f).setEaseInBack().setOnComplete(() =>
+				LeanTween.moveX(inventoryTooltip.gameObject, 20 * furnitureDecorateTooltips.transform.parent.localScale.x, 0.3f).setEaseOutBack());
 		}
 	}
 
