@@ -24,9 +24,7 @@ public class SpawnerManager : MonoBehaviour
 				break;
 			}
 			else
-			{
 				i += spawnerQueue.Dequeue().Spawn();
-			}
 		}
 	}
 }

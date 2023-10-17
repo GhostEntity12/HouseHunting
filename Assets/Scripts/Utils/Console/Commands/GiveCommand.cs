@@ -52,9 +52,7 @@ public class GiveCommand : Command
             return;
         }
         else
-        {
             furniture = DataPersistenceManager.Instance.AllFurnitureSO.Find(f => f.id.ToLower().Replace(" ", "") == arguments[0].ToLower());
-        }
                     
         if (furniture == null)
         {

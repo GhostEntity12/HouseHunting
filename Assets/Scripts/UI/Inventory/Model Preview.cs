@@ -25,9 +25,7 @@ public class ModelPreview : MonoBehaviour
     public void SetModel(GameObject newModel, float fieldOfViewMultiplier)
     {
         if (modelHolder.childCount != 0)
-        {
             Destroy(modelHolder.GetChild(0).gameObject);
-        }
         Instantiate(newModel, modelHolder);
         camera.fieldOfView = baseFieldOfView;
         camera.fieldOfView *= Math.Min(fieldOfViewMultiplier, 1);

@@ -3,9 +3,11 @@
 [CreateAssetMenu(fileName = "Search Behaviour", menuName = "Behaviours/Search")]
 public class SearchBehaviour : AIBehaviour
 {
+	[SerializeField] private float holdLookLength = 1;
+
 	private Vector3? dangerPosition = null;
 	private float holdLookTimer = 0;
-	[SerializeField] private float holdLookLength = 1;
+
 	public override void Act(ref Knowledge knowledge)
 	{
 		if (knowledge.CanSeePlayer)
@@ -45,11 +47,13 @@ public class SearchBehaviour : AIBehaviour
 			}
 		}
 	}
+
 	public override void Entry(ref Knowledge knowledge)
 	{
 		// Seize control of rotation
 		knowledge.Agent.updateRotation = false;
 	}
+
 	public override void Exit(ref Knowledge knowledge)
 	{
 		knowledge.Agent.ResetPath();

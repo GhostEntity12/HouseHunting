@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class SetTerrainObstacles : MonoBehaviour
 {
     // Start is called before the first frame update
-    TreeInstance[] Obstacle;
-    Terrain terrain;
-    float width;
-    float length;
-    float hight;
-    bool isError;
-    void Awake()
+    private TreeInstance[] Obstacle;
+    private Terrain terrain;
+    private float width;
+    private float length;
+    private float hight;
+    private bool isError;
+
+    private void Awake()
     {
         GameObject parent = gameObject;
         terrain = Terrain.activeTerrain;
@@ -73,8 +72,6 @@ public class SetTerrainObstacles : MonoBehaviour
                 Debug.LogError("ERROR  There is no CapsuleCollider or BoxCollider attached to ''" + terrain.terrainData.treePrototypes[tree.prototypeIndex].prefab.name + "'' please add one of them.");
                 break;
             }
-
-
             i++;
         }
     }

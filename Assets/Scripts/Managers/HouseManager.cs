@@ -5,10 +5,9 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 {
 	[SerializeField] private RectTransform furnitureDecorateTooltips;
 	[SerializeField] private RectTransform inventoryTooltip;
-	bool decorateTooltipsActive = false;
 	[field: SerializeField] public Camera ExploreCamera { get; private set; }
 
-
+	private bool decorateTooltipsActive = false;
 	private Placeable holdingPlaceable;
 	private List<SaveDataPlacedFurniture> houseItems;
 	private Player player;
@@ -49,7 +48,6 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		// can be changed in future
 		if (tValue > 9000)
 			UnlockTier("D"); // dummy function for now
-
 
 		return tValue;
 	}

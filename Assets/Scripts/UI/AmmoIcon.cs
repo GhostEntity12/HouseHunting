@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +5,9 @@ public class AmmoIcon : MonoBehaviour
 {
 	[SerializeField] Image backing;
 	[SerializeField] Image icon;
-	public float fillAmount => icon.fillAmount;
+
+    public float FillAmount => icon.fillAmount;
+
 	public void Initiate(Sprite sprite)
 	{
 		icon.fillAmount = 1;

@@ -9,9 +9,10 @@ public class ChargeBehaviour : AIBehaviour
     [SerializeField] private float turnRange = 3f; // This is one of the parameters used to cancel a charge early; if the player has gone too far away from the furniture it will stop and turn.
     [SerializeField] private float horizontalKnockbackMultiplier = 0.1f; // Determines how much the horizontal knockback is multiplied. The multiplier should be small to prevent excessive flinging.
     [SerializeField] private float verticalKnockback = 4f; // Determines how hard the player is flung upwards. Not nearly as sensitive and varied as the horizontal one.
-    [SerializeField, Range(0, 360)] private float maxAngle = 240;// Determines the angle in which the furniture decides to stop charging when out of range. It's actually halved, since it has to be within 0 - 180 degrees due to the limitations of Vector3.Angle
-    private float maxTurnAngle => maxAngle / 2; 
     [SerializeField] private float turningSpeed = 5f;
+    [SerializeField, Range(0, 360)] private float maxAngle = 240;// Determines the angle in which the furniture decides to stop charging when out of range. It's actually halved, since it has to be within 0 - 180 degrees due to the limitations of Vector3.Angle
+
+    private float maxTurnAngle => maxAngle / 2; 
     private float timeSinceLastCharge = 0;
     private bool charging = false;
     private Collider hitbox;

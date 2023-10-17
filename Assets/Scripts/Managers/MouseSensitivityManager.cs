@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MouseSensitivityManager : MonoBehaviour
 {
@@ -17,13 +14,10 @@ public class MouseSensitivityManager : MonoBehaviour
 	public void SetSensitivity(SliderContainer sliderContainer)
 	{
 		int sensitivity = (int)sliderContainer.Slider.value;
-		Debug.Log(sensitivity);
 		sliderContainer.SliderValueText.text = sensitivity.ToString();
 		PlayerPrefs.SetInt(sliderContainer.Key, sensitivity);
 
 		if (GameManager.Instance.Player)
 			GameManager.Instance.Player.UpdateSensitivity();
 	}
-
-
 }

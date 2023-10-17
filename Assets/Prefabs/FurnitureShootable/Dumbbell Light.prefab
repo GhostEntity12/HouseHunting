@@ -181,8 +181,8 @@ GameObject:
   - component: {fileID: 1778503834011940512}
   - component: {fileID: 1171529578584424129}
   - component: {fileID: 736955873112452282}
-  - component: {fileID: -1363456017480070556}
   - component: {fileID: 5748148173315317523}
+  - component: {fileID: 7889457861276799843}
   m_Layer: 0
   m_Name: Dumbbell Light
   m_TagString: Enemy
@@ -243,19 +243,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-1363456017480070556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8607944281932643591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0af2c691fbdb48e48b172346a78df9a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  furnitureSO: {fileID: 11400000, guid: 0f3f4a610d8be3a40a3daf0d441bdc22, type: 2}
 --- !u!65 &5748148173315317523
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -277,6 +264,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.68715495, y: 0.34774163, z: 0.38538316}
   m_Center: {x: 0.021136612, y: 0.16321112, z: -0.00053314865}
+--- !u!114 &7889457861276799843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8607944281932643591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e772e154071c25f42835ff5ac02f8388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  furnitureSO: {fileID: 11400000, guid: 0f3f4a610d8be3a40a3daf0d441bdc22, type: 2}
 --- !u!1 &9015904512488788888
 GameObject:
   m_ObjectHideFlags: 0

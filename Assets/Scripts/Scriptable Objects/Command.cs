@@ -16,10 +16,10 @@ public abstract class Command : ScriptableObject
         DeveloperConsole.Instance.SetOutput(message);
     }
 
-    public abstract void Execute(string[] arguments);
-
     public virtual string Help()
     {
         return tips;
     }
+
+    public abstract void Execute(string[] arguments);
 }

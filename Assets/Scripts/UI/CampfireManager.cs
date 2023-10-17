@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,10 +6,6 @@ public class CampfireManager : MonoBehaviour
 	[SerializeField] Transform parent;
 	[SerializeField] CampfireButton campfireButtonPrefab;
 	[SerializeField] private List<Campfire> campfires;
-
-	private void Awake()
-	{
-	}
 
     private void Start()
     {

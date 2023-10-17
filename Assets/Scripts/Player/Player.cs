@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -28,13 +27,14 @@ public class Player : MonoBehaviour
 	private float playerVerticalVelocity;
 	private Vector3 knockbackForce = new Vector3(0,0,0);
 	private List<MoveState> moveState = new List<MoveState>();
-	public bool IsSprinting => moveState.Count > 0 && moveState[^1] == MoveState.Sprint;
 
 	// look
 	private float xRotation = 0f;
 
 	public Vector3 camOffset { get; private set; }
 	public float InteractRange => interactRange;
+	public bool IsSprinting => moveState.Count > 0 && moveState[^1] == MoveState.Sprint;
+
 
 	[Header("Sounds")]
 	[SerializeField] SoundAlertSO moveSoundCrouch;

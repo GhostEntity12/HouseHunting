@@ -1,15 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public interface IEquippable
 {
-	string ID { get; }
-	SoundAlertSO EquipSound { get; }
+	public string ID { get; }
+	public SoundAlertSO EquipSound { get; }
 
-	void Equip();
-	void Unequip();
-	void UsePrimary();
-	void UseSecondary();
-	void Reload();
+	public void Equip();
+	public void Unequip();
+	public void UsePrimary();
+	public void UseSecondary();
+	public void Reload();
 }

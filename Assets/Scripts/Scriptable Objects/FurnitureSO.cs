@@ -6,7 +6,6 @@ public enum AlertRate { Low, Medium, High, Instant };
 public enum FurnitureType { Living, Dining, Bedroom, Bathroom, Misc };
 
 [CreateAssetMenu(fileName = "Furniture")]
-
 public class FurnitureSO : ScriptableObject
 {
 	[Header("Basic Info")]

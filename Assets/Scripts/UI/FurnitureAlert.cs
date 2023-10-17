@@ -8,7 +8,7 @@ public class FurnitureAlert : MonoBehaviour
 	[SerializeField] private Sprite questionMark;
 	[SerializeField] private Sprite exclamationMark;
 	[SerializeField] private Sprite skull; 
-	[SerializeField] Gradient colorLerpGradient;
+	[SerializeField] private Gradient colorLerpGradient;
 
 	private Canvas canvas;
 	private Camera mainCamera;
@@ -16,8 +16,6 @@ public class FurnitureAlert : MonoBehaviour
 	private Shootable shootableComponent;
 	private float percentage = 0;
 
-
-	// Start is called before the first frame update
 	private void Awake()
 	{
 		AI = GetComponentInParent<WanderAI>();
@@ -26,7 +24,6 @@ public class FurnitureAlert : MonoBehaviour
 		mainCamera = Camera.main;
 	}
 
-	// Update is called once per frame
 	private void Update()
 	{
 		if (shootableComponent.IsDead) return;
@@ -44,15 +41,11 @@ public class FurnitureAlert : MonoBehaviour
 
 		//change icon depending on alertness
 		if (percentage == 1 && fill.sprite != exclamationMark)
-		{
 			// Reached 100, set sprite
 			AnimateIcon(exclamationMark);
-		}
 		else if (percentage != 1 && fill.sprite == exclamationMark)
-		{
 			// Dropped below 100
 			SetIcon(questionMark);
-		}
 
 		// Make sure the canvas always faces the camera
 		transform.rotation = mainCamera.transform.rotation;

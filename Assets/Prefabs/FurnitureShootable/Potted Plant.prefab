@@ -111,8 +111,8 @@ GameObject:
   - component: {fileID: 1778503834011940512}
   - component: {fileID: 1171529578584424129}
   - component: {fileID: 736955873112452282}
-  - component: {fileID: 1321375191118770268}
   - component: {fileID: 661917962348420255}
+  - component: {fileID: 4328899579415243282}
   m_Layer: 0
   m_Name: Potted Plant
   m_TagString: Enemy
@@ -173,19 +173,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1321375191118770268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8607944281932643591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd95515f88ceb8e48a95a97906559674, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  furnitureSO: {fileID: 11400000, guid: 861e66ed8142290408147089ab8a096f, type: 2}
 --- !u!65 &661917962348420255
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -207,6 +194,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.76605576, y: 0.55952466, z: 0.8121964}
   m_Center: {x: 0.007876128, y: 0.23793477, z: 0.01222311}
+--- !u!114 &4328899579415243282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8607944281932643591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e772e154071c25f42835ff5ac02f8388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  furnitureSO: {fileID: 11400000, guid: 861e66ed8142290408147089ab8a096f, type: 2}
 --- !u!1001 &2835460597769101157
 PrefabInstance:
   m_ObjectHideFlags: 0

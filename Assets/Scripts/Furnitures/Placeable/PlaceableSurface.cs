@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlaceableSurface : MonoBehaviour
 {
-
     public bool HasFurnitureOnThisSurface { get; private set; } = false;
 
     private void OnTriggerStay(Collider other)

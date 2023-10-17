@@ -19,9 +19,7 @@ public class RoamBehaviour : AIBehaviour
 				// An intemediary step could be added where it tries to reverse first
 				if (WanderAI.RandomPoint(knowledge.AITransform.position + (knowledge.AITransform.forward * 5), 3, out Vector3 destination) ||
 					WanderAI.RandomPoint(knowledge.AITransform.position, 10, out destination))
-				{
 					knowledge.Agent.SetDestination(destination);
-				}
 			}
 		//}
 

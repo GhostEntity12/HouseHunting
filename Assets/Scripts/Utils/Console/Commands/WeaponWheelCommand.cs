@@ -1,4 +1,5 @@
 using UnityEngine;
+
 [CreateAssetMenu(fileName = "Weapon Wheel Command", menuName = "Command/Weapon Wheel")]
 public class WeaponWheelCommand : Command
 {

@@ -10,6 +10,7 @@ public class SlamBehaviour : AIBehaviour
     [SerializeField] private int damage = 1;
     [SerializeField] private float cooldown = 5f;
     [SerializeField] private float turningSpeed = 5f;
+
     private float timeSinceLastJump = 0;
     private bool jumping = false;
     private float slamSearchRange = 0.5f;
@@ -17,6 +18,7 @@ public class SlamBehaviour : AIBehaviour
     private Vector3 endPosition;
     private float distance = 1f;
     private float jumpTime = 0f;
+
     public override void Act(ref Knowledge knowledge)
     {
         if (jumping)

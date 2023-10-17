@@ -6,22 +6,21 @@ public class AssetSeeder : MonoBehaviour
 {
 	private int prefabCount;
 	private GameObject parentObject;
+	private Bounds spawnBounds;
 
+	public float yHeight;
+	public int maxObjects = 5000;
 	public bool instantiateAsPrefab;
 	public string parentName;
 	public List<GameObject> prefab;
-	private Bounds spawnBounds;
-	public float yHeight;
-	public int maxObjects = 5000;
 
 	public LayerMask groundMask;
+	public LayerMask layerMask;
 
 	[Min(0)]
 	public int maxTries;
 	[Min(0)]
 	public float spacing;
-
-	public LayerMask layerMask;
 
 	[ContextMenu("Seed Object")]
 	public void SeedObject()
@@ -53,6 +52,7 @@ public class AssetSeeder : MonoBehaviour
 					yHeight,
 					Random.Range(spawnBounds.min.z, spawnBounds.max.z)
 				);
+
 				if (Physics.Raycast(randPoint + Vector3.up * 10, Vector3.down, out RaycastHit hit, 15, groundMask))
 				{
 					Debug.DrawLine(randPoint + Vector3.up * 10, hit.point, Color.red, 10);

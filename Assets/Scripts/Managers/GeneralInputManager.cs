@@ -63,6 +63,11 @@ public class GeneralInputManager : Singleton<GeneralInputManager>
         playerInput.General.Disable();
     }
 
+	private void OnDestroy()
+    {
+        playerInput.Dispose();
+    }
+
     private void CheckHoldingSprint()
     {
         // Only toggle sprint if the player is moving and holding sprint
@@ -89,6 +94,4 @@ public class GeneralInputManager : Singleton<GeneralInputManager>
         PlayerPrefs.SetInt("ToggleSprint", dropdown.value);
         SetSprintModeControls();
     }
-
-	private void OnDestroy() => playerInput.Dispose();
 }
