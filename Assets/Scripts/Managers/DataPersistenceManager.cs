@@ -7,9 +7,11 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
 {
 	[Tooltip("This list stores all the placeable scriptable objects in the game, every time a new one is created, it must be added to this list via the Unity editor")]
 	[SerializeField] private List<FurnitureSO> allFurnitureSOs;
-    [SerializeField] private List<GunSO> allGunSOs;
+
     [Tooltip("This list stores all the gun scriptable objects in the game, every time a new one is created, it must be added to this list via the Unity editor")]
     [SerializeField] private string savedFileName = "data";
+
+    [SerializeField] private List<GunSO> allGunSOs;
 
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
@@ -94,5 +96,8 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
         return allFurnitureSOs.Find(x => x.id == id).placeablePrefab;
     }
 
-    public GunSO GetGunById(string id) => allGunSOs.Find(x => x.id == id);
+    public GunSO GetGunById(string id)
+    {
+        return allGunSOs.Find(x => x.id == id);
+    }
 }

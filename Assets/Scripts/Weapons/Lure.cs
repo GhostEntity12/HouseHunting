@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Lure : MonoBehaviour
 {
-    public static bool lureNotOnCooldown = true;
-
     [SerializeField] private float throwForce;
 	[SerializeField] private float throwUpwardForce;
+
+    public static bool lureNotOnCooldown = true;
 
     private void Awake()
     {
@@ -26,9 +26,7 @@ public class Lure : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (other.TryGetComponent(out WanderAI shootableWanderAI))
-        {
             shootableWanderAI.Lure = transform;
-        }
     }
 
     private IEnumerator DestroyDelay()

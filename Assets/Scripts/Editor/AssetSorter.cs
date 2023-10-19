@@ -24,8 +24,7 @@ public class AssetSorter : MonoBehaviour
 	[ContextMenu("Sort Children")]
 	public void SortChildren()
 	{
-		if (alsoFixNames)
-			FixNames();
+		if (alsoFixNames) FixNames();
 
 		// Get the index of this object
 		int startingIndex = transform.GetSiblingIndex() + 1;

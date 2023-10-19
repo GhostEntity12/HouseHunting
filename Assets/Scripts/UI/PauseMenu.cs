@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PauseMenu : Singleton<PauseMenu>
 {
@@ -10,7 +9,6 @@ public class PauseMenu : Singleton<PauseMenu>
 	[SerializeField] private GameObject currentView;
 	[SerializeField] private TMP_Dropdown sprintType;
 
-	private PlayerInput playerInput;
 	private bool isPaused;
 
 	public bool IsPaused => isPaused;
@@ -44,8 +42,10 @@ public class PauseMenu : Singleton<PauseMenu>
 		{
 			LeanTween.moveY(pauseButtons, 0, 0.3f).setEaseOutBack().setIgnoreTimeScale(true);
 			LeanTween.alphaCanvas(bg, 1, 0.2f).setIgnoreTimeScale(true);
+
 			Time.timeScale = 0;
 			GameManager.Instance.ShowCursor();
+
 			GeneralInputManager.Instance.PlayerInput.General.Disable();
 			if (HouseInputManager.Instance) HouseInputManager.Instance.PlayerInput.House.Disable();
 			if (HuntingInputManager.Instance) HuntingInputManager.Instance.PlayerInput.Hunting.Disable();
@@ -60,8 +60,10 @@ public class PauseMenu : Singleton<PauseMenu>
 			});
 			LeanTween.moveY(settings, 1080, 0.3f).setEaseInBack().setIgnoreTimeScale(true);
 			LeanTween.alphaCanvas(bg, 0, 0.2f).setIgnoreTimeScale(true).setDelay(0.2f);
+
 			Time.timeScale = 1;
 			GameManager.Instance.HideCursor();
+
 			GeneralInputManager.Instance.PlayerInput.General.Enable();
 			if (HouseInputManager.Instance) HouseInputManager.Instance.PlayerInput.House.Enable();
 			if (HuntingInputManager.Instance) HuntingInputManager.Instance.PlayerInput.Hunting.Enable();

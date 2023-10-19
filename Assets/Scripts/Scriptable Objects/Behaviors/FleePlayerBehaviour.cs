@@ -7,9 +7,7 @@ public class FleePlayerBehaviour : AIBehaviour
 	{
 		// If we reached the end of our current path, generate a new one
 		if (knowledge.Agent.remainingDistance < 1 && WanderAI.RandomPoint(WanderAI.FindFleePoint(knowledge.PlayerPosition, knowledge.AITransform.position), 2, out Vector3 fleeDestination))
-		{
 			knowledge.Agent.SetDestination(fleeDestination);
-		}
 	}
 
 	public override void Entry(ref Knowledge knowledge)

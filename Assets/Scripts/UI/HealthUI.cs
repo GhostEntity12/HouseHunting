@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,9 +23,7 @@ public class HealthUI : MonoBehaviour
         {
             Transform ithChild = transform.GetChild(i);
             if (health >= 1)
-            {
                 ithChild.gameObject.SetActive(true);
-            }
             else if (health > 0)
             {
                 ithChild.gameObject.SetActive(true);

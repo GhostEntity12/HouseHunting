@@ -4,6 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ViewCone", menuName = "ViewCone")]
 public class ViewConeSO : ScriptableObject
 {
+	private float TrueAngle => angle / 2;
+
 	[Tooltip("Positional offset of the cone")]
 	public Vector3 posOffset;
 	[Tooltip("Rotational offset of the cone")]
@@ -14,7 +16,6 @@ public class ViewConeSO : ScriptableObject
 	public float angle;
 	// The angle actually being used in calculations.
 	// The TrueAngle is the permitted angle on either side of the center of the cone
-	private float TrueAngle => angle / 2;
 
 #if UNITY_EDITOR
 	[Header("Debug")]

@@ -4,6 +4,14 @@ using UnityEngine.AI;
 
 public class Shootable : MonoBehaviour, IInteractable
 {
+
+    [System.Serializable]
+    public struct Hitbox
+    {
+        public Collider collider;
+        public float multiplier;
+    }
+
     [SerializeField] private FurnitureSO furnitureSO;
 
     private int currentHealth;
@@ -60,12 +68,5 @@ public class Shootable : MonoBehaviour, IInteractable
             HuntingManager.Instance.HuntingInventory.AddItem(GetInventoryItem());
             Destroy(gameObject);
         }
-    }
-
-    [System.Serializable]
-    public struct Hitbox
-    {
-        public Collider collider;
-        public float multiplier;
     }
 }

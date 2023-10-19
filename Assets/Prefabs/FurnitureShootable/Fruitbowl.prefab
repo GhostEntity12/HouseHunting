@@ -111,8 +111,8 @@ GameObject:
   - component: {fileID: 1778503834011940512}
   - component: {fileID: 1171529578584424129}
   - component: {fileID: 736955873112452282}
-  - component: {fileID: -1363456017480070556}
   - component: {fileID: 1334467473234190177}
+  - component: {fileID: 7861465642217772274}
   m_Layer: 0
   m_Name: Fruitbowl
   m_TagString: Enemy
@@ -173,19 +173,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-1363456017480070556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8607944281932643591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0af2c691fbdb48e48b172346a78df9a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  furnitureSO: {fileID: 11400000, guid: 00b22e0837bbc2d439935c0c17d21a03, type: 2}
 --- !u!65 &1334467473234190177
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -207,6 +194,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3482346, y: 0.32483786, z: 0.6590765}
   m_Center: {x: -0.0050135553, y: 0.1537498, z: -0.0033423007}
+--- !u!114 &7861465642217772274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8607944281932643591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e772e154071c25f42835ff5ac02f8388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  furnitureSO: {fileID: 11400000, guid: 00b22e0837bbc2d439935c0c17d21a03, type: 2}
 --- !u!1001 &175201245772292509
 PrefabInstance:
   m_ObjectHideFlags: 0

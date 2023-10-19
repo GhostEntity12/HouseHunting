@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour
 	[SerializeField] float lifespan;
 	[SerializeField] Sprite icon;
 	[SerializeField] SoundAlertSO collisionSound;
+
 	private TrailRenderer trailRenderer;
 	private AmmoPouch ammoPouch;
 
@@ -57,7 +58,13 @@ public class Bullet : MonoBehaviour
 		ammoPouch.PoolBullet(this);
 	}
 
+	public void ResetTrail()
+	{
+		trailRenderer.Clear();
+	}
 
-	public void ResetTrail() => trailRenderer.Clear();
-	public void SetPool(AmmoPouch pouch) => ammoPouch = pouch;
+	public void SetPool(AmmoPouch pouch)
+	{
+		ammoPouch = pouch;
+	}
 }

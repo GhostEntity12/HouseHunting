@@ -53,6 +53,11 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput.Hunting.Disable();
 	}
 
+	private void OnDestroy()
+	{
+        playerInput.Dispose();
+	}
+
 	private void OpenWeaponWheel(InputAction.CallbackContext ctx)
 	{
 		playerInput.General.Look.Disable();
@@ -75,9 +80,7 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 	public void ThrowLure()
 	{
 		if (Lure.lureNotOnCooldown)
-		{
 			Instantiate(HuntingManager.Instance.LurePrefab.gameObject, Camera.main.transform.position, Camera.main.transform.rotation);
-		}
 	}
 
 	/// <summary>
@@ -98,6 +101,4 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 			playerInput.Hunting.OpenWeaponWheel.canceled -= CloseWeaponWheel;
 		}
 	}
-
-	private void OnDestroy() => playerInput.Dispose();
 }

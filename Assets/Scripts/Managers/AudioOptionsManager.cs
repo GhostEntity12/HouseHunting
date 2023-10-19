@@ -1,11 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Audio;
-using System;
-using UnityEngine.Rendering;
 
 public class AudioOptionsManager : MonoBehaviour
 {
@@ -26,7 +20,10 @@ public class AudioOptionsManager : MonoBehaviour
 	}
 
 	// The sliders have the event which calls the other SetVolume()
-	public void SetVolume(SliderContainer sliderContainer, int volume) => sliderContainer.Slider.value = volume;
+	public void SetVolume(SliderContainer sliderContainer, int volume)
+	{
+		sliderContainer.Slider.value = volume;
+	}
 
 	public void SetVolume(SliderContainer sliderContainer)
 	{
@@ -37,5 +34,8 @@ public class AudioOptionsManager : MonoBehaviour
 		PlayerPrefs.SetInt(sliderContainer.Key, volume);
 	}
 
-	public void SavePrefs() => PlayerPrefs.Save();
+	public void SavePrefs()
+	{
+		PlayerPrefs.Save();
+	}
 }

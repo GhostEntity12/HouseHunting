@@ -3,7 +3,8 @@
 [CreateAssetMenu(fileName = "Flee Behaviour", menuName = "Behaviours/Flee General")]
 public class FleeBehaviour : AIBehaviour
 {
-	Vector3? dangerPosition = null;
+	private Vector3? dangerPosition = null;
+
 	public override void Act(ref Knowledge knowledge)
 	{
 		// Update dangerPosition if required
@@ -22,9 +23,11 @@ public class FleeBehaviour : AIBehaviour
 			knowledge.Agent.SetDestination(fleeDestination);
 		}
 	}
+
 	public override void Entry(ref Knowledge knowledge)
 	{
 	}
+
 	public override void Exit(ref Knowledge knowledge)
 	{
 		knowledge.Agent.ResetPath();

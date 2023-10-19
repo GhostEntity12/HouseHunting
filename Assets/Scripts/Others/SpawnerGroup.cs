@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerGroup : Spawner
 {
 	[SerializeField] private int numToSpawn = 2;
 	[SerializeField] private int range = 5;
+
 	public override int Spawn()
 	{
 		if (spawnableFurniture.Count == 0)
@@ -21,6 +20,7 @@ public class SpawnerGroup : Spawner
 			Vector3 spawnPoint = new(transform.position.x + offset2D.x, transform.position.y, transform.position.z + offset2D.y);
 			Instantiate(furnitureToSpawn, spawnPoint, Quaternion.identity);
 		}
+
 		return numToSpawn;
 	}
 }

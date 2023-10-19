@@ -4,10 +4,11 @@ using UnityEngine.EventSystems;
 
 public class ButtonAnimator : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public Image outlineImage; // Drag your outline image here in the Inspector
+    private readonly float scaleRange = 1.05f;
     //private bool isHovering = false;
     //private bool isAnimating = false;
-    private float scaleRange = 1.05f;
+
+    public Image outlineImage; // Drag your outline image here in the Inspector
 
     public void OnPointerEnter(PointerEventData eventData)
     {

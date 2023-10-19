@@ -15,9 +15,7 @@ public class FurnitureInventory
     public void AddItem(SaveDataFurniture newItem)
     {
         if (Furniture.Count < maxInventorySize)
-        {
             Furniture.Add(newItem);
-        }
         else
         {
             // Handle the case when the inventory is already full
@@ -32,9 +30,15 @@ public class FurnitureInventory
 		other.ClearInventory();
 	}
 
-	public void RemoveItem(SaveDataFurniture itemToRemove) => Furniture.Remove(itemToRemove);
+    public void RemoveItem(SaveDataFurniture itemToRemove)
+    {
+        Furniture.Remove(itemToRemove);
+    }
 
-	public void ClearInventory() => Furniture.Clear();
+    public void ClearInventory() 
+    { 
+        Furniture.Clear(); 
+    }
 
     public override string ToString()
     {

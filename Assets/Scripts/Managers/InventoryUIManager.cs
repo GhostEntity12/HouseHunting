@@ -1,4 +1,3 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
@@ -36,7 +35,7 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 	private FurnitureType selectedTab;
 	private (FurnitureSO so, SaveDataFurniture inventoryItem)? selectedFurniture;
 	private FurnitureInventory furnitureInventory;
-	bool isVisible = false;
+	private bool isVisible = false;
 
 	public (FurnitureSO so, SaveDataFurniture inventoryItem)? SelectedFurniture
 	{
@@ -55,19 +54,6 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 				rightPanel.gameObject.SetActive(false);
 			}
 		}
-	}
-
-	private int? GetNavMeshAgentID(string name)
-	{
-		for (int i = 0; i < NavMesh.GetSettingsCount(); i++)
-		{
-			NavMeshBuildSettings settings = NavMesh.GetSettingsByIndex(index: i);
-			if (name == NavMesh.GetSettingsNameFromID(agentTypeID: settings.agentTypeID))
-			{
-				return settings.agentTypeID;
-			}
-		}
-		return null;
 	}
 
 	protected override void Awake()

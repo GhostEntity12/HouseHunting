@@ -2463,7 +2463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableFurniture:
-  - {fileID: 1321375191118770268, guid: 3d99d20caa0dee94cb093efa19525613, type: 3}
+  - {fileID: 6366392969304530097, guid: 8dd7d42fbef8ba04b9398f06db5ef2b2, type: 3}
   numToSpawn: 8
   range: 15
 --- !u!1 &96670281
@@ -8670,7 +8670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableFurniture:
-  - {fileID: 1321375191118770268, guid: 3d99d20caa0dee94cb093efa19525613, type: 3}
+  - {fileID: 2899710936797965666, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
   numToSpawn: 4
   range: 15
 --- !u!1 &156373876
@@ -25062,8 +25062,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnableFurniture:
   - {fileID: 3685072443934080641, guid: c9e85f8fa86c73e40af1e389bc50cc7f, type: 3}
-  - {fileID: 1708161194996407248, guid: 8c8823706d60a1f4786ada53f96f97c3, type: 3}
-  - {fileID: 1321375191118770268, guid: b6b97b3816b3a24489ed87998f66064e, type: 3}
+  - {fileID: 2176156443133163853, guid: 3d0baff2a22d11d4e9a1f24d7d2561bf, type: 3}
+  - {fileID: 3685072443934080641, guid: 7022e39ec12d4e14f99090f3d905b968, type: 3}
   - {fileID: 3685072443934080641, guid: c6397f22e5db0442daf735b6b8e559ec, type: 3}
   numToSpawn: 6
   range: 15
@@ -28162,7 +28162,7 @@ MonoBehaviour:
   spawnableFurniture:
   - {fileID: 2899710936797965666, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
   - {fileID: 3685072443934080641, guid: da0b85bb90e12433d938a2fcfd166346, type: 3}
-  - {fileID: 1321375191118770268, guid: 3d99d20caa0dee94cb093efa19525613, type: 3}
+  - {fileID: 3685072443934080641, guid: 1a2ac2217ed713743acd3eab627fd946, type: 3}
   numToSpawn: 4
   range: 15
 --- !u!1001 &788629403
@@ -29598,7 +29598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableFurniture:
-  - {fileID: 1321375191118770268, guid: 3d99d20caa0dee94cb093efa19525613, type: 3}
+  - {fileID: 3685072443934080641, guid: 1a2ac2217ed713743acd3eab627fd946, type: 3}
   - {fileID: 2899710936797965666, guid: 17c4f93df63368e42834b0e1283922c0, type: 3}
   numToSpawn: 5
   range: 15
@@ -33916,7 +33916,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnableFurniture:
   - {fileID: 3685072443934080641, guid: 1a2ac2217ed713743acd3eab627fd946, type: 3}
-  - {fileID: 1321375191118770268, guid: b6b97b3816b3a24489ed87998f66064e, type: 3}
+  - {fileID: 4328899579415243282, guid: b6b97b3816b3a24489ed87998f66064e, type: 3}
   - {fileID: 3685072443934080641, guid: da0b85bb90e12433d938a2fcfd166346, type: 3}
   - {fileID: 2899710936797965666, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
   numToSpawn: 5
@@ -35534,8 +35534,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableFurniture:
-  - {fileID: -1363456017480070556, guid: 0aa3fb46f8085d04884e36d59fe30759, type: 3}
-  - {fileID: 1346307617691619806, guid: f66c5f23a7f5934488d000a213105943, type: 3}
+  - {fileID: 2176156443133163853, guid: 3d0baff2a22d11d4e9a1f24d7d2561bf, type: 3}
+  - {fileID: 274742349716809348, guid: ed8d8a336efe83b46b1bda490d4f1683, type: 3}
   - {fileID: 274742349716809348, guid: f0fff63349c88ae4da81df4f907be3a4, type: 3}
   numToSpawn: 6
   range: 15
@@ -40981,8 +40981,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableFurniture:
-  - {fileID: 1346307617691619806, guid: f66c5f23a7f5934488d000a213105943, type: 3}
-  - {fileID: -1363456017480070556, guid: 0aa3fb46f8085d04884e36d59fe30759, type: 3}
+  - {fileID: 274742349716809348, guid: 2783c2dda8fd2ca45acae96f356af6b6, type: 3}
+  - {fileID: 274742349716809348, guid: 81564218266b193478a4864e2d8cb646, type: 3}
   - {fileID: 274742349716809348, guid: d14a289400866614b806e5d11ec7ab94, type: 3}
   numToSpawn: 6
   range: 15
@@ -44644,11 +44644,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnableFurniture:
   - {fileID: 274742349716809348, guid: d14a289400866614b806e5d11ec7ab94, type: 3}
-  - {fileID: 1346307617691619806, guid: f66c5f23a7f5934488d000a213105943, type: 3}
+  - {fileID: 7249870503059765778, guid: 27928646a17eb2248b96a8965a3cae4c, type: 3}
   - {fileID: 274742349716809348, guid: 1364a32b2d595a3438148640eb96ff1f, type: 3}
   - {fileID: 274742349716809348, guid: ed8d8a336efe83b46b1bda490d4f1683, type: 3}
-  - {fileID: -1363456017480070556, guid: 67b2aef939c98e543a53bcf94a447314, type: 3}
-  - {fileID: -1363456017480070556, guid: 27928646a17eb2248b96a8965a3cae4c, type: 3}
+  - {fileID: 2769665891957307839, guid: f66c5f23a7f5934488d000a213105943, type: 3}
+  - {fileID: 5608436772172988049, guid: 2f430d09af36fd341aadc2318819177b, type: 3}
   numToSpawn: 8
   range: 15
 --- !u!114 &1418690289 stripped
@@ -46439,9 +46439,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnableFurniture:
   - {fileID: 274742349716809348, guid: d14a289400866614b806e5d11ec7ab94, type: 3}
-  - {fileID: 1346307617691619806, guid: f66c5f23a7f5934488d000a213105943, type: 3}
-  - {fileID: -1363456017480070556, guid: 27928646a17eb2248b96a8965a3cae4c, type: 3}
-  - {fileID: -1363456017480070556, guid: 67b2aef939c98e543a53bcf94a447314, type: 3}
+  - {fileID: 274742349716809348, guid: ed8d8a336efe83b46b1bda490d4f1683, type: 3}
+  - {fileID: 274742349716809348, guid: 1364a32b2d595a3438148640eb96ff1f, type: 3}
+  - {fileID: 7889457861276799843, guid: 67b2aef939c98e543a53bcf94a447314, type: 3}
   - {fileID: 274742349716809348, guid: f0fff63349c88ae4da81df4f907be3a4, type: 3}
   - {fileID: 274742349716809348, guid: ed8d8a336efe83b46b1bda490d4f1683, type: 3}
   numToSpawn: 7
@@ -47925,9 +47925,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnableFurniture:
-  - {fileID: 1321375191118770268, guid: b6b97b3816b3a24489ed87998f66064e, type: 3}
-  - {fileID: -1363456017480070556, guid: 27928646a17eb2248b96a8965a3cae4c, type: 3}
-  - {fileID: -1363456017480070556, guid: 67b2aef939c98e543a53bcf94a447314, type: 3}
+  - {fileID: 6900452092522998625, guid: b59a9dd65c1947b4eb388d089f4a19e5, type: 3}
+  - {fileID: 5526878894618314916, guid: 8c8823706d60a1f4786ada53f96f97c3, type: 3}
+  - {fileID: 274742349716809348, guid: ef6f41e08bc0ed44b99f587e0bd8632d, type: 3}
   numToSpawn: 5
   range: 15
 --- !u!1 &1586757177
@@ -56184,8 +56184,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnableFurniture:
   - {fileID: 3685072443934080641, guid: c9e85f8fa86c73e40af1e389bc50cc7f, type: 3}
-  - {fileID: 6090958504537676759, guid: 77c8ac7d9c84bf643b42d8738edeffdf, type: 3}
-  - {fileID: 6090958504537676759, guid: 625fb83031f75a4468847b3f2e0f1b1a, type: 3}
+  - {fileID: 274742349716809348, guid: f0fff63349c88ae4da81df4f907be3a4, type: 3}
+  - {fileID: 274742349716809348, guid: ed8d8a336efe83b46b1bda490d4f1683, type: 3}
   numToSpawn: 4
   range: 15
 --- !u!1 &1705781543
@@ -58231,7 +58231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnableFurniture:
   - {fileID: 3685072443934080641, guid: 1a2ac2217ed713743acd3eab627fd946, type: 3}
-  - {fileID: 1321375191118770268, guid: b6b97b3816b3a24489ed87998f66064e, type: 3}
+  - {fileID: 3685072443934080641, guid: 33ba177a7359448a3a9ce8573681c901, type: 3}
   - {fileID: 3685072443934080641, guid: da0b85bb90e12433d938a2fcfd166346, type: 3}
   - {fileID: 2899710936797965666, guid: 9dfab2ac6f7d5ec4cacfaacc1fd81c72, type: 3}
   numToSpawn: 5
@@ -66294,8 +66294,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnableFurniture:
   - {fileID: 274742349716809348, guid: 759575ff2571bcb41b3942194bdf5a61, type: 3}
-  - {fileID: 1708161194996407248, guid: 8c8823706d60a1f4786ada53f96f97c3, type: 3}
-  - {fileID: 6090958504537676759, guid: 625fb83031f75a4468847b3f2e0f1b1a, type: 3}
+  - {fileID: 274742349716809348, guid: f0fff63349c88ae4da81df4f907be3a4, type: 3}
+  - {fileID: 274742349716809348, guid: ed8d8a336efe83b46b1bda490d4f1683, type: 3}
   numToSpawn: 5
   range: 15
 --- !u!1001 &2090418772

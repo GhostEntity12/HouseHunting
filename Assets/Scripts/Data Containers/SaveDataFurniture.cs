@@ -6,5 +6,4 @@ public struct SaveDataFurniture
     {
         this.id = id;
     }
-
 }

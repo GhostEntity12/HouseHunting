@@ -7,12 +7,12 @@ using UnityEngine.Video;
 
 public class MainMenuManager : Singleton<MainMenuManager>
 {
-    [SerializeField] CanvasGroup fade;
-    [SerializeField] RectTransform settings;
-    [SerializeField] RectTransform credits;
-    [SerializeField] VideoPlayer animaticPlayer;
-    [SerializeField] RawImage animatic;
-    [SerializeField] TextMeshProUGUI skipText;
+    [SerializeField] private CanvasGroup fade;
+    [SerializeField] private RectTransform settings;
+    [SerializeField] private RectTransform credits;
+    [SerializeField] private VideoPlayer animaticPlayer;
+    [SerializeField] private RawImage animatic;
+    [SerializeField] private TextMeshProUGUI skipText;
 
     private PlayerInput inputs;
 

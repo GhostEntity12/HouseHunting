@@ -1,13 +1,10 @@
-using UnityEngine.Audio;
 using UnityEngine;
 using System;
 
-[System.Serializable]
+[Serializable]
 public class Sound
 {
     public enum AudioTypes { soundEffect, music }
-    public AudioTypes audioType;
-
     [SerializeField] private AudioClip clip;
     [SerializeField] private bool loop;
     [SerializeField] private bool playOnAwake;
@@ -18,10 +15,10 @@ public class Sound
     [SerializeField] private float pitch = 1f;
 
     [SerializeField] private string name;
-    private AudioTypes audioTypes;
+    private readonly AudioTypes audioTypes;
 
-    [HideInInspector]
-    public AudioSource source;
+    [HideInInspector] public AudioSource source;
+    public AudioTypes audioType;
 
     public string Name => name;
     public AudioTypes Type => audioTypes;

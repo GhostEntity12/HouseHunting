@@ -43,12 +43,12 @@ public class CompassController : MonoBehaviour
         markers.Add(marker);
     }
 
-    Vector2 GetPosOnCompass (CompassMarker marker)
+    private Vector2 GetPosOnCompass (CompassMarker marker)
     {
         Vector2 playerPos = new Vector2(playerTransform.transform.position.x, playerTransform.transform.position.z);
         Vector2 playerFwd = new Vector2(playerTransform.transform.forward.x, playerTransform.transform.forward.z);
 
-        float angle = Vector2.SignedAngle(marker.position - playerPos, playerFwd);
+        float angle = Vector2.SignedAngle(marker.Position - playerPos, playerFwd);
 
         return new Vector2(compassUnit * angle, 0f);
     }

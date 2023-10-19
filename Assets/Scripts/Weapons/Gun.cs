@@ -7,6 +7,8 @@ public class Gun : MonoBehaviour, IEquippable
 	[SerializeField] private Transform muzzlePoint;
 	[SerializeField] private GameObject muzzleFlashPrefab;
 	[SerializeField] private float adsFactor = 4;
+	[field: SerializeField] public GunSO GunSO { get; private set; }
+	[field: SerializeField] public AmmoPouch AmmoPouch { get; private set; } = new();
 
 	private bool ads;
 	private float elapsedTime; // for lerping ads
@@ -16,16 +18,11 @@ public class Gun : MonoBehaviour, IEquippable
 	private Vector3 initialPosition;
 	private Vector3 adsPosition;
 
-	[field: SerializeField] public GunSO GunSO { get; private set; }
-	[field: SerializeField] public AmmoPouch AmmoPouch { get; private set; } = new();
-
 	public string AmmoInfo => $"{AmmoPouch.AmmoInGun / GunSO.bulletsPerTap} / {AmmoPouch.AmmoStored / GunSO.bulletsPerTap}";
     public int NumberOfMagazineLeft => AmmoPouch.AmmoStored / GunSO.bulletsPerTap;
     public int NumberOfShotsLeft => AmmoPouch.AmmoInGun / GunSO.bulletsPerTap;
     public int MaxShotPerMagazine => GunSO.magSize / GunSO.bulletsPerTap;
-
 	public string ID => GunSO.id;
-
 	public SoundAlertSO EquipSound => GunSO.equipSound;
 
 	private void Awake()
@@ -37,8 +34,6 @@ public class Gun : MonoBehaviour, IEquippable
 		adsPosition = new Vector3(initialPosition.x - 0.45f, initialPosition.y, initialPosition.z);
 	}
 
-	protected void ReenableGun() => state = GunState.Ready;
-
 	private void Update()
 	{
 		// for ADS animation
@@ -47,6 +42,11 @@ public class Gun : MonoBehaviour, IEquippable
 		float cameraFov = ads ? 40 : 60;
 		//transform.localPosition = Vector3.Lerp(ads ? initialPosition: adsPosition, targetPosition, elapsedTime);
 		Camera.main.fieldOfView = Mathf.Lerp(ads ? 60 : 40, cameraFov, elapsedTime);
+	}
+
+	protected void ReenableGun()
+	{
+		state = GunState.Ready;
 	}
 
 	public virtual void Shoot()
@@ -114,7 +114,10 @@ public class Gun : MonoBehaviour, IEquippable
 	}
 
 	// so outside managers can trigger animations if needed
-	public void AnimationTrigger(string animationName) => anim.SetTrigger(animationName);
+	public void AnimationTrigger(string animationName)
+	{
+		anim.SetTrigger(animationName);
+	}
 
 	public void Reload()
 	{
@@ -172,7 +175,14 @@ public class Gun : MonoBehaviour, IEquippable
 		gameObject.SetActive(false);
 	}
 
-	public void UsePrimary() => Shoot();
+	public void UsePrimary()
+	{
+		Shoot();
+	}
 
-	public void UseSecondary() => ToggleADS();
+	public void UseSecondary()
+	{
+		ToggleADS();
+	}
 }
+
