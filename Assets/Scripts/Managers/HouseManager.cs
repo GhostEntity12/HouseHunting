@@ -1,10 +1,16 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HouseManager : Singleton<HouseManager>, IDataPersistence
 {
 	[SerializeField] private RectTransform furnitureDecorateTooltips;
 	[SerializeField] private RectTransform inventoryTooltip;
+	[SerializeField] private CanvasGroup fade;
+
 	[field: SerializeField] public Camera ExploreCamera { get; private set; }
 
 	private bool decorateTooltipsActive = false;
@@ -33,6 +39,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		houseValue = CalculateHouseRating(houseItems); // assign total value here
 		player = GameManager.Instance.Player;
 		AudioManager.Instance.Play("Building");
+		LeanTween.alphaCanvas(fade, 0, 0.3f);
 	}
 
 	private void Update()
@@ -169,5 +176,12 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		holdingPlaceable.ChildMeshCollider.enabled = true;
 		holdingPlaceable = null;
 		holdingPlaceableRotation = 0;
+	}
+
+	public void LoadHuntingScene()
+	{
+		SceneManager.LoadSceneAsync("99_LoadingScene", LoadSceneMode.Additive);
+		LeanTween.alphaCanvas(fade, 1, 0.5f).setOnComplete(() =>
+			SceneManager.LoadSceneAsync(2, LoadSceneMode.Single));
 	}
 }
