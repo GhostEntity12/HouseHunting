@@ -182,6 +182,6 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	{
 		SceneManager.LoadSceneAsync("99_LoadingScene", LoadSceneMode.Additive);
 		LeanTween.alphaCanvas(fade, 1, 0.5f).setOnComplete(() =>
-			SceneManager.LoadSceneAsync(2, LoadSceneMode.Single));
+			SceneManager.LoadSceneAsync(2));
 	}
 }

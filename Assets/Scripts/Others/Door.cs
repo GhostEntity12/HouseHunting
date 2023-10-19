@@ -7,7 +7,6 @@ public class Door : MonoBehaviour, IInteractable
 
     public void Interact()
 	{
-		Debug.Log(HuntingManager.Instance);
 		if (HuntingManager.Instance)
 			HuntingManager.Instance.RespawnInHouse();
 		else if (HouseManager.Instance)

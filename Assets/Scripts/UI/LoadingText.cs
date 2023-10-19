@@ -10,18 +10,11 @@ public class LoadingText : MonoBehaviour
 	private void Awake()
 	{
 		loadingText = GetComponent<TextMeshProUGUI>();
-		SceneManager.sceneLoaded += NewSceneLoaded;
 	}
 
 	public void Start()
 	{
 		StartCoroutine(LoadingTextAnimation());
-	}
-
-	void NewSceneLoaded(Scene s, LoadSceneMode loadSceneMode)
-	{
-		//if (HuntingManager.Instance)
-		//	SceneManager.UnloadSceneAsync("99_LoadingScene");
 	}
 
 	public IEnumerator LoadingTextAnimation()
@@ -30,7 +23,6 @@ public class LoadingText : MonoBehaviour
 		int dots = 1;
 		while (loadingText)
 		{
-			Debug.Log("loading");
 			loadingText.text = "Loading";
 			for (int i = 0; i < dots; i++)
 			{
