@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/02_Hunting.unity
     guid: e56193e10a263e2408386922c0e505d8
-  - enabled: 0
-    path: Assets/Scenes/02_Hunting.unity
-    guid: 86e1557a43596ad41967061712b16cbc
+  - enabled: 1
+    path: Assets/Scenes/99_LoadingScene.unity
+    guid: 86157a5f6bc2da948a67f7d6c9f00aca
   m_configObjects: {}
