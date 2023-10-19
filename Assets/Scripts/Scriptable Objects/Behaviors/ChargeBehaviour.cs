@@ -33,7 +33,7 @@ public class ChargeBehaviour : AIBehaviour
                 foreach (Collider hitCollider in hitColliders)
                 {
                     // If the player manages to collide with the furniture, deal damage and apply knockback! Make sure this only happens once per charge.
-                    Player? player = hitCollider.GetComponentInParent<Player>();
+                    Player player = hitCollider.GetComponentInParent<Player>();
                     if (player != null)
                     {
                         HuntingManager.Instance.DealDamageToPlayer(damage);

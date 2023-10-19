@@ -30,7 +30,7 @@ public class SlamBehaviour : AIBehaviour
                 Collider[] hitColliders = Physics.OverlapSphere(knowledge.AITransform.position, radius);
                 foreach (Collider hitCollider in hitColliders)
                 {
-                    Player? player = hitCollider.GetComponentInParent<Player>();
+                    Player player = hitCollider.GetComponentInParent<Player>();
                     if (player != null)
                     {
                         HuntingManager.Instance.DealDamageToPlayer(damage);
