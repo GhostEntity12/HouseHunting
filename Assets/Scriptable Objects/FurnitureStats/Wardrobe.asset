@@ -21,7 +21,7 @@ MonoBehaviour:
   shootablePrefab: {fileID: 3685072443934080641, guid: 1a2ac2217ed713743acd3eab627fd946, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
   alertnessThreshold1: 33
-  threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
+  threshold1Behaviour: {fileID: 11400000, guid: a1b59bae0f276e646aa84a094116960d, type: 2}
   alertnessThreshold2: 66
   threshold2Behaviour: {fileID: 11400000, guid: 217112832d3f55c4e8f13aef0f12578c, type: 2}
   alertnessThreshold3: 100
