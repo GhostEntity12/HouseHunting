@@ -530,7 +530,7 @@ MonoBehaviour:
   knockbackDrag: 1
   camera: {fileID: 306865349511134642}
   sensitivity: 10
-  interactRange: 5
+  interactRange: 3
   lurePrefab: {fileID: 0}
   moveSoundCrouch: {fileID: 11400000, guid: 550edb7929537bc4f8654afe8be65a69, type: 2}
   moveSoundWalk: {fileID: 11400000, guid: b2f43dc74a8634a46a1e5d9c4fc22796, type: 2}
