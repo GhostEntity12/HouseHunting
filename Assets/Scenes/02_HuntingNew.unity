@@ -66169,7 +66169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   gameOverUI: {fileID: 1310588880}
-  fade: {fileID: 0}
+  fade: {fileID: 401011357}
   hurtOverlay: {fileID: 1418690289}
   healthUI: {fileID: 457018288}
   lurePrefab: {fileID: 1248066445842482226, guid: 7e88470835e56f649bd141ca4dd9b37a, type: 3}
