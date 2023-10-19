@@ -511,9 +511,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponWheelController: {fileID: 0}
-  objectToThrow: {fileID: 6514108547567938585, guid: 7e88470835e56f649bd141ca4dd9b37a, type: 3}
-  throwForce: 0
-  throwUpwardForce: 0
 --- !u!114 &5149770682015492609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,9 +529,9 @@ MonoBehaviour:
   jumpSpeed: 15
   knockbackDrag: 1
   camera: {fileID: 306865349511134642}
-  xSensitivity: 20
-  ySensitivity: 20
+  sensitivity: 10
   interactRange: 3
+  lurePrefab: {fileID: 0}
   moveSoundCrouch: {fileID: 11400000, guid: 550edb7929537bc4f8654afe8be65a69, type: 2}
   moveSoundWalk: {fileID: 11400000, guid: b2f43dc74a8634a46a1e5d9c4fc22796, type: 2}
   moveSoundSprint: {fileID: 11400000, guid: 636990e3025b9bb48b4678d9a7a6464e, type: 2}
