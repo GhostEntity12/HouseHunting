@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,6 +7,7 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 {
 	[SerializeField] private int maxHealth;
 	[SerializeField] private GameObject gameOverUI;
+	[SerializeField] private CanvasGroup fade;
 
 	[SerializeField] private Image hurtOverlay;
 
@@ -30,6 +32,7 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 	private void Start()
 	{
 		AudioManager.Instance.Play("Ambience");
+		LeanTween.alphaCanvas(fade, 0, 0.5f);
 	}
 
 	private void Die()
@@ -80,7 +83,9 @@ public class HuntingManager : Singleton<HuntingManager>, IDataPersistence
 		GameManager.Instance.PermanentInventory.MergeInventory(HuntingInventory);
 		gameOverUI.SetActive(false);
 		GameManager.Instance.HideCursor();
-		SceneManager.LoadScene(1);
+		HuntingInputManager.Instance.PlayerInput.Disable();
+		LeanTween.alphaCanvas(fade, 1, 0.5f).setOnComplete(() => 
+			SceneManager.LoadScene(1));
 	}
 
     public void LoadData(GameData data)
