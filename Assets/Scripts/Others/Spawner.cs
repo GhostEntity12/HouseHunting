@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class Spawner : SpawnerBase
 {
     [SerializeField] protected List<Shootable> spawnableFurniture;
 
@@ -9,14 +9,14 @@ public class Spawner : MonoBehaviour
     /// Attempts to spawn a furniture from its list.
     /// </summary>
     /// <returns>Returns the number of furnitre spawned</returns>
-    public virtual int Spawn()
+    public override bool Spawn()
     {
         if (spawnableFurniture.Count == 0)
         {
             Debug.LogError("Spawner is empty!", this);
-            return 0;
+            return false;
         }
         Instantiate(spawnableFurniture[Random.Range(0, spawnableFurniture.Count)], transform);
-        return 1;
+        return true;
     }
 }
