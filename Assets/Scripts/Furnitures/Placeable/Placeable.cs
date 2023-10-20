@@ -6,6 +6,8 @@ using System.Linq;
 public class Placeable : MonoBehaviour, IInteractable
 {
     [SerializeField] private bool canPlaceOnSurface;
+    [Tooltip("Set to 0 to have default scale factor")]
+    [SerializeField] private float scaleFactorPreview;
     [field: SerializeField] public MeshRenderer MeshRenderer { get; private set; }
     [field: SerializeField] public MeshFilter MeshFilter { get; private set; }
 
@@ -19,7 +21,7 @@ public class Placeable : MonoBehaviour, IInteractable
     public bool CanPlaceOnSurface => canPlaceOnSurface;
     public bool Interactable => HouseManager.Instance.HoldingPlaceable == null;
     public string InteractActionText => $"Pickup {furnitureName}";
-
+    public float ScaleFactorPreview => scaleFactorPreview;
 
     private void Start()
     {

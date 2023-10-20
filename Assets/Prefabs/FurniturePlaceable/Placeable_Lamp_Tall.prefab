@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canPlaceOnSurface: 0
+  scaleFactorPreview: 0.5
   <MeshRenderer>k__BackingField: {fileID: 2116110921083497128}
   <MeshFilter>k__BackingField: {fileID: 4231440684480028258}
 --- !u!65 &2415780512365662454

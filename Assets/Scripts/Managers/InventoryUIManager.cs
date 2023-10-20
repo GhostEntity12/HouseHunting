@@ -47,7 +47,8 @@ public class InventoryUIManager : Singleton<InventoryUIManager>
 				rightPanel.gameObject.SetActive(true);
 				selectedFurniture = value;
 				furnitureNameText.text = selectedFurniture.Value.so.name;
-				modelPreview.SetModel(DataPersistenceManager.Instance.GetPlaceablePrefabById(SelectedFurniture.Value.inventoryItem.id).gameObject, NavMesh.GetSettingsByID(value.Value.so.shootablePrefab.GetComponent<NavMeshAgent>().agentTypeID).agentRadius);
+				float scaleFactor = value.Value.so.placeablePrefab.ScaleFactorPreview == 0 ? 1f : value.Value.so.placeablePrefab.ScaleFactorPreview;
+				modelPreview.SetModel(DataPersistenceManager.Instance.GetPlaceablePrefabById(SelectedFurniture.Value.inventoryItem.id).gameObject, NavMesh.GetSettingsByID(value.Value.so.shootablePrefab.GetComponent<NavMeshAgent>().agentTypeID).agentRadius, scaleFactor);
 			}
 			else
 			{

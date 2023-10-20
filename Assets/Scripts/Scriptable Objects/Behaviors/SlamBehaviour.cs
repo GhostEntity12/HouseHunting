@@ -27,14 +27,11 @@ public class SlamBehaviour : AIBehaviour
             knowledge.AITransform.position = Parabola(startPosition, endPosition, Mathf.Sqrt(distance / range) * range, jumpTime);
             if (jumpTime >= 1f)
             {
-                int playerLayer = 9;
-                int layerMask = 1 << playerLayer;
-                layerMask = ~layerMask;
-                Collider[] hitColliders = new Collider[10];
-                int colliderCount = Physics.OverlapSphereNonAlloc(knowledge.AITransform.position, radius, hitColliders, layerMask, QueryTriggerInteraction.Collide);
-                for (int i = 0; i < colliderCount; i++)
+                Collider[] hitColliders = Physics.OverlapSphere(knowledge.AITransform.position, radius);
+                foreach (Collider hitCollider in hitColliders)
                 {
-                    if (hitColliders[i].CompareTag("Player"))
+                    Player player = hitCollider.GetComponentInParent<Player>();
+                    if (player != null)
                     {
                         HuntingManager.Instance.DealDamageToPlayer(damage);
                         break;
