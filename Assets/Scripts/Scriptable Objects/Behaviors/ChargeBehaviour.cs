@@ -4,7 +4,7 @@ using UnityEngine.AI;
 [CreateAssetMenu(fileName = "Charge Behaviour", menuName = "Behaviours/Charge")]
 public class ChargeBehaviour : AIBehaviour
 {
-    [SerializeField] private int damage = 10; // Damage per collision
+    [SerializeField] private int damage = 1; // Damage per collision
     [SerializeField] private float chargeDelay = 2f; // Seconds per charge
     [SerializeField] private float turnRange = 3f; // This is one of the parameters used to cancel a charge early; if the player has gone too far away from the furniture it will stop and turn.
     [SerializeField] private float horizontalKnockbackMultiplier = 0.1f; // Determines how much the horizontal knockback is multiplied. The multiplier should be small to prevent excessive flinging.
@@ -33,7 +33,8 @@ public class ChargeBehaviour : AIBehaviour
                 foreach (Collider hitCollider in hitColliders)
                 {
                     // If the player manages to collide with the furniture, deal damage and apply knockback! Make sure this only happens once per charge.
-                    if (hitCollider.transform.parent.TryGetComponent<Player>(out Player player))
+                    Player player = hitCollider.GetComponentInParent<Player>();
+                    if (player != null)
                     {
                         HuntingManager.Instance.DealDamageToPlayer(damage);
                         hitPlayer = true;
