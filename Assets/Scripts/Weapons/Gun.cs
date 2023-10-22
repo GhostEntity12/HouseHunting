@@ -67,11 +67,12 @@ public class Gun : MonoBehaviour, IEquippable
 			Vector3 spread = new(Random.Range(-GunSO.spread, GunSO.spread), Random.Range(-GunSO.spread, GunSO.spread), 0);
 
 			// decrease spread if ads is active
-			if (ads) spread /= 4;
+			if (ads) spread /= adsFactor;
 
 			// get bullet at muzzle point
 			Bullet currentBullet = AmmoPouch.DepoolBullet();
-			currentBullet.transform.position = muzzlePoint.position;
+			currentBullet.Rigidbody.transform.position = muzzlePoint.position;
+
 			currentBullet.ResetTrail();
 			currentBullet.Damage = GunSO.damagePerBullet;
 			currentBullet.CanBounce = GunSO.id.ToLower() == "crossbow";
@@ -82,17 +83,18 @@ public class Gun : MonoBehaviour, IEquippable
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 			if (Physics.Raycast(ray, out RaycastHit hit))
 			{
-				currentBullet.transform.LookAt(hit.point);
-				currentBullet.transform.forward += spread;
+				currentBullet.Rigidbody.transform.LookAt(hit.point);
+				currentBullet.Rigidbody.transform.forward += spread;
 			}
 			else // if the ray doesnt hit anything, means that the target the player is trying to aim is too far away, and will not hit anything anyways. So we could just apply the forward direction of the camera to the bullet.
 			{
 				Vector3 direction = Camera.main.transform.forward + spread;
-				currentBullet.transform.forward = direction.normalized;
+				currentBullet.Rigidbody.transform.forward = direction.normalized;
 			}
 
 			//Add force to bullet
 			currentBullet.Rigidbody.AddForce(currentBullet.transform.forward.normalized * GunSO.shootForce, ForceMode.Impulse);
+			currentBullet.OnDepool();
 		}
 
 		AudioManager.Instance.Play(GunSO.name);
