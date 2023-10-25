@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4370458301948973138
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2625658915158391918}
+  m_Layer: 0
+  m_Name: BleedPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2625658915158391918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4370458301948973138}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.001, y: -0.04, z: -0.015}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1778503834011940512}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5974431654824310234
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,6 +166,7 @@ Transform:
   - {fileID: 4947842832253383911}
   - {fileID: 626940987496722998}
   - {fileID: 7253084151380636823}
+  - {fileID: 2625658915158391918}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -207,6 +239,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   furnitureSO: {fileID: 11400000, guid: 52d1dfc4d1fd73a47ba04b980dd7ec55, type: 2}
+  bloodPuddlePrefab: {fileID: 6932087908108476221, guid: 7b62af70545491040b85c3282509a31b, type: 3}
+  bleedPoint: {fileID: 2625658915158391918}
 --- !u!1001 &4859907334531339358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -333,10 +367,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1778503834011940512}
     m_Modifications:
-    - target: {fileID: -5754084199372789682, guid: fba672230f16e0d45959f2e496c15dd5, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 3468755486377148355, guid: 90e86c76cef13f743b1f51eff03f7510, type: 3}
     - target: {fileID: -8679921383154817045, guid: 44c52e5eae9b35e4c9269b993996ac53, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -361,6 +391,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: fba672230f16e0d45959f2e496c15dd5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3468755486377148355, guid: 90e86c76cef13f743b1f51eff03f7510, type: 3}
     - target: {fileID: -8679921383154817045, guid: fbbe942dcbaf3ad4aa823ffb4b69b4c0, type: 3}
       propertyPath: m_RootOrder
       value: 0

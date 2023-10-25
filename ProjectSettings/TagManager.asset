@@ -11,6 +11,7 @@ TagManager:
   - Obstacle
   - Lure
   - HouseWall
+  - BloodPuddle
   layers:
   - Default
   - TransparentFX
@@ -28,8 +29,8 @@ TagManager:
   - PlaceableSurface
   - Furniture
   - House Wall
-  - 
-  - 
+  - Terrain
+  - Blood Puddle
   - 
   - 
   - 
