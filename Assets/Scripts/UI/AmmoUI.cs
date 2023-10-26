@@ -41,7 +41,7 @@ public class AmmoUI : MonoBehaviour
             // Update the reload bar fill amount
             if (EquipmentManager.Instance.EquippedItem is Gun g) 
             {
-                for (int i = bulletIcons.Count - g.AmmoPouch.AmmoInGun - bulletsToReload; i < bulletIcons.Count; i++)
+                for (int i = bulletIcons.Count - g.AmmoPouch.AmmoInGun / g.GunSO.bulletsPerTap - bulletsToReload / g.GunSO.bulletsPerTap; i < bulletIcons.Count; i++)
                 {
                     AmmoIcon icon = bulletIcons[i];
                     // only trigger animations on icons that are not filled
