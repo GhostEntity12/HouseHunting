@@ -1,16 +1,15 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour, IInteractable
 {
-	public string InteractActionText => (HouseManager.Instance ? "Exit" : "Enter") + " House";
+	public string InteractActionText => (HouseManager.Instance ? "Exit House" : "Enter House");
 	public bool Interactable => true;
 
     public void Interact()
 	{
-		if (HuntingManager.Instance != null)
+		if (HuntingManager.Instance)
 			HuntingManager.Instance.RespawnInHouse();
-		else
-			SceneManager.LoadScene(2);
+		else if (HouseManager.Instance)
+			HouseManager.Instance.LoadHuntingScene();
     }
 }

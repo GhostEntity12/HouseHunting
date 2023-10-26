@@ -19750,7 +19750,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 401011355}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -67045,6 +67045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   gameOverUI: {fileID: 1310588880}
+  fade: {fileID: 401011357}
   hurtOverlay: {fileID: 1418690289}
   healthUI: {fileID: 457018288}
   lurePrefab: {fileID: 1248066445842482226, guid: 7e88470835e56f649bd141ca4dd9b37a, type: 3}

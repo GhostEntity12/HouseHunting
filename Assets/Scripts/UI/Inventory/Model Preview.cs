@@ -22,11 +22,12 @@ public class ModelPreview : MonoBehaviour
         modelHolder.Rotate(Vector3.up * degreesToRotate);
     }
 
-    public void SetModel(GameObject newModel, float fieldOfViewMultiplier)
+    public void SetModel(GameObject newModel, float fieldOfViewMultiplier, float scaleFactor)
     {
         if (modelHolder.childCount != 0)
             Destroy(modelHolder.GetChild(0).gameObject);
-        Instantiate(newModel, modelHolder);
+        GameObject previewModel = Instantiate(newModel, modelHolder);
+        previewModel.transform.localScale = previewModel.transform.localScale * scaleFactor;
         camera.fieldOfView = baseFieldOfView;
         camera.fieldOfView *= Math.Min(fieldOfViewMultiplier, 1);
     }
