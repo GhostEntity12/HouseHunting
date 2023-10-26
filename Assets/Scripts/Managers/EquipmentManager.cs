@@ -47,6 +47,7 @@ public class EquipmentManager : Singleton<EquipmentManager>
 
 		EquippedItem?.Unequip();
 		EquippedItem = itemToEquip;
+		EquippedItemIndex = index;
 		EquippedItem.Equip();
 		SoundAlerter.MakeSound(EquippedItem.EquipSound, transform.position);
 	}
