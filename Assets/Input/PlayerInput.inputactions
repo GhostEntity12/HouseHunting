@@ -33,15 +33,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "OpenInventory",
-                    "type": "Button",
-                    "id": "ee11ff63-d43e-4a31-a2d1-29726d488556",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Quick1",
                     "type": "Value",
                     "id": "578fcd47-65d7-484b-bd2c-d6a9c5b6d2b9",
@@ -143,17 +134,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Reload",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "46bca0ac-997a-4aeb-b88b-c3ba5742d922",
-                    "path": "<Keyboard>/i",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "OpenInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -431,27 +411,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "3f2968be-5c72-4279-a958-b6e10a329813",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "OpenDevConsole",
                     "type": "Button",
                     "id": "bdbddca0-1f3d-4805-9d52-ce0b5878f744",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "OpenInventory",
-                    "type": "Button",
-                    "id": "f821b925-9a00-4603-8bb5-989a5b89ab64",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -516,17 +478,6 @@
                 },
                 {
                     "name": "",
-                    "id": "0b9f9896-3465-435b-95fb-5005a63a4bae",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "175ee88c-da63-414a-871c-6d7f70c209b5",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -579,84 +530,6 @@
                     "action": "OpenDevConsole",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "61eeae70-97a0-4523-b18a-890e84cb9f0d",
-                    "path": "<Keyboard>/i",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "OpenInventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Shop",
-            "id": "3da84645-c23d-4eb7-a053-adc71a9fa338",
-            "actions": [
-                {
-                    "name": "CloseShop",
-                    "type": "Button",
-                    "id": "d875727b-984b-4a3d-882b-0af4434ac442",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "443109cc-582a-412a-b1de-46be5e720998",
-                    "path": "<Keyboard>/i",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CloseShop",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1b58cc4d-d3ff-4e5f-b7fa-704cdbf4ff59",
-                    "path": "<Keyboard>/i",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "OpenInventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "PauseMenu",
-            "id": "b610f994-0c60-4904-a80e-ecc23fafa115",
-            "actions": [
-                {
-                    "name": "ResumeGame",
-                    "type": "Button",
-                    "id": "f6e45eb3-4b6b-4d15-8098-13488819e302",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "709f5499-7c5c-4a01-a3b1-94c52f7ea1b3",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ResumeGame",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -703,45 +576,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Submit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Inventory",
-            "id": "4888e5af-9b84-4b0d-9c67-6f7bbc451e76",
-            "actions": [
-                {
-                    "name": "CloseInventory",
-                    "type": "Button",
-                    "id": "3e4fe52f-712b-48a0-a56b-6dc307440499",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "2abbe691-4ec8-4df3-92ee-b903d63ae9f1",
-                    "path": "<Keyboard>/i",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CloseInventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "044c9025-bd35-4206-bc1f-9fb0a4ab50ea",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CloseInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -960,6 +794,93 @@
                     "processors": "",
                     "groups": "",
                     "action": "SkipConfirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Pause",
+            "id": "cb7a2dca-dcdf-48bb-9aeb-d2047df92d5e",
+            "actions": [
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "77b4f69b-9d75-4950-b001-427c7bce5085",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ea46a3bd-6f92-419c-953b-2b3a633fa7a6",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Inventory",
+            "id": "7b827e7c-b4cb-4984-b1ba-95ff3e7c2ad9",
+            "actions": [
+                {
+                    "name": "Open",
+                    "type": "Button",
+                    "id": "847de9cb-03b4-496e-b7ec-2489df526f04",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Close",
+                    "type": "Button",
+                    "id": "8ab87d6c-4a96-4525-91e7-62d0e43eab74",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5c53fb93-677b-43c7-81fd-88d547584e42",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "152cf90b-42d9-4a58-8fce-5dd2f923ec7b",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4094382f-e2d1-4408-8b19-9f4f44ae1a78",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Close",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: Cactus
   m_EditorClassIdentifier: 
   id: cactus
-  name: Cactus
+  name: Succulent
   maxHealth: 10
   speed: 6
   thumbnail: {fileID: 21300000, guid: 980123fee51bba643899464b9d49032b, type: 3}
   placeablePrefab: {fileID: 2350306671234011157, guid: db606379ba6a40a46bf1bf55df6a0590, type: 3}
-  shootablePrefab: {fileID: 1321375191118770268, guid: 3d99d20caa0dee94cb093efa19525613, type: 3}
+  shootablePrefab: {fileID: 7348882628936085578, guid: 3d99d20caa0dee94cb093efa19525613, type: 3}
   threshold0Behaviour: {fileID: 11400000, guid: e67e2d3142e834149af178e9775e5e74, type: 2}
   alertnessThreshold1: 33
-  threshold1Behaviour: {fileID: 11400000, guid: 6a3a318bd6089364abb9861e880a50cc, type: 2}
+  threshold1Behaviour: {fileID: 11400000, guid: a1b59bae0f276e646aa84a094116960d, type: 2}
   alertnessThreshold2: 66
-  threshold2Behaviour: {fileID: 11400000, guid: d1b5f233a60fcac4d8755cfbc52da0af, type: 2}
+  threshold2Behaviour: {fileID: 11400000, guid: 217112832d3f55c4e8f13aef0f12578c, type: 2}
   alertnessThreshold3: 100
   threshold3Behaviour: {fileID: 11400000, guid: b0a7accf792442b4c9a136c070ec00da, type: 2}
   damageBehaviour: {fileID: 11400000, guid: fa0fe16bfb49e01489e042d06445e06d, type: 2}

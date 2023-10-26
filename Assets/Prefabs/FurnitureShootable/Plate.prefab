@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 1171529578584424129}
   - component: {fileID: 736955873112452282}
   - component: {fileID: 7221047130739491992}
-  - component: {fileID: -1363456017480070556}
+  - component: {fileID: 5608436772172988049}
   m_Layer: 0
   m_Name: Plate
   m_TagString: Enemy
@@ -194,7 +194,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.9529333, y: 1.6594167, z: 1.6117958}
   m_Center: {x: 0.074620485, y: 0.13088977, z: -0.0035344958}
---- !u!114 &-1363456017480070556
+--- !u!114 &5608436772172988049
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8607944281932643591}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0af2c691fbdb48e48b172346a78df9a8, type: 3}
+  m_Script: {fileID: 11500000, guid: e772e154071c25f42835ff5ac02f8388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   furnitureSO: {fileID: 11400000, guid: cd559f755261cca438240d2e52738194, type: 2}

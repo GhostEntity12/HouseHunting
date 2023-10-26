@@ -4,9 +4,12 @@ using UnityEngine;
 public class SoundAlertSO : ScriptableObject
 {
 	enum SoundType { Impulse, Continuous }
+
+	[SerializeField] private SoundType soundType;
+
 	public bool falloff = true;
 	public float range;
 	public float volume;
-	[SerializeField] private SoundType soundType;
+
 	[HideInInspector] public bool IsContinuous => soundType == SoundType.Continuous;
 }

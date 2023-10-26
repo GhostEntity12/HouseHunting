@@ -11,8 +11,11 @@ public class Bullet : MonoBehaviour
 	[SerializeField] float lifespan;
 	[SerializeField] Sprite icon;
 	[SerializeField] SoundAlertSO collisionSound;
+
 	private TrailRenderer trailRenderer;
 	private AmmoPouch ammoPouch;
+
+	private bool hasImpacted = false;
 
 	public Sprite Icon => icon;
 	public Rigidbody Rigidbody { get; private set; }
@@ -26,8 +29,17 @@ public class Bullet : MonoBehaviour
 		trailRenderer = GetComponentInChildren<TrailRenderer>();
 	}
 
+	private void Update()
+	{
+		if (gameObject.activeSelf && !hasImpacted)
+		{
+			Rigidbody.rotation = Quaternion.LookRotation(Rigidbody.velocity);
+		}
+	}
+
 	private void OnCollisionEnter(Collision collision)
 	{
+		hasImpacted = true;
 		if (collision.transform.TryGetComponent(out Hitbox hitbox))
 		{
 			hitbox.Damage(damage);
@@ -51,13 +63,24 @@ public class Bullet : MonoBehaviour
         }
 	}
 
+	public void OnDepool()
+	{
+		hasImpacted = false;
+	}
+
 	private IEnumerator DestroyDelay()
 	{
 		yield return new WaitForSeconds(CanBounce ? lifespan : 0);
 		ammoPouch.PoolBullet(this);
 	}
 
+	public void ResetTrail()
+	{
+		trailRenderer.Clear();
+	}
 
-	public void ResetTrail() => trailRenderer.Clear();
-	public void SetPool(AmmoPouch pouch) => ammoPouch = pouch;
+	public void SetPool(AmmoPouch pouch)
+	{
+		ammoPouch = pouch;
+	}
 }

@@ -1,4 +1,3 @@
-
 public class Crossbow : Gun
 {
     public override void Shoot()

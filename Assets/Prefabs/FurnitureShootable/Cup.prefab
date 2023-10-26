@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 1171529578584424129}
   - component: {fileID: 736955873112452282}
   - component: {fileID: 7221047130739491992}
-  - component: {fileID: 1346307617691619806}
+  - component: {fileID: 2769665891957307839}
   m_Layer: 0
   m_Name: Cup
   m_TagString: Enemy
@@ -194,7 +194,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.62510693, y: 0.59616846, z: 0.62397313}
   m_Center: {x: 0.020457968, y: 0.29808423, z: 0.0013133287}
---- !u!114 &1346307617691619806
+--- !u!114 &2769665891957307839
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8607944281932643591}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71d49856869f87149a585a88212275fe, type: 3}
+  m_Script: {fileID: 11500000, guid: e772e154071c25f42835ff5ac02f8388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   furnitureSO: {fileID: 11400000, guid: ae55ba0707fa4ca409e3ff2ae1e3d041, type: 2}

@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace TMProDynamicDataCleaner.Editor
 {
-	internal class DynamicFontAssetAutoCleaner : UnityEditor.AssetModificationProcessor
+	internal class DynamicFontAssetAutoCleaner : AssetModificationProcessor
 	{
 		static string[] OnWillSaveAssets(string[] paths)
 		{
@@ -34,14 +34,12 @@ namespace TMProDynamicDataCleaner.Editor
 						continue;
 
 					// Loading the asset only when we sure it is a font asset
-					var fontAsset = AssetDatabase.LoadMainAssetAtPath(path) as TMP_FontAsset;
+					TMP_FontAsset fontAsset = AssetDatabase.LoadMainAssetAtPath(path) as TMP_FontAsset;
 
 					// Theoretically this case is not possible due to asset type check above, but to be on the safe side check for null
-					if (fontAsset == null)
-						continue;
+					if (fontAsset == null) continue;
 
-					if (fontAsset.atlasPopulationMode != AtlasPopulationMode.Dynamic)
-						continue;
+					if (fontAsset.atlasPopulationMode != AtlasPopulationMode.Dynamic) continue;
 
 					// Debug.Log("Clearing font asset data at " + path);
 					fontAsset.ClearFontAssetData(setAtlasSizeToZero: true);

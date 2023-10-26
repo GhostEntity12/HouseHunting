@@ -1,6 +1,17 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+
+public struct SoundAlert
+{
+	public Vector3 position;
+	public float volume;
+
+	public SoundAlert(Vector3 pos, float vol)
+	{
+		position = pos;
+		volume = vol;
+	}
+}
 
 public class SoundAlerter : MonoBehaviour
 {
@@ -55,17 +66,5 @@ public class SoundAlerter : MonoBehaviour
 #if UNITY_EDITOR
 		sounds.Add((source, sound.range, sound.IsContinuous ? Time.deltaTime : 0.5f));
 #endif
-	}
-}
-
-public struct SoundAlert
-{
-	public Vector3 position;
-	public float volume;
-
-	public SoundAlert(Vector3 pos, float vol)
-	{
-		position = pos;
-		volume = vol;
 	}
 }

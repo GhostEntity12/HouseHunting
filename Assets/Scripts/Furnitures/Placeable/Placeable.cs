@@ -6,20 +6,22 @@ using System.Linq;
 public class Placeable : MonoBehaviour, IInteractable
 {
     [SerializeField] private bool canPlaceOnSurface;
-
-    private MeshCollider childMeshCollider;
-
+    [Tooltip("Set to 0 to have default scale factor")]
+    [SerializeField] private float scaleFactorPreview;
     [field: SerializeField] public MeshRenderer MeshRenderer { get; private set; }
     [field: SerializeField] public MeshFilter MeshFilter { get; private set; }
+
+
+    private MeshCollider childMeshCollider;
+    private string furnitureName;
 
     public bool IsValidPosition { get; private set; } = true;
 	public SaveDataFurniture InventoryItem { get; set; }
     public MeshCollider ChildMeshCollider => childMeshCollider;
     public bool CanPlaceOnSurface => canPlaceOnSurface;
     public bool Interactable => HouseManager.Instance.HoldingPlaceable == null;
-    private string furnitureName;
     public string InteractActionText => $"Pickup {furnitureName}";
-
+    public float ScaleFactorPreview => scaleFactorPreview;
 
     private void Start()
     {
@@ -28,15 +30,15 @@ public class Placeable : MonoBehaviour, IInteractable
             furnitureName = DataPersistenceManager.Instance.AllFurnitureSO.First(i => i.id == InventoryItem.id).name;
 	}
 
-    private void OnTriggerExit(Collider other) 
-    {
-        IsValidPosition = true;
-    }
-
     private void OnTriggerStay(Collider other) 
     {
         if ((other.TryGetComponent(out Placeable _) && HouseManager.Instance.HoldingPlaceable == this) || other.CompareTag("HouseWall"))
             IsValidPosition = false;
+    }
+
+    private void OnTriggerExit(Collider other) 
+    {
+        IsValidPosition = true;
     }
 
     public void SetTransforms(Vector3 position, float rotation)

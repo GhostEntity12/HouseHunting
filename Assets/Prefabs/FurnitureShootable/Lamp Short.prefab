@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 1171529578584424129}
   - component: {fileID: 736955873112452282}
   - component: {fileID: 7221047130739491992}
-  - component: {fileID: 6090958504537676759}
+  - component: {fileID: 3039381254472292367}
   m_Layer: 0
   m_Name: Lamp Short
   m_TagString: Enemy
@@ -332,7 +332,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8087168, y: 1.2831676, z: 0.61906874}
   m_Center: {x: -0.008974731, y: 0.6415838, z: 0.0037655234}
---- !u!114 &6090958504537676759
+--- !u!114 &3039381254472292367
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -341,7 +341,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8607944281932643591}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b5494f681a3ae547ad460120011c2c1, type: 3}
+  m_Script: {fileID: 11500000, guid: e772e154071c25f42835ff5ac02f8388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   furnitureSO: {fileID: 11400000, guid: 599b460a879b08f4fb548c0fa447256d, type: 2}

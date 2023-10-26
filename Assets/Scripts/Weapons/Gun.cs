@@ -7,6 +7,8 @@ public class Gun : MonoBehaviour, IEquippable
 	[SerializeField] private Transform muzzlePoint;
 	[SerializeField] private GameObject muzzleFlashPrefab;
 	[SerializeField] private float adsFactor = 4;
+	[field: SerializeField] public GunSO GunSO { get; private set; }
+	[field: SerializeField] public AmmoPouch AmmoPouch { get; private set; } = new();
 
 	private bool ads;
 	private float elapsedTime; // for lerping ads
@@ -16,16 +18,11 @@ public class Gun : MonoBehaviour, IEquippable
 	private Vector3 initialPosition;
 	private Vector3 adsPosition;
 
-	[field: SerializeField] public GunSO GunSO { get; private set; }
-	[field: SerializeField] public AmmoPouch AmmoPouch { get; private set; } = new();
-
 	public string AmmoInfo => $"{AmmoPouch.AmmoInGun / GunSO.bulletsPerTap} / {AmmoPouch.AmmoStored / GunSO.bulletsPerTap}";
     public int NumberOfMagazineLeft => AmmoPouch.AmmoStored / GunSO.bulletsPerTap;
     public int NumberOfShotsLeft => AmmoPouch.AmmoInGun / GunSO.bulletsPerTap;
     public int MaxShotPerMagazine => GunSO.magSize / GunSO.bulletsPerTap;
-
 	public string ID => GunSO.id;
-
 	public SoundAlertSO EquipSound => GunSO.equipSound;
 
 	private void Awake()
@@ -37,8 +34,6 @@ public class Gun : MonoBehaviour, IEquippable
 		adsPosition = new Vector3(initialPosition.x - 0.45f, initialPosition.y, initialPosition.z);
 	}
 
-	protected void ReenableGun() => state = GunState.Ready;
-
 	private void Update()
 	{
 		// for ADS animation
@@ -47,6 +42,11 @@ public class Gun : MonoBehaviour, IEquippable
 		float cameraFov = ads ? 40 : 60;
 		//transform.localPosition = Vector3.Lerp(ads ? initialPosition: adsPosition, targetPosition, elapsedTime);
 		Camera.main.fieldOfView = Mathf.Lerp(ads ? 60 : 40, cameraFov, elapsedTime);
+	}
+
+	protected void ReenableGun()
+	{
+		state = GunState.Ready;
 	}
 
 	public virtual void Shoot()
@@ -67,11 +67,12 @@ public class Gun : MonoBehaviour, IEquippable
 			Vector3 spread = new(Random.Range(-GunSO.spread, GunSO.spread), Random.Range(-GunSO.spread, GunSO.spread), 0);
 
 			// decrease spread if ads is active
-			if (ads) spread /= 4;
+			if (ads) spread /= adsFactor;
 
 			// get bullet at muzzle point
 			Bullet currentBullet = AmmoPouch.DepoolBullet();
-			currentBullet.transform.position = muzzlePoint.position;
+			currentBullet.Rigidbody.transform.position = muzzlePoint.position;
+
 			currentBullet.ResetTrail();
 			currentBullet.Damage = GunSO.damagePerBullet;
 			currentBullet.CanBounce = GunSO.id.ToLower() == "crossbow";
@@ -82,17 +83,18 @@ public class Gun : MonoBehaviour, IEquippable
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 			if (Physics.Raycast(ray, out RaycastHit hit))
 			{
-				currentBullet.transform.LookAt(hit.point);
-				currentBullet.transform.forward += spread;
+				currentBullet.Rigidbody.transform.LookAt(hit.point);
+				currentBullet.Rigidbody.transform.forward += spread;
 			}
 			else // if the ray doesnt hit anything, means that the target the player is trying to aim is too far away, and will not hit anything anyways. So we could just apply the forward direction of the camera to the bullet.
 			{
 				Vector3 direction = Camera.main.transform.forward + spread;
-				currentBullet.transform.forward = direction.normalized;
+				currentBullet.Rigidbody.transform.forward = direction.normalized;
 			}
 
 			//Add force to bullet
 			currentBullet.Rigidbody.AddForce(currentBullet.transform.forward.normalized * GunSO.shootForce, ForceMode.Impulse);
+			currentBullet.OnDepool();
 		}
 
 		AudioManager.Instance.Play(GunSO.name);
@@ -114,7 +116,10 @@ public class Gun : MonoBehaviour, IEquippable
 	}
 
 	// so outside managers can trigger animations if needed
-	public void AnimationTrigger(string animationName) => anim.SetTrigger(animationName);
+	public void AnimationTrigger(string animationName)
+	{
+		anim.SetTrigger(animationName);
+	}
 
 	public void Reload()
 	{
@@ -172,7 +177,14 @@ public class Gun : MonoBehaviour, IEquippable
 		gameObject.SetActive(false);
 	}
 
-	public void UsePrimary() => Shoot();
+	public void UsePrimary()
+	{
+		Shoot();
+	}
 
-	public void UseSecondary() => ToggleADS();
+	public void UseSecondary()
+	{
+		ToggleADS();
+	}
 }
+

@@ -17,9 +17,7 @@ namespace Ghost
 		private void OnValidate()
 		{
 			if (lockXAndZFactors)
-			{
 				zScaleBounds = xScaleBounds;
-			}
 		}
 
 		[ContextMenu("Use Grass Preset")]
@@ -47,9 +45,7 @@ namespace Ghost
 				}
 
 				if (rotateChildren)
-				{
 					child.transform.rotation = Quaternion.Euler(0, Random.Range(-180f, 180f), 0);
-				}
 			}
 		}
 	}

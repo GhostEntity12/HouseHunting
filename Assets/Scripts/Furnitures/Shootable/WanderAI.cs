@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,10 +6,13 @@ using UnityEngine.AI;
 public class WanderAI : MonoBehaviour
 {
 	enum ThresholdLevels { Level0, Level1, Level2, Level3, Damaged, Lured }
-	const float aiEntityDistance = 100f; // This distance will be used to determine whether or not the AI should run or not.
 
+#if UNITY_EDITOR
+	[SerializeField] private bool drawCones = true;
+#endif
+
+	private const float aiEntityDistance = 100f; // This distance will be used to determine whether or not the AI should run or not.
 	private FurnitureSO info;
-
 	private Shootable shootable;
 	private ThresholdLevels alertLevel = ThresholdLevels.Level0;
 	private bool isRelaxed;
@@ -23,9 +25,6 @@ public class WanderAI : MonoBehaviour
 	private Transform lure;
     private float painTimer = 0f;
     private bool tookDamageThisFrame;
-#if UNITY_EDITOR
-	[SerializeField] private bool drawCones = true;
-#endif
 
 	public Transform Lure { set { lure = value; } }
 
@@ -104,45 +103,29 @@ public class WanderAI : MonoBehaviour
 		{
 			case ThresholdLevels.Level0:
 				if (tookDamageThisFrame)
-				{
 					Transition(info.damageBehaviour, k, ThresholdLevels.Damaged);
-				}
 				else if (Alertness > info.alertnessThreshold1)
-				{
 					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
-				}
 				break;
 			case ThresholdLevels.Level1:
 				if (Alertness == 0)
-				{
 					Transition(info.threshold0Behaviour, k, ThresholdLevels.Level0);
-				}
 				else if (Alertness >= info.alertnessThreshold2)
-				{
 					Transition(info.threshold2Behaviour, k, ThresholdLevels.Level2);
-				}
 				break;
 			case ThresholdLevels.Level2:
 				if (Alertness < info.alertnessThreshold1)
-				{
 					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
-				}
 				else if (Alertness >= info.alertnessThreshold3)
-				{
 					Transition(info.threshold3Behaviour, k, ThresholdLevels.Level3);
-				}
 				break;
 			case ThresholdLevels.Level3:
 				if (Alertness < info.alertnessThreshold1)
-				{
 					Transition(info.threshold0Behaviour, k, ThresholdLevels.Level0);
-				}
 				break;
 			case ThresholdLevels.Damaged:
 				if (DecrementPainTimer())
-				{
 					Transition(info.threshold1Behaviour, k, ThresholdLevels.Level1);
-				}
 				break;
 			case ThresholdLevels.Lured:
 				break;
@@ -184,10 +167,7 @@ public class WanderAI : MonoBehaviour
 			if (cone.InCone(transform, playerCenter) &&
 				Physics.Raycast(transform.position, targetDirection, out RaycastHit hit, 100, ~(1 << 14)))
 			{
-				if (hit.transform.CompareTag("Player"))
-				{
-					return true;
-				}
+				if (hit.transform.CompareTag("Player")) return true;
 			}
 		}
 		return false;
@@ -223,7 +203,6 @@ public class WanderAI : MonoBehaviour
 			result = hit.position;
 			return true;
 		}
-
 		result = Vector3.zero;
 		return false;
 	}
@@ -290,9 +269,7 @@ public class WanderAI : MonoBehaviour
 			{
 				SoundAlert sound = sounds.Dequeue();
 				if (sound.volume > ((SoundAlert)loudestSound).volume)
-				{
 					loudestSound = sound;
-				}
 				Alertness += sound.volume;
 			}
 		}

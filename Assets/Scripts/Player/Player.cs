@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -9,6 +8,8 @@ public class Player : MonoBehaviour
 	[Header("Movement")]
 	[SerializeField] private CharacterController controller;
 	[SerializeField] private float baseSpeed = 5f;
+	[SerializeField] private float crouchSpeedModifier = 0.5f;
+	[SerializeField] private float sprintSpeedModifier = 2f;
 	[SerializeField] private float gravity = -9.81f;
 	[SerializeField] private float jumpSpeed = 15f;
 	[SerializeField] private float knockbackDrag = 1f;
@@ -24,17 +25,18 @@ public class Player : MonoBehaviour
 	[SerializeField] private Lure lurePrefab;
 
 	// movement
-	private float speedMultiplyer = 1f;
+	private float speedMultiplier = 1f;
 	private float playerVerticalVelocity;
 	private Vector3 knockbackForce = new Vector3(0,0,0);
 	private List<MoveState> moveState = new List<MoveState>();
-	public bool IsSprinting => moveState.Count > 0 && moveState[^1] == MoveState.Sprint;
 
 	// look
 	private float xRotation = 0f;
 
 	public Vector3 camOffset { get; private set; }
 	public float InteractRange => interactRange;
+	public bool IsSprinting => moveState.Count > 0 && moveState[^1] == MoveState.Sprint;
+
 
 	[Header("Sounds")]
 	[SerializeField] SoundAlertSO moveSoundCrouch;
@@ -46,6 +48,7 @@ public class Player : MonoBehaviour
     {
         moveState.Add(MoveState.Walk);
 		camOffset = Camera.main.transform.localPosition;
+		UpdateSensitivity();
 
 	}
 
@@ -67,7 +70,7 @@ public class Player : MonoBehaviour
 	{
 		Vector3 moveDirection = new Vector3(input.x, 0, input.y);
 
-        Vector3 movementVector = baseSpeed * speedMultiplyer * Time.deltaTime * transform.TransformDirection(moveDirection);
+        Vector3 movementVector = baseSpeed * speedMultiplier * Time.deltaTime * transform.TransformDirection(moveDirection);
 
 		playerVerticalVelocity += gravity * Time.deltaTime;
 
@@ -121,21 +124,21 @@ public class Player : MonoBehaviour
 		else
 			moveState.Remove(movementState);
 
-		MoveState currentState = moveState[moveState.Count - 1];
+		MoveState currentState = moveState[^1];
 
 		switch (currentState)
 		{
 			case MoveState.Crouch:
 				controller.height = 1;
-				speedMultiplyer = 0.5f;
+				speedMultiplier = crouchSpeedModifier;
 				break;
 			case MoveState.Walk:
 				controller.height = 2;
-				speedMultiplyer = 1f;
+				speedMultiplier = 1f;
 				break;
 			case MoveState.Sprint:
 				controller.height = 2;
-				speedMultiplyer = 1.5f;
+				speedMultiplier = sprintSpeedModifier;
 				break;
 			default:
 				throw new System.Exception("Invalid movement state");
@@ -209,11 +212,10 @@ public class Player : MonoBehaviour
         transform.Rotate(Vector3.up * (input.x * Time.deltaTime) * sensitivity);
     }
 
-    public void ChangeSensitivity(Slider slider)
-    {
-		sensitivity = slider.value;
-		PlayerPrefs.SetFloat("mouseSensitivity", sensitivity);
-    }
+	public void UpdateSensitivity()
+	{
+		sensitivity = PlayerPrefs.GetInt("mouseSensitivity", 10);
+	}
     #endregion
 
 	public void Interact()

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Campfire : MonoBehaviour
 {
-	private Transform spawnPoint;
-
 	[SerializeField] private string campfireID;
+
+	private Transform spawnPoint;
 
 	public string CampfireID => campfireID;
 

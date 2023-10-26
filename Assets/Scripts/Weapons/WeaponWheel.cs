@@ -112,5 +112,8 @@ public class WeaponWheel : Singleton<WeaponWheel>
         EquipmentManager.Instance.SelectItem(selectedIndex);
     }
 
-    public bool GetOpen() => gameObject.activeSelf;
+    public bool GetOpen()
+    {
+        return gameObject.activeSelf;
+    }
 }

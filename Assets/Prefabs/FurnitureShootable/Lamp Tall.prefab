@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 1171529578584424129}
   - component: {fileID: 736955873112452282}
   - component: {fileID: 7221047130739491992}
-  - component: {fileID: 1708161194996407248}
+  - component: {fileID: 5526878894618314916}
   m_Layer: 0
   m_Name: Lamp Tall
   m_TagString: Enemy
@@ -332,7 +332,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.5369352, y: 2.2978678, z: 1.007366}
   m_Center: {x: -0.012685955, y: 1.5242283, z: 0.04505694}
---- !u!114 &1708161194996407248
+--- !u!114 &5526878894618314916
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -341,7 +341,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8607944281932643591}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5e5a2db3163d3448a0f554e7468fa05, type: 3}
+  m_Script: {fileID: 11500000, guid: e772e154071c25f42835ff5ac02f8388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   furnitureSO: {fileID: 11400000, guid: a23d6fea2a74c67479c79fb36c6d8859, type: 2}

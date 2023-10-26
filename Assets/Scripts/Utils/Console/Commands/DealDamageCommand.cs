@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Deal Damage Command", menuName = "Command/Deal Damage")]

@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +18,6 @@ public class BuyMenuUIManager : Singleton<BuyMenuUIManager>
     private void OnEnable()
     {
         Debug.LogError("Tried to open the shop - currently disabled.", this);
-        return;
         //if (DataPersistenceManager.Instance != null)
         //{
         //    foreach (ShopItemSO item in DataPersistenceManager.Instance.AllShopItems)
@@ -62,7 +60,6 @@ public class BuyMenuUIManager : Singleton<BuyMenuUIManager>
     public void BuySelectedItem()
     {
 		Debug.LogError("Tried to purchase and item from the shop - currently disabled.", this);
-		return;
 		//if (selectedShopItem != null)
         //{
         //    // check if the player has enough money

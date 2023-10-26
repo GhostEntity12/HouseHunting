@@ -14,7 +14,7 @@ public class PlayerFootsteps : MonoBehaviour
 		input = false;
 	}
 
-	void Update()
+	private void Update()
 	{
 		HandleAudio();
 		HandleLanding();
@@ -49,9 +49,7 @@ public class PlayerFootsteps : MonoBehaviour
 		{
 			grounded = controller.isGrounded;
 			if (grounded)
-			{
 				AudioManager.Instance.Play("Landing");
-			}
 		}
 	}
 }

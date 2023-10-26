@@ -40,7 +40,7 @@ public class AmmoUI : MonoBehaviour
             foreach (AmmoIcon icon in bulletIcons)
             {
                 // only trigger animations on icons that are not filled
-                if (icon.fillAmount != 1)
+                if (icon.FillAmount != 1)
                     icon.SetFill(progress);
             }
 

@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 #if UNITY_EDITOR
-using UnityEngine;
+using UnityEditor;
 #endif
+using UnityEngine;
 
 public class Hitbox : MonoBehaviour
 {
 #if UNITY_EDITOR
-	[SerializeField] bool showHitbox = true;
-	Collider hitbox;
+	[SerializeField] private bool showHitbox = true;
+
+	private Collider hitbox;
+
 	private void OnValidate()
 	{
 		hitbox = GetComponent<Collider>();
@@ -32,12 +32,14 @@ public class Hitbox : MonoBehaviour
 			enabled = false;
 			return;
 		}
+
 		if (!wanderAI)
 		{
 			Debug.LogError("No wanderAI in parent!", this);
 			enabled = false;
 			return;
 		}
+
 		if (!TryGetComponent(out Collider _))
 		{
 			Debug.LogError("Collider missing from hitbox!", this);
@@ -77,7 +79,7 @@ public class Hitbox : MonoBehaviour
 	{
 		using var editingScope = new PrefabUtility.EditPrefabContentsScope($"Assets/Prefabs/FurnitureShootable/{transform.root.gameObject.name}.prefab");
 
-		var root = editingScope.prefabContentsRoot;
+		GameObject root = editingScope.prefabContentsRoot;
 
 		// Reparent to new position
 		Transform newParent = new GameObject("Hitboxes").transform;

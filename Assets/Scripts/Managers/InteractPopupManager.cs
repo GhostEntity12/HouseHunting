@@ -7,7 +7,8 @@ public class InteractPopupManager : Singleton<InteractPopupManager>
 	[SerializeField] private RectTransform prompt;
 	[SerializeField] private TextMeshProUGUI interactText;
 	[SerializeField] private TextMeshProUGUI interactKeyBindingText;
-	bool visibility = false;
+
+	private bool visibility = false;
 
 	private void Start()
 	{
@@ -25,13 +26,9 @@ public class InteractPopupManager : Singleton<InteractPopupManager>
 		{
 			visibility = visible;
 			if (visible)
-			{
 				LeanTween.moveY(prompt, 90, 0.2f).setEaseOutBack();
-			}
 			else
-			{
 				LeanTween.moveY(prompt, -60, 0.2f).setEaseInBack();
-			}
 		}
 	}
 }

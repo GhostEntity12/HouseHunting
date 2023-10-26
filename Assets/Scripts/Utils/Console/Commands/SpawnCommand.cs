@@ -16,7 +16,6 @@ public class SpawnCommand : Command
         {
             output += $"\n- {furniture.id.ToLower().Replace(" ", "")}";
         }
-
         return tips + output;
     }
 
@@ -42,6 +41,7 @@ public class SpawnCommand : Command
 
         List<FurnitureSO> allFurnitures = DataPersistenceManager.Instance.AllFurnitureSO;
         Shootable shootable;
+
         if (arguments.Length == 0)
             shootable = allFurnitures[0].shootablePrefab;
         else

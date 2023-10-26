@@ -29,7 +29,6 @@ public class InventoryUIManagerOld : Singleton<InventoryUIManagerOld>
         shopCanvas.enabled = false;
 
         playerInput = GeneralInputManager.Instance.PlayerInput;
-        playerInput.Inventory.CloseInventory.performed += ctx => ToggleShop();
 
         SelectItem(null);
         tabs = new List<string>();
@@ -107,13 +106,13 @@ public class InventoryUIManagerOld : Singleton<InventoryUIManagerOld>
         HouseInputManager.Instance.enabled = !IsShopOpen;
         if (IsShopOpen)
         {
-            playerInput.Inventory.Enable();
+            //playerInput.General.OpenInventory.Enable();
             GameManager.Instance.ShowCursor();
             RepaintTab();
         }
         else
         {
-            playerInput.Inventory.Disable();
+            //playerInput.General.OpenInventory.Disable();
             GameManager.Instance.HideCursor();
             SelectItem(null);
         }

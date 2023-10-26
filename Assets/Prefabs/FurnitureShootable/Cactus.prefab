@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 1171529578584424129}
   - component: {fileID: 736955873112452282}
   - component: {fileID: 7221047130739491992}
-  - component: {fileID: 1321375191118770268}
+  - component: {fileID: 7348882628936085578}
   m_Layer: 0
   m_Name: Cactus
   m_TagString: Enemy
@@ -194,7 +194,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.1024861, y: 1.2831676, z: 0.497588}
   m_Center: {x: -0.012011766, y: 0.6415838, z: 0.06450586}
---- !u!114 &1321375191118770268
+--- !u!114 &7348882628936085578
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8607944281932643591}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd95515f88ceb8e48a95a97906559674, type: 3}
+  m_Script: {fileID: 11500000, guid: e772e154071c25f42835ff5ac02f8388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   furnitureSO: {fileID: 11400000, guid: ee9aa1c04b07097418393da139fee3ac, type: 2}

@@ -6,7 +6,7 @@ public class AssetKitPlacer : MonoBehaviour
 	public int count;
 	public Vector3 spacing;
 
-# if UNITY_EDITOR
+    #if UNITY_EDITOR
 	[ContextMenu("Place")]
 	public void PlaceAssets()
 	{
@@ -22,5 +22,5 @@ public class AssetKitPlacer : MonoBehaviour
 			position = newObject.transform.position;
 		}
 	}
-	# endif
+	#endif
 }

@@ -8,9 +8,8 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
 
     public FurnitureInventory PermanentInventory { get; private set; }
     public List<SaveDataGun> OwnedGuns { get; private set; }
-    public Player Player => player;
-
     public int Currency { get; set; }
+    public Player Player => player;
 
     protected override void Awake()
     {

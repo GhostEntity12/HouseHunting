@@ -1,14 +1,19 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HouseManager : Singleton<HouseManager>, IDataPersistence
 {
 	[SerializeField] private RectTransform furnitureDecorateTooltips;
 	[SerializeField] private RectTransform inventoryTooltip;
-	bool decorateTooltipsActive = false;
+	[SerializeField] private CanvasGroup fade;
+
 	[field: SerializeField] public Camera ExploreCamera { get; private set; }
 
-
+	private bool decorateTooltipsActive = false;
 	private Placeable holdingPlaceable;
 	private List<SaveDataPlacedFurniture> houseItems;
 	private Player player;
@@ -34,6 +39,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		houseValue = CalculateHouseRating(houseItems); // assign total value here
 		player = GameManager.Instance.Player;
 		AudioManager.Instance.Play("Building");
+		LeanTween.alphaCanvas(fade, 0, 0.3f);
 	}
 
 	private void Update()
@@ -49,7 +55,6 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		// can be changed in future
 		if (tValue > 9000)
 			UnlockTier("D"); // dummy function for now
-
 
 		return tValue;
 	}
@@ -68,13 +73,13 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	{
 		if (visible)
 		{
-			LeanTween.moveX(inventoryTooltip.gameObject, -200, 0.3f).setEaseInBack().setOnComplete(() =>
-				LeanTween.moveX(furnitureDecorateTooltips.gameObject, 20, 0.3f).setEaseOutBack());
+			LeanTween.moveX(inventoryTooltip.gameObject, -200 * inventoryTooltip.transform.parent.localScale.x, 0.3f).setEaseInBack().setOnComplete(() =>
+				LeanTween.moveX(furnitureDecorateTooltips.gameObject, 20 * inventoryTooltip.transform.parent.localScale.x, 0.3f).setEaseOutBack());
 		}
 		else
 		{
-			LeanTween.moveX(furnitureDecorateTooltips.gameObject, -200, 0.3f).setEaseInBack().setOnComplete(() =>
-				LeanTween.moveX(inventoryTooltip.gameObject, 20, 0.3f).setEaseOutBack());
+			LeanTween.moveX(furnitureDecorateTooltips.gameObject, -200 * furnitureDecorateTooltips.transform.parent.localScale.x, 0.3f).setEaseInBack().setOnComplete(() =>
+				LeanTween.moveX(inventoryTooltip.gameObject, 20 * furnitureDecorateTooltips.transform.parent.localScale.x, 0.3f).setEaseOutBack());
 		}
 	}
 
@@ -105,11 +110,11 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		// else if holding placeable can place on surface and hit on surface, set y to the height of the surface
 		// else set the position to be 3 units in front of player
 		if (Physics.Raycast(ray, out RaycastHit hitFloorOrWall, 3, baseMask))
-			holdingPlaceable.transform.position = new Vector3(hitFloorOrWall.point.x, player.transform.position.y, hitFloorOrWall.point.z);
+			holdingPlaceable.transform.position = new Vector3(hitFloorOrWall.point.x, 0, hitFloorOrWall.point.z);
 		else if (Physics.Raycast(ray, out RaycastHit hit2, GameManager.Instance.Player.InteractRange, LayerMask.GetMask("PlaceableSurface")) && holdingPlaceable.CanPlaceOnSurface)
 			holdingPlaceable.transform.position = new Vector3(hit2.point.x, hit2.point.y, hit2.point.z);
 		else
-			holdingPlaceable.transform.position = player.transform.position + player.transform.forward * 3;
+			holdingPlaceable.transform.position = new Vector3(player.transform.position.x, 0, player.transform.position.z) + player.transform.forward * 3;
 
         // clamp the position so that the y index is always on ground level
         holdingPlaceable.transform.position = new Vector3(holdingPlaceable.transform.position.x, holdingPlaceable.transform.position.y, holdingPlaceable.transform.position.z);
@@ -139,6 +144,7 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	public void PlaceSelectedFurnitureFromInventory()
 	{
 		if (InventoryUIManager.Instance.SelectedFurniture?.so == null) return;
+		InventoryUIManager.Instance.ToggleInventory();
 		(FurnitureSO so, SaveDataFurniture item) selectedFurniture = InventoryUIManager.Instance.SelectedFurniture.Value;
 		InventoryUIManager.Instance.SelectedFurniture = null;
 		Placeable spawnedPlaceable = Instantiate(selectedFurniture.so.placeablePrefab);
@@ -148,8 +154,8 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		meshCollider.enabled = false;
 		spawnedPlaceable.InventoryItem = selectedFurniture.item;
 
-		InventoryUIManager.Instance.ToggleInventory();
-		HouseInputManager.Instance.SetInventoryAvailability(false);
+
+		GameManager.Instance.PermanentInventory.RemoveItem(holdingPlaceable.InventoryItem);
 	}
 
 	public void RotateHoldingPlaceable(float angle)
@@ -163,8 +169,6 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 	{
 		if (holdingPlaceable == null || !holdingPlaceable.IsValidPosition) return;
 
-		GameManager.Instance.PermanentInventory.RemoveItem(holdingPlaceable.InventoryItem);
-
 		MeshRenderer meshRenderer = holdingPlaceable.GetComponentInChildren<MeshRenderer>();
 		houseItems.Add(new SaveDataPlacedFurniture(holdingPlaceable.InventoryItem, holdingPlaceable.transform.position, meshRenderer.transform.rotation.eulerAngles.y));
 
@@ -172,6 +176,12 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		holdingPlaceable.ChildMeshCollider.enabled = true;
 		holdingPlaceable = null;
 		holdingPlaceableRotation = 0;
-		HouseInputManager.Instance.SetInventoryAvailability(true);
+	}
+
+	public void LoadHuntingScene()
+	{
+		SceneManager.LoadSceneAsync("99_LoadingScene", LoadSceneMode.Additive);
+		LeanTween.alphaCanvas(fade, 1, 0.5f).setOnComplete(() =>
+			SceneManager.LoadSceneAsync(2));
 	}
 }

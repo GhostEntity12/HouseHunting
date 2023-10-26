@@ -6,10 +6,11 @@ public class AmmoPouch
 {
 	private Queue<Bullet> bulletPool = new();
 	private Bullet bulletPrefab;
+
 	public int AmmoStored { get; private set; }
 	public int AmmoInGun { get; private set; }
 
-	void AddBullet()
+	private void AddBullet()
 	{
 		Bullet bullet = Object.Instantiate(bulletPrefab);
 		bullet.SetPool(this);
@@ -45,7 +46,6 @@ public class AmmoPouch
 		return bullet;
 	}
 
-
 	public int LoadGun(int capacity)
 	{
 		int ammoToLoad = capacity - AmmoInGun;
@@ -54,7 +54,13 @@ public class AmmoPouch
 		return AmmoInGun;
 	}
 
-	public void AddAmmo(int count) => AmmoStored += count;
-	public void RemoveAmmo(int count) => AmmoInGun -= count;
+	public void AddAmmo(int count)
+	{
+		AmmoStored += count;
+	}
 
+	public void RemoveAmmo(int count)
+	{
+		AmmoInGun -= count;
+	}
 }
