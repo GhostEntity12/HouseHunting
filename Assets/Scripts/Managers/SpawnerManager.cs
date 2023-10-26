@@ -14,8 +14,20 @@ public class SpawnerManager : MonoBehaviour
 	{
 		spawners = new List<SpawnerBase>(FindObjectsOfType<SpawnerBase>());
 
+		List<SpawnerBase> guaranteedSpawns = new List<SpawnerBase>();
+		
+		foreach (SpawnerBase spawner in spawners)
+		{
+			if (spawner is SpawnerSet set && set.GuaranteedSpawner)
+			{
+				guaranteedSpawns.Add(set);
+			}
+		}
+
+		spawners.RemoveAll(s => guaranteedSpawns.Contains(s));
 		spawners.Shuffle();
 		Queue<SpawnerBase> spawnerQueue = new(spawners);
+		Queue<SpawnerBase> guaranteedSpawnerQueue = new(guaranteedSpawns);
 		for (int i = 0; i < Mathf.FloorToInt(spawners.Count * percentageOfSpawnersToTrigger);)
 		{
 			if (spawnerQueue.Count == 0)
@@ -25,7 +37,7 @@ public class SpawnerManager : MonoBehaviour
 			}
 			else
 			{
-				SpawnerBase spawner = spawnerQueue.Dequeue();
+				SpawnerBase spawner = guaranteedSpawns.Count > 0 ? guaranteedSpawnerQueue.Dequeue() : spawnerQueue.Dequeue();
 				if (spawner is Spawner || spawner is SpawnerGroup)
 					Debug.LogWarning($"{spawner.GetType()} is deprecated, use a SpawnerSet instead!", spawner);
 				i += spawner.Spawn() == true ? 1 : 0;

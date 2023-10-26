@@ -18,12 +18,13 @@ public class SpawnerSet : SpawnerBase
 			}
 		}
 	}
-
 	[SerializeField] private List<SpawnBucket> guaranteedSpawns = new();
 	[SerializeField] private Vector2Int additionalBucketsToUse = new(1, 1);
 	[SerializeField] private List<SpawnBucket> additionalSpawns = new();
 	[SerializeField] private float range = 5;
 
+	[field: SerializeField] public bool GuaranteedSpawner { get; private set; }
+	
 	private static Vector3 GetRandomSpawnPointInRadius(Vector3 centerPoint, float radius)
 	{
 		Vector2 offset2D = Random.insideUnitCircle * radius;
