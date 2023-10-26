@@ -135,6 +135,7 @@ public class Gun : MonoBehaviour, IEquippable
 		anim.SetBool("Reload", true);
 		AnimationTrigger("Reload");
         //HuntingUIManager.Instance.ReloadBarAnimation(GunSO.reloadTime);
+		HuntingUIManager.Instance.AmmoUI.bulletsToReload = Mathf.Min(AmmoPouch.AmmoStored, GunSO.magSize - AmmoPouch.AmmoInGun);
         HuntingUIManager.Instance.AmmoUI.isReloading = true;
         HuntingUIManager.Instance.AmmoUI.reloadTime = GunSO.reloadTime;
 		AmmoUI.OnReloadFinishEvent += OnReloadFinish;

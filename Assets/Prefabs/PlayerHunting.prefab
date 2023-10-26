@@ -525,6 +525,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 3399020550689505043}
   baseSpeed: 5
+  crouchSpeedModifier: 0.5
+  sprintSpeedModifier: 2
   gravity: -9.81
   jumpSpeed: 15
   knockbackDrag: 1
@@ -610,15 +612,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1664331432279431598, guid: 3387f283955c7f6449c60a21db593378, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.312
       objectReference: {fileID: 0}
     - target: {fileID: 1664331432279431598, guid: 3387f283955c7f6449c60a21db593378, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.138
       objectReference: {fileID: 0}
     - target: {fileID: 1664331432279431598, guid: 3387f283955c7f6449c60a21db593378, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.747
       objectReference: {fileID: 0}
     - target: {fileID: 1664331432279431598, guid: 3387f283955c7f6449c60a21db593378, type: 3}
       propertyPath: m_LocalRotation.w

@@ -13,6 +13,9 @@ public class AmmoIcon : MonoBehaviour
 		icon.fillAmount = 1;
 		backing.sprite = sprite;
 		icon.sprite = sprite;
+
+		backing.preserveAspect = true;
+		icon.preserveAspect = true;
 	}
 
 	public void SetFill(float amount)

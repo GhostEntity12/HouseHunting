@@ -16,8 +16,8 @@ public class HuntingInputManager : Singleton<HuntingInputManager>
 		playerInput = GeneralInputManager.Instance.PlayerInput;
 
 		// weapon wheel
-		//playerInput.Hunting.OpenWeaponWheel.started += OpenWeaponWheel;
-		//playerInput.Hunting.OpenWeaponWheel.canceled += CloseWeaponWheel;
+		playerInput.Hunting.OpenWeaponWheel.started += OpenWeaponWheel;
+		playerInput.Hunting.OpenWeaponWheel.canceled += CloseWeaponWheel;
 
 		// shoot
 		if (!FindAnyObjectByType<CampfireManager>())
