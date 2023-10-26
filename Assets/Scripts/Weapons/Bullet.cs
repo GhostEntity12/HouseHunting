@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour
 
 	private void Update()
 	{
-		if (gameObject.activeSelf && !hasImpacted)
+		if (gameObject.activeSelf && !hasImpacted && Rigidbody.velocity != Vector3.zero)
 		{
 			Rigidbody.rotation = Quaternion.LookRotation(Rigidbody.velocity);
 		}
