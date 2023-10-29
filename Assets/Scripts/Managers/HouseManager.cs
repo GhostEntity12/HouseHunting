@@ -110,11 +110,11 @@ public class HouseManager : Singleton<HouseManager>, IDataPersistence
 		// else if holding placeable can place on surface and hit on surface, set y to the height of the surface
 		// else set the position to be 3 units in front of player
 		if (Physics.Raycast(ray, out RaycastHit hitFloorOrWall, 3, baseMask))
-			holdingPlaceable.transform.position = new Vector3(hitFloorOrWall.point.x, player.transform.position.y, hitFloorOrWall.point.z);
+			holdingPlaceable.transform.position = new Vector3(hitFloorOrWall.point.x, 0, hitFloorOrWall.point.z);
 		else if (Physics.Raycast(ray, out RaycastHit hit2, GameManager.Instance.Player.InteractRange, LayerMask.GetMask("PlaceableSurface")) && holdingPlaceable.CanPlaceOnSurface)
 			holdingPlaceable.transform.position = new Vector3(hit2.point.x, hit2.point.y, hit2.point.z);
 		else
-			holdingPlaceable.transform.position = player.transform.position + player.transform.forward * 3;
+			holdingPlaceable.transform.position = new Vector3(player.transform.position.x, 0, player.transform.position.z) + player.transform.forward * 3;
 
         // clamp the position so that the y index is always on ground level
         holdingPlaceable.transform.position = new Vector3(holdingPlaceable.transform.position.x, holdingPlaceable.transform.position.y, holdingPlaceable.transform.position.z);

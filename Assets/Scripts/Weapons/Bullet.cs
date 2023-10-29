@@ -15,6 +15,8 @@ public class Bullet : MonoBehaviour
 	private TrailRenderer trailRenderer;
 	private AmmoPouch ammoPouch;
 
+	private bool hasImpacted = false;
+
 	public Sprite Icon => icon;
 	public Rigidbody Rigidbody { get; private set; }
 	public int Damage { get { return damage; } set { damage = value; } }
@@ -27,8 +29,17 @@ public class Bullet : MonoBehaviour
 		trailRenderer = GetComponentInChildren<TrailRenderer>();
 	}
 
+	private void Update()
+	{
+		if (gameObject.activeSelf && !hasImpacted)
+		{
+			Rigidbody.rotation = Quaternion.LookRotation(Rigidbody.velocity);
+		}
+	}
+
 	private void OnCollisionEnter(Collision collision)
 	{
+		hasImpacted = true;
 		if (collision.transform.TryGetComponent(out Hitbox hitbox))
 		{
 			hitbox.Damage(damage);
@@ -50,6 +61,11 @@ public class Bullet : MonoBehaviour
 			GameObject splinterEffect = Instantiate(splinterEffectPrefab, contact.point, Quaternion.identity);
 			bloodEffect.transform.parent = collision.transform;
         }
+	}
+
+	public void OnDepool()
+	{
+		hasImpacted = false;
 	}
 
 	private IEnumerator DestroyDelay()
