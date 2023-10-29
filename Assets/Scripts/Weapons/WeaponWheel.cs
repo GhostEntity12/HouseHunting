@@ -56,7 +56,7 @@ public class WeaponWheel : Singleton<WeaponWheel>
 
             // set the position and size of the icon
             icon.transform.localPosition = new Vector3(x, y, 0f);
-            icon.rectTransform.sizeDelta = new Vector2(100f, 100f);
+            icon.rectTransform.sizeDelta = new Vector2(150f, 150f);
         }
 
         insideWheel.fillAmount = 1f / DistinctItemCount;
