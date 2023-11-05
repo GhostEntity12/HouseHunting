@@ -309,6 +309,37 @@ Transform:
   m_Father: {fileID: 1778503834011940512}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4174131996749609557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1200242779543113357}
+  m_Layer: 0
+  m_Name: BleedPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1200242779543113357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4174131996749609557}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.026, y: 0.092, z: 0.026}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1778503834011940512}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4547723733914885647
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +511,7 @@ Transform:
   - {fileID: 346920351036183791}
   - {fileID: 5373900468800838551}
   - {fileID: 9189106026711808296}
+  - {fileID: 1200242779543113357}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -496,6 +528,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   furnitureSO: {fileID: 11400000, guid: 390014d96b7a124489f5476ed23af37c, type: 2}
+  bloodPuddlePrefab: {fileID: 6932087908108476221, guid: 7b62af70545491040b85c3282509a31b, type: 3}
+  bleedPoint: {fileID: 1200242779543113357}
 --- !u!114 &3520433945217684714
 MonoBehaviour:
   m_ObjectHideFlags: 0

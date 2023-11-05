@@ -68,6 +68,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.9459529, y: 0.062228203, z: 0.6470906}
   m_Center: {x: 0.009845018, y: 1.89, z: 0.00348261}
+--- !u!1 &1731928746711631111
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4756767477240808696}
+  m_Layer: 0
+  m_Name: BleedPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4756767477240808696
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731928746711631111}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.03, y: 0.07, z: -0.031}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1778503834011940512}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5804476011081236138
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +511,7 @@ Transform:
   - {fileID: 622003518707691036}
   - {fileID: 4947842832253383911}
   - {fileID: 626940987496722998}
+  - {fileID: 4756767477240808696}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -552,6 +584,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   furnitureSO: {fileID: 11400000, guid: 1dcca73881634e345b92d7a7b74d5654, type: 2}
+  bloodPuddlePrefab: {fileID: 6932087908108476221, guid: 7b62af70545491040b85c3282509a31b, type: 3}
+  bleedPoint: {fileID: 4756767477240808696}
 --- !u!1001 &1093096642663418359
 PrefabInstance:
   m_ObjectHideFlags: 0

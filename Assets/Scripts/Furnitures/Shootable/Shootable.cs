@@ -1,4 +1,5 @@
 using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,6 +14,10 @@ public class Shootable : MonoBehaviour, IInteractable
     }
 
     [SerializeField] private FurnitureSO furnitureSO;
+    [SerializeField] private GameObject bloodPuddlePrefab;
+
+    public Transform bleedPoint;
+    private bool isBleeding = false;
 
     private int currentHealth;
     private bool isDead = false;
@@ -53,6 +58,15 @@ public class Shootable : MonoBehaviour, IInteractable
         currentHealth -= damage;
 
         if (currentHealth <= 0) Die();
+
+        // If not dead, bleed
+        else if (!isBleeding)
+        {
+            isBleeding = true;
+            // Make 2 blood puddles, separated by 4 seconds
+            StartCoroutine("BloodPuddleDelay");
+        }
+        
     }
 
 
@@ -69,4 +83,16 @@ public class Shootable : MonoBehaviour, IInteractable
             Destroy(gameObject);
         }
     }
+
+    private IEnumerator BloodPuddleDelay()
+	{
+        int i = 0;
+        while (i < 3) 
+        {
+            Instantiate(bloodPuddlePrefab, bleedPoint.position, Quaternion.identity);
+            yield return new WaitForSeconds(4);
+            i++;
+        }
+        isBleeding = false;
+	}
 }
