@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class AmmoUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI magazineLeftText;
+    [SerializeField] private Image magazineImage;
     [SerializeField] private HorizontalLayoutGroup bulletIconsLayoutGroup;
     [SerializeField] private AmmoIcon ammoIconPrefab;
 
@@ -15,6 +16,7 @@ public class AmmoUI : MonoBehaviour
     // reload animation stuff
     private float reloadTimer = 0f;
     [NonSerialized] public bool isReloading = false;
+    [NonSerialized] public int bulletsToReload = 0;
     [NonSerialized] public float reloadTime; // Time it takes to reload the gun
 
     public int MagazineLeft
@@ -37,11 +39,15 @@ public class AmmoUI : MonoBehaviour
             float progress = reloadTimer / reloadTime;
 
             // Update the reload bar fill amount
-            foreach (AmmoIcon icon in bulletIcons)
+            if (EquipmentManager.Instance.EquippedItem is Gun g) 
             {
-                // only trigger animations on icons that are not filled
-                if (icon.FillAmount != 1)
-                    icon.SetFill(progress);
+                for (int i = bulletIcons.Count - g.NumberOfShotsLeft - bulletsToReload / g.GunSO.bulletsPerTap; i < bulletIcons.Count; i++)
+                {
+                    AmmoIcon icon = bulletIcons[i];
+                    // only trigger animations on icons that are not filled
+                    if (icon.FillAmount != 1)
+                        icon.SetFill(progress);
+                }
             }
 
             if (reloadTimer >= reloadTime)
@@ -65,6 +71,7 @@ public class AmmoUI : MonoBehaviour
         {
             AmmoIcon icon = Instantiate(ammoIconPrefab, bulletIconsLayoutGroup.transform);
             icon.Initiate(newGun.GunSO.bulletPrefab.Icon);
+            icon.transform.name = "Bullet " + i;
 
             bulletIcons.Add(icon);
         }
@@ -72,6 +79,7 @@ public class AmmoUI : MonoBehaviour
         MagazineLeft = newGun.NumberOfMagazineLeft;
         bulletIconsLayoutGroup.spacing = newGun.GunSO.uiAmmoSpacing;
 
+        magazineImage.sprite = newGun.GunSO.bulletPrefab.MagazineIcon;
 	}
 
     public void SetBulletsLeft(int bulletsLeft)

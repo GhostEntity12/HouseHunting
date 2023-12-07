@@ -20,7 +20,7 @@ public class Gun : MonoBehaviour, IEquippable
 
 	public string AmmoInfo => $"{AmmoPouch.AmmoInGun / GunSO.bulletsPerTap} / {AmmoPouch.AmmoStored / GunSO.bulletsPerTap}";
     public int NumberOfMagazineLeft => AmmoPouch.AmmoStored / GunSO.bulletsPerTap;
-    public int NumberOfShotsLeft => AmmoPouch.AmmoInGun / GunSO.bulletsPerTap;
+    public int NumberOfShotsLeft => (int)Mathf.Ceil(AmmoPouch.AmmoInGun * 1f / GunSO.bulletsPerTap);
     public int MaxShotPerMagazine => GunSO.magSize / GunSO.bulletsPerTap;
 	public string ID => GunSO.id;
 	public SoundAlertSO EquipSound => GunSO.equipSound;
@@ -135,6 +135,7 @@ public class Gun : MonoBehaviour, IEquippable
 		anim.SetBool("Reload", true);
 		AnimationTrigger("Reload");
         //HuntingUIManager.Instance.ReloadBarAnimation(GunSO.reloadTime);
+		HuntingUIManager.Instance.AmmoUI.bulletsToReload = Mathf.Min(AmmoPouch.AmmoStored, GunSO.magSize - AmmoPouch.AmmoInGun);
         HuntingUIManager.Instance.AmmoUI.isReloading = true;
         HuntingUIManager.Instance.AmmoUI.reloadTime = GunSO.reloadTime;
 		AmmoUI.OnReloadFinishEvent += OnReloadFinish;

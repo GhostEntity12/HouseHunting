@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82bfd2a0baaa68944ba97cd096203ae2, type: 3}
   m_Name: Alert Behaviour
   m_EditorClassIdentifier: 
-  volume: 50
+  sound: {fileID: 11400000, guid: 3658217a5a484714b94d6ae2416f54b9, type: 2}

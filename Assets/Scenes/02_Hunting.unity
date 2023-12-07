@@ -19260,14 +19260,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1712198217}
     m_Modifications:
-    - target: {fileID: 1761676642970958638, guid: c99ac8f71c232fc44a8a9f8e9a3dd7e7, type: 3}
-      propertyPath: m_Size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1789278793822528273, guid: c99ac8f71c232fc44a8a9f8e9a3dd7e7, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 416
-      objectReference: {fileID: 0}
     - target: {fileID: 2590349993937868489, guid: c99ac8f71c232fc44a8a9f8e9a3dd7e7, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -19298,7 +19290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5903987974424326380, guid: c99ac8f71c232fc44a8a9f8e9a3dd7e7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00025625186
+      value: -0.0009176529
       objectReference: {fileID: 0}
     - target: {fileID: 6988353050427164983, guid: c99ac8f71c232fc44a8a9f8e9a3dd7e7, type: 3}
       propertyPath: m_Name
@@ -31155,10 +31147,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4900438069499582024, guid: 002132cd085e1c449ad3c4fda2a25d82, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -64
-      objectReference: {fileID: 0}
     - target: {fileID: 5028894374477952984, guid: 002132cd085e1c449ad3c4fda2a25d82, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -34844,7 +34832,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: dfcc8b3f99757304e9b36c391bb2a022, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: feb3c0d04f8800348a7030d1e8f45e4b, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1001 &1024339775
 PrefabInstance:
@@ -41501,7 +41489,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.6666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: e5844abdc36b3d248b6122abc09bb588, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 4236e83e51203af47b22a324fba2a73d, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &1299547565
 GameObject:
@@ -42668,6 +42656,10 @@ PrefabInstance:
     - target: {fileID: 5657111898024006285, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5981808401285339355, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 6098993039830378882, guid: 063e64018dde7af44aa94b1b346e8468, type: 3}
       propertyPath: speed
@@ -43983,7 +43975,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: c68b5f01a921ade499b3e16d75082422, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 99c4de5af78d5164fb56a24675b1cb91, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1386420315
 Transform:
@@ -58415,7 +58407,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.33333334
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: eed2afa6eb328a248971cb2a0ece1b6d, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 3c44b15f44c73044995951ea922b2f17, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &1798171744
 GameObject:
@@ -62750,7 +62742,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.5
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: f8ade7575a6c10c4890d87cf00eec76d, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: b9953e82451dfb54a88d88caf327f48e, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &1939812217
 GameObject:
@@ -65373,7 +65365,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.083333336
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: c8240cc8d0d0d594988c06ad41b3684c, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 2770bace802897143bd246507108c3f4, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &2036201805
 GameObject:
@@ -68119,11 +68111,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 688421371689693297, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 544
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 928380810684098387, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -16
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1729155858382662861, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -68156,10 +68148,6 @@ PrefabInstance:
     - target: {fileID: 2760225095693762273, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2944998310449442068, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 3393796482701153080, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -68340,10 +68328,6 @@ PrefabInstance:
     - target: {fileID: 6791964138836579044, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7217299715317337716, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 208
       objectReference: {fileID: 0}
     - target: {fileID: 7658277572604165309, guid: 0b89f247d88dac2479c6122201da041f, type: 3}
       propertyPath: m_AnchorMax.y

@@ -33,12 +33,13 @@ public class WeaponWheel : Singleton<WeaponWheel>
             weaponWheelItems.Add(item);
             
             // instantiate image icon for each weapon
-            // this wheel is 65% of the size of the weapon wheel item, which the weapon icon lies on
-            float iconWheelRadius = item.rectTransform.rect.width / 2 * 0.65f;
+            // this wheel is 60% of the size of the weapon wheel item, which the weapon icon lies on
+            float iconWheelRadius = item.rectTransform.rect.width / 2 * 0.60f;
 
             // create a new game object and add an image component to it
             Image icon = new GameObject("Icon").AddComponent<Image>();
             icon.transform.SetParent(transform);
+            icon.preserveAspect = true;
             // set the icon's sprite to the weapon's icon
 			icon.sprite = DataPersistenceManager.Instance.GetGunById(GameManager.Instance.OwnedGuns[i].id).icon;
 
@@ -55,7 +56,7 @@ public class WeaponWheel : Singleton<WeaponWheel>
 
             // set the position and size of the icon
             icon.transform.localPosition = new Vector3(x, y, 0f);
-            icon.rectTransform.sizeDelta = new Vector2(100f, 100f);
+            icon.rectTransform.sizeDelta = new Vector2(150f, 150f);
         }
 
         insideWheel.fillAmount = 1f / DistinctItemCount;

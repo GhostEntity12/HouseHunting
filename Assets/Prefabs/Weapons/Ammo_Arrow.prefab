@@ -154,6 +154,7 @@ MonoBehaviour:
   splinterEffectPrefab: {fileID: 100002, guid: ac1aa04288fad804ba1cd769f4377aaf, type: 3}
   lifespan: 2
   icon: {fileID: 21300000, guid: ffacece3c25c7492383b7a54f33f2de7, type: 3}
+  magazineIcon: {fileID: 21300000, guid: b8f19e0c0baf18445a8448af25d23dd7, type: 3}
   collisionSound: {fileID: 11400000, guid: 9ee0fa0d99d43b944adf9a40d6c6580e, type: 2}
 --- !u!1 &1606972069694784870
 GameObject:

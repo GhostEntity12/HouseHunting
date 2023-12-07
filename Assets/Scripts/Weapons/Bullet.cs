@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
 	[SerializeField] GameObject splinterEffectPrefab;
 	[SerializeField] float lifespan;
 	[SerializeField] Sprite icon;
+	[SerializeField] Sprite magazineIcon;
 	[SerializeField] SoundAlertSO collisionSound;
 
 	private TrailRenderer trailRenderer;
@@ -17,6 +18,7 @@ public class Bullet : MonoBehaviour
 
 	private bool hasImpacted = false;
 
+	public Sprite MagazineIcon => magazineIcon;
 	public Sprite Icon => icon;
 	public Rigidbody Rigidbody { get; private set; }
 	public int Damage { get { return damage; } set { damage = value; } }
@@ -31,7 +33,7 @@ public class Bullet : MonoBehaviour
 
 	private void Update()
 	{
-		if (gameObject.activeSelf && !hasImpacted)
+		if (gameObject.activeSelf && !hasImpacted && Rigidbody.velocity != Vector3.zero)
 		{
 			Rigidbody.rotation = Quaternion.LookRotation(Rigidbody.velocity);
 		}

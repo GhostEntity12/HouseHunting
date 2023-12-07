@@ -48,7 +48,7 @@ public class AmmoPouch
 
 	public int LoadGun(int capacity)
 	{
-		int ammoToLoad = capacity - AmmoInGun;
+		int ammoToLoad = Mathf.Min(AmmoStored, capacity - AmmoInGun);
 		AmmoStored -= ammoToLoad;
 		AmmoInGun += ammoToLoad;
 		return AmmoInGun;
